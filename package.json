@@ -5,6 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-lib": "ng build ngx-tippy-wrapper",
+    "npm-pack": "cd dist/ngx-tippy-wrapper && npm pack",
+    "copy-license": "cp ./LICENSE dist/ngx-tippy-wrapper",
+    "copy-readme": "cp ./README.md dist/ngx-tippy-wrapper",
+    "copy-files": "npm run copy-license && npm run copy-readme",
+    "package": "npm run build-lib && npm run copy-files && npm run npm-pack",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -1,8 +1,36 @@
 {
   "name": "ngx-tippy-wrapper",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Angular 8+ wrapper for Tippy.js",
+  "keywords": [
+    "tooltip",
+    "popover",
+    "tippy",
+    "angular",
+    "library",
+    "wrapper"
+  ],
+  "license": "MIT",
+  "private": true,
+  "authors": [
+    {
+      "name": "Alexander Kislov",
+      "email": "alexander-kislov@hotmail.com",
+      "url": "https://github.com/farengeyt451"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/farengeyt451/ngx-tippy-wrapper"
+  },
+  "bugs": {
+    "url": "https://github.com/farengeyt451/ngx-tippy-wrapper/issues"
+  },
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14"
+  },
+  "dependencies": {
+    "tippy.js": "^5.1.3"
   }
 }
