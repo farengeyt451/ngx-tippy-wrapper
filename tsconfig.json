@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-tippy-wrapper": [
+        "dist/ngx-tippy-wrapper"
+      ],
+      "ngx-tippy-wrapper/*": [
+        "dist/ngx-tippy-wrapper/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
