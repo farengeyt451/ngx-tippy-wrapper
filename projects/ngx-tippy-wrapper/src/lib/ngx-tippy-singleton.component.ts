@@ -28,7 +28,8 @@ export class NgxTippySingletonComponent implements OnInit {
     if (isPlatformServer(this.platform)) return;
     Array.from(this.content.nativeElement.childNodes).forEach((element: HTMLElement) => {
       element.setAttribute('data-tippy-singleton', 'true');
-      element.setAttribute('data-tippy-singleton-props', JSON.stringify(this.tippyProps));
+      this.tippyProps &&
+        element.setAttribute('data-tippy-singleton-props', JSON.stringify(this.tippyProps));
     });
   }
 }

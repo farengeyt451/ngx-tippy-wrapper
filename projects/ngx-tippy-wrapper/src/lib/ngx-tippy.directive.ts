@@ -50,14 +50,14 @@ export class NgxTippyDirective implements OnInit {
     ).filter((tippyInstance: NgxTippyInstance) => {
       return (tippyInstance.reference as HTMLElement).dataset.tippySingleton;
     });
-
     const tippySingletonProps =
       instancesForSingleton &&
       instancesForSingleton.length > 0 &&
       (instancesForSingleton[instancesForSingleton.length - 1].reference as HTMLElement).dataset
         .tippySingletonProps;
+    const parsedProps = tippySingletonProps && JSON.parse(tippySingletonProps);
 
-    createSingleton(instancesForSingleton, JSON.parse(tippySingletonProps));
+    createSingleton(instancesForSingleton, parsedProps);
   }
 
   setClassName() {
