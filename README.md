@@ -1,27 +1,133 @@
-# NgTippyWrapper
+<div align="center">
+  <img src="https://github.com/atomiks/tippy.js-react/raw/master/logo.png" alt="Logo" height="105">
+</div>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.8.
+<div align="center">
+  <h1>Angular wrapper for Tippy.js</h1>
+</div>
 
-## Development server
+## Angular 8+ wrapper for [Tippy.js](https://github.com/atomiks/tippyjs/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Demo
 
-## Code scaffolding
+Example application: [https://ngx-tippy-wrapper.stackblitz.io](https://ngx-tippy-wrapper.stackblitz.io)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+StackBlitz example: [https://stackblitz.com/edit/ngx-tippy-wrapper](https://stackblitz.com/edit/ngx-tippy-wrapper)
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Install from npm:
 
-## Running unit tests
+```js
+npm i ngx-tippy-wrapper --save
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Importing
 
-## Running end-to-end tests
+Import NgxTippyModule:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```ts
+import { NgxTippyModule } from 'ngx-tippy-wrapper';
+```
 
-## Further help
+Then in your base module:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```ts
+@NgModule({
+    imports: [
+        ...,
+        NgxTippyModule
+    ],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent]
+})
+```
+
+Import base style file to your main style file:
+
+```ts
+@import 'tippy.js/dist/tippy.css'
+```
+
+or angular.json:
+
+```ts
+"architect": {
+"build": {
+  ...,
+  "options": {
+    ...,
+    "styles": ["./node_modules/tippy.js/dist/tippy.css", ...]
+  }
+```
+
+## Using
+
+### Basic usage
+
+Apply directive for element and pass content through attribute:
+
+```html
+<span ngxTippy data-tippy-content="Tooltip">
+  Tippy
+</span>
+```
+
+#### Applying props
+
+You can appply props with input binding
+
+In template:
+
+```html
+<span
+  ngxTippy
+  data-tippy-content="Tooltip with props"
+  [tippyProps]="{
+    arrow: false,
+    placement: 'bottom'
+  }"
+>
+  Tippy
+</span>
+```
+
+In component:
+
+```html
+<span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps">
+  Tippy
+</span>
+```
+
+---
+
+```ts
+...
+import { NgxTippyProps } from 'ngx-tippy-wrapper';
+
+@Component({
+  ...
+})
+export class DemoComponent implements OnInit {
+  tippyProps: NgxTippyProps = {
+    trigger: 'click',
+    allowHTML: true
+  };
+  ...
+}
+```
+
+#### All props
+
+| Prop name  | Prop type     | Example                                              |
+| ---------- | ------------- | ---------------------------------------------------- |
+| tippyProps | NgxTippyProps | [tippyProps]="{ arrow: false, placement: 'bottom' }" |
+| tippyName  | string        | [tippyName]="'awesomeName'"                          |
+| classNames | Array<string> | [classNames]="['customClass', 'nextClass']"          |
+
+**tippyProps** - [list of all props](https://atomiks.github.io/tippyjs/all-props/)
+
+**tippyName** - name for tippy instance, required for accessing and control specific instance
+
+**classNames** - add custom classes to the tippy element, same as `theme` prop, but without adding `-theme` as a suffix
