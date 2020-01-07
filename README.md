@@ -38,8 +38,7 @@ Then in your base module:
         ...,
         NgxTippyModule
     ],
-    declarations: [AppComponent],
-    bootstrap: [AppComponent]
+    ...
 })
 ```
 
@@ -92,7 +91,7 @@ In template:
 </span>
 ```
 
-In component:
+Pass props from component:
 
 ```html
 <span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps">
@@ -106,9 +105,7 @@ In component:
 ...
 import { NgxTippyProps } from 'ngx-tippy-wrapper';
 
-@Component({
-  ...
-})
+@Component({...})
 export class DemoComponent implements OnInit {
   tippyProps: NgxTippyProps = {
     trigger: 'click',
@@ -131,3 +128,130 @@ export class DemoComponent implements OnInit {
 **tippyName** - name for tippy instance, required for accessing and control specific instance
 
 **classNames** - add custom classes to the tippy element, same as `theme` prop, but without adding `-theme` as a suffix
+
+### Applying different types of content
+
+- **String**
+
+```html
+<span ngxTippy [tippyProps]="tippyPropsWithString">
+  Tippy with string content
+</span>
+```
+
+---
+
+```ts
+...
+import { NgxTippyProps } from 'ngx-tippy-wrapper';
+
+@Component({...})
+export class DemoComponent implements OnInit {
+  tippyPropsWithString: NgxTippyProps = {
+    content: '<strong>Bolded content</strong>'
+  };
+  ...
+}
+```
+
+- **Element or Element.innerHTML**
+
+```html
+<div>
+  <span ngxTippy [tippyProps]="tippyContent">
+    Tippy with HTML content
+  </span>
+
+  <!-- If passing element itself -->
+  <div #tippyTemplate>
+    <span>Some content</span>
+    <h2>Caption</h2>
+    <button>Action</button>
+    ...
+  </div>
+
+  <!-- If passing element innerHTML -->
+  <div #tippyTemplate style="display: none;">
+    <span>Some content</span>
+    <h2>Caption</h2>
+    <button>Action</button>
+    ...
+  </div>
+</div>
+```
+
+---
+
+```ts
+...
+import { NgxTippyProps } from 'ngx-tippy-wrapper';
+
+@Component({...})
+export class DemoComponent implements OnInit {
+  @ViewChild('tippyTemplate', { static: true }) tippyTemplate: ElementRef;
+
+  tippyContent: NgxTippyProps = {...};
+
+  ngOnInit() {
+    // Pass element itself
+    this.tippyContent.content = this.tippyTemplate.nativeElement;
+
+    // Pass element innerHTML
+    this.tippyContent.content = this.tippyTemplate.nativeElement.innerHTML;
+  }
+  ...
+}
+```
+
+## Methods
+
+For accessing and control specific tippy instance you need pass `tippyName` prop
+
+Then import NgxTippyService:
+
+```ts
+...
+import { NgxTippyService } from 'ngx-tippy-wrapper';
+
+@Component({...})
+export class DemoComponent implements OnInit {
+  constructor(private tippyService: NgxTippyService) {}
+  ...
+}
+```
+
+Through service you can use all methods described [here](https://atomiks.github.io/tippyjs/methods/) and some additional:
+
+### Methods
+
+| Method name              | Method parameter/parameters                 | Method short description                           |
+| ------------------------ | ------------------------------------------- | -------------------------------------------------- |
+| getTippyInstance()       | name: string                                | Get specific instance                              |
+| getAllTippiesInstances() | -                                           | Get all tippy instances                            |
+| showTippy()              | name: string, transitionDuration?: number   | Programmatically show the tippy                    |
+| hideTippy()              | name: string, transitionDuration?: number   | Programmatically hide the tippy                    |
+| disableTippy()           | name: string                                | Temporarily prevent a tippy from showing or hiding |
+| enableTippy()            | name: string                                | Re-enable a tippy                                  |
+| setTippyProps()          | name: string, tippyProps: NgxTippyProps     | Update any props                                   |
+| setTippyContent()        | name: string, tippyContent: NgxTippyContent | Updating the content prop                          |
+| destroyTippyInstance()   | name: string                                | Destroy and clean up the instance                  |
+| setDefaultProps()        | tippyProps: NgxTippyProps                   | Set the default props for each new instance        |
+| showAllTippies()         | transitionDuration? :number                 | Show all tippies                                   |
+| hideAllTippies()         | hideImmediately?: boolean                   | Hide all visible tippies                           |
+| hideAllTippiesExcept()   | names: Array, transitionDuration?: number   | Hide all tippies except some, passed as array      |
+
+#### Available subscription to change of tippy instances:
+
+```ts
+import { NgxTippyService } from 'ngx-tippy-wrapper';
+
+@Component({...})
+export class DemoComponent implements OnInit {
+  constructor(private tippyService: NgxTippyService) {}
+
+  ngOnInit() {
+    this.tippyService.tippyInstancesChanges.subscribe();
+  }
+  ...
+}
+```
