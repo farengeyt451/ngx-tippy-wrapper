@@ -46,7 +46,7 @@ export class NgxTippyDirective implements OnInit {
 
   initTippySingleton() {
     const instancesForSingleton = Array.from(
-      this.ngxTippyService.getAllTippiesInstances().values()
+      this.ngxTippyService.getAllTippyInstances().values()
     ).filter((tippyInstance: NgxTippyInstance) => {
       return (tippyInstance.reference as HTMLElement).dataset.tippySingleton;
     });

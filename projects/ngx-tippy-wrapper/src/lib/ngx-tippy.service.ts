@@ -23,7 +23,7 @@ export class NgxTippyService {
     return this.tippyInstances.has(name) ? this.tippyInstances.get(name) : null;
   }
 
-  getAllTippiesInstances(): Map<string, NgxTippyInstance> {
+  getAllTippyInstances(): Map<string, NgxTippyInstance> {
     return this.tippyInstances;
   }
 
