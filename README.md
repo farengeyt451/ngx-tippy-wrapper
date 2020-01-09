@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/atomiks/tippy.js-react/raw/master/logo.png" alt="Logo" height="105">
+  <img src="https://github.com/farengeyt451/ngx-tippy-wrapper/raw/master/logo.png" alt="Logo" height="105">
 </div>
 
 <div align="center">
@@ -27,7 +27,7 @@ npm i ngx-tippy-wrapper --save
 Import NgxTippyModule:
 
 ```ts
-import { NgxTippyModule } from 'ngx-tippy-wrapper';
+import { NgxTippyModule } from "ngx-tippy-wrapper";
 ```
 
 Then in your base module:
@@ -94,7 +94,11 @@ In template:
 Or passing props from component:
 
 ```html
-<span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps">
+<span
+  ngxTippy
+  data-tippy-content="Tooltip with props"
+  [tippyProps]="tippyProps"
+>
   Tippy
 </span>
 ```
@@ -267,10 +271,10 @@ For using multiple tippys on a single element - nest elements with applied direc
 ```html
 <div
   ngxTippy
+  data-tippy-content="First tooltip"
   [tippyProps]="{
     placement: 'top'
   }"
-  data-tippy-content="First tooltip"
 >
   <div
     ngxTippy
@@ -292,3 +296,18 @@ For using multiple tippys on a single element - nest elements with applied direc
 </div>
 ```
 <!-- prettier-ignore-end -->
+
+## [Singleton](https://atomiks.github.io/tippyjs/addons/#singleton)
+
+For use singleton - put in tippys inside ngx-tippy-singleton component
+
+```html
+<ngx-tippy-singleton [tippyProps]="{...}">
+  <button ngxTippy data-tippy-content="First tooltip">
+    Button
+  </button>
+  <button ngxTippy data-tippy-content="Second tooltip">
+    Button
+  </button>
+</ngx-tippy-singleton>
+```
