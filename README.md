@@ -74,7 +74,7 @@ Apply directive for element and pass content through attribute:
 
 ### Applying props
 
-You can appply props with input binding
+You can apply props with input binding
 
 In template:
 
@@ -91,7 +91,7 @@ In template:
 </span>
 ```
 
-Or passing props from component:
+Or pass props from component:
 
 ```html
 <span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps">
@@ -220,7 +220,7 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-Through service you can use all methods described [here](https://atomiks.github.io/tippyjs/methods/) and some additional
+Through service you can use all methods described [here](https://atomiks.github.io/tippyjs/methods/) and some additional:
 
 ### Implemented methods
 
@@ -229,7 +229,7 @@ Through service you can use all methods described [here](https://atomiks.github.
 | **Working with instances** |
 | getTippyInstance()         | name: string                                | Get specific instance                              |
 | getAllTippyInstances()     | -                                           | Get all tippy instances                            |
-| **State management**       |
+| **Tippy state management** |
 | showTippy()                | name: string, transitionDuration?: number   | Programmatically show the tippy                    |
 | hideTippy()                | name: string, transitionDuration?: number   | Programmatically hide the tippy                    |
 | disableTippy()             | name: string                                | Temporarily prevent a tippy from showing or hiding |
@@ -295,7 +295,7 @@ For using multiple tippys on a single element - nest elements with applied direc
 
 ## [Singleton](https://atomiks.github.io/tippyjs/addons/#singleton)
 
-For use singleton - put in tippys inside ngx-tippy-singleton component
+For singleton using - put in tippys inside ngx-tippy-singleton component:
 
 ```html
 <ngx-tippy-singleton [tippyProps]="{...}">
