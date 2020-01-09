@@ -27,7 +27,7 @@ npm i ngx-tippy-wrapper --save
 Import NgxTippyModule:
 
 ```ts
-import { NgxTippyModule } from "ngx-tippy-wrapper";
+import { NgxTippyModule } from 'ngx-tippy-wrapper';
 ```
 
 Then in your base module:
@@ -94,11 +94,7 @@ In template:
 Or passing props from component:
 
 ```html
-<span
-  ngxTippy
-  data-tippy-content="Tooltip with props"
-  [tippyProps]="tippyProps"
->
+<span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps">
   Tippy
 </span>
 ```
