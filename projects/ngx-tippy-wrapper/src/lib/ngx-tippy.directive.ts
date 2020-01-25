@@ -1,12 +1,4 @@
-import {
-  Directive,
-  OnInit,
-  ElementRef,
-  Input,
-  Renderer2,
-  Inject,
-  PLATFORM_ID
-} from '@angular/core';
+import { Directive, OnInit, ElementRef, Input, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 import tippy, { createSingleton } from 'tippy.js';
 import { NgxTippyService } from './ngx-tippy.service';
@@ -33,8 +25,6 @@ export class NgxTippyDirective implements OnInit {
     this.initTippy();
   }
 
-  // Init tippy and write all tippy instances
-  // Prop 'tippyName' required for access to specific tippy instance
   initTippy() {
     const tippyTarget = this.el.nativeElement;
     tippy(tippyTarget, this.tippyProps);
@@ -45,16 +35,15 @@ export class NgxTippyDirective implements OnInit {
   }
 
   initTippySingleton() {
-    const instancesForSingleton = Array.from(
-      this.ngxTippyService.getAllTippyInstances().values()
-    ).filter((tippyInstance: NgxTippyInstance) => {
-      return (tippyInstance.reference as HTMLElement).dataset.tippySingleton;
-    });
+    const instancesForSingleton = Array.from(this.ngxTippyService.getAllTippyInstances().values()).filter(
+      (tippyInstance: NgxTippyInstance) => {
+        return (tippyInstance.reference as HTMLElement).dataset.tippySingleton;
+      }
+    );
     const tippySingletonProps =
       instancesForSingleton &&
       instancesForSingleton.length > 0 &&
-      (instancesForSingleton[instancesForSingleton.length - 1].reference as HTMLElement).dataset
-        .tippySingletonProps;
+      (instancesForSingleton[instancesForSingleton.length - 1].reference as HTMLElement).dataset.tippySingletonProps;
     const parsedProps = tippySingletonProps && JSON.parse(tippySingletonProps);
 
     createSingleton(instancesForSingleton, parsedProps);
@@ -69,9 +58,6 @@ export class NgxTippyDirective implements OnInit {
   }
 
   writeInstancesToStorage() {
-    this.ngxTippyService.setTippyInstances(
-      this.tippyName || `tippy-${this.tippyInstance.id}`,
-      this.tippyInstance
-    );
+    this.ngxTippyService.setTippyInstances(this.tippyName || `tippy-${this.tippyInstance.id}`, this.tippyInstance);
   }
 }

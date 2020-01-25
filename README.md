@@ -234,11 +234,11 @@ Through service you can use all methods described [here](https://atomiks.github.
 | hideTippy()                | name: string, transitionDuration?: number   | Programmatically hide the tippy                    |
 | disableTippy()             | name: string                                | Temporarily prevent a tippy from showing or hiding |
 | enableTippy()              | name: string                                | Re-enable a tippy                                  |
-| setTippyProps()            | name: string, tippyProps: NgxTippyProps     | Update any props                                   |
-| setTippyContent()          | name: string, tippyContent: NgxTippyContent | Updating the content prop                          |
-| destroyTippyInstance()     | name: string                                | Destroy and clean up the instance                  |
+| setTippyProps()            | name: string, tippyProps: NgxTippyProps     | Update any tippy props                             |
+| setTippyContent()          | name: string, tippyContent: NgxTippyContent | Update the content for tippy                       |
+| destroyTippyInstance()     | name: string                                | Destroy and clean up the tippy instance            |
 | **Static methods**         |
-| setDefaultProps()          | tippyProps: NgxTippyProps                   | Set the default props for each new instance        |
+| setDefaultProps()          | tippyProps: NgxTippyProps                   | Set the default props for each new tippy instance  |
 | showAllTippies()           | transitionDuration? :number                 | Show all tippies                                   |
 | hideAllTippies()           | hideImmediately?: boolean                   | Hide all visible tippies                           |
 | hideAllTippiesExcept()     | names: Array, transitionDuration?: number   | Hide all tippies except some, passed as array      |
