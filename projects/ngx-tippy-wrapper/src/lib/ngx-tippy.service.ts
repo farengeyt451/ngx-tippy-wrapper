@@ -1,5 +1,5 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import tippy, { hideAll } from 'tippy.js';
 import { NgxTippyInstance, NgxTippyProps, NgxTippyContent } from './ngx-tippy.interfaces';
 
@@ -20,8 +20,8 @@ export class NgxTippyService {
   /**
    * Write tippy instances to storage
    *
-   * @param name { string } - name of tippy instance
-   * @param state { state } - tippy instance
+   * @param name { string } name of tippy instance
+   * @param state { state } tippy instance
    */
   setTippyInstances(name: string, state: NgxTippyInstance) {
     this.tippyInstances.set(name, state);
@@ -31,8 +31,8 @@ export class NgxTippyService {
   /**
    * Get specific tippy instance
    *
-   * @param name { string } - name of tippy instance
-   * @returns { NgxTippyInstance | null } - specific tippy instance or null
+   * @param name { string } name of tippy instance
+   * @returns { NgxTippyInstance | null } specific tippy instance or null
    */
   getTippyInstance(name: string): NgxTippyInstance | null {
     return this.tippyInstances.has(name) ? this.tippyInstances.get(name) : null;
@@ -41,7 +41,7 @@ export class NgxTippyService {
   /**
    * Get all tippy instances from storage
    *
-   * @returns { Map<string, NgxTippyInstance> } - all tippy instances
+   * @returns { Map<string, NgxTippyInstance> } all tippy instances
    */
   getAllTippyInstances(): Map<string, NgxTippyInstance> {
     return this.tippyInstances;
@@ -54,8 +54,8 @@ export class NgxTippyService {
   /**
    * Programmatically show the tippy
    *
-   * @param name { string } - name of tippy instance
-   * @param transitionDuration { number } - animation duration in ms
+   * @param name { string } name of tippy instance
+   * @param transitionDuration { number } animation duration in ms
    */
   showTippy(name: string, transitionDuration?: number) {
     this.tippyInstances.has(name) && this.tippyInstances.get(name).show(transitionDuration);
@@ -64,8 +64,8 @@ export class NgxTippyService {
   /**
    * Programmatically hide the tippy
    *
-   * @param name { string } - name of tippy instance
-   * @param transitionDuration { number } - animation duration in ms
+   * @param name { string } name of tippy instance
+   * @param transitionDuration { number } animation duration in ms
    */
   hideTippy(name: string, transitionDuration?: number) {
     this.tippyInstances.has(name) && this.tippyInstances.get(name).hide(transitionDuration);
@@ -74,7 +74,7 @@ export class NgxTippyService {
   /**
    * Prevent a tippy from showing or hiding
    *
-   * @param name { string } - name of tippy instance
+   * @param name { string } name of tippy instance
    */
   disableTippy(name: string) {
     this.tippyInstances.has(name) && this.tippyInstances.get(name).disable();
@@ -83,7 +83,7 @@ export class NgxTippyService {
   /**
    * Re-enable a tippy
    *
-   * @param name { string } - name of tippy instance
+   * @param name { string } name of tippy instance
    */
   enableTippy(name: string) {
     this.tippyInstances.has(name) && this.tippyInstances.get(name).enable();
@@ -92,8 +92,8 @@ export class NgxTippyService {
   /**
    * Update any tippy props
    *
-   * @param name { string } - name of tippy instance
-   * @param tippyProps { NgxTippyProps } - new props
+   * @param name { string } name of tippy instance
+   * @param tippyProps { NgxTippyProps } new props
    */
   setTippyProps(name: string, tippyProps: NgxTippyProps) {
     this.tippyInstances.has(name) && this.tippyInstances.get(name).setProps(tippyProps);
@@ -102,8 +102,8 @@ export class NgxTippyService {
   /**
    * Update the content for tippy
    *
-   * @param name { string } - name of tippy instance
-   * @param tippyContent { NgxTippyContent } - new content
+   * @param name { string } name of tippy instance
+   * @param tippyContent { NgxTippyContent } new content
    */
   setTippyContent(name: string, tippyContent: NgxTippyContent) {
     if (!this.tippyInstances.has(name)) return;
@@ -114,7 +114,7 @@ export class NgxTippyService {
   /**
    * Destroy and clean up the tippy instance
    *
-   * @param name { string } - name of tippy instance
+   * @param name { string } name of tippy instance
    */
   destroyTippyInstance(name: string) {
     this.tippyInstances.has(name) && this.tippyInstances.get(name).destroy();
@@ -125,7 +125,7 @@ export class NgxTippyService {
   /**
    * Set the default props for each new tippy instance
    *
-   * @param tippyProps { NgxTippyProps } - default props
+   * @param tippyProps { NgxTippyProps } default props
    */
   setDefaultProps(tippyProps: NgxTippyProps) {
     tippy.setDefaultProps(tippyProps);
@@ -134,7 +134,7 @@ export class NgxTippyService {
   /**
    * Show all tippies
    *
-   * @param transitionDuration { number } - animation duration in ms
+   * @param transitionDuration { number } animation duration in ms
    */
   showAllTippies(transitionDuration?: number) {
     this.tippyInstances.forEach((tippyInstance: NgxTippyInstance) => {
@@ -145,7 +145,7 @@ export class NgxTippyService {
   /**
    * Hide all visible tippies
    *
-   * @param hideImmediately { boolean } - hide tippy without animation
+   * @param hideImmediately { boolean } hide tippy without animation
    */
   hideAllTippies(hideImmediately?: boolean) {
     hideAll(hideImmediately ? { duration: 0 } : {});
@@ -154,8 +154,8 @@ export class NgxTippyService {
   /**
    * Hide all tippies except some, passed as array
    *
-   * @param names { Array<string> } - array of tippies, which do not need to hide
-   * @param transitionDuration { number } - animation duration in ms
+   * @param names { Array<string> } array of tippies, which do not need to hide
+   * @param transitionDuration { number } animation duration in ms
    */
   hideAllTippiesExcept(names: Array<string>, transitionDuration?: number) {
     Array.from(this.tippyInstances).forEach(tippyInstance => {
@@ -165,9 +165,11 @@ export class NgxTippyService {
 
   /**
    * Subscription to change of tippy instances
+   *
+   * @returns { Observable<Map<string, NgxTippyInstance>> } observable of tippy instances change
    */
-  get tippyInstancesChanges() {
-    return this.tippyInstances$;
+  get tippyInstancesChanges(): Observable<Map<string, NgxTippyInstance>> {
+    return this.tippyInstances$.asObservable();
   }
 
   /**
