@@ -5,7 +5,7 @@ import { NgxTippyService } from './ngx-tippy.service';
 import { NgxTippyProps, NgxTippyInstance } from './ngx-tippy.interfaces';
 
 @Directive({
-  selector: '[ngxTippy]'
+  selector: '[ngxTippy]',
 })
 export class NgxTippyDirective implements OnInit {
   @Input() tippyProps?: NgxTippyProps;
@@ -52,8 +52,8 @@ export class NgxTippyDirective implements OnInit {
   setClassName() {
     this.classNames &&
       this.classNames.length > 0 &&
-      this.classNames.forEach(className => {
-        this.renderer.addClass(this.tippyInstance.popperChildren.tooltip, className);
+      this.classNames.forEach((className) => {
+        this.renderer.addClass(this.tippyInstance.popper.firstElementChild, className);
       });
   }
 

@@ -55,20 +55,18 @@ export class NgxTippyService {
    * Programmatically show the tippy
    *
    * @param name { string } name of tippy instance
-   * @param transitionDuration { number } animation duration in ms
    */
-  showTippy(name: string, transitionDuration?: number) {
-    this.tippyInstances.has(name) && this.tippyInstances.get(name).show(transitionDuration);
+  showTippy(name: string) {
+    this.tippyInstances.has(name) && this.tippyInstances.get(name).show();
   }
 
   /**
    * Programmatically hide the tippy
    *
    * @param name { string } name of tippy instance
-   * @param transitionDuration { number } animation duration in ms
    */
-  hideTippy(name: string, transitionDuration?: number) {
-    this.tippyInstances.has(name) && this.tippyInstances.get(name).hide(transitionDuration);
+  hideTippy(name: string) {
+    this.tippyInstances.has(name) && this.tippyInstances.get(name).hide();
   }
 
   /**
@@ -133,12 +131,10 @@ export class NgxTippyService {
 
   /**
    * Show all tippies
-   *
-   * @param transitionDuration { number } animation duration in ms
    */
-  showAllTippies(transitionDuration?: number) {
+  showAllTippies() {
     this.tippyInstances.forEach((tippyInstance: NgxTippyInstance) => {
-      tippyInstance.show(transitionDuration);
+      tippyInstance.show();
     });
   }
 
@@ -155,11 +151,10 @@ export class NgxTippyService {
    * Hide all tippies except some, passed as array
    *
    * @param names { Array<string> } array of tippies, which do not need to hide
-   * @param transitionDuration { number } animation duration in ms
    */
-  hideAllTippiesExcept(names: Array<string>, transitionDuration?: number) {
-    Array.from(this.tippyInstances).forEach(tippyInstance => {
-      !names.includes(tippyInstance[0]) && tippyInstance[1].hide(transitionDuration);
+  hideAllTippiesExcept(names: Array<string>) {
+    Array.from(this.tippyInstances).forEach((tippyInstance) => {
+      !names.includes(tippyInstance[0]) && tippyInstance[1].hide();
     });
   }
 
