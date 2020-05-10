@@ -20,11 +20,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/farengeyt451/ngx-tippy-wrapper"
+    "url": "https://github.com/farengeyt451/ngx-tippy-wrapper"
   },
-  "bugs": {
-    "url": "https://github.com/farengeyt451/ngx-tippy-wrapper/issues"
-  },
+  "bugs": "https://github.com/farengeyt451/ngx-tippy-wrapper/issues",
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14"

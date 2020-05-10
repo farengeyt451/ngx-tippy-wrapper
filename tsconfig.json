@@ -24,6 +24,12 @@
       ],
       "ngx-tippy-wrapper/*": [
         "dist/ngx-tippy-wrapper/*"
+      ],
+      "demo": [
+        "dist/demo"
+      ],
+      "demo/*": [
+        "dist/demo/*"
       ]
     }
   },
