@@ -8,11 +8,7 @@
 
 ## Angular 8+ wrapper for [Tippy.js](https://github.com/atomiks/tippyjs/)
 
-<!-- ## Demo
-
-[Demo](https://ngx-tippy-wrapper.stackblitz.io)
-
-[StackBlitz example](https://stackblitz.com/edit/ngx-tippy-wrapper) -->
+<!-- TODO - Demo -->
 
 ## Installation
 
@@ -44,19 +40,19 @@ Then in your base module:
 
 Import base style file to your main style file:
 
-```ts
-@import 'tippy.js/dist/tippy.css'
+```css
+@import 'tippy.js/dist/tippy.css';
 ```
 
 or angular.json:
 
-```ts
+```json
 "architect": {
 "build": {
   ...,
   "options": {
     ...,
-    "styles": ["./node_modules/tippy.js/dist/tippy.css", ...]
+    "styles": [..., "./node_modules/tippy.js/dist/tippy.css"]
   }
 ```
 
@@ -67,14 +63,14 @@ or angular.json:
 Apply directive for element and pass content through attribute:
 
 ```html
-<span ngxTippy data-tippy-content="Tooltip">
-  Tippy
-</span>
+<button ngxTippy data-tippy-content="tooltip">
+  Element with tooltip
+</button>
 ```
 
 ### Applying props
 
-You can apply props with input binding
+You can apply props with `tippyProps` binding
 
 In template:
 
@@ -87,15 +83,15 @@ In template:
     placement: 'bottom'
   }"
 >
-  Tippy
+  Element with tooltip
 </span>
 ```
 
 Or pass props from component:
 
 ```html
-<span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps">
-  Tippy
+<span ngxTippy data-tippy-content="tooltip text" [tippyProps]="tippyProps">
+  Element with tooltip
 </span>
 ```
 
@@ -109,7 +105,7 @@ import { NgxTippyProps } from 'ngx-tippy-wrapper';
 export class DemoComponent implements OnInit {
   tippyProps: NgxTippyProps = {
     trigger: 'click',
-    allowHTML: true
+    allowHTML: true,
   };
   ...
 }
@@ -117,17 +113,130 @@ export class DemoComponent implements OnInit {
 
 ### Implemented props
 
-| Prop name  | Prop type     | Example                                              |
-| ---------- | ------------- | ---------------------------------------------------- |
-| tippyProps | NgxTippyProps | [tippyProps]="{ arrow: false, placement: 'bottom' }" |
-| tippyName  | string        | [tippyName]="'awesomeName'"                          |
-| classNames | Array<string> | [classNames]="['customClass', 'nextClass']"          |
+| Prop name      | Prop type     | Example                                                                            |
+| -------------- | ------------- | ---------------------------------------------------------------------------------- |
+| tippyProps     | NgxTippyProps | [tippyProps]="{ arrow: false, placement: 'bottom' }"                               |
+| tippyName      | string        | tippyName="awesomeName"                                                            |
+| tippyClassName | string        | tippyClassName="new-class" <br> _or_ <br> tippyClassName="new-class another-class" |
 
-**tippyProps** - [list of all props](https://atomiks.github.io/tippyjs/all-props/)
+**tippyProps** - [list of all props](https://atomiks.github.io/tippyjs/v6/all-props/)
 
 **tippyName** - name for tippy instance, required for accessing and control specific instance
 
-**classNames** - add custom classes to the tippy element, same as `theme` prop, but without adding `-theme` as a suffix
+**tippyClassName** - add custom class to the `tippy-box` element, support multiple classes passed as words separated by space
+
+## Applying content
+
+#### You can pass content for tooltip through:
+
+1. **`data` attribute**:
+
+```html
+<button ngxTippy data-tippy-content="tooltip content">
+  Element with tooltip
+</button>
+```
+
+This attribute can be binded:
+
+```html
+<button ngxTippy [attr.data-tippy-content]="bindedContent">
+  Element with tooltip
+</button>
+```
+
+---
+
+```ts
+...
+import { NgxTippyProps } from 'ngx-tippy-wrapper';
+
+@Component({...})
+export class DemoComponent implements OnInit {
+  bindedContent: string = 'Binded tooltip content';
+  ...
+}
+```
+
+_Content binding_ works during component initialization, if new content should be set dynamic or reset again use [setTippyContent](#implemented-methods) method
+
+2. **`content` prop** :
+
+```html
+<button
+  ngxTippy
+  [tippyProps]="{
+    allowHTML: true,
+    content: '<p>Tooltip <strong>HTML</strong> content</p>'
+  }"
+>
+  Element with tooltip
+</button>
+```
+
+3. **`setContent()` method** :
+
+For this method `tippyName` prop should be setted
+
+```html
+<button ngxTippy tippyName="t-content">
+  Element with tooltip
+</button>
+```
+
+---
+
+```ts
+...
+import { NgxTippyService } from 'ngx-tippy-wrapper';
+
+@Component({...})
+export class DemoComponent implements OnInit, AfterViewInit {
+  bindedContent: string = 'Binded tooltip content';
+
+  constructor(private tippyService: NgxTippyService) {}
+
+  ...
+
+  ngAfterViewInit() {
+    this.setContentForTooltip();
+  }
+
+  setContentForTooltip() {
+    this.ngxTippyService.setTippyContent('t-content', this.bindedContent);
+  }
+}
+```
+
+4. **`tippyProps`**:
+
+```html
+<button ngxTippy [tippyProps]="tippyProps">
+  Element with tooltip
+</button>
+```
+
+---
+
+```ts
+...
+@Component({...})
+export class DemoComponent implements OnInit {
+  tippyProps: NgxTippyProps = {
+    ...
+  }
+
+  ...
+
+  ngOnInit() {
+    this.setContentForTooltip();
+  }
+
+  setContentForTooltip() {
+    this.tippyProps.content = 'initial tooltip content'
+  }
+}
+```
 
 ## Applying different types of content
 
@@ -255,6 +364,48 @@ export class DemoComponent implements OnInit {
   ngOnInit() {
     this.tippyService.tippyInstancesChanges.subscribe(...);
   }
+  ...
+}
+```
+
+## Grouped tooltips
+
+If you want to give different tooltip content to many different elements, while only needing to initialize once with shared props:
+
+```html
+<ngx-tippy-group [tippyProps]="tippyProps">
+  <button data-tippy-content="some tooltip text">Element with tooltip</button>
+  <button data-tippy-content="another tooltip text">Element with tooltip</button>
+</ngx-tippy-group>
+```
+
+Also content can be binded and shared props overrided (see [customization](https://atomiks.github.io/tippyjs/v6/customization/)):
+
+```html
+<ngx-tippy-group [tippyProps]="tippyProps">
+  <button [attr.data-tippy-content]="bindedContent">Element with tooltip</button>
+  <button [attr.data-tippy-content]="bindedHTMLContent" data-tippy-allowHTML="true">
+    Element with tooltip
+  </button>
+  <button data-tippy-content="another tooltip text" data-tippy-arrow="false">Element with tooltip</button>
+</ngx-tippy-group>
+```
+
+---
+
+```ts
+...
+import { NgxTippyProps } from 'ngx-tippy-wrapper';
+
+@Component({...})
+export class DemoComponent implements OnInit {
+  bindedContent: string = 'Binded tooltip content';
+  bindedHTMLContent: string = '<p>Binded <strong>HTML</strong> content</p>';
+
+  tippyProps: NgxTippyProps = {
+    placement: 'top',
+    theme: 'light',
+  };
   ...
 }
 ```

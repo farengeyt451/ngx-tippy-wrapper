@@ -1,8 +1,12 @@
 import { Directive, OnInit, ElementRef, Input, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import tippy, { createSingleton } from 'tippy.js';
+import tippy, { Instance } from 'tippy.js';
 import { NgxTippyService } from './ngx-tippy.service';
 import { NgxTippyProps, NgxTippyInstance } from './ngx-tippy.interfaces';
+
+interface TippyHTMLElement extends HTMLElement {
+  _tippy: Instance;
+}
 
 @Directive({
   selector: '[ngxTippy]',
@@ -10,11 +14,10 @@ import { NgxTippyProps, NgxTippyInstance } from './ngx-tippy.interfaces';
 export class NgxTippyDirective implements OnInit {
   @Input() tippyProps?: NgxTippyProps;
   @Input() tippyName?: string;
-  @Input() classNames?: Array<string>;
-  tippyInstance: NgxTippyInstance;
+  @Input() tippyClassName?: string;
 
   constructor(
-    private el: ElementRef,
+    private tippyEl: ElementRef,
     private ngxTippyService: NgxTippyService,
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platform: Object
@@ -26,38 +29,30 @@ export class NgxTippyDirective implements OnInit {
   }
 
   initTippy() {
-    const tippyTarget = this.el.nativeElement;
+    const tippyTarget = this.tippyEl.nativeElement;
+
     tippy(tippyTarget, this.tippyProps);
-    this.tippyInstance = tippyTarget._tippy;
-    this.writeInstancesToStorage();
-    this.setClassName();
-    this.initTippySingleton();
+    this.setTippyInstance(tippyTarget);
   }
 
-  initTippySingleton() {
-    const instancesForSingleton = Array.from(this.ngxTippyService.getAllTippyInstances().values()).filter(
-      (tippyInstance: NgxTippyInstance) => {
-        return (tippyInstance.reference as HTMLElement).dataset.tippySingleton;
-      }
-    );
-    const tippySingletonProps =
-      instancesForSingleton &&
-      instancesForSingleton.length > 0 &&
-      (instancesForSingleton[instancesForSingleton.length - 1].reference as HTMLElement).dataset.tippySingletonProps;
-    const parsedProps = tippySingletonProps && JSON.parse(tippySingletonProps);
+  setTippyInstance(tippyTarget: TippyHTMLElement) {
+    const tippyInstance: NgxTippyInstance = tippyTarget._tippy;
 
-    createSingleton(instancesForSingleton, parsedProps);
+    this.writeInstancesToStorage(tippyInstance);
+    this.setClassName(tippyInstance);
   }
 
-  setClassName() {
-    this.classNames &&
-      this.classNames.length > 0 &&
-      this.classNames.forEach((className) => {
-        this.renderer.addClass(this.tippyInstance.popper.firstElementChild, className);
+  setClassName(tippyInstance: NgxTippyInstance) {
+    if (!this.tippyClassName) return;
+    const classNames = this.tippyClassName.split(' ');
+
+    classNames.length > 0 &&
+      classNames.forEach((className) => {
+        this.renderer.addClass(tippyInstance.popper.firstElementChild, className);
       });
   }
 
-  writeInstancesToStorage() {
-    this.ngxTippyService.setTippyInstances(this.tippyName || `tippy-${this.tippyInstance.id}`, this.tippyInstance);
+  writeInstancesToStorage(tippyInstance: NgxTippyInstance) {
+    this.ngxTippyService.setTippyInstances(this.tippyName || `tippy-${tippyInstance.id}`, tippyInstance);
   }
 }

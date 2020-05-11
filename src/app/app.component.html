@@ -2,24 +2,56 @@
 
 <p>Apply directive for element and pass content through attribute:</p>
 
-<span
+<button
   ngxTippy
-  data-tippy-content="Tooltip"
+  data-tippy-content="tooltip"
+>
+  Element with tooltip
+</button>
+
+<button
+  ngxTippy
+  [attr.data-tippy-content]="bindedContent"
+>
+  Element with tooltip
+</button>
+
+<button
+  ngxTippy
   [tippyProps]="{
-    trigger: 'click',
-    arrow: false
+    allowHTML: true,
+    content: '<p>Tooltip <strong>HTML</strong> content</p>'
   }"
 >
-  Tippy
-</span>
+  Element with tooltip
+</button>
 
-<span
+<button ngxTippy tippyName='t-content'>
+  Element with tooltip
+</button>
+
+<p>If you want to give different tooltip content to many different elements, while only needing to initialize once with shared props:</p>
+
+
+<ngx-tippy-group [tippyProps]="tippyProps">
+  <button data-tippy-content="some tooltip text">Element with tooltip</button>
+  <button data-tippy-content="another tooltip text">Element with tooltip</button>
+</ngx-tippy-group>
+
+<p>Also content can be bound and shared props override:</p>
+
+<ngx-tippy-group [tippyProps]="tippyProps">
+  <button [attr.data-tippy-content]="bindedContent">Element with tooltip</button>
+  <button [attr.data-tippy-content]="bindedHTMLContent" data-tippy-allowHTML="true">
+    Element with tooltip
+  </button>
+  <button data-tippy-content="another tooltip text" data-tippy-arrow="false">Element with tooltip</button>
+</ngx-tippy-group>
+
+<button
   ngxTippy
-  data-tippy-content="New content"
-  [tippyProps]="{
-    trigger: 'click'
-  }"
+  [tippyProps]="tippyProps"
+  tippyClassName="test"
 >
-  Tippy
-</span>
-
+  Element with tooltip
+</button>
