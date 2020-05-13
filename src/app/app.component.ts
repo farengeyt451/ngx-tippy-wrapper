@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { NgxTippyProps } from '../../projects/ngx-tippy-wrapper/src/lib/ngx-tippy.interfaces';
 import { NgxTippyService } from '../../projects/ngx-tippy-wrapper/src/lib/ngx-tippy.service';
 import {
@@ -14,6 +14,7 @@ import {
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  @ViewChild('tippyTemplate', { read: ElementRef, static: true }) tippyTemplate: ElementRef;
   title = 'ng-tippy-wrapper';
 
   bindedContent: string = 'Binded content';
@@ -32,6 +33,19 @@ export class AppComponent implements OnInit, AfterViewInit {
     trigger: 'click',
   };
 
+  tippyContent: NgxTippyProps = {
+    animation: 'shift-away',
+    arrow: roundArrow,
+    interactive: true,
+    allowHTML: true,
+    interactiveBorder: 30,
+    interactiveDebounce: 75,
+    // hideOnClick: false,
+    plugins: [animateFill, followCursor, inlinePositioning],
+    theme: 'light',
+    trigger: 'click',
+  };
+
   constructor(private ngxTippyService: NgxTippyService) {}
 
   ngOnInit() {}
@@ -41,6 +55,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   setContentForTooltip() {
-    this.ngxTippyService.setTippyContent('t-content', this.bindedContent);
+    this.ngxTippyService.setTippyContent('content', this.tippyTemplate.nativeElement.innerHTML);
+  }
+
+  onClick(e, i) {
+    console.log(e, i);
   }
 }

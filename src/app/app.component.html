@@ -1,4 +1,4 @@
-<h2>Basic usage</h2>
+<!-- <h2>Basic usage</h2>
 
 <p>Apply directive for element and pass content through attribute:</p>
 
@@ -54,4 +54,33 @@
   tippyClassName="test"
 >
   Element with tooltip
-</button>
+</button> -->
+
+<!-- <button
+  ngxTippy
+  data-tippy-content="tooltip"
+>
+  Element with tooltip
+</button> -->
+
+
+<span [ngxTippy]="tippyTemplate" [tippyProps]="tippyContent" tippyName="content">
+  Tippy with HTML content
+</span>
+
+<!-- If passing element itself -->
+<div #tippyTemplate>
+  <span>Some content</span>
+  <h2>Caption</h2>
+  <button (click)="onClick($event, 1)">Action</button>
+  ...
+</div>
+
+<!-- If passing element innerHTML -->
+<!-- <div #tippyTemplate style="display: none;">
+  <span>Some content</span>
+  <h2>Caption</h2>
+  <button (click)="onClick($event, 2)">Action</button>
+  ...
+</div> -->
+

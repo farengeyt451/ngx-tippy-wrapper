@@ -222,9 +222,7 @@ export class DemoComponent implements OnInit, AfterViewInit {
 ...
 @Component({...})
 export class DemoComponent implements OnInit {
-  tippyProps: NgxTippyProps = {
-    ...
-  }
+  tippyProps: NgxTippyProps = { ... }
 
   ...
 
@@ -238,52 +236,43 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-## Applying different types of content
+5. **`template`**:
 
-- **String**
+Pass template reference directly
 
 ```html
-<span ngxTippy [tippyProps]="tippyPropsWithString">
-  Tippy with string content
+<span [ngxTippy]="tippyTemplate" [tippyProps]="tippyContent" tippyName="content">
+  Tippy with HTML content
 </span>
-```
 
----
-
-```ts
-...
-import { NgxTippyProps } from 'ngx-tippy-wrapper';
-
-@Component({...})
-export class DemoComponent implements OnInit {
-  tippyPropsWithString: NgxTippyProps = {
-    content: '<strong>Bolded content</strong>'
-  };
+<div #tippyTemplate>
+  <h4>Caption</h2>
+  <p>Some content</p>
+  <button (click)="...">Action</button>
   ...
-}
+</div>
 ```
 
-- **Element or Element.innerHTML**
+Pass element or element.innerHTML
 
 ```html
 <div>
-  <span ngxTippy [tippyProps]="tippyContent">
+  <span ngxTippy [tippyProps]="tippyContent" tippyName="content">
     Tippy with HTML content
   </span>
 
   <!-- If passing element itself -->
   <div #tippyTemplate>
-    <span>Some content</span>
-    <h2>Caption</h2>
-    <button>Action</button>
+    <h4>Caption</h2>
+    <p>Some content</p>
+    <button (click)="...">Action</button>
     ...
   </div>
 
   <!-- If passing element innerHTML -->
   <div #tippyTemplate style="display: none;">
-    <span>Some content</span>
-    <h2>Caption</h2>
-    <button>Action</button>
+    <h4>Caption</h2>
+    <p>Some content</p>
     ...
   </div>
 </div>
@@ -296,17 +285,27 @@ export class DemoComponent implements OnInit {
 import { NgxTippyProps } from 'ngx-tippy-wrapper';
 
 @Component({...})
-export class DemoComponent implements OnInit {
-  @ViewChild('tippyTemplate', { static: true }) tippyTemplate: ElementRef;
+export class DemoComponent implements AfterViewInit {
+  @ViewChild('tippyTemplate', { read: ElementRef, static: true }) tippyTemplate: ElementRef;
 
   tippyContent: NgxTippyProps = {...};
 
-  ngOnInit() {
+  constructor(private ngxTippyService: NgxTippyService) {}
+
+  ngAfterViewInit() {
+    this.setContentForTooltip();
+  }
+
+  setContentForTooltip() {
+    const template = this.tippyTemplate.nativeElement;
+
     // Pass element itself
-    this.tippyContent.content = this.tippyTemplate.nativeElement;
+    this.ngxTippyService.setTippyContent('content', template);
+
+    // or
 
     // Pass element innerHTML
-    this.tippyContent.content = this.tippyTemplate.nativeElement.innerHTML;
+    this.ngxTippyService.setTippyContent('content', template.innerHTML);
   }
   ...
 }
