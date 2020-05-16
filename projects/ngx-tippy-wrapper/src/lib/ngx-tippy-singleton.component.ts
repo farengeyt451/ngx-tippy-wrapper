@@ -26,7 +26,7 @@ export class NgxTippySingletonComponent implements OnInit {
 }
 
 // initTippySingleton() {
-//   const instancesForSingleton = Array.from(this.ngxTippyService.getAllTippyInstances().values()).filter(
+//   const instancesForSingleton = Array.from(this.ngxTippyService.getInstances().values()).filter(
 //     (tippyInstance: NgxTippyInstance) => {
 //       return (tippyInstance.reference as HTMLElement).dataset.tippySingleton;
 //     }

@@ -1,31 +1,36 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import tippy, { hideAll } from 'tippy.js';
-import { NgxTippyInstance, NgxTippyProps, NgxTippyContent } from './ngx-tippy.interfaces';
+import {
+  NgxTippyInstance,
+  NgxTippyProps,
+  NgxTippyContent,
+  NgxHideAllOptions,
+  InstancesChanges,
+  InstanceChangeReason,
+} from './ngx-tippy.interfaces';
 
 @Injectable()
 export class NgxTippyService {
   private tippyInstances: Map<string, NgxTippyInstance> = new Map();
-  private tippyInstances$ = new BehaviorSubject(new Map());
+  private tippyInstances$ = new Subject<InstancesChanges>();
   private renderer: Renderer2;
 
   constructor(rendererFactory: RendererFactory2) {
-    this.renderer = rendererFactory.createRenderer(null, null);
+    this.createRenderer(rendererFactory);
   }
 
-  /**
-   * Working with storage
-   */
+  /** Working with storage */
 
   /**
    * Write tippy instances to storage
    *
    * @param name { string } name of tippy instance
-   * @param state { state } tippy instance
+   * @param state { NgxTippyInstance } tippy instance
    */
-  setTippyInstances(name: string, state: NgxTippyInstance) {
+  setInstance(name: string, state: NgxTippyInstance) {
     this.tippyInstances.set(name, state);
-    this.emitInstancesChange();
+    this.emitInstancesChange('setInstance', name);
   }
 
   /**
@@ -34,30 +39,30 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    * @returns { NgxTippyInstance | null } specific tippy instance or null
    */
-  getTippyInstance(name: string): NgxTippyInstance | null {
+  getInstance(name: string): NgxTippyInstance | null {
     return this.tippyInstances.has(name) ? this.tippyInstances.get(name) : null;
   }
 
   /**
    * Get all tippy instances from storage
    *
-   * @returns { Map<string, NgxTippyInstance> } all tippy instances
+   * @returns { Map<string, NgxTippyInstance> | null } all tippy instances or null
    */
-  getAllTippyInstances(): Map<string, NgxTippyInstance> {
-    return this.tippyInstances;
+  getInstances(): Map<string, NgxTippyInstance> | null {
+    return this.tippyInstances.size ? this.tippyInstances : null;
   }
 
-  /**
-   * Working with tippy methods
-   */
+  /** Working with tippy instance methods */
 
   /**
    * Programmatically show the tippy
    *
    * @param name { string } name of tippy instance
    */
-  showTippy(name: string) {
-    this.tippyInstances.has(name) && this.tippyInstances.get(name).show();
+  show(name: string) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).show();
+    this.emitInstancesChange('show', name);
   }
 
   /**
@@ -65,8 +70,23 @@ export class NgxTippyService {
    *
    * @param name { string } name of tippy instance
    */
-  hideTippy(name: string) {
-    this.tippyInstances.has(name) && this.tippyInstances.get(name).hide();
+  hide(name: string) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).hide();
+    this.emitInstancesChange('hide', name);
+  }
+
+  /**
+   * Will hide the tippy only if the cursor is outside of the tippy's interactive region
+   * This allows you to programmatically hook into interactive behavior upon a mouseleave event if implementing custom event listeners
+   *
+   * @param name { string } name of tippy instance
+   * @param name { mouseEvent } pass the mouse event object in from your event listener
+   */
+  hideWithInteractivity(name: string, mouseEvent: MouseEvent) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).hideWithInteractivity(mouseEvent);
+    this.emitInstancesChange('hideWithInteractivity', name);
   }
 
   /**
@@ -74,8 +94,10 @@ export class NgxTippyService {
    *
    * @param name { string } name of tippy instance
    */
-  disableTippy(name: string) {
-    this.tippyInstances.has(name) && this.tippyInstances.get(name).disable();
+  disable(name: string) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).disable();
+    this.emitInstancesChange('disable', name);
   }
 
   /**
@@ -83,8 +105,10 @@ export class NgxTippyService {
    *
    * @param name { string } name of tippy instance
    */
-  enableTippy(name: string) {
-    this.tippyInstances.has(name) && this.tippyInstances.get(name).enable();
+  enable(name: string) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).enable();
+    this.emitInstancesChange('enable', name);
   }
 
   /**
@@ -93,8 +117,10 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    * @param tippyProps { NgxTippyProps } new props
    */
-  setTippyProps(name: string, tippyProps: NgxTippyProps) {
-    this.tippyInstances.has(name) && this.tippyInstances.get(name).setProps(tippyProps);
+  setProps(name: string, tippyProps: NgxTippyProps) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).setProps(tippyProps);
+    this.emitInstancesChange('setProps', name);
   }
 
   /**
@@ -103,22 +129,61 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    * @param tippyContent { NgxTippyContent } new content
    */
-  setTippyContent(name: string, tippyContent: NgxTippyContent) {
+  setContent(name: string, tippyContent: NgxTippyContent) {
     if (!this.tippyInstances.has(name)) return;
-    this.setTippyTemplateVisible(tippyContent);
+    this.setTemplateVisible(tippyContent);
     this.tippyInstances.get(name).setContent(tippyContent);
+    this.emitInstancesChange('setContent', name);
   }
 
   /**
-   * Destroy and clean up the tippy instance
+   * The element(s) that the trigger event listeners are added to
+   * Allows you to separate the tippy's positioning from its trigger source
+   *
+   * @param name { string } name of tippy instance
+   * @param triggerTarget { Element | Element[] } element(s) that the trigger tooltip
+   */
+  setTriggerTarget(name: string, triggerTarget: Element | Element[]) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).setProps({ triggerTarget });
+    this.emitInstancesChange('setTriggerTarget', name);
+  }
+
+  /**
+   * Unmount the tippy from the DOM
    *
    * @param name { string } name of tippy instance
    */
-  destroyTippyInstance(name: string) {
-    this.tippyInstances.has(name) && this.tippyInstances.get(name).destroy();
-    this.tippyInstances.delete(name);
-    this.emitInstancesChange();
+  unmount(name: string) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).unmount();
+    this.emitInstancesChange('unmount', name);
   }
+
+  /**
+   * Clears the instances delay timeouts
+   *
+   * @param name { string } name of tippy instance
+   */
+  clearDelayTimeouts(name: string) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).clearDelayTimeouts();
+    this.emitInstancesChange('clearDelayTimeouts', name);
+  }
+
+  /**
+   * Permanently destroy and clean up the tippy instance
+   *
+   * @param name { string } name of tippy instance
+   */
+  destroy(name: string) {
+    if (!this.tippyInstances.has(name)) return;
+    this.tippyInstances.get(name).destroy();
+    this.emitInstancesChange('destroy', name);
+    this.tippyInstances.delete(name);
+  }
+
+  /** Working with tippy static methods */
 
   /**
    * Set the default props for each new tippy instance
@@ -132,50 +197,49 @@ export class NgxTippyService {
   /**
    * Show all tippies
    */
-  showAllTippies() {
+  showAll() {
     this.tippyInstances.forEach((tippyInstance: NgxTippyInstance) => {
       tippyInstance.show();
     });
   }
 
   /**
-   * Hide all visible tippies
+   * Hide all tippies or hide all except a particular one
+   * Additional hide them with duration
    *
-   * @param hideImmediately { boolean } hide tippy without animation
+   * @param { NgxHideAllOptions } [options] - additional hiding options
    */
-  hideAllTippies(hideImmediately?: boolean) {
-    hideAll(hideImmediately ? { duration: 0 } : {});
-  }
+  hideAll(options?: NgxHideAllOptions) {
+    const exclude =
+      options && this.tippyInstances.has(options.excludeName) && this.tippyInstances.get(options.excludeName);
+    const duration = options && options.duration;
 
-  /**
-   * Hide all tippies except some, passed as array
-   *
-   * @param names { Array<string> } array of tippies, which do not need to hide
-   */
-  hideAllTippiesExcept(names: Array<string>) {
-    Array.from(this.tippyInstances).forEach((tippyInstance) => {
-      !names.includes(tippyInstance[0]) && tippyInstance[1].hide();
-    });
+    hideAll({ duration, exclude });
   }
 
   /**
    * Subscription to change of tippy instances
    *
-   * @returns { Observable<Map<string, NgxTippyInstance>> } observable of tippy instances change
+   * @returns { Observable<InstancesChanges> } observable of tippy instances change
    */
-  get tippyInstancesChanges(): Observable<Map<string, NgxTippyInstance>> {
+  get instancesChanges(): Observable<InstancesChanges> {
     return this.tippyInstances$.asObservable();
   }
 
   /**
    * Service methods
    */
-  private emitInstancesChange() {
-    this.tippyInstances$.next(this.tippyInstances);
+  private emitInstancesChange(reason: InstanceChangeReason, name: string) {
+    const instance = this.tippyInstances.get(name);
+    this.tippyInstances$.next({ name, reason, instance });
   }
 
-  private setTippyTemplateVisible(tippyContent: NgxTippyContent) {
+  private setTemplateVisible(tippyContent: NgxTippyContent) {
     if (typeof tippyContent === 'string') return;
     this.renderer.setStyle(tippyContent, 'display', 'block');
+  }
+
+  private createRenderer(rendererFactory: RendererFactory2) {
+    this.renderer = rendererFactory.createRenderer(null, null);
   }
 }

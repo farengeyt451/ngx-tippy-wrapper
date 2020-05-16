@@ -29,11 +29,15 @@ export class NgxTippyDirective implements OnInit {
     this.initTippy();
   }
 
+  /**
+   * Tooltip initialize
+   * Template can directly passed through ngxTippy selector
+   */
   initTippy() {
     const tippyTarget = this.tippyEl.nativeElement;
     const tippyTemplate = this.ngxTippy;
 
-    tippy(tippyTarget, { ...this.tippyProps, ...(tippyTemplate && { content: this.ngxTippy }) });
+    tippy(tippyTarget, { ...this.tippyProps, ...(tippyTemplate && { content: tippyTemplate }) });
     this.setTippyInstance(tippyTarget);
   }
 
@@ -54,7 +58,14 @@ export class NgxTippyDirective implements OnInit {
       });
   }
 
+  /**
+   * To manipulate tooltips, write all instances to storage
+   * `tippyName` used as unique key
+   * If `tippyName` does not provided - it will be generated using `tippyInstance.id`
+   *
+   * @param tippyInstance { NgxTippyInstance }
+   */
   writeInstancesToStorage(tippyInstance: NgxTippyInstance) {
-    this.ngxTippyService.setTippyInstances(this.tippyName || `tippy-${tippyInstance.id}`, tippyInstance);
+    this.ngxTippyService.setInstance(this.tippyName || `tippy-${tippyInstance.id}`, tippyInstance);
   }
 }

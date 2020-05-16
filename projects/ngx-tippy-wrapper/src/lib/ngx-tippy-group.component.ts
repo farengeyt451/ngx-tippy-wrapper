@@ -4,7 +4,7 @@ import { NgxTippyProps } from './ngx-tippy.interfaces';
 import tippy from 'tippy.js';
 
 /**
- * This component implements case - if need different tooltip content to many different elements, while only needing to initialize once with shared props
+ * This component implements case - different tooltip content to many different elements, while only needing to initialize once with shared props
  */
 @Component({
   selector: 'ngx-tippy-group',
