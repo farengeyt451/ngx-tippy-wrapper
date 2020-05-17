@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-lib": "ng build ngx-tippy-wrapper",
+    "build-lib": "ng build ngx-tippy-wrapper --prod",
     "npm-pack": "cd dist/ngx-tippy-wrapper && npm pack",
     "copy-license": "cp ./LICENSE dist/ngx-tippy-wrapper",
     "copy-readme": "cp ./README.md dist/ngx-tippy-wrapper",

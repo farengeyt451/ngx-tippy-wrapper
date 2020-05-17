@@ -10,7 +10,9 @@ import {
   InstanceChangeReason,
 } from './ngx-tippy.interfaces';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NgxTippyService {
   private tippyInstances: Map<string, NgxTippyInstance> = new Map();
   private tippyInstances$ = new Subject<InstancesChanges>();
