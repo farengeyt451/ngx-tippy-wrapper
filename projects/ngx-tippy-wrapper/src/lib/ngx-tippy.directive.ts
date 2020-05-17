@@ -31,7 +31,7 @@ export class NgxTippyDirective implements OnInit {
 
   /**
    * Tooltip initialize
-   * Template can directly passed through ngxTippy selector
+   * Template can be directly passed through `ngxTippy` selector
    */
   initTippy() {
     const tippyTarget = this.tippyEl.nativeElement;

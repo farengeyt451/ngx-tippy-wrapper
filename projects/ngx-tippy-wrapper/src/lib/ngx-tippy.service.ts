@@ -20,7 +20,9 @@ export class NgxTippyService {
     this.createRenderer(rendererFactory);
   }
 
-  /** Working with storage */
+  /**
+   * Working with storage
+   */
 
   /**
    * Write tippy instances to storage
@@ -52,7 +54,9 @@ export class NgxTippyService {
     return this.tippyInstances.size ? this.tippyInstances : null;
   }
 
-  /** Working with tippy instance methods */
+  /**
+   * Working with tippy instance methods
+   */
 
   /**
    * Programmatically show the tippy
@@ -61,6 +65,7 @@ export class NgxTippyService {
    */
   show(name: string) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).show();
     this.emitInstancesChange('show', name);
   }
@@ -72,6 +77,7 @@ export class NgxTippyService {
    */
   hide(name: string) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).hide();
     this.emitInstancesChange('hide', name);
   }
@@ -85,6 +91,7 @@ export class NgxTippyService {
    */
   hideWithInteractivity(name: string, mouseEvent: MouseEvent) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).hideWithInteractivity(mouseEvent);
     this.emitInstancesChange('hideWithInteractivity', name);
   }
@@ -96,6 +103,7 @@ export class NgxTippyService {
    */
   disable(name: string) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).disable();
     this.emitInstancesChange('disable', name);
   }
@@ -107,6 +115,7 @@ export class NgxTippyService {
    */
   enable(name: string) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).enable();
     this.emitInstancesChange('enable', name);
   }
@@ -119,6 +128,7 @@ export class NgxTippyService {
    */
   setProps(name: string, tippyProps: NgxTippyProps) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).setProps(tippyProps);
     this.emitInstancesChange('setProps', name);
   }
@@ -131,6 +141,7 @@ export class NgxTippyService {
    */
   setContent(name: string, tippyContent: NgxTippyContent) {
     if (!this.tippyInstances.has(name)) return;
+
     this.setTemplateVisible(tippyContent);
     this.tippyInstances.get(name).setContent(tippyContent);
     this.emitInstancesChange('setContent', name);
@@ -145,6 +156,7 @@ export class NgxTippyService {
    */
   setTriggerTarget(name: string, triggerTarget: Element | Element[]) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).setProps({ triggerTarget });
     this.emitInstancesChange('setTriggerTarget', name);
   }
@@ -156,6 +168,7 @@ export class NgxTippyService {
    */
   unmount(name: string) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).unmount();
     this.emitInstancesChange('unmount', name);
   }
@@ -167,6 +180,7 @@ export class NgxTippyService {
    */
   clearDelayTimeouts(name: string) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).clearDelayTimeouts();
     this.emitInstancesChange('clearDelayTimeouts', name);
   }
@@ -178,6 +192,7 @@ export class NgxTippyService {
    */
   destroy(name: string) {
     if (!this.tippyInstances.has(name)) return;
+
     this.tippyInstances.get(name).destroy();
     this.emitInstancesChange('destroy', name);
     this.tippyInstances.delete(name);
@@ -229,13 +244,16 @@ export class NgxTippyService {
   /**
    * Service methods
    */
+
   private emitInstancesChange(reason: InstanceChangeReason, name: string) {
     const instance = this.tippyInstances.get(name);
+
     this.tippyInstances$.next({ name, reason, instance });
   }
 
   private setTemplateVisible(tippyContent: NgxTippyContent) {
     if (typeof tippyContent === 'string') return;
+
     this.renderer.setStyle(tippyContent, 'display', 'block');
   }
 

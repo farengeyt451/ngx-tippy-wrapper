@@ -420,7 +420,7 @@ export class DemoComponent implements OnInit, OnDestroy {
 
 ## Grouped tooltips
 
-If you want to give different tooltip content to many different elements, while only needing to initialize once with shared props:
+If you want to give different tooltip content to many different elements, while only needing to initialize once with shared props use `ngx-tippy-group` component:
 
 <!-- prettier-ignore-start -->
 ```html
@@ -473,9 +473,9 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-## Multiple tippys on a single element
+## Multiple tooltips on a single element
 
-For using multiple tippys on a single element - nest elements with applied directive:
+For using multiple tippys on a single element - nest elements with applied `ngxTippy` directive:
 
 <!-- prettier-ignore-start -->
 ```html
@@ -500,24 +500,56 @@ For using multiple tippys on a single element - nest elements with applied direc
         placement: 'right'
       }"
     >
-      Tippy root element
+      Element with tooltip
     </div>
   </div>
 </div>
 ```
 <!-- prettier-ignore-end -->
 
-## [Singleton](https://atomiks.github.io/tippyjs/addons/#singleton)
+## Singleton
 
-For singleton using - put in tippys inside ngx-tippy-singleton component:
+For [singleton](https://atomiks.github.io/tippyjs/v6/addons/) using - put in tippys inside `ngx-tippy-singleton` component:
 
 ```html
 <ngx-tippy-singleton [tippyProps]="{ ... }">
-  <button ngxTippy data-tippy-content="First tooltip">
-    Button
+  <button ngxTippy data-tippy-content="first tooltip">
+    Element with tooltip
   </button>
-  <button ngxTippy data-tippy-content="Second tooltip">
-    Button
+
+  <button ngxTippy data-tippy-content="second tooltip">
+    Element with tooltip
   </button>
 </ngx-tippy-singleton>
+```
+
+To overrides general props by the individual tippy props:
+
+```html
+<ngx-tippy-singleton [tippyProps]="{ ... }">
+  <button ngxTippy data-tippy-content="first tooltip" data-tippy-placement="bottom">
+    Element with tooltip
+  </button>
+
+  <button ngxTippy data-tippy-content="second tooltip" data-tippy-arrow="false">
+    Element with tooltip
+  </button>
+</ngx-tippy-singleton>
+```
+
+---
+
+```ts
+...
+import { NgxSingletonProps } from 'ngx-tippy-wrapper';
+
+@Component({ ... })
+export class DemoComponent implements OnInit {
+
+  tippyProps: NgxSingletonProps = {
+    ...,
+    overrides: ['arrow', 'placement'],
+    };
+  ...
+}
 ```

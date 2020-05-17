@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, ViewChild, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import { NgxTippyProps } from './ngx-tippy.interfaces';
 import tippy from 'tippy.js';
+import { NgxTippyProps } from './ngx-tippy.interfaces';
 
 /**
  * This component implements case - different tooltip content to many different elements, while only needing to initialize once with shared props
@@ -14,7 +14,7 @@ import tippy from 'tippy.js';
     </div>
   `,
 })
-export class NgxTippyGroup implements AfterViewInit {
+export class NgxTippyGroupComponent implements AfterViewInit {
   @Input() tippyProps?: NgxTippyProps;
   @ViewChild('contentWrapper', { read: ElementRef, static: false }) contentWrapper: ElementRef;
 

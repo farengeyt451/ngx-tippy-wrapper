@@ -3,6 +3,7 @@ import {
   NgxTippyProps,
   NgxHideAllOptions,
   InstancesChanges,
+  NgxSingletonProps,
 } from '../../projects/ngx-tippy-wrapper/src/lib/ngx-tippy.interfaces';
 import { NgxTippyService } from '../../projects/ngx-tippy-wrapper/src/lib/ngx-tippy.service';
 import {
@@ -48,7 +49,20 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     // hideOnClick: false,
     plugins: [animateFill, followCursor, inlinePositioning],
     theme: 'light',
-    trigger: 'manual',
+    trigger: 'click',
+  };
+
+  singleton: NgxSingletonProps = {
+    animation: 'shift-away',
+    arrow: roundArrow,
+    interactive: true,
+    allowHTML: true,
+    interactiveBorder: 30,
+    interactiveDebounce: 75,
+    plugins: [animateFill, followCursor, inlinePositioning],
+    theme: 'light',
+    moveTransition: 'transform 0.2s ease-out',
+    overrides: ['arrow', 'placement'],
   };
 
   constructor(private ngxTippyService: NgxTippyService) {}
