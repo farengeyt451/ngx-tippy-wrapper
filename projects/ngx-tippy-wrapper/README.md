@@ -18,7 +18,7 @@ npm i ngx-tippy-wrapper --save
 
 ## Importing
 
-Import NgxTippyModule:
+Import `NgxTippyModule`:
 
 ```ts
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
@@ -58,10 +58,10 @@ or angular.json:
 
 ### Basic usage
 
-Apply directive for element and pass content through attribute:
+Apply `ngxTippy` directive for element and pass content through `data-tippy-content` attribute:
 
 ```html
-<button ngxTippy data-tippy-content="tooltip">
+<button ngxTippy data-tippy-content="Tooltip content">
   Element with tooltip
 </button>
 ```
@@ -72,20 +72,23 @@ You can apply props with `tippyProps` binding
 
 In template:
 
+<!-- prettier-ignore-start -->
 ```html
-<span
+<button
   ngxTippy
-  data-tippy-content="tooltip with props"
+  data-tippy-content="Tooltip content"
+  class="t-demo__btn"
   [tippyProps]="{
     arrow: false,
     placement: 'bottom'
   }"
 >
   Element with tooltip
-</span>
+</button>
 ```
+<!-- prettier-ignore-end -->
 
-Or pass props from component:
+Or pass `props` from component:
 
 ```html
 <span ngxTippy data-tippy-content="Tooltip content" [tippyProps]="tippyProps">
@@ -111,17 +114,17 @@ export class DemoComponent implements OnInit {
 
 ### Implemented props
 
-| Prop name      | Prop type     | Example                                                                            |
-| -------------- | ------------- | ---------------------------------------------------------------------------------- |
-| tippyProps     | NgxTippyProps | [tippyProps]="{ arrow: false, placement: 'bottom' }"                               |
-| tippyName      | string        | tippyName="awesomeName"                                                            |
-| tippyClassName | string        | tippyClassName="new-class" <br> _or_ <br> tippyClassName="new-class another-class" |
+| Prop name        | Type          | Example                                                                            |
+| ---------------- | ------------- | ---------------------------------------------------------------------------------- |
+| `tippyProps`     | NgxTippyProps | [tippyProps]="{ arrow: false, placement: 'bottom' }"                               |
+| `tippyName`      | string        | tippyName="awesomeName"                                                            |
+| `tippyClassName` | string        | tippyClassName="new-class" <br> _or_ <br> tippyClassName="new-class another-class" |
 
-**tippyProps** - [list of all props](https://atomiks.github.io/tippyjs/v6/all-props/)
+`tippyProps` - [list of all props](https://atomiks.github.io/tippyjs/v6/all-props/)
 
-**tippyName** - name for tippy instance, required for accessing and control specific instance
+`tippyName` - name for tippy instance, required for accessing and control specific instance
 
-**tippyClassName** - add custom class to the `tippy-box` element, support multiple classes passed as words separated by space
+`tippyClassName` - add custom class to the `tippy-box` element, support multiple classes passed as words separated by space
 
 ## Applying content
 
@@ -135,7 +138,7 @@ export class DemoComponent implements OnInit {
 </button>
 ```
 
-This attribute can be binded:
+This `attribute` can be binded:
 
 ```html
 <button ngxTippy [attr.data-tippy-content]="bindedContent">
@@ -156,7 +159,7 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-_Content binding_ works during component initialization, if new content should be set dynamic or reset again use [setContent](#implemented-methods) method
+_Content binding_ works during component _initialization_, if new content should be set dynamic or reset again - use `setContent()` method
 
 2. **`content` prop** :
 
@@ -201,7 +204,7 @@ export class DemoComponent implements OnInit, AfterViewInit {
   }
 
   setContentForTooltip() {
-    this.ngxTippyService.setContent('content', this.bindedContent);
+    this.tippyService.setContent('content', this.bindedContent);
   }
 }
 ```
@@ -238,30 +241,41 @@ export class DemoComponent implements OnInit {
 
 - Pass template reference directly
 
+<!-- prettier-ignore-start -->
 ```html
-<span [ngxTippy]="tippyTemplate" [tippyProps]="tippyContent" tippyName="content">
-  Tippy with HTML content
-</span>
+<button
+  [ngxTippy]="tippyTemplate"
+  tippyName="content"
+  [tippyProps]="tippyContent"
+>
+  Element with tooltip
+</button>
 
 <div #tippyTemplate>
-  <h4>Caption</h2>
+  <h4>Caption</h4>
   <p>Some content</p>
   <button (click)="...">Action</button>
   ...
 </div>
 ```
+<!-- prettier-ignore-end -->
 
 - Pass `element` or `element.innerHTML`
 
+<!-- prettier-ignore-start -->
 ```html
 <div>
-  <span ngxTippy [tippyProps]="tippyContent" tippyName="content">
-    Tippy with HTML content
-  </span>
+  <button
+    ngxTippy
+    tippyName="content"
+    [tippyProps]="tippyProps"
+  >
+    Element with tooltip
+  </button>
 
   <!-- If passing element itself -->
   <div #tippyTemplate>
-    <h4>Caption</h2>
+    <h4>Caption</h4>
     <p>Some content</p>
     <button (click)="...">Action</button>
     ...
@@ -269,12 +283,13 @@ export class DemoComponent implements OnInit {
 
   <!-- If passing element innerHTML -->
   <div #tippyTemplate style="display: none;">
-    <h4>Caption</h2>
+    <h4>Caption</h4>
     <p>Some content</p>
     ...
   </div>
 </div>
 ```
+<!-- prettier-ignore-end -->
 
 ---
 
@@ -325,7 +340,7 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-Through service you can use all methods described [here](https://atomiks.github.io/tippyjs/v6/getting-started/) and some additional:
+Through service you can use all methods described [here](https://atomiks.github.io/tippyjs/v6/methods/) and some additional
 
 ### Implemented methods
 
@@ -369,6 +384,12 @@ Through service you can use all methods described [here](https://atomiks.github.
 It provides information in format:
 
 ```ts
+{
+  name: string;
+  reason: InstanceChangeReason;
+  instance: NgxTippyInstance;
+}
+
 type InstanceChangeReason =
   | 'setInstance'
   | 'show'
@@ -382,12 +403,6 @@ type InstanceChangeReason =
   | 'unmount'
   | 'clearDelayTimeouts'
   | 'destroy';
-
-{
-  name: string;
-  reason: InstanceChangeReason;
-  instance: NgxTippyInstance;
-}
 ```
 
 ```ts
@@ -420,28 +435,37 @@ export class DemoComponent implements OnInit, OnDestroy {
 
 ## Grouped tooltips
 
-If you want to give different Tooltip content to many different elements, while only needing to initialize once with shared props use `ngx-tippy-group` component:
+If you want to give different tooltip content to many different elements, while only needing to initialize once with shared props use `ngx-tippy-group` component:
 
 <!-- prettier-ignore-start -->
 ```html
 <ngx-tippy-group [tippyProps]="tippyProps">
 
-  <button data-tippy-content="Tooltip content">Element with tooltip</button>
+  <button data-grouped data-tippy-content="Tooltip content">Element with tooltip</button>
 
-  <button data-tippy-content="Tooltip content">Element with tooltip</button>
+  <button data-grouped data-tippy-content="Tooltip content">Element with tooltip</button>
 
 </ngx-tippy-group>
 ```
 <!-- prettier-ignore-end -->
+
+_For each grouped tooltip you should pass `data-grouped` attribute_
 
 Also content can be binded and shared props overridden (see [customization](https://atomiks.github.io/tippyjs/v6/customization/)):
 
 <!-- prettier-ignore-start -->
 ```html
 <ngx-tippy-group [tippyProps]="tippyProps">
-  <button [attr.data-tippy-content]="bindedContent">Element with tooltip</button>
 
   <button
+    data-grouped
+    [attr.data-tippy-content]="bindedContent"
+  >
+    Element with tooltip
+  </button>
+
+  <button
+    data-grouped
     [attr.data-tippy-content]="bindedHTMLContent"
     data-tippy-allowHTML="true"
   >
@@ -449,11 +473,13 @@ Also content can be binded and shared props overridden (see [customization](http
   </button>
 
   <button
+    data-grouped
     data-tippy-content="Tooltip content"
     data-tippy-arrow="false"
   >
     Element with tooltip
   </button>
+
 </ngx-tippy-group>
 ```
 <!-- prettier-ignore-end -->
@@ -475,33 +501,28 @@ export class DemoComponent implements OnInit {
 
 ## Multiple tooltips on a single element
 
-For using multiple tippys on a single element - nest elements with applied `ngxTippy` directive:
+For using multiple tooltips on a single element - nest elements with applied `ngxTippy` directive:
 
 <!-- prettier-ignore-start -->
 ```html
 <div
   ngxTippy
-  data-tippy-content="First tooltip"
-  [tippyProps]="{
-    placement: 'top'
-  }"
+  data-tippy-content="First tooltip content"
+  [tippyProps]="{ ... }"
 >
   <div
     ngxTippy
-    data-tippy-content="Second tooltip"
-    [tippyProps]="{
-      placement: 'bottom'
-    }"
+    data-tippy-content="Second tooltip content"
+    [tippyProps]="{ ... }"
   >
-    <div
+    <button
+      class="t-demo__btn"
       ngxTippy
-      data-tippy-content="Third tooltip"
-      [tippyProps]="{
-        placement: 'right'
-      }"
+      data-tippy-content="Third tooltip content"
+      [tippyProps]="{ ... }"
     >
-      Element with tooltip
-    </div>
+      Element with tooltips
+    </button>
   </div>
 </div>
 ```
@@ -509,33 +530,55 @@ For using multiple tippys on a single element - nest elements with applied `ngxT
 
 ## Singleton
 
-For [singleton](https://atomiks.github.io/tippyjs/v6/addons/) using - put in tippys inside `ngx-tippy-singleton` component:
+For [singleton](https://atomiks.github.io/tippyjs/v6/addons/) using - put in tooltips inside `ngx-tippy-singleton` component:
 
+<!-- prettier-ignore-start -->
 ```html
 <ngx-tippy-singleton [tippyProps]="{ ... }">
-  <button ngxTippy data-tippy-content="first tooltip">
+
+  <button
+    data-singleton
+    data-tippy-content="First tooltip content"
+  >
     Element with tooltip
   </button>
 
-  <button ngxTippy data-tippy-content="second tooltip">
+  <button
+    data-singleton
+    data-tippy-content="First tooltip content"
+  >
     Element with tooltip
   </button>
+
 </ngx-tippy-singleton>
 ```
+<!-- prettier-ignore-end-->
 
-To overrides general props by the individual tippy props:
+To overrides general `tippyProps` by the individual tippy `props`:
 
+<!-- prettier-ignore-start -->
 ```html
 <ngx-tippy-singleton [tippyProps]="{ ... }">
-  <button ngxTippy data-tippy-content="first tooltip" data-tippy-placement="bottom">
+
+  <button
+    data-singleton
+    data-tippy-content="First tooltip content"
+    data-tippy-placement="bottom"
+  >
     Element with tooltip
   </button>
 
-  <button ngxTippy data-tippy-content="second tooltip" data-tippy-arrow="false">
+  <button
+    data-singleton
+    data-tippy-content="First tooltip content"
+    data-tippy-arrow="false"
+  >
     Element with tooltip
   </button>
+
 </ngx-tippy-singleton>
 ```
+<!-- prettier-ignore-end -->
 
 ---
 
@@ -549,7 +592,7 @@ export class DemoComponent implements OnInit {
   tippyProps: NgxSingletonProps = {
     ...,
     overrides: ['arrow', 'placement'],
-    };
+  };
   ...
 }
 ```
