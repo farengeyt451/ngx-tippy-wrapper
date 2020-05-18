@@ -75,7 +75,7 @@ In template:
 ```html
 <span
   ngxTippy
-  data-tippy-content="Tooltip with props"
+  data-tippy-content="tooltip with props"
   [tippyProps]="{
     arrow: false,
     placement: 'bottom'
@@ -88,7 +88,7 @@ In template:
 Or pass props from component:
 
 ```html
-<span ngxTippy data-tippy-content="tooltip text" [tippyProps]="tippyProps">
+<span ngxTippy data-tippy-content="Tooltip content" [tippyProps]="tippyProps">
   Element with tooltip
 </span>
 ```
@@ -130,7 +130,7 @@ export class DemoComponent implements OnInit {
 1. **`data` attribute**:
 
 ```html
-<button ngxTippy data-tippy-content="tooltip content">
+<button ngxTippy data-tippy-content="Tooltip content">
   Element with tooltip
 </button>
 ```
@@ -229,7 +229,7 @@ export class DemoComponent implements OnInit {
   }
 
   setContentForTooltip() {
-    this.tippyProps.content = 'initial tooltip content'
+    this.tippyProps.content = 'Initial tooltip content'
   }
 }
 ```
@@ -420,15 +420,15 @@ export class DemoComponent implements OnInit, OnDestroy {
 
 ## Grouped tooltips
 
-If you want to give different tooltip content to many different elements, while only needing to initialize once with shared props use `ngx-tippy-group` component:
+If you want to give different Tooltip content to many different elements, while only needing to initialize once with shared props use `ngx-tippy-group` component:
 
 <!-- prettier-ignore-start -->
 ```html
 <ngx-tippy-group [tippyProps]="tippyProps">
 
-  <button data-tippy-content="some tooltip text">Element with tooltip</button>
+  <button data-tippy-content="some Tooltip content">Element with tooltip</button>
 
-  <button data-tippy-content="another tooltip text">Element with tooltip</button>
+  <button data-tippy-content="another Tooltip content">Element with tooltip</button>
 
 </ngx-tippy-group>
 ```
@@ -449,7 +449,7 @@ Also content can be binded and shared props overrided (see [customization](https
   </button>
 
   <button
-    data-tippy-content="another tooltip text"
+    data-tippy-content="another Tooltip content"
     data-tippy-arrow="false"
   >
     Element with tooltip

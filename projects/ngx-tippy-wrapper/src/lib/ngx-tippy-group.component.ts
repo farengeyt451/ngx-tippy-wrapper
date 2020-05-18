@@ -4,7 +4,7 @@ import tippy from 'tippy.js';
 import { NgxTippyProps } from './ngx-tippy.interfaces';
 
 /**
- * This component implements case - different tooltip content to many different elements, while only needing to initialize once with shared props
+ * This component implements case - different Tooltip content to many different elements, while only needing to initialize once with shared props
  */
 @Component({
   selector: 'ngx-tippy-group',
@@ -26,7 +26,9 @@ export class NgxTippyGroupComponent implements AfterViewInit {
   }
 
   setTooltips() {
-    const tooltips: HTMLElement[] = Array.from(this.contentWrapper.nativeElement.childNodes);
+    const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
+    const tooltips: HTMLElement[] = Array.from(contentWrapperNativeEl.querySelectorAll('[data-grouped]'));
+
     this.initTippy(tooltips);
   }
 

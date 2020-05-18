@@ -26,7 +26,9 @@ export class NgxTippySingletonComponent implements AfterViewInit {
   }
 
   setTooltips() {
-    const tooltips: HTMLElement[] = Array.from(this.contentWrapper.nativeElement.childNodes);
+    const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
+    const tooltips: HTMLElement[] = Array.from(contentWrapperNativeEl.querySelectorAll('[data-grouped]'));
+
     this.initTippy(tooltips);
   }
 
