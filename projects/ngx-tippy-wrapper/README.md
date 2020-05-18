@@ -426,15 +426,15 @@ If you want to give different Tooltip content to many different elements, while 
 ```html
 <ngx-tippy-group [tippyProps]="tippyProps">
 
-  <button data-tippy-content="some Tooltip content">Element with tooltip</button>
+  <button data-tippy-content="Tooltip content">Element with tooltip</button>
 
-  <button data-tippy-content="another Tooltip content">Element with tooltip</button>
+  <button data-tippy-content="Tooltip content">Element with tooltip</button>
 
 </ngx-tippy-group>
 ```
 <!-- prettier-ignore-end -->
 
-Also content can be binded and shared props overrided (see [customization](https://atomiks.github.io/tippyjs/v6/customization/)):
+Also content can be binded and shared props overridden (see [customization](https://atomiks.github.io/tippyjs/v6/customization/)):
 
 <!-- prettier-ignore-start -->
 ```html
@@ -449,7 +449,7 @@ Also content can be binded and shared props overrided (see [customization](https
   </button>
 
   <button
-    data-tippy-content="another Tooltip content"
+    data-tippy-content="Tooltip content"
     data-tippy-arrow="false"
   >
     Element with tooltip

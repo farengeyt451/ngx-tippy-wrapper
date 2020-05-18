@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { NgxTippyProps, InstancesChanges } from 'ngx-tippy-wrapper';
+import { NgxTippyProps, InstancesChanges, NgxSingletonProps } from 'ngx-tippy-wrapper';
 import { NgxTippyService } from 'ngx-tippy-wrapper';
 import { Subscription } from 'rxjs';
 
@@ -14,22 +14,23 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   title = 'ngx-tippy-demo';
   bindedContent: string = 'Binded tooltip content';
+
   private instancesChanges$: Subscription;
 
-  tippyPropsEx3: NgxTippyProps = {
-    arrow: false,
-    placement: 'bottom',
+  tippyProps: NgxTippyProps = {
+    arrow: true,
+    theme: 'light',
   };
 
-  tippyPropsEx8: NgxTippyProps = {
-    placement: 'bottom',
-  };
+  tippyPropsEx3: NgxTippyProps = { ...this.tippyProps, arrow: false, placement: 'bottom' };
 
-  tippyPropsEx9: NgxTippyProps = {
-    allowHTML: true,
-    interactive: true,
-    interactiveBorder: 50,
-  };
+  tippyPropsEx8: NgxTippyProps = { ...this.tippyProps, placement: 'bottom' };
+
+  tippyPropsEx9: NgxTippyProps = { ...this.tippyProps, allowHTML: true, interactive: true, interactiveBorder: 50 };
+
+  tippyPropsEx10: NgxTippyProps = this.tippyPropsEx9;
+
+  tippyPropsEx11: NgxTippyProps = this.tippyPropsEx9;
 
   instanceEx12: NgxTippyProps = {
     allowHTML: true,
@@ -41,6 +42,20 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     theme: 'light',
     trigger: 'manual',
   };
+
+  tippyPropsEx13: NgxTippyProps = this.tippyPropsEx9;
+
+  instanceEx15: NgxSingletonProps = {
+    allowHTML: true,
+    animation: 'shift-away',
+    interactive: true,
+    interactiveBorder: 30,
+    interactiveDebounce: 75,
+    moveTransition: 'transform 0.2s ease-out',
+    theme: 'light',
+  };
+
+  instanceEx16: NgxSingletonProps = { ...this.instanceEx15, overrides: ['arrow', 'placement'] };
 
   constructor(private tippyService: NgxTippyService) {}
 
@@ -83,7 +98,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
     setTimeout(() => {
       this.tippyService.setContent('instance-12', 'New tooltip content');
-    }, 2000);
+    }, 4000);
 
     setTimeout(() => {
       this.tippyService.setContent('instance-12', 'Another new content and props');
@@ -91,21 +106,21 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         theme: 'material',
         arrow: false,
       });
-    }, 4000);
-
-    setTimeout(() => {
-      this.tippyService.hide('instance-12');
     }, 6000);
 
     setTimeout(() => {
+      this.tippyService.hide('instance-12');
+    }, 8000);
+
+    setTimeout(() => {
       this.tippyService.destroy('instance-12');
-    }, 7000);
+    }, 10000);
   }
 
   subToInstancesChanges() {
     this.instancesChanges$ = this.tippyService.instancesChanges.subscribe((changes: InstancesChanges) => {
       if (changes.name === 'instance-12') {
-        console.log('log: AppComponent -> subToInstancesChanges -> changes', changes);
+        console.log('subToInstancesChanges -> changes', changes);
       }
     });
   }
