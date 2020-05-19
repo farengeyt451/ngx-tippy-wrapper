@@ -48,7 +48,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   instanceEx15: NgxSingletonProps = {
     allowHTML: true,
     animation: 'shift-away',
-    interactive: true,
     interactiveBorder: 30,
     interactiveDebounce: 75,
     moveTransition: 'transform 0.2s ease-out',

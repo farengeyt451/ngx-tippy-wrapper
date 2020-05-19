@@ -121,14 +121,16 @@
       Applying content passing <span class="t-demo__highlighted">template reference</span> directly
     </p>
 
-    <button
-      class="t-demo__btn"
-      [ngxTippy]="tippyTemplate"
-      tippyName="content-9"
-      [tippyProps]="tippyPropsEx9"
-    >
-      Element with tooltip
-    </button>
+    <div>
+      <button
+        class="t-demo__btn"
+        [ngxTippy]="tippyTemplate"
+        tippyName="content-9"
+        [tippyProps]="tippyPropsEx9"
+      >
+        Element with tooltip 9
+      </button>
+    </div>
 
     <div #tippyTemplate>
       <h4>Caption</h4>
@@ -186,14 +188,16 @@
       Manual control and event subscribe
     </p>
 
-    <button
-      class="t-demo__btn"
-      ngxTippy
-      tippyName="instance-12"
-      [tippyProps]="instanceEx12"
-    >
-      Element with tooltip
-    </button>
+    <div>
+      <button
+        class="t-demo__btn"
+        ngxTippy
+        tippyName="instance-12"
+        [tippyProps]="instanceEx12"
+      >
+        Element with tooltip 12
+      </button>
+    </div>
 
     <h2 class="t-demo__heading">Grouped tooltips</h2>
 
