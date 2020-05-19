@@ -596,3 +596,5 @@ export class DemoComponent implements OnInit {
   ...
 }
 ```
+
+[Documentation for v1.0.1](./README-v1.01.md)

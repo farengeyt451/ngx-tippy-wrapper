@@ -9,7 +9,7 @@
     "npm-pack": "cd dist/ngx-tippy-wrapper && npm pack",
     "copy-license": "cp ./LICENSE dist/ngx-tippy-wrapper",
     "copy-readme": "cp ./README.md dist/ngx-tippy-wrapper",
-    "copy-files": "npm run copy-license && npm run copy-readme",
+    "copy-files": "npm run copy-license",
     "package": "npm run build-lib && npm run copy-files && npm run npm-pack",
     "test": "ng test",
     "lint": "ng lint",
