@@ -8,6 +8,12 @@
 
 ## Angular 8+ wrapper for [Tippy.js](https://github.com/atomiks/tippyjs/)
 
+## Demo
+
+Example application [here](https://s8q4n.csb.app/)
+
+Code playground [codesandbox/ngx-tippy-wrapper](https://codesandbox.io/s/ngx-tippy-wrapper-s8q4n)
+
 ## Installation
 
 Install from npm:
@@ -134,14 +140,6 @@ export class DemoComponent implements OnInit {
 
 ```html
 <button ngxTippy data-tippy-content="Tooltip content">
-  Element with tooltip
-</button>
-```
-
-This `attribute` can be binded:
-
-```html
-<button ngxTippy [attr.data-tippy-content]="bindedContent">
   Element with tooltip
 </button>
 ```

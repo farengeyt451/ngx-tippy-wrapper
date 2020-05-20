@@ -7,8 +7,6 @@
 .t-demo__block
   padding: 10px 40px
 
-  &:not(:first-child)
-    border-left: 1px dashed  #54d182
 
 .t-demo__btn
   padding: 10px 20px
@@ -30,6 +28,12 @@
   font-weight: 600
 
 .t-demo__grouped
+  display: flex
+  justify-content: space-between
+
+  .t-demo__btn
+    flex-basis: 33%
+
   .t-demo__btn:not(:first-child)
     margin-left: 10px
 

@@ -24,6 +24,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tippyPropsEx3: NgxTippyProps = { ...this.tippyProps, arrow: false, placement: 'bottom' };
 
+  tippyPropsEx6: NgxTippyProps = { ...this.tippyProps, content: this.bindedContent };
+
   tippyPropsEx8: NgxTippyProps = { ...this.tippyProps, placement: 'bottom' };
 
   tippyPropsEx9: NgxTippyProps = { ...this.tippyProps, allowHTML: true, interactive: true, interactiveBorder: 50 };
@@ -64,7 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.setContentForTooltipEx3();
+    this.setContentForTooltipEx7();
     this.setContentForTooltipEx10();
     this.setContentForTooltipEx11();
     this.manualControl();
@@ -74,7 +76,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.instancesChanges$ && this.instancesChanges$.unsubscribe();
   }
 
-  setContentForTooltipEx3() {
+  setContentForTooltipEx7() {
     this.tippyService.setContent('content-7', this.bindedContent);
   }
 
@@ -93,11 +95,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   manualControl() {
-    this.tippyService.show('instance-12');
+    setTimeout(() => {
+      this.tippyService.show('instance-12');
+    }, 4000);
 
     setTimeout(() => {
       this.tippyService.setContent('instance-12', 'New tooltip content');
-    }, 4000);
+    }, 8000);
 
     setTimeout(() => {
       this.tippyService.setContent('instance-12', 'Another new content and props');
@@ -105,15 +109,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         theme: 'material',
         arrow: false,
       });
-    }, 6000);
+    }, 10000);
 
     setTimeout(() => {
       this.tippyService.hide('instance-12');
-    }, 8000);
+    }, 12000);
 
     setTimeout(() => {
       this.tippyService.destroy('instance-12');
-    }, 10000);
+    }, 14000);
   }
 
   subToInstancesChanges() {
