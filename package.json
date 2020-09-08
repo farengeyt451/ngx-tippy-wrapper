@@ -2,18 +2,13 @@
   "name": "ng-tippy-wrapper",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
     "build-lib": "ng build ngx-tippy-wrapper --prod",
     "npm-pack": "cd dist/ngx-tippy-wrapper && npm pack",
     "copy-license": "cp ./LICENSE dist/ngx-tippy-wrapper",
     "copy-readme": "cp ./README.md dist/ngx-tippy-wrapper",
     "copy-files": "npm run copy-license",
     "package": "npm run build-lib && npm run copy-files && npm run npm-pack",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test:lib": "ng test ngx-tippy-wrapper"
   },
   "dependencies": {
     "@angular/animations": "~9.1.6",
