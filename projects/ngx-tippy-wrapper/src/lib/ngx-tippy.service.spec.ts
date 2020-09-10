@@ -10,7 +10,7 @@ let tippyInstance: any;
 const tippyName = 'unit-test';
 const nameTypedWithMistake = 'unit-tst';
 
-describe('NgxTippyWrapperService - Instance exist ', () => {
+describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [NgxTippyService],
@@ -205,7 +205,7 @@ describe('NgxTippyWrapperService - Instance exist ', () => {
   });
 });
 
-describe('NgxTippyWrapperService - No instances exist', () => {
+describe('Service: NgxTippyWrapperService - No instances exist', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [NgxTippyService],
