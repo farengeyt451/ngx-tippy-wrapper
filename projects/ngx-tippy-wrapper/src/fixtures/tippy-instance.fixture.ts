@@ -1,4 +1,4 @@
-export const tippyInstance = {
+export const fakeInstance = {
   clearDelayTimeouts: () => {},
   destroy: () => {},
   disable: () => {},
@@ -10,11 +10,7 @@ export const tippyInstance = {
     {
       name: 'followCursor',
       defaultValue: false,
-      fn: () => {
-        return {
-          onCreate: () => {},
-        };
-      },
+      fn: () => {},
     },
   ],
   popper: {
