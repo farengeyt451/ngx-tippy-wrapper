@@ -29,5 +29,6 @@
   },
   "dependencies": {
     "tippy.js": "^6.2.3"
-  }
+  },
+  "devDependencies": {}
 }

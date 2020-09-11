@@ -33,7 +33,6 @@ export class NgxTippyService {
    * @param state { NgxTippyInstance } tippy instance
    */
   setInstance(name: string, state: NgxTippyInstance) {
-    console.log('log: NgxTippyService -> setInstance -> name', name);
     this.tippyInstances.set(name, state);
     this.emitInstancesChange('setInstance', name);
   }

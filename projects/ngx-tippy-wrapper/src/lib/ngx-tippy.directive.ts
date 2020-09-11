@@ -35,7 +35,6 @@ export class NgxTippyDirective implements OnInit {
    */
   initTippy() {
     const tippyTarget = this.tippyEl.nativeElement;
-    console.log('log: NgxTippyDirective -> initTippy -> tippyTarget', tippyTarget);
     const tippyTemplate = this.ngxTippy;
 
     tippy(tippyTarget, { ...this.tippyProps, ...(tippyTemplate && { content: tippyTemplate }) });
