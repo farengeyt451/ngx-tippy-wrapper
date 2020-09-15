@@ -1,7 +1,7 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
-import { NgxTippyService } from './ngx-tippy.service';
+import { NgxTippyService } from '../lib/ngx-tippy.service';
 import { fakeInstance } from '../fixtures/tippy-instance.fixture';
-import { NgxTippyProps } from './ngx-tippy.interfaces';
+import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 
 let injector: TestBed;
 let tippyService: NgxTippyService;

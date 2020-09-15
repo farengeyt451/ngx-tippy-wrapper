@@ -1,10 +1,85 @@
 import { TestBed, ComponentFixture, getTestBed, fakeAsync, flush } from '@angular/core/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA, OnInit, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { NgxTippyDirective } from './ngx-tippy.directive';
-import { NgxTippyService } from './ngx-tippy.service';
-import { TestComponent } from '../test-component/test';
-import { TestInlineComponent } from '../test-component/test-inline';
+import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
+import { NgxTippyService } from '../lib/ngx-tippy.service';
+import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
+
+const commonStyles = `
+  .test {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    padding: 40px;
+    background-color: #f9f8f5;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .test__btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-image: linear-gradient(120deg, #54d182 0%, #3db9f5 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+  }
+`;
+/** Wrapper component for simple inline tippy test */
+@Component({
+  selector: 'tippy-test-inline',
+  template: `
+    <div class="test">
+      <button
+        class="test__btn"
+        ngxTippy
+        data-tippy-content="Tooltip content from data attribute"
+        data-tippy-duration="500"
+        tippyName="unit-test"
+        tippyClassName="custom another-class"
+        [tippyProps]="{
+          appendTo: 'parent',
+          arrow: false
+        }"
+      >
+        Element with tooltip
+      </button>
+    </div>
+  `,
+
+  styles: [commonStyles],
+})
+class TestInlineComponent {}
+
+/** Wrapper component for test tippy with bindings */
+@Component({
+  selector: 'tippy-test',
+  template: `<div class="test">
+    <button class="test__btn" ngxTippy data-tippy-content="Tooltip content" tippyName="unit-test" [tippyProps]="props">
+      Element with tooltip
+    </button>
+  </div> `,
+  styles: [commonStyles],
+})
+class TestComponent implements OnInit {
+  props: NgxTippyProps;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.setProps({
+      appendTo: 'parent',
+    });
+  }
+
+  setProps(props: NgxTippyProps) {
+    this.props = { ...this.props, ...props };
+  }
+}
 
 fdescribe('Directive (inline test): NgxTippyDirective', () => {
   let injector: TestBed;
@@ -67,6 +142,14 @@ fdescribe('Directive (inline test): NgxTippyDirective', () => {
     fixture.detectChanges();
     const tooltipArrow = fixture.debugElement.query(By.css('.tippy-arrow'));
     expect(tooltipArrow).toBeNull('Tooltip must be without arrow');
+  });
+
+  it('Should apply class names', () => {
+    fixture.detectChanges();
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    const tippyBoxWithClasses = fixture.debugElement.query(By.css('.tippy-box.custom.another-class'));
+    expect(tippyBoxWithClasses).toBeTruthy('Classes were not applied');
   });
 });
 
