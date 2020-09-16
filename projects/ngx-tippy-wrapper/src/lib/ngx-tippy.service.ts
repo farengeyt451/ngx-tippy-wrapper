@@ -44,6 +44,7 @@ export class NgxTippyService {
    * @returns { NgxTippyInstance | null } specific tippy instance or null
    */
   getInstance(name: string): NgxTippyInstance | null {
+    console.log('log: NgxTippyService -> name', name);
     return this.tippyInstances.has(name) ? this.tippyInstances.get(name) : null;
   }
 
