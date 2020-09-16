@@ -146,7 +146,7 @@ describe('Directive: NgxTippyDirective', () => {
     expect(tooltip).toBeTruthy('Tooltip does not created');
   });
 
-  fit('Should show tooltip on click ', () => {
+  it('Should show tooltip on click ', () => {
     component.addComponent(
       `
       <div class="test">
@@ -404,7 +404,7 @@ describe('Directive: NgxTippyDirective', () => {
     expect(tippyService.setProps).toHaveBeenCalledWith('tippy-content', 'New props');
   });
 
-  fit('Should apply template passed through directive reference', () => {
+  it('Should apply template passed through directive reference', () => {
     component.addComponent(
       `
       <div class="test">
@@ -441,7 +441,6 @@ describe('Directive: NgxTippyDirective', () => {
     tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
     const tooltipContent = fixture.debugElement.query(By.css('.tippy-content'));
-    console.log(tooltipContent.query(By.css('div')));
     const templateWrapper = tooltipContent.query(By.css('div'));
     const templateAction = tooltipContent.query(By.css('button'));
 
