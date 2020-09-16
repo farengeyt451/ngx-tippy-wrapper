@@ -69,7 +69,7 @@ class TestInlineComponent {
   }
 }
 
-fdescribe('Directive: NgxTippyDirective', () => {
+describe('Directive: NgxTippyDirective', () => {
   let injector: TestBed;
   let fixture: ComponentFixture<TestInlineComponent>;
   let component: TestInlineComponent;
@@ -116,39 +116,12 @@ fdescribe('Directive: NgxTippyDirective', () => {
     tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
     tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
-    const tooltip = fixture.debugElement.query(By.css('div[data-tippy-root]'));
 
+    const tooltip = fixture.debugElement.query(By.css('div[data-tippy-root]'));
     expect(tooltip).toBeTruthy('Tooltip does not created');
   });
 
-  it('Should apply content passed from data attribute', () => {
-    component.addComponent(
-      `
-      <div class="test">
-        <button
-          class="test__btn"
-          ngxTippy
-          data-tippy-content="Tooltip content from data attribute"
-          [tippyProps]="{
-            appendTo: 'parent'
-          }"
-        >
-          Element with tooltip
-        </button>
-      `,
-      commonStyles
-    );
-
-    fixture.detectChanges();
-    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
-    fixture.detectChanges();
-    const tooltipContent = fixture.debugElement.query(By.css('.tippy-content'));
-
-    expect(tooltipContent.nativeElement.textContent).toBe('Tooltip content from data attribute');
-  });
-
-  it('Should apply props passed from data attribute', fakeAsync(() => {
+  it('Should apply props passed through data attribute', fakeAsync(() => {
     component.addComponent(
       `
       <div class="test">
@@ -172,8 +145,9 @@ fdescribe('Directive: NgxTippyDirective', () => {
     tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
     tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
+
     const tippyBox = fixture.debugElement.query(By.css('.tippy-box'));
-    fixture.detectChanges();
+
     let tooltipDuration: string;
     setTimeout(() => {
       tooltipDuration = tippyBox.nativeElement.style.transitionDuration;
@@ -183,6 +157,131 @@ fdescribe('Directive: NgxTippyDirective', () => {
     expect(tooltipDuration).toBeTruthy('Transition duration is not set');
     expect(tooltipDuration).toBe('500ms', 'Wrong transition duration value');
   }));
+
+  it('Should apply props passed through binding from component', () => {
+    component.addComponent(
+      `
+      <div class="test">
+        <button
+          class="test__btn"
+          ngxTippy
+          data-tippy-content="Tooltip content"
+          [tippyProps]="props"
+        >
+          Element with tooltip
+        </button>
+      `,
+      commonStyles,
+      {
+        props: {
+          appendTo: 'parent',
+          arrow: false,
+          theme: 'light',
+        },
+      }
+    );
+
+    fixture.detectChanges();
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+
+    const tippyBox = fixture.debugElement.query(By.css('.tippy-box'));
+    const tooltipArrow = fixture.debugElement.query(By.css('.tippy-arrow'));
+    const tooltipBgColor = getComputedStyle(tippyBox.nativeElement).backgroundColor;
+
+    expect(tooltipArrow).toBeNull('Tooltip must be without arrow');
+    expect(tooltipBgColor).toBe('rgb(255, 255, 255)', 'Background color must be white');
+  });
+
+  it('Should apply content passed through data attribute', () => {
+    component.addComponent(
+      `
+      <div class="test">
+        <button
+          class="test__btn"
+          ngxTippy
+          data-tippy-content="Tooltip content passed through data attribute"
+          [tippyProps]="{
+            appendTo: 'parent'
+          }"
+        >
+          Element with tooltip
+        </button>
+      `,
+      commonStyles
+    );
+
+    fixture.detectChanges();
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    const tooltipContent = fixture.debugElement.query(By.css('.tippy-content'));
+
+    expect(tooltipContent.nativeElement.textContent).toBe('Tooltip content passed through data attribute');
+  });
+
+  it('Should apply content passed inline through content prop', () => {
+    component.addComponent(
+      `
+      <div class="test">
+        <button
+          class="test__btn"
+          ngxTippy
+          [tippyProps]="{
+            appendTo: 'parent',
+            allowHTML: true,
+            content: '<p>Tooltip <strong>HTML</strong> content</p>'
+          }"
+        >
+          Element with tooltip
+        </button>
+      `,
+      commonStyles
+    );
+
+    fixture.detectChanges();
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    const tooltipContent = fixture.debugElement.query(By.css('.tippy-content'));
+    const tooltipContentInnerHTML = tooltipContent.nativeElement.innerHTML;
+    expect(tooltipContentInnerHTML).toContain('<p>', 'Tag "<p>" is not found');
+    expect(tooltipContentInnerHTML).toBe(
+      '<p>Tooltip <strong>HTML</strong> content</p>',
+      'Content does not match passed content'
+    );
+  });
+
+  it('Should apply content passed through binding from component', () => {
+    let content = 'Binded content from component';
+    component.addComponent(
+      `
+      <div class="test">
+        <button
+          class="test__btn"
+          ngxTippy
+          [tippyProps]="props"
+        >
+          Element with tooltip
+        </button>
+      `,
+      commonStyles,
+      {
+        props: {
+          appendTo: 'parent',
+          content: content,
+        },
+      }
+    );
+
+    fixture.detectChanges();
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    const tooltipContent = fixture.debugElement.query(By.css('.tippy-content'));
+    expect(tooltipContent.nativeElement.innerText).toBe(content);
+  });
 
   it('Should apply class names', () => {
     component.addComponent(
@@ -210,66 +309,10 @@ fdescribe('Directive: NgxTippyDirective', () => {
 
     const tippyBoxWithClasses = fixture.debugElement.query(By.css('.tippy-box.custom.another-class'));
     expect(tippyBoxWithClasses).toBeTruthy('Classes were not applied');
+    expect(tippyBoxWithClasses.nativeElement).toHaveClass('custom', 'Tippy box does not contain passed "custom" class');
+    expect(tippyBoxWithClasses.nativeElement).toHaveClass(
+      'another-class',
+      'Tippy box does not contain passed "another-class" class'
+    );
   });
 });
-
-// xdescribe('Directive: NgxTippyDirective', () => {
-//   let injector: TestBed;
-//   let fixture: ComponentFixture<TestComponent>;
-//   let component: TestComponent;
-//   let tooltipDebugEl: DebugElement;
-//   let tippyService: NgxTippyService;
-//   const tippyName = 'unit-test';
-
-//   beforeEach(async () => {
-//     TestBed.configureTestingModule({
-//       declarations: [TestComponent, NgxTippyDirective],
-//       schemas: [NO_ERRORS_SCHEMA],
-//       providers: [NgxTippyService],
-//     })
-//       .compileComponents()
-//       .then(() => {
-//         injector = getTestBed();
-//         fixture = injector.createComponent(TestComponent);
-//         component = fixture.componentInstance;
-//         tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-//         tippyService = injector.get(NgxTippyService);
-//       });
-//   });
-
-//   it('Should create wrapper component', () => {
-//     expect(component).toBeTruthy('Wrapper component does not created');
-//   });
-
-//   it('Should create tooltip element on mouse hover', () => {
-//     fixture.detectChanges();
-
-//     tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
-
-//     fixture.detectChanges();
-
-//     const tooltip = fixture.debugElement.query(By.css('div[data-tippy-root]'));
-
-//     expect(tooltip).toBeTruthy('Tooltip does not created');
-//   });
-
-//   it('Should apply props from component', () => {
-//     component.setProps({
-//       arrow: false,
-//       theme: 'light',
-//     });
-
-//     fixture.detectChanges();
-
-//     tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
-
-//     fixture.detectChanges();
-
-//     const tooltipArrow = fixture.debugElement.query(By.css('.tippy-arrow'));
-//     const tippyBox = fixture.debugElement.query(By.css('.tippy-box'));
-//     const tooltipBgColor = getComputedStyle(tippyBox.nativeElement).backgroundColor;
-
-//     expect(tooltipArrow).toBeNull('Tooltip must be without arrow');
-//     expect(tooltipBgColor).toBe('rgb(255, 255, 255)', 'Background color must be white');
-//   });
-// });
