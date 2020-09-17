@@ -15,7 +15,7 @@ env:
 
 before_script:
   - npm ci
-  - cd projects/ngx-tippy-wrapper && npm i
+  - cd projects/ngx-tippy-wrapper && npm i && cd ../../
 
 before_install:
   - export CHROME_BIN=chromium-browser
