@@ -14,7 +14,8 @@ env:
   global: CODECOV_TOKEN=$CODECOV_TOKEN
 
 before_script:
-  - npm install
+  - npm ci
+  - cd projects/ngx-tippy-wrapper && npm i
 
 before_install:
   - export CHROME_BIN=chromium-browser
