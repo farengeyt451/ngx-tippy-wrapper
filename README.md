@@ -14,7 +14,7 @@
 
 ## Demo
 
-[Example application] (https://s8q4n.csb.app/)
+[Example application](https://s8q4n.csb.app/)
 
 Code playground [codesandbox/ngx-tippy-wrapper](https://codesandbox.io/s/ngx-tippy-wrapper-s8q4n)
 
