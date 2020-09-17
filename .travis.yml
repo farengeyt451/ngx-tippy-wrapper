@@ -1,0 +1,31 @@
+dist: trusty
+language: node_js
+node_js:
+  - '12'
+
+os:
+  - linux
+
+addons:
+  chrome: stable
+
+cache:
+  directories:
+    - ./node_modules
+
+env:
+  global: CODECOV_TOKEN=$CODECOV_TOKEN
+
+install:
+  - npm ci
+  - cd projects/ngx-tippy-wrapper && npm i && cd ../../
+
+jobs:
+  include:
+    - stage: unit-tests
+      script:
+        - npm run unit-tests:lib-coverage
+        - npm run unit-tests:lib-codecov
+
+after_script:
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./node_modules/.bin/codecov; fi
