@@ -24,8 +24,8 @@
   },
   "bugs": "https://github.com/farengeyt451/ngx-tippy-wrapper/issues",
   "peerDependencies": {
-    "@angular/common": "^9.1.6",
-    "@angular/core": "^9.1.6"
+    "@angular/common": "~10.1.2",
+    "@angular/core": "~10.1.2"
   },
   "dependencies": {
     "tippy.js": "^6.2.3",
