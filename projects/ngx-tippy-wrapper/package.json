@@ -28,7 +28,8 @@
     "@angular/core": "^9.1.6"
   },
   "dependencies": {
-    "tippy.js": "^6.2.3"
+    "tippy.js": "^6.2.3",
+    "tslib": "^2.0.0"
   },
   "devDependencies": {}
 }
