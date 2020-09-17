@@ -10,9 +10,7 @@ import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
       <ngx-tippy-group [tippyProps]="props">
         <div class="tippy-group__items">
           <button class="tippy-group__item" data-grouped data-tippy-content="Tooltip content">Group</button>
-
           <button class="tippy-group__item" data-grouped data-tippy-content="Tooltip content">Group</button>
-
           <button class="tippy-group__item" data-grouped data-tippy-content="Tooltip content">Group</button>
         </div>
       </ngx-tippy-group>
@@ -127,7 +125,6 @@ describe('Component: NgxTippyGroupComponent', () => {
     let dataPlacement: string;
     setTimeout(() => {
       dataPlacement = tippyBox[2].nativeElement.dataset.placement;
-      console.log('log: dataPlacement', dataPlacement);
     }, 0);
     tick(0);
 
