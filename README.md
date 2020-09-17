@@ -3,18 +3,18 @@
 </div>
 
 <div align="center">
-  <h1>Angular wrapper for Tippy.js</h1>
+  <h1>Angular 8+ wrapper for Tippy.js</h1>
+  
+  ![Travis (.org)](https://img.shields.io/travis/farengeyt451/ngx-tippy-wrapper?style=for-the-badge)
+  ![Codecov](https://img.shields.io/codecov/c/github/farengeyt451/ngx-tippy-wrapper?style=for-the-badge)
+  ![npm](https://img.shields.io/npm/dt/ngx-tippy-wrapper?style=for-the-badge)
+  ![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper?style=for-the-badge)
 </div>
 
-[![Build Status](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper.svg?branch=master)](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper)
-[![codecov](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper/branch/master/graph/badge.svg)](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper)
-![npm](https://img.shields.io/npm/dt/ngx-tippy-wrapper)
-
-## Angular 8+ wrapper for [Tippy.js](https://github.com/atomiks/tippyjs/)
 
 ## Demo
 
-Example application [here](https://s8q4n.csb.app/)
+[Example application] (https://s8q4n.csb.app/)
 
 Code playground [codesandbox/ngx-tippy-wrapper](https://codesandbox.io/s/ngx-tippy-wrapper-s8q4n)
 
