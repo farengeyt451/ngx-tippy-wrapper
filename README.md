@@ -5,10 +5,10 @@
 <div align="center">
   <h1>Angular 8+ wrapper for Tippy.js</h1>
   
-  ![Travis (.org)](https://img.shields.io/travis/farengeyt451/ngx-tippy-wrapper?style=for-the-badge)
-  ![Codecov](https://img.shields.io/codecov/c/github/farengeyt451/ngx-tippy-wrapper?style=for-the-badge)
-  ![npm](https://img.shields.io/npm/dt/ngx-tippy-wrapper?style=for-the-badge)
-  ![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper?style=for-the-badge)
+  [![Build Status](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper.svg?branch=master)](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper)
+  [![codecov](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper/branch/master/graph/badge.svg)](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper)
+  ![npm](https://img.shields.io/npm/dt/ngx-tippy-wrapper)
+  ![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper)
 </div>
 
 
