@@ -6,6 +6,8 @@
   <h1>Angular wrapper for Tippy.js</h1>
 </div>
 
+[![Build Status](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper.svg?branch=master)](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper)
+
 ## Angular 8+ wrapper for [Tippy.js](https://github.com/atomiks/tippyjs/)
 
 ## Demo
