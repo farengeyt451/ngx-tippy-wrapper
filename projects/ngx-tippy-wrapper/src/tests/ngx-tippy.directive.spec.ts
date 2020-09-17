@@ -2,7 +2,6 @@ import { TestBed, ComponentFixture, getTestBed, fakeAsync, flush, tick } from '@
 import {
   DebugElement,
   NO_ERRORS_SCHEMA,
-  OnInit,
   Component,
   ViewChild,
   ViewContainerRef,
@@ -12,10 +11,9 @@ import {
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
 import { NgxTippyService } from '../lib/ngx-tippy.service';
-import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 import { fakeInstance } from '../fixtures/tippy-instance.fixture';
 
-const commonStyles = [
+const styles = [
   `
     .test {
       position: relative;
@@ -51,8 +49,6 @@ class TestInlineComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true }) container: ViewContainerRef;
 
   constructor(private compiler: Compiler) {}
-
-  ngOnInit() {}
 
   public addComponent(template: string, styles: string[], properties: any = {}) {
     @Component({ template, styles })
@@ -134,7 +130,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles
+      styles
     );
 
     fixture.detectChanges();
@@ -163,7 +159,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles
+      styles
     );
 
     fixture.detectChanges();
@@ -193,7 +189,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles
+      styles
     );
 
     fixture.detectChanges();
@@ -227,7 +223,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles,
+      styles,
       {
         props: {
           appendTo: 'parent',
@@ -266,7 +262,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles
+      styles
     );
 
     fixture.detectChanges();
@@ -295,7 +291,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles
+      styles
     );
 
     fixture.detectChanges();
@@ -325,7 +321,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles,
+      styles,
       {
         props: {
           appendTo: 'parent',
@@ -342,7 +338,7 @@ describe('Directive: NgxTippyDirective', () => {
     expect(tooltipContent.nativeElement.innerText).toBe(content);
   });
 
-  it('Should call getInstance method', () => {
+  it('Should call getInstance method for defined instance', () => {
     component.addComponent(
       `
       <div class="test">
@@ -359,7 +355,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles
+      styles
     );
 
     fixture.detectChanges();
@@ -375,7 +371,7 @@ describe('Directive: NgxTippyDirective', () => {
     expect(instance).toBe(fakeInstance, 'Returned instance is wrong');
   });
 
-  it('Should call setProps method', () => {
+  it('Should call setProps method for defined instance', () => {
     component.addComponent(
       `
       <div class="test">
@@ -391,7 +387,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles
+      styles
     );
 
     fixture.detectChanges();
@@ -428,7 +424,7 @@ describe('Directive: NgxTippyDirective', () => {
         </div>
       </div>
       `,
-      commonStyles,
+      styles,
       {
         onTemplateClick(event: MouseEvent) {
           console.log(event);
@@ -473,7 +469,7 @@ describe('Directive: NgxTippyDirective', () => {
         </button>
       </div>
       `,
-      commonStyles
+      styles
     );
 
     fixture.detectChanges();
