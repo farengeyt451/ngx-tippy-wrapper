@@ -18,7 +18,7 @@ env:
 
 install:
   - npm ci
-  - cd projects/ngx-tippy-wrapper && npm i && cd ../../
+  - npm --prefix ./projects/ngx-tippy-wrapper i
 
 jobs:
   include:
