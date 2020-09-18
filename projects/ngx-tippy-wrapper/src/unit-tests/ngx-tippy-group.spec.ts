@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { TestBed, ComponentFixture, getTestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgxTippyGroupComponent } from '../lib/ngx-tippy-group.component';
@@ -56,14 +56,11 @@ class TestWrapperComponent {
   };
 }
 
-describe('Component: NgxTippyGroupComponent', () => {
+describe('Component: NgxTippyGroupComponent (wrapped)', () => {
   let injector: TestBed;
   let fixture: ComponentFixture<TestWrapperComponent>;
   let component: TestWrapperComponent;
   let debugEl: DebugElement;
-
-  let fixtureGroupComponent: ComponentFixture<NgxTippyGroupComponent>;
-  let groupComponent: NgxTippyGroupComponent;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -77,12 +74,6 @@ describe('Component: NgxTippyGroupComponent', () => {
         debugEl = fixture.debugElement;
         fixture.detectChanges();
       });
-  });
-
-  it('Should create NgxTippyGroupComponent component', () => {
-    fixtureGroupComponent = injector.createComponent(NgxTippyGroupComponent);
-    groupComponent = fixtureGroupComponent.componentInstance;
-    expect(groupComponent).toBeTruthy('Component does not created');
   });
 
   it('Should create wrapper test component', () => {
@@ -130,4 +121,40 @@ describe('Component: NgxTippyGroupComponent', () => {
 
     expect(dataPlacement).toBe('bottom', 'Tooltip does not placed bottom');
   }));
+});
+
+describe('Component: NgxTippyGroupComponent', () => {
+  let injector: TestBed;
+  let fixture: ComponentFixture<NgxTippyGroupComponent>;
+  let component: NgxTippyGroupComponent;
+  let debugEl: DebugElement;
+  let platform: Object;
+
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      declarations: [NgxTippyGroupComponent],
+      providers: [{ provide: PLATFORM_ID, useValue: 'server' }],
+    })
+      .compileComponents()
+      .then(() => {
+        injector = getTestBed();
+        fixture = injector.createComponent(NgxTippyGroupComponent);
+        platform = fixture.debugElement.injector.get(PLATFORM_ID);
+        component = fixture.componentInstance;
+        debugEl = fixture.debugElement;
+        fixture.detectChanges();
+      });
+  });
+
+  it('Should create NgxTippyGroupComponent component', () => {
+    expect(component).toBeTruthy('Component does not created');
+  });
+
+  it('Should init tooltips only if platform browser', () => {
+    spyOn(component, 'setTooltips');
+    spyOn(component, 'initTippy');
+    component.ngAfterViewInit();
+    expect(component.setTooltips).toHaveBeenCalledTimes(0);
+    expect(component.setTooltips).toHaveBeenCalledTimes(0);
+  });
 });

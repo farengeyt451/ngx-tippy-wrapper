@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, getTestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, getTestBed, fakeAsync, tick } from '@angular/core/testing';
 import {
   DebugElement,
   NO_ERRORS_SCHEMA,
@@ -7,6 +7,7 @@ import {
   ViewContainerRef,
   Compiler,
   NgModule,
+  PLATFORM_ID,
 } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
@@ -97,7 +98,10 @@ describe('Directive: NgxTippyDirective', () => {
     TestBed.configureTestingModule({
       imports: [BrowserModule],
       declarations: [TestInlineComponent],
-      providers: [{ provide: NgxTippyService, useValue: tippyServiceSpy }],
+      providers: [
+        { provide: NgxTippyService, useValue: tippyServiceSpy },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents()
@@ -484,5 +488,62 @@ describe('Directive: NgxTippyDirective', () => {
       'another-class',
       'Tippy box does not contain passed "another-class" class'
     );
+  });
+});
+
+/** Wrapper component */
+@Component({
+  selector: 'tippy-test',
+  template: `
+    <div class="test">
+      <button
+        class="test__btn"
+        ngxTippy
+        data-tippy-content="Tooltip content"
+        [tippyProps]="{
+          appendTo: 'parent'
+        }"
+      >
+        Element with tooltip
+      </button>
+    </div>
+  `,
+  styles: styles,
+})
+class TestPlatformComponent {}
+
+describe('Directive: NgxTippyDirective - Platform test', () => {
+  let injector: TestBed;
+  let fixture: ComponentFixture<TestPlatformComponent>;
+  let component: TestPlatformComponent;
+  let debugEl: DebugElement;
+  let platform: Object;
+
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      declarations: [TestPlatformComponent, NgxTippyDirective],
+      providers: [{ provide: PLATFORM_ID, useValue: 'server' }],
+    })
+      .compileComponents()
+      .then(() => {
+        injector = getTestBed();
+        fixture = injector.createComponent(TestPlatformComponent);
+        platform = fixture.debugElement.injector.get(PLATFORM_ID);
+        component = fixture.componentInstance;
+        debugEl = fixture.debugElement;
+        fixture.detectChanges();
+      });
+  });
+
+  it('Should create TestPlatformComponent component', () => {
+    expect(component).toBeTruthy('Component does not created');
+  });
+
+  it('Should init tooltips only if platform browser', () => {
+    const tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    const tooltip = fixture.debugElement.query(By.css('div[data-tippy-root]'));
+    expect(tooltip).toBeNull('Tooltip was created on platform server');
   });
 });

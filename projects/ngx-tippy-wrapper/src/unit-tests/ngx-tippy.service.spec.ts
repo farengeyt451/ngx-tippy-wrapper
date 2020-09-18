@@ -1,16 +1,15 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed, getTestBed, fakeAsync } from '@angular/core/testing';
 import { NgxTippyService } from '../lib/ngx-tippy.service';
 import { fakeInstance } from '../fixtures/tippy-instance.fixture';
 import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 
-let injector: TestBed;
-let tippyService: NgxTippyService;
-let tippyInstance: any;
-
-const tippyName = 'unit-test';
-const nameTypedWithMistake = 'unit-tst';
-
 describe('Service: NgxTippyWrapperService - Instance exist ', () => {
+  let injector: TestBed;
+  let tippyService: NgxTippyService;
+  let tippyInstance: any;
+  const tippyName = 'unit-test';
+  const nameTypedWithMistake = 'unit-tst';
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [NgxTippyService],
@@ -113,6 +112,14 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService.setContent(tippyName, 'New content');
   });
 
+  it('Should call setTemplateVisible when set new tooltip content', () => {
+    spyOn<any>(tippyService, 'setTemplateVisible');
+    tippyService.setContent(tippyName, 'New content');
+
+    expect(tippyService['setTemplateVisible']).toHaveBeenCalled();
+    expect(tippyService['setTemplateVisible']).toHaveBeenCalledTimes(1);
+  });
+
   it('Should throw error on: setContent, if wrong name passed', () => {
     try {
       tippyService.setContent(nameTypedWithMistake, 'New content');
@@ -158,6 +165,18 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
       tippyService[method](tippyName);
     });
 
+    it(`Should emit changes, on: showAll`, fakeAsync(() => {
+      tippyService.instancesChanges.subscribe((data) => {
+        expect(data).toBeTruthy('No data emitted');
+        expect(data.reason).toBe('show', 'Wrong reason emitted');
+        expect(data.instance).toBeTruthy('Data does not contain tippy instance');
+        expect(data.name).toBeTruthy('Data does not contain tippy name');
+        expect(data.name).toBe(tippyName);
+      });
+
+      tippyService.showAll();
+    }));
+
     it(`Should throw error on: ${method}, if wrong name passed`, () => {
       try {
         tippyService[method](nameTypedWithMistake);
@@ -166,6 +185,28 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
         expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
       }
     });
+  });
+
+  it('Should call hideAll with arguments', () => {
+    const props = {
+      duration: 100,
+      excludeName: 'unit-test',
+    };
+    spyOn(tippyService, 'hideAll').and.callThrough();
+    tippyService.hideAll(props);
+    expect(tippyService.hideAll).toHaveBeenCalled();
+    expect(tippyService.hideAll).toHaveBeenCalledWith(props);
+  });
+
+  it('Should call setDefaultProps', () => {
+    const props = {
+      arrow: false,
+    };
+    spyOn(tippyService, 'setDefaultProps').and.callThrough();
+    tippyService.setDefaultProps(props);
+    expect(tippyService.setDefaultProps).toHaveBeenCalled();
+    expect(tippyService.setDefaultProps).toHaveBeenCalledWith(props);
+    expect(tippyService.setDefaultProps).toHaveBeenCalledTimes(1);
   });
 
   it('Should destroy tooltip, delete instance and emit changes', () => {
@@ -206,13 +247,18 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
 });
 
 describe('Service: NgxTippyWrapperService - No instances exist', () => {
+  let injector: TestBed;
+  let tippyService: NgxTippyService;
+  let tippyInstance: any;
+  const tippyName = 'unit-test';
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [NgxTippyService],
     });
 
     injector = getTestBed();
-    tippyService = injector.get(NgxTippyService);
+    tippyService = injector.inject(NgxTippyService);
     tippyInstance = tippyService.getInstance(tippyName);
   });
 

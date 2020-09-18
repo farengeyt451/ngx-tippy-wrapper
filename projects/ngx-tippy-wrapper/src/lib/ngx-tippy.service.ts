@@ -237,8 +237,9 @@ export class NgxTippyService {
    * Show all tippies
    */
   showAll() {
-    this.tippyInstances.forEach((tippyInstance: NgxTippyInstance) => {
+    this.tippyInstances.forEach((tippyInstance: NgxTippyInstance, key: string) => {
       tippyInstance.show();
+      this.emitInstancesChange('show', key);
     });
   }
 
@@ -268,16 +269,13 @@ export class NgxTippyService {
   /**
    * Service methods
    */
-
   private emitInstancesChange(reason: InstanceChangeReason, name: string) {
     const instance = this.tippyInstances.get(name);
-
     this.tippyInstances$.next({ name, reason, instance });
   }
 
   private setTemplateVisible(tippyContent: NgxTippyContent) {
     if (typeof tippyContent === 'string') return;
-
     this.renderer.setStyle(tippyContent, 'display', 'block');
   }
 
