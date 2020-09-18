@@ -3,12 +3,25 @@
 </div>
 
 <div align="center">
-  <h1>Angular wrapper for Tippy.js</a></h1>
+
+  <h1>Angular 8+ wrapper for Tippy.js</a></h1>
+
+  [![Build Status](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper.svg?branch=master)](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper)
+  [![codecov](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper/branch/master/graph/badge.svg)](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper)
+  ![npm](https://img.shields.io/npm/dt/ngx-tippy-wrapper)
+  ![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper)
+
 </div>
 
-This is an Angular 8+ wrapper library for the [Tippy.js](https://atomiks.github.io/tippyjs/)
+## Documentation
 
-Full documentation [here](https://github.com/farengeyt451/ngx-tippy-wrapper)
+Full documentation you can find in [repository](https://github.com/farengeyt451/ngx-tippy-wrapper)
+
+## Demo
+
+[Example application](https://s8q4n.csb.app/)
+
+[Code playground](https://codesandbox.io/s/ngx-tippy-wrapper-s8q4n)
 
 ## Installation
 
@@ -63,9 +76,7 @@ or angular.json:
 Apply `ngxTippy` directive for element and pass content through `data-tippy-content` attribute:
 
 ```html
-<button ngxTippy data-tippy-content="Tooltip content">
-  Element with tooltip
-</button>
+<button ngxTippy data-tippy-content="Tooltip content">Element with tooltip</button>
 ```
 
 ### Applying props
