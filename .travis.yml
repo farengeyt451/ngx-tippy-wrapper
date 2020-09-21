@@ -26,6 +26,3 @@ jobs:
       script:
         - npm run unit-tests:lib-coverage
         - npm run unit-tests:lib-codecov
-
-after_script:
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./node_modules/.bin/codecov; fi
