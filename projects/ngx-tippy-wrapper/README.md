@@ -6,10 +6,10 @@
 
   <h1>Angular 8+ wrapper for Tippy.js</a></h1>
 
-  [![Build Status](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper.svg?branch=master)](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper)
-  [![codecov](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper/branch/master/graph/badge.svg)](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper)
-  ![npm](https://img.shields.io/npm/dt/ngx-tippy-wrapper)
-  ![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper)
+[![Build Status](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper.svg?branch=master)](https://travis-ci.org/farengeyt451/ngx-tippy-wrapper)
+[![codecov](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper/branch/master/graph/badge.svg)](https://codecov.io/gh/farengeyt451/ngx-tippy-wrapper)
+![npm](https://img.shields.io/npm/dt/ngx-tippy-wrapper)
+![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper)
 
 </div>
 
@@ -51,7 +51,7 @@ Then in your base module:
 })
 ```
 
-Import base style file to your main style file:
+Import `tippy.css` style file to your main style file:
 
 ```css
 @import 'tippy.js/dist/tippy.css';
@@ -90,7 +90,6 @@ In template:
 <button
   ngxTippy
   data-tippy-content="Tooltip content"
-  class="t-demo__btn"
   [tippyProps]="{
     arrow: false,
     placement: 'bottom'
