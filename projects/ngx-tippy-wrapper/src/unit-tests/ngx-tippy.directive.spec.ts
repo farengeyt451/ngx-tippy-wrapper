@@ -1,14 +1,5 @@
 import { TestBed, ComponentFixture, getTestBed, fakeAsync, tick } from '@angular/core/testing';
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-  Component,
-  ViewChild,
-  ViewContainerRef,
-  Compiler,
-  NgModule,
-  PLATFORM_ID,
-} from '@angular/core';
+import { DebugElement, Component, ViewChild, ViewContainerRef, Compiler, NgModule, PLATFORM_ID } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
 import { NgxTippyService } from '../lib/ngx-tippy.service';
@@ -102,7 +93,6 @@ describe('Directive: NgxTippyDirective', () => {
         { provide: NgxTippyService, useValue: tippyServiceSpy },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents()
       .then(() => {
