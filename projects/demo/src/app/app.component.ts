@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { NgxTippyProps, InstancesChanges, NgxSingletonProps } from 'ngx-tippy-wrapper';
 import { NgxTippyService } from 'ngx-tippy-wrapper';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('tippyTemplateEx10', { read: ElementRef, static: false }) tippyTemplateEx10: ElementRef;
@@ -28,7 +29,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tippyPropsEx8: NgxTippyProps = { ...this.tippyProps, placement: 'bottom' };
 
-  tippyPropsEx9: NgxTippyProps = { ...this.tippyProps, allowHTML: true, interactive: true, interactiveBorder: 50 };
+  tippyPropsEx9: NgxTippyProps = {
+    ...this.tippyProps,
+    allowHTML: true,
+    interactive: true,
+    interactiveBorder: 50,
+  };
 
   tippyPropsEx10: NgxTippyProps = this.tippyPropsEx9;
 

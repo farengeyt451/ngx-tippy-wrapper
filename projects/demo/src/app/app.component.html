@@ -1,5 +1,6 @@
 <div class="t-demo">
   <div class="t-demo__block">
+
     <h2 class="t-demo__heading">Basic examples</h2>
 
     <!-- Example - 1 -->
@@ -33,6 +34,39 @@
       data-tippy-content="Tooltip content"
       [tippyProps]="tippyPropsEx3"
       tippyClassName="custom another-class"
+    >
+      Element with tooltip
+    </button>
+
+
+    <!-- Example - 4 -->
+    <p class="t-demo__text">Build in <b>shift-toward</b> animation</p>
+
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      data-tippy-content="Tooltip content"
+      [tippyProps]="{
+        arrow: false,
+        placement: 'bottom',
+        animation: 'shift-toward'
+      }"
+    >
+      Element with tooltip
+    </button>
+
+    <!-- Example - 5 -->
+    <p class="t-demo__text">Custom animation</p>
+
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      data-tippy-content="Tooltip content"
+      [tippyProps]="{
+        arrow: false,
+        placement: 'bottom',
+        animation: 'rotate'
+      }"
     >
       Element with tooltip
     </button>
@@ -162,7 +196,10 @@
       Element with tooltip
     </button>
 
-    <div #tippyTemplateEx11 style="display: none;">
+    <div
+      #tippyTemplateEx11
+      style="display: none;"
+    >
       <h4>Caption</h4>
       <p>Some content</p>
       ...
@@ -174,7 +211,7 @@
 
     <!-- Example - 12 -->
     <p class="t-demo__text">
-      Manual control and event subscribe
+      Manual control and event subscribe (look to browser console)
     </p>
 
     <div>
