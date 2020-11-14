@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('tippyTemplateEx10', { read: ElementRef, static: false }) tippyTemplateEx10: ElementRef;
-  @ViewChild('tippyTemplateEx11', { read: ElementRef, static: false }) tippyTemplateEx11: ElementRef;
+  @ViewChild('tippyTemplateEx12', { read: ElementRef, static: false }) tippyTemplateEx12: ElementRef;
+  @ViewChild('tippyTemplateEx13', { read: ElementRef, static: false }) tippyTemplateEx13: ElementRef;
 
   title = 'ngx-tippy-demo';
   bindedContent: string = 'Binded tooltip content';
@@ -25,22 +25,22 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tippyPropsEx3: NgxTippyProps = { ...this.tippyProps, arrow: false, placement: 'bottom' };
 
-  tippyPropsEx6: NgxTippyProps = { ...this.tippyProps, content: this.bindedContent };
+  tippyPropsEx8: NgxTippyProps = { ...this.tippyProps, content: this.bindedContent };
 
-  tippyPropsEx8: NgxTippyProps = { ...this.tippyProps, placement: 'bottom' };
+  tippyPropsEx10: NgxTippyProps = { ...this.tippyProps, placement: 'bottom' };
 
-  tippyPropsEx9: NgxTippyProps = {
+  tippyPropsEx11: NgxTippyProps = {
     ...this.tippyProps,
     allowHTML: true,
     interactive: true,
     interactiveBorder: 50,
   };
 
-  tippyPropsEx10: NgxTippyProps = this.tippyPropsEx9;
+  tippyPropsEx12: NgxTippyProps = this.tippyPropsEx11;
 
-  tippyPropsEx11: NgxTippyProps = this.tippyPropsEx9;
+  tippyPropsEx13: NgxTippyProps = this.tippyPropsEx11;
 
-  instanceEx12: NgxTippyProps = {
+  instanceEx14: NgxTippyProps = {
     allowHTML: true,
     animation: 'shift-away',
     content: 'Tooltip content',
@@ -51,9 +51,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     trigger: 'manual',
   };
 
-  tippyPropsEx13: NgxTippyProps = this.tippyPropsEx9;
+  tippyPropsEx15: NgxTippyProps = this.tippyPropsEx11;
 
-  instanceEx15: NgxSingletonProps = {
+  instanceEx17: NgxSingletonProps = {
     allowHTML: true,
     animation: 'shift-away',
     interactiveBorder: 30,
@@ -62,19 +62,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     theme: 'light',
   };
 
-  instanceEx16: NgxSingletonProps = { ...this.instanceEx15, overrides: ['arrow', 'placement'] };
+  instanceEx16: NgxSingletonProps = { ...this.instanceEx17, overrides: ['arrow', 'placement'] };
 
   constructor(private tippyService: NgxTippyService) {}
 
   ngOnInit() {
-    this.setContentForTooltipEx8();
+    this.setContentForTooltipEx10();
     this.subToInstancesChanges();
   }
 
   ngAfterViewInit() {
-    this.setContentForTooltipEx7();
-    this.setContentForTooltipEx10();
-    this.setContentForTooltipEx11();
+    this.setContentForTooltipEx9();
+    this.setContentForTooltipEx12();
+    this.setContentForTooltipEx13();
     this.manualControl();
   }
 
@@ -82,53 +82,53 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.instancesChanges$ && this.instancesChanges$.unsubscribe();
   }
 
-  setContentForTooltipEx7() {
-    this.tippyService.setContent('content-7', this.bindedContent);
-  }
-
-  setContentForTooltipEx8() {
-    this.tippyPropsEx8.content = 'Initial tooltip content';
+  setContentForTooltipEx9() {
+    this.tippyService.setContent('content-9', this.bindedContent);
   }
 
   setContentForTooltipEx10() {
-    const template = this.tippyTemplateEx10.nativeElement;
-    this.tippyService.setContent('content-10', template);
+    this.tippyPropsEx10.content = 'Initial tooltip content';
   }
 
-  setContentForTooltipEx11() {
-    const template = this.tippyTemplateEx11.nativeElement;
-    this.tippyService.setContent('content-11', template.innerHTML);
+  setContentForTooltipEx12() {
+    const template = this.tippyTemplateEx12.nativeElement;
+    this.tippyService.setContent('content-12', template);
+  }
+
+  setContentForTooltipEx13() {
+    const template = this.tippyTemplateEx13.nativeElement;
+    this.tippyService.setContent('content-13', template.innerHTML);
   }
 
   manualControl() {
     setTimeout(() => {
-      this.tippyService.show('instance-12');
+      this.tippyService.show('instance-14');
     }, 4000);
 
     setTimeout(() => {
-      this.tippyService.setContent('instance-12', 'New tooltip content');
+      this.tippyService.setContent('instance-14', 'New tooltip content');
     }, 8000);
 
     setTimeout(() => {
-      this.tippyService.setContent('instance-12', 'Another new content and props');
-      this.tippyService.setProps('instance-12', {
+      this.tippyService.setContent('instance-14', 'Another new content and props');
+      this.tippyService.setProps('instance-14', {
         theme: 'material',
         arrow: false,
       });
     }, 10000);
 
     setTimeout(() => {
-      this.tippyService.hide('instance-12');
+      this.tippyService.hide('instance-14');
     }, 12000);
 
     setTimeout(() => {
-      this.tippyService.destroy('instance-12');
+      this.tippyService.destroy('instance-14');
     }, 14000);
   }
 
   subToInstancesChanges() {
     this.instancesChanges$ = this.tippyService.instancesChanges.subscribe((changes: InstancesChanges) => {
-      if (changes.name === 'instance-12') {
+      if (changes.name === 'instance-14') {
         console.log('subToInstancesChanges -> changes', changes);
       }
     });
