@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   tippyPropsEx11: NgxTippyProps = {
     ...this.tippyProps,
     allowHTML: true,
+    appendTo: 'parent',
     interactive: true,
     interactiveBorder: 50,
   };
