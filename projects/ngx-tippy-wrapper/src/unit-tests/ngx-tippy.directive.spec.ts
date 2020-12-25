@@ -329,7 +329,74 @@ describe('Directive: NgxTippyDirective', () => {
     tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
     const tooltipContent = fixture.debugElement.query(By.css('.tippy-content'));
+    expect(tooltipContent.nativeElement.innerText).toBe(content, 'Content does not match passed content');
+  });
+  it('Should apply content passed directly through ngxTippy directive', () => {
+    const content = 'Directly passed string';
+
+    component.addComponent(
+      `
+      <div class="test">
+        <button
+          class="test__btn"
+          [ngxTippy]="content"
+          [tippyProps]="{
+            appendTo: 'parent'
+          }"
+        >
+          Element with tooltip
+        </button>
+      </div>
+      `,
+      styles,
+      {
+        content,
+      }
+    );
+
+    fixture.detectChanges();
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    const tooltipContent = fixture.debugElement.query(By.css('.tippy-content'));
     expect(tooltipContent.nativeElement.innerText).toBe(content);
+  });
+
+  it('Should apply template passed directly through ngxTippy directive', () => {
+    component.addComponent(
+      `
+      <div #tooltipTemplate>
+        <p>Directly passed content</p>
+        <button>Action</button>
+      </div>
+
+      <div class="test">
+        <button
+          class="test__btn"
+          [ngxTippy]="tooltipTemplate"
+          [tippyProps]="{
+            appendTo: 'parent',
+            interactive: true
+          }"
+        >
+          Element with tooltip
+        </button>
+      </div>
+      `,
+      styles,
+      null
+    );
+
+    fixture.detectChanges();
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    const tooltipContent = fixture.debugElement.query(By.css('.tippy-content')).nativeElement.firstChild;
+    expect(tooltipContent.children.length).toBeGreaterThan(0);
+    expect(tooltipContent.firstChild).toBeInstanceOf(HTMLElement);
+    expect(tooltipContent.firstChild.nodeName).toBe('P', 'HTML tag does not match passed tag');
+    expect(tooltipContent.lastChild).toBeInstanceOf(HTMLElement);
+    expect(tooltipContent.lastChild.nodeName).toBe('BUTTON', 'HTML tag does not match passed tag');
   });
 
   it('Should call getInstance method for defined instance', () => {
