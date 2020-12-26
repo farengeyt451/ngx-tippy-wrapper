@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy, Vie
 import { NgxTippyProps, InstancesChanges, NgxSingletonProps } from 'ngx-tippy-wrapper';
 import { NgxTippyService } from 'ngx-tippy-wrapper';
 import { Subscription } from 'rxjs';
+import { followCursor, animateFill } from 'tippy.js';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,8 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('tippyTemplateEx12', { read: ElementRef, static: false }) tippyTemplateEx12: ElementRef;
-  @ViewChild('tippyTemplateEx13', { read: ElementRef, static: false }) tippyTemplateEx13: ElementRef;
+  @ViewChild('tippyTemplatePassElement', { read: ElementRef, static: false }) tippyTemplatePassElement: ElementRef;
+  @ViewChild('tippyTemplatePassInnerHTML', { read: ElementRef, static: false }) tippyTemplatePassInnerHTML: ElementRef;
 
   title = 'ngx-tippy-demo';
   bindedContent: string = 'Binded tooltip content';
@@ -23,13 +24,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     theme: 'light',
   };
 
-  tippyPropsEx3: NgxTippyProps = { ...this.tippyProps, arrow: false, placement: 'bottom' };
+  tippyPropsFromComponent: NgxTippyProps = { ...this.tippyProps, arrow: false, placement: 'bottom' };
 
-  tippyPropsEx8: NgxTippyProps = { ...this.tippyProps, content: this.bindedContent };
+  tippyPropsBinding: NgxTippyProps = { ...this.tippyProps, content: this.bindedContent };
 
-  tippyPropsEx10: NgxTippyProps = { ...this.tippyProps, placement: 'bottom' };
+  tippyPropsBindedProp: NgxTippyProps = { ...this.tippyProps, placement: 'bottom' };
 
-  tippyPropsEx11: NgxTippyProps = {
+  tippyPropsTemplateRef: NgxTippyProps = {
     ...this.tippyProps,
     allowHTML: true,
     appendTo: 'parent',
@@ -37,11 +38,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     interactiveBorder: 50,
   };
 
-  tippyPropsEx12: NgxTippyProps = this.tippyPropsEx11;
+  tippyPropsPassElement: NgxTippyProps = this.tippyPropsTemplateRef;
 
-  tippyPropsEx13: NgxTippyProps = this.tippyPropsEx11;
+  tippyPropsPassInnerHTML: NgxTippyProps = this.tippyPropsTemplateRef;
 
-  instanceEx14: NgxTippyProps = {
+  tippyPropsPlugin: NgxTippyProps = { ...this.tippyProps, followCursor: true, plugins: [followCursor] };
+
+  tippyPropsAnimateFill: NgxTippyProps = { animateFill: true, plugins: [animateFill] };
+
+  tippyPropsManualControl: NgxTippyProps = {
     allowHTML: true,
     animation: 'shift-away',
     content: 'Tooltip content',
@@ -52,9 +57,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     trigger: 'manual',
   };
 
-  tippyPropsEx15: NgxTippyProps = this.tippyPropsEx11;
+  tippyPropsGrouped: NgxTippyProps = this.tippyPropsTemplateRef;
 
-  instanceEx17: NgxSingletonProps = {
+  tippyPropsSingleton: NgxSingletonProps = {
     allowHTML: true,
     animation: 'shift-away',
     interactiveBorder: 30,
@@ -63,19 +68,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     theme: 'light',
   };
 
-  instanceEx16: NgxSingletonProps = { ...this.instanceEx17, overrides: ['arrow', 'placement'] };
+  tippyPropsSingletonOverrides: NgxSingletonProps = { ...this.tippyPropsSingleton, overrides: ['arrow', 'placement'] };
 
   constructor(private tippyService: NgxTippyService) {}
 
   ngOnInit() {
-    this.setContentForTooltipEx10();
+    this.setContentForTooltipBindedProp();
     this.subToInstancesChanges();
   }
 
   ngAfterViewInit() {
-    this.setContentForTooltipEx9();
-    this.setContentForTooltipEx12();
-    this.setContentForTooltipEx13();
+    this.setContentForTooltip();
+    this.setContentForTooltipPassElement();
+    this.setContentForTooltipInnerHTML();
     this.manualControl();
   }
 
@@ -83,54 +88,54 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.instancesChanges$ && this.instancesChanges$.unsubscribe();
   }
 
-  setContentForTooltipEx9() {
-    this.tippyService.setContent('content-9', this.bindedContent);
+  setContentForTooltip() {
+    this.tippyService.setContent('set-content', this.bindedContent);
   }
 
-  setContentForTooltipEx10() {
-    this.tippyPropsEx10.content = 'Initial tooltip content';
+  setContentForTooltipBindedProp() {
+    this.tippyPropsBindedProp.content = 'Initial tooltip content';
   }
 
-  setContentForTooltipEx12() {
-    const template = this.tippyTemplateEx12.nativeElement;
-    this.tippyService.setContent('content-12', template);
+  setContentForTooltipPassElement() {
+    const template = this.tippyTemplatePassElement.nativeElement;
+    this.tippyService.setContent('pass-element', template);
   }
 
-  setContentForTooltipEx13() {
-    const template = this.tippyTemplateEx13.nativeElement;
-    this.tippyService.setContent('content-13', template.innerHTML);
+  setContentForTooltipInnerHTML() {
+    const template = this.tippyTemplatePassInnerHTML.nativeElement;
+    this.tippyService.setContent('inner-html', template.innerHTML);
   }
 
   manualControl() {
     setTimeout(() => {
-      this.tippyService.show('instance-14');
+      this.tippyService.show('manual-control');
     }, 4000);
 
     setTimeout(() => {
-      this.tippyService.setContent('instance-14', 'New tooltip content');
+      this.tippyService.setContent('manual-control', 'New tooltip content');
     }, 8000);
 
     setTimeout(() => {
-      this.tippyService.setContent('instance-14', 'Another new content and props');
-      this.tippyService.setProps('instance-14', {
+      this.tippyService.setContent('manual-control', 'Another new content and props');
+      this.tippyService.setProps('manual-control', {
         theme: 'material',
         arrow: false,
       });
     }, 10000);
 
     setTimeout(() => {
-      this.tippyService.hide('instance-14');
+      this.tippyService.hide('manual-control');
     }, 12000);
 
     setTimeout(() => {
-      this.tippyService.destroy('instance-14');
+      this.tippyService.destroy('manual-control');
     }, 14000);
   }
 
   subToInstancesChanges() {
     this.instancesChanges$ = this.tippyService.instancesChanges.subscribe((changes: InstancesChanges) => {
-      if (changes.name === 'instance-14') {
-        console.log('subToInstancesChanges -> changes', changes);
+      if (changes.name === 'manual-control') {
+        console.warn('subToInstancesChanges -> changes', changes);
       }
     });
   }

@@ -66,7 +66,7 @@ or angular.json:
   }
 ```
 
-## Using
+## Usage
 
 ### Basic usage
 
@@ -133,7 +133,7 @@ export class DemoComponent implements OnInit {
 
 `tippyClassName` - add custom class to the `tippy-box` element, support multiple classes passed as words separated by space
 
-## Applying content
+### Applying content
 
 #### You can pass tooltip content through:
 
@@ -157,7 +157,13 @@ export class DemoComponent implements OnInit {
 </button>
 ```
 
-3. **`setContent()*` method** :
+3. **passing `string` directly:**
+
+```html
+<button ngxTippy="Directly passed content">Element with tooltip</button>
+```
+
+4. **`setContent()*` method** :
 
 ```html
 <button ngxTippy tippyName="content">Element with tooltip</button>
@@ -191,7 +197,7 @@ export class DemoComponent implements OnInit, AfterViewInit {
 
 \*_This method can be used for dynamic applying content at any time, not only in lifecycle hooks_
 
-4. **`tippyProps`**:
+5. **`tippyProps`**:
 
 ```html
 <button ngxTippy [tippyProps]="tippyProps">Element with tooltip</button>
@@ -217,9 +223,9 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-5. **`template`**:
+6. **`template`**:
 
-- Pass template reference directly
+- Pass `template reference` directly
 
 <!-- prettier-ignore-start -->
 ```html
@@ -240,7 +246,7 @@ export class DemoComponent implements OnInit {
 ```
 <!-- prettier-ignore-end -->
 
-- Pass `element` or `element.innerHTML`
+- Pass `element`, `element.innerHTML`
 
 <!-- prettier-ignore-start -->
 ```html
@@ -586,3 +592,10 @@ export class DemoComponent implements OnInit {
 ```
 
 [Documentation for v1.0.1](./README-v1.01.md)
+
+TODO:
+
+1. Pass `null` feature for not display empty tooltip
+2. Set display block in `directive` not in a `service`
+3. Update docs
+4. Update demo

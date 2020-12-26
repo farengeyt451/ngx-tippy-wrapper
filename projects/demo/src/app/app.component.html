@@ -3,21 +3,14 @@
 
     <h2 class="t-demo__heading">Basic examples</h2>
 
-    <!-- Example - 1 -->
+    <!-- Example block -->
     <p class="t-demo__text">Basic tooltip</p>
 
     <button class="t-demo__btn" ngxTippy data-tippy-content="Tooltip content">
       Element with tooltip
     </button>
 
-    <!-- Example - 1 -->
-    <p class="t-demo__text">Basic tooltip</p>
-
-    <button class="t-demo__btn" ngxTippy>
-      Element with tooltip
-    </button>
-
-    <!-- Example - 2 -->
+    <!-- Example block -->
     <p class="t-demo__text">Applying props from template</p>
 
     <button
@@ -32,21 +25,21 @@
       Element with tooltip
     </button>
 
-    <!-- Example - 3 -->
+    <!-- Example block -->
     <p class="t-demo__text">Applying props from component</p>
 
     <button
       class="t-demo__btn"
       ngxTippy
       data-tippy-content="Tooltip content"
-      [tippyProps]="tippyPropsEx3"
+      [tippyProps]="tippyPropsFromComponent"
       tippyClassName="custom another-class"
     >
       Element with tooltip
     </button>
 
 
-    <!-- Example - 4 -->
+    <!-- Example block -->
     <p class="t-demo__text">Build in <b>shift-toward</b> animation</p>
 
     <button
@@ -62,7 +55,7 @@
       Element with tooltip
     </button>
 
-    <!-- Example - 5 -->
+    <!-- Example block -->
     <p class="t-demo__text">Custom animation</p>
 
     <button
@@ -82,7 +75,18 @@
   <div class="t-demo__block">
     <h2 class="t-demo__heading">Applying content</h2>
 
-    <!-- Example - 6 -->
+    <!-- Example block -->
+    <p class="t-demo__text">
+      Applying content passing string to
+      <span class="t-demo__highlighted">directive</span>
+      directly
+    </p>
+
+    <button class="t-demo__btn" ngxTippy="Directly passed content">
+      Element with tooltip
+    </button>
+
+    <!-- Example block -->
     <p class="t-demo__text">
       Applying content using
       <span class="t-demo__highlighted">data</span> attribute
@@ -92,7 +96,7 @@
       Element with tooltip
     </button>
 
-    <!-- Example - 7 -->
+    <!-- Example block -->
     <p class="t-demo__text">
       Applying content using
       <span class="t-demo__highlighted">content</span> prop
@@ -109,7 +113,7 @@
       Element with tooltip
     </button>
 
-    <!-- Example - 8 -->
+    <!-- Example block -->
     <p class="t-demo__text">
       Applying content using binded
       <span class="t-demo__highlighted">content</span> prop
@@ -118,32 +122,31 @@
     <button
       class="t-demo__btn"
       ngxTippy
-      tippyName="content-10"
-      [tippyProps]="tippyPropsEx10"
+      [tippyProps]="tippyPropsBindedProp"
     >
       Element with tooltip
     </button>
 
-    <!-- Example - 9 -->
+    <!-- Example block -->
     <p class="t-demo__text">
       Applying content using
       <span class="t-demo__highlighted">setContent()</span> method
     </p>
 
-    <button class="t-demo__btn" ngxTippy tippyName="content-9">
+    <button class="t-demo__btn" ngxTippy tippyName="set-content">
       Element with tooltip
     </button>
 
-    <!-- Example - 10 -->
+    <!-- Example block -->
     <p class="t-demo__text">
       Applying content using <span class="t-demo__highlighted">tippyProps</span>
     </p>
 
-    <button class="t-demo__btn" ngxTippy [tippyProps]="tippyPropsEx8">
+    <button class="t-demo__btn" ngxTippy [tippyProps]="tippyPropsBinding">
       Element with tooltip
     </button>
 
-    <!-- Example - 11 -->
+    <!-- Example block -->
     <p class="t-demo__text">
       Applying content passing
       <span class="t-demo__highlighted">template reference</span> directly
@@ -153,8 +156,8 @@
       <button
         class="t-demo__btn"
         [ngxTippy]="tippyTemplate"
-        tippyName="content-11"
-        [tippyProps]="tippyPropsEx11"
+        tippyName="template-ref"
+        [tippyProps]="tippyPropsTemplateRef"
       >
         Element with tooltip
       </button>
@@ -167,7 +170,7 @@
       </div>
     </div>
 
-    <!-- Example - 12 -->
+    <!-- Example block -->
     <p class="t-demo__text">
       Applying content passing <span class="t-demo__highlighted">element</span>
     </p>
@@ -175,20 +178,20 @@
     <button
       class="t-demo__btn"
       ngxTippy
-      tippyName="content-12"
-      [tippyProps]="tippyPropsEx12"
+      tippyName="pass-element"
+      [tippyProps]="tippyPropsPassElement"
     >
-      Element with tooltip
+      Element with tooltip12
     </button>
 
-    <div #tippyTemplateEx12>
+    <div #tippyTemplatePassElement>
       <h4>Caption</h4>
       <p>Some content</p>
       <button (click)="onTemplateClick($event)">Action</button>
       ...
     </div>
 
-    <!-- Example - 13 -->
+    <!-- Example block -->
     <p class="t-demo__text">
       Applying content passing
       <span class="t-demo__highlighted">element.innerHTML</span>
@@ -197,14 +200,14 @@
     <button
       class="t-demo__btn"
       ngxTippy
-      tippyName="content-13"
-      [tippyProps]="tippyPropsEx13"
+      tippyName="inner-html"
+      [tippyProps]="tippyPropsPassInnerHTML"
     >
       Element with tooltip
     </button>
 
     <div
-      #tippyTemplateEx13
+      #tippyTemplatePassInnerHTML
       style="display: none;"
     >
       <h4>Caption</h4>
@@ -214,9 +217,41 @@
   </div>
 
   <div class="t-demo__block">
+    <h2 class="t-demo__heading">Plugins usage</h2>
+
+    <!-- Example block -->
+    <p class="t-demo__text">
+      Follow cursor
+    </p>
+
+    <div>
+      <button
+        class="t-demo__btn"
+        ngxTippy="Tooltip content"
+        [tippyProps]="tippyPropsPlugin"
+      >
+        Element with tooltip
+      </button>
+    </div>
+
+    <!-- Example block -->
+    <p class="t-demo__text">
+      Animate fill
+    </p>
+
+    <div>
+      <button
+        class="t-demo__btn"
+        ngxTippy="Tooltip content"
+        [tippyProps]="tippyPropsAnimateFill"
+      >
+        Element with tooltip
+      </button>
+    </div>
+
     <h2 class="t-demo__heading">Control specific tippy instance</h2>
 
-    <!-- Example - 14 -->
+    <!-- Example block -->
     <p class="t-demo__text">
       Manual control and event subscribe (look to browser console)
     </p>
@@ -225,8 +260,8 @@
       <button
         class="t-demo__btn"
         ngxTippy
-        tippyName="instance-14"
-        [tippyProps]="instanceEx14"
+        tippyName="manual-control"
+        [tippyProps]="tippyPropsManualControl"
       >
         Element with tooltip
       </button>
@@ -234,15 +269,15 @@
 
     <h2 class="t-demo__heading">Grouped tooltips</h2>
 
-    <!-- Example - 15 -->
-    <ngx-tippy-group [tippyProps]="tippyPropsEx15">
+    <!-- Example block -->
+    <ngx-tippy-group [tippyProps]="tippyPropsGrouped">
       <div class="t-demo__grouped">
         <button
           class="t-demo__btn"
           data-grouped
           data-tippy-content="Tooltip content"
         >
-          Group
+          Grouped
         </button>
 
         <button
@@ -250,7 +285,7 @@
           data-grouped
           data-tippy-content="Tooltip content"
         >
-          Group
+          Grouped
         </button>
 
         <button
@@ -258,14 +293,14 @@
           data-grouped
           data-tippy-content="Tooltip content"
         >
-          Group
+          Grouped
         </button>
       </div>
     </ngx-tippy-group>
 
     <h2 class="t-demo__heading">Multiple tooltips on a single element</h2>
 
-    <!-- Example - 16 -->
+    <!-- Example block -->
     <div
       class="t-demo__btn-wrap"
       ngxTippy
@@ -306,8 +341,8 @@
 
     <h2 class="t-demo__heading">Singleton</h2>
 
-    <!-- Example - 17 -->
-    <ngx-tippy-singleton [tippyProps]="instanceEx17">
+    <!-- Example block -->
+    <ngx-tippy-singleton [tippyProps]="tippyPropsSingleton">
       <div class="t-demo__grouped">
         <button
           class="t-demo__btn"
@@ -339,8 +374,8 @@
       Overridden props
     </p>
 
-    <!-- Example - 18 -->
-    <ngx-tippy-singleton [tippyProps]="instanceEx16">
+    <!-- Example block -->
+    <ngx-tippy-singleton [tippyProps]="tippyPropsSingletonOverrides">
       <div class="t-demo__grouped">
         <button
           class="t-demo__btn"

@@ -12,10 +12,10 @@ interface TippyHTMLElement extends HTMLElement {
   selector: '[ngxTippy]',
 })
 export class NgxTippyDirective implements OnInit {
-  @Input() ngxTippy?: HTMLElement | string | undefined;
-  @Input() tippyProps?: NgxTippyProps | undefined;
-  @Input() tippyName?: string | undefined;
-  @Input() tippyClassName?: string | undefined;
+  @Input() ngxTippy?: HTMLElement | string | null;
+  @Input() tippyProps?: NgxTippyProps;
+  @Input() tippyName?: string;
+  @Input() tippyClassName?: string;
 
   constructor(
     private tippyEl: ElementRef,
@@ -34,10 +34,12 @@ export class NgxTippyDirective implements OnInit {
    * Template can be directly passed through `ngxTippy` selector
    */
   initTippy() {
+    if (!this.ngxTippy) return;
+
     const tippyTarget = this.tippyEl.nativeElement;
     const tippyTemplate = this.ngxTippy;
 
-    tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyTemplate && { content: tippyTemplate }) });
+    tippy(tippyTarget, { ...(this.tippyProps || {}), ...{ content: tippyTemplate } });
     this.setTippyInstance(tippyTarget);
   }
 
