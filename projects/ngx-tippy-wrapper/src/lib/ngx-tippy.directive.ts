@@ -31,26 +31,35 @@ export class NgxTippyDirective implements OnInit {
 
   /**
    * Tooltip initialize
-   * Template can be directly passed through `ngxTippy` selector
+   * Content can be directly passed through `ngxTippy` selector
+   * Don't initialize tooltip if content was not passed
    */
-  initTippy() {
-    if (!this.ngxTippy) return;
-
+  private initTippy() {
     const tippyTarget = this.tippyEl.nativeElement;
     const tippyTemplate = this.ngxTippy;
 
-    tippy(tippyTarget, { ...(this.tippyProps || {}), ...{ content: tippyTemplate } });
+    console.log(this.ngxTippy);
+    if (!this.ngxTippy && !tippyTarget.getAttribute('data-tippy-content') && !this.tippyProps.content) return;
+
+    tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyTemplate && { content: tippyTemplate }) });
+
+    this.setTemplateVisible(tippyTemplate);
     this.setTippyInstance(tippyTarget);
   }
 
-  setTippyInstance(tippyTarget: TippyHTMLElement) {
+  private setTemplateVisible(tippyTemplate: string | HTMLElement) {
+    if (typeof tippyTemplate === 'string') return;
+    this.renderer.setStyle(this.ngxTippy, 'display', 'block');
+  }
+
+  private setTippyInstance(tippyTarget: TippyHTMLElement) {
     const tippyInstance: NgxTippyInstance = tippyTarget._tippy;
 
     this.writeInstancesToStorage(tippyInstance);
     this.setClassName(tippyInstance);
   }
 
-  setClassName(tippyInstance: NgxTippyInstance) {
+  private setClassName(tippyInstance: NgxTippyInstance) {
     if (!this.tippyClassName) return;
     const classNames = this.tippyClassName.split(' ');
 
@@ -67,7 +76,7 @@ export class NgxTippyDirective implements OnInit {
    *
    * @param tippyInstance { NgxTippyInstance }
    */
-  writeInstancesToStorage(tippyInstance: NgxTippyInstance) {
+  private writeInstancesToStorage(tippyInstance: NgxTippyInstance) {
     this.ngxTippyService.setInstance(this.tippyName || `tippy-${tippyInstance.id}`, tippyInstance);
   }
 }
