@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build-lib": "ng build ngx-tippy-wrapper --prod",
+    "watch-lib": "ng build ngx-tippy-wrapper --watch",
     "npm-pack": "cd dist/ngx-tippy-wrapper && npm pack",
     "copy-license": "cp ./LICENSE dist/ngx-tippy-wrapper",
     "copy-readme": "cp ./README.md dist/ngx-tippy-wrapper",

@@ -2,7 +2,7 @@ import { Directive, OnInit, ElementRef, Input, Renderer2, Inject, PLATFORM_ID } 
 import { isPlatformServer } from '@angular/common';
 import tippy, { Instance } from 'tippy.js';
 import { NgxTippyService } from './ngx-tippy.service';
-import { NgxTippyProps, NgxTippyInstance } from './ngx-tippy.interfaces';
+import { NgxTippyProps, NgxTippyInstance, NgxTippyContent } from './ngx-tippy.interfaces';
 
 interface TippyHTMLElement extends HTMLElement {
   _tippy: Instance;
@@ -12,7 +12,7 @@ interface TippyHTMLElement extends HTMLElement {
   selector: '[ngxTippy]',
 })
 export class NgxTippyDirective implements OnInit {
-  @Input() ngxTippy?: HTMLElement;
+  @Input() ngxTippy?: NgxTippyContent | null;
   @Input() tippyProps?: NgxTippyProps;
   @Input() tippyName?: string;
   @Input() tippyClassName?: string;
@@ -31,28 +31,32 @@ export class NgxTippyDirective implements OnInit {
 
   /**
    * Tooltip initialize
-   * Template can be directly passed through `ngxTippy` selector
+   * Content can be directly passed through `ngxTippy` selector
    */
-  initTippy() {
+  private initTippy() {
+    if (this.ngxTippy === null || this.ngxTippy === undefined) return;
+
     const tippyTarget = this.tippyEl.nativeElement;
     const tippyTemplate = this.ngxTippy;
 
-    tippy(tippyTarget, { ...this.tippyProps, ...(tippyTemplate && { content: tippyTemplate }) });
+    tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyTemplate && { content: tippyTemplate }) });
+
+    this.ngxTippyService.setTemplateVisible(tippyTemplate);
     this.setTippyInstance(tippyTarget);
   }
 
-  setTippyInstance(tippyTarget: TippyHTMLElement) {
+  private setTippyInstance(tippyTarget: TippyHTMLElement) {
     const tippyInstance: NgxTippyInstance = tippyTarget._tippy;
 
     this.writeInstancesToStorage(tippyInstance);
     this.setClassName(tippyInstance);
   }
 
-  setClassName(tippyInstance: NgxTippyInstance) {
+  private setClassName(tippyInstance: NgxTippyInstance) {
     if (!this.tippyClassName) return;
     const classNames = this.tippyClassName.split(' ');
 
-    classNames.length > 0 &&
+    classNames.length &&
       classNames.forEach((className) => {
         this.renderer.addClass(tippyInstance.popper.firstElementChild, className);
       });
@@ -65,7 +69,7 @@ export class NgxTippyDirective implements OnInit {
    *
    * @param tippyInstance { NgxTippyInstance }
    */
-  writeInstancesToStorage(tippyInstance: NgxTippyInstance) {
+  private writeInstancesToStorage(tippyInstance: NgxTippyInstance) {
     this.ngxTippyService.setInstance(this.tippyName || `tippy-${tippyInstance.id}`, tippyInstance);
   }
 }

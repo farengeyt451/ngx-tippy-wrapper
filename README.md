@@ -66,7 +66,7 @@ or angular.json:
   }
 ```
 
-## Using
+## Usage
 
 ### Basic usage
 
@@ -133,7 +133,29 @@ export class DemoComponent implements OnInit {
 
 `tippyClassName` - add custom class to the `tippy-box` element, support multiple classes passed as words separated by space
 
-## Applying content
+### Initializing on condition
+
+In some cases tooltip should be initialized conditionally. For example in case optional `@Input` property passed or not. So, if tooltip should not initialize - you can explicitly pass `null` through ngxTippy directive or bind possible `undefined` property:
+
+```ts
+...
+import { NgxTippyService } from 'ngx-tippy-wrapper';
+
+@Component({ ... })
+export class DemoComponent implements OnInit, AfterViewInit {
+  @Input() inputContent?: string;
+}
+```
+
+```html
+<button class="t-demo__btn" [ngxTippy]="someCondition ? 'Content' : null">Element with tooltip</button>
+
+or
+
+<button class="t-demo__btn" [ngxTippy]="inputContent">Element with tooltip</button>
+```
+
+### Applying content
 
 #### You can pass tooltip content through:
 
@@ -157,7 +179,13 @@ export class DemoComponent implements OnInit {
 </button>
 ```
 
-3. **`setContent()*` method** :
+3. **passing `string` directly:**
+
+```html
+<button ngxTippy="Directly passed content">Element with tooltip</button>
+```
+
+4. **`setContent()*` method** :
 
 ```html
 <button ngxTippy tippyName="content">Element with tooltip</button>
@@ -191,7 +219,7 @@ export class DemoComponent implements OnInit, AfterViewInit {
 
 \*_This method can be used for dynamic applying content at any time, not only in lifecycle hooks_
 
-4. **`tippyProps`**:
+5. **`tippyProps`**:
 
 ```html
 <button ngxTippy [tippyProps]="tippyProps">Element with tooltip</button>
@@ -217,9 +245,9 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-5. **`template`**:
+6. **`template`**:
 
-- Pass template reference directly
+- Pass `template reference` directly
 
 <!-- prettier-ignore-start -->
 ```html
@@ -240,7 +268,7 @@ export class DemoComponent implements OnInit {
 ```
 <!-- prettier-ignore-end -->
 
-- Pass `element` or `element.innerHTML`
+- Pass `element`, `element.innerHTML`
 
 <!-- prettier-ignore-start -->
 ```html
