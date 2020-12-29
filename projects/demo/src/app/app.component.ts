@@ -1,4 +1,13 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  ViewEncapsulation,
+  Input,
+} from '@angular/core';
 import { NgxTippyProps, InstancesChanges, NgxSingletonProps } from 'ngx-tippy-wrapper';
 import { NgxTippyService } from 'ngx-tippy-wrapper';
 import { Subscription } from 'rxjs';
@@ -12,41 +21,42 @@ import { followCursor, animateFill } from 'tippy.js';
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('tippyTemplatePassElement', { read: ElementRef, static: false }) tippyTemplatePassElement: ElementRef;
-  @ViewChild('tippyTemplatePassInnerHTML', { read: ElementRef, static: false }) tippyTemplatePassInnerHTML: ElementRef;
+  @ViewChild('templatePassInnerHTML', { read: ElementRef, static: false }) templatePassInnerHTML: ElementRef;
+  @Input() inputContent?: string;
 
-  title = 'ngx-tippy-demo';
-  bindedContent: string = 'Binded tooltip content';
+  public readonly title = 'ngx-tippy-demo';
+  public readonly bindedContent: string = 'Binded tooltip content';
 
   private instancesChanges$: Subscription;
 
-  tippyProps: NgxTippyProps = {
+  public baseProps: NgxTippyProps = {
     arrow: true,
     theme: 'light',
   };
 
-  tippyPropsFromComponent: NgxTippyProps = { ...this.tippyProps, arrow: false, placement: 'bottom' };
+  fromComponent: NgxTippyProps = { ...this.baseProps, arrow: false, placement: 'bottom' };
 
-  tippyPropsBinding: NgxTippyProps = { ...this.tippyProps, content: this.bindedContent };
+  binding: NgxTippyProps = { ...this.baseProps, content: this.bindedContent };
 
-  tippyPropsBindedProp: NgxTippyProps = { ...this.tippyProps, placement: 'bottom' };
+  bindedProp: NgxTippyProps = { ...this.baseProps, placement: 'bottom' };
 
-  tippyPropsTemplateRef: NgxTippyProps = {
-    ...this.tippyProps,
+  templateRef: NgxTippyProps = {
+    ...this.baseProps,
     allowHTML: true,
     appendTo: 'parent',
     interactive: true,
     interactiveBorder: 50,
   };
 
-  tippyPropsPassElement: NgxTippyProps = this.tippyPropsTemplateRef;
+  passElement: NgxTippyProps = this.templateRef;
 
-  tippyPropsPassInnerHTML: NgxTippyProps = this.tippyPropsTemplateRef;
+  passInnerHTML: NgxTippyProps = this.templateRef;
 
-  tippyPropsPlugin: NgxTippyProps = { ...this.tippyProps, followCursor: true, plugins: [followCursor] };
+  plugin: NgxTippyProps = { ...this.baseProps, followCursor: true, plugins: [followCursor] };
 
-  tippyPropsAnimateFill: NgxTippyProps = { animateFill: true, plugins: [animateFill] };
+  animateFill: NgxTippyProps = { animateFill: true, plugins: [animateFill] };
 
-  tippyPropsManualControl: NgxTippyProps = {
+  manualControl: NgxTippyProps = {
     allowHTML: true,
     animation: 'shift-away',
     content: 'Tooltip content',
@@ -57,9 +67,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     trigger: 'manual',
   };
 
-  tippyPropsGrouped: NgxTippyProps = this.tippyPropsTemplateRef;
+  grouped: NgxTippyProps = this.templateRef;
 
-  tippyPropsSingleton: NgxSingletonProps = {
+  singleton: NgxSingletonProps = {
     allowHTML: true,
     animation: 'shift-away',
     interactiveBorder: 30,
@@ -68,7 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     theme: 'light',
   };
 
-  tippyPropsSingletonOverrides: NgxSingletonProps = { ...this.tippyPropsSingleton, overrides: ['arrow', 'placement'] };
+  singletonOverrides: NgxSingletonProps = { ...this.singleton, overrides: ['arrow', 'placement'] };
 
   constructor(private tippyService: NgxTippyService) {}
 
@@ -81,7 +91,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setContentForTooltip();
     this.setContentForTooltipPassElement();
     this.setContentForTooltipInnerHTML();
-    this.manualControl();
+    this.initManualControl();
   }
 
   ngOnDestroy() {
@@ -93,7 +103,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setContentForTooltipBindedProp() {
-    this.tippyPropsBindedProp.content = 'Initial tooltip content';
+    this.bindedProp.content = 'Initial tooltip content';
   }
 
   setContentForTooltipPassElement() {
@@ -102,11 +112,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setContentForTooltipInnerHTML() {
-    const template = this.tippyTemplatePassInnerHTML.nativeElement;
+    const template = this.templatePassInnerHTML.nativeElement;
     this.tippyService.setContent('inner-html', template.innerHTML);
   }
 
-  manualControl() {
+  initManualControl() {
     setTimeout(() => {
       this.tippyService.show('manual-control');
     }, 4000);

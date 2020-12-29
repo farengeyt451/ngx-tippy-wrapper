@@ -269,14 +269,14 @@ export class NgxTippyService {
   /**
    * Service methods
    */
+  public setTemplateVisible(tippyContent: NgxTippyContent) {
+    if (typeof tippyContent === 'string') return;
+    this.renderer.setStyle(tippyContent, 'display', 'block');
+  }
+
   private emitInstancesChange(reason: InstanceChangeReason, name: string) {
     const instance = this.tippyInstances.get(name);
     this.tippyInstances$.next({ name, reason, instance });
-  }
-
-  private setTemplateVisible(tippyContent: NgxTippyContent) {
-    if (typeof tippyContent === 'string') return;
-    this.renderer.setStyle(tippyContent, 'display', 'block');
   }
 
   private createRenderer(rendererFactory: RendererFactory2) {

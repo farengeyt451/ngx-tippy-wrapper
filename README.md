@@ -133,6 +133,28 @@ export class DemoComponent implements OnInit {
 
 `tippyClassName` - add custom class to the `tippy-box` element, support multiple classes passed as words separated by space
 
+### Initializing on condition
+
+In some cases tooltip should be initialized conditionally. For example in case optional `@Input` property passed or not. So, if tooltip should not initialize - you can explicitly pass `null` through ngxTippy directive or bind possible `undefined` property:
+
+```ts
+...
+import { NgxTippyService } from 'ngx-tippy-wrapper';
+
+@Component({ ... })
+export class DemoComponent implements OnInit, AfterViewInit {
+  @Input() inputContent?: string;
+}
+```
+
+```html
+<button class="t-demo__btn" [ngxTippy]="someCondition ? 'Content' : null">Element with tooltip</button>
+
+or
+
+<button class="t-demo__btn" [ngxTippy]="inputContent">Element with tooltip</button>
+```
+
 ### Applying content
 
 #### You can pass tooltip content through:
@@ -592,10 +614,3 @@ export class DemoComponent implements OnInit {
 ```
 
 [Documentation for v1.0.1](./README-v1.01.md)
-
-TODO:
-
-1. Pass `null` feature for not display empty tooltip
-2. Set display block in `directive` not in a `service`
-3. Update docs
-4. Update demo

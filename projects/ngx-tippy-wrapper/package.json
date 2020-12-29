@@ -1,6 +1,6 @@
 {
   "name": "ngx-tippy-wrapper",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "Angular 8+ wrapper for Tippy.js",
   "keywords": [
     "tooltip",
