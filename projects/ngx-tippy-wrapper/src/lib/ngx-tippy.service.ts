@@ -270,8 +270,7 @@ export class NgxTippyService {
    * Service methods
    */
   public setTemplateVisible(tippyContent: NgxTippyContent) {
-    if (typeof tippyContent === 'string') return;
-    this.renderer.setStyle(tippyContent, 'display', 'block');
+    tippyContent instanceof Element && this.renderer.setStyle(tippyContent, 'display', 'block');
   }
 
   private emitInstancesChange(reason: InstanceChangeReason, name: string) {
