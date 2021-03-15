@@ -79,6 +79,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   singletonOverrides: NgxSingletonProps = { ...this.singleton, overrides: ['arrow', 'placement'] };
+  singletonTransitions: NgxSingletonProps = { ...this.singleton, moveTransition: 'transform 0.4s linear' };
 
   constructor(private tippyService: NgxTippyService) {}
 

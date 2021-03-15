@@ -613,4 +613,22 @@ export class DemoComponent implements OnInit {
 }
 ```
 
+**Smooth transitions**
+
+Use the `moveTransition` prop, which is the transition between moves:
+```ts
+...
+import { NgxSingletonProps } from 'ngx-tippy-wrapper';
+
+@Component({ ... })
+export class DemoComponent implements OnInit {
+
+  tippyProps: NgxSingletonProps = {
+    ...,
+    moveTransition: 'transform 0.4s linear',
+  };
+  ...
+}
+```
+
 [Documentation for v1.0.1](./README-v1.01.md)

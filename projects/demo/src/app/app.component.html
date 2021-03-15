@@ -339,5 +339,27 @@
         <button class="t-demo__btn" data-singleton data-tippy-content="Third tooltip content">Singleton</button>
       </div>
     </ngx-tippy-singleton>
+
+    <p class="t-demo__text">Smooth transitions</p>
+
+    <!-- Example block -->
+    <ngx-tippy-singleton [tippyProps]="singletonTransitions">
+      <div class="t-demo__grouped">
+        <button
+          class="t-demo__btn"
+          data-singleton
+          data-tippy-content="First tooltip content"
+          data-tippy-placement="bottom"
+        >
+          Singleton
+        </button>
+
+        <button class="t-demo__btn" data-singleton data-tippy-content="Second tooltip content" data-tippy-arrow="false">
+          Singleton
+        </button>
+
+        <button class="t-demo__btn" data-singleton data-tippy-content="Third tooltip content">Singleton</button>
+      </div>
+    </ngx-tippy-singleton>
   </div>
 </div>

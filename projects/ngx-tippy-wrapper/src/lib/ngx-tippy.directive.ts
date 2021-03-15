@@ -48,6 +48,9 @@ export class NgxTippyDirective implements OnInit {
   private setTippyInstance(tippyTarget: TippyHTMLElement) {
     const tippyInstance: NgxTippyInstance = tippyTarget._tippy;
 
+    tippyInstance.isSingleTon = true;
+    console.log('log ~ setTippyInstance ~ tippyInstance', tippyInstance);
+
     this.writeInstancesToStorage(tippyInstance);
     this.setClassName(tippyInstance);
   }

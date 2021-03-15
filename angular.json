@@ -179,6 +179,126 @@
           }
         }
       }
+    },
+    "lib-workspace": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        }
+      },
+      "root": "projects/lib-workspace",
+      "sourceRoot": "projects/lib-workspace/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/lib-workspace",
+            "index": "projects/lib-workspace/src/index.html",
+            "main": "projects/lib-workspace/src/main.ts",
+            "polyfills": "projects/lib-workspace/src/polyfills.ts",
+            "tsConfig": "projects/lib-workspace/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/lib-workspace/src/favicon.ico",
+              "projects/lib-workspace/src/assets"
+            ],
+            "styles": [
+              "projects/lib-workspace/src/styles.sass"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/lib-workspace/src/environments/environment.ts",
+                  "with": "projects/lib-workspace/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "lib-workspace:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "lib-workspace:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "lib-workspace:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lib-workspace/src/test.ts",
+            "polyfills": "projects/lib-workspace/src/polyfills.ts",
+            "tsConfig": "projects/lib-workspace/tsconfig.spec.json",
+            "karmaConfig": "projects/lib-workspace/karma.conf.js",
+            "assets": [
+              "projects/lib-workspace/src/favicon.ico",
+              "projects/lib-workspace/src/assets"
+            ],
+            "styles": [
+              "projects/lib-workspace/src/styles.sass"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/lib-workspace/tsconfig.app.json",
+              "projects/lib-workspace/tsconfig.spec.json",
+              "projects/lib-workspace/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/lib-workspace/e2e/protractor.conf.js",
+            "devServerTarget": "lib-workspace:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "lib-workspace:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "ng-tippy-wrapper"
