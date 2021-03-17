@@ -112,7 +112,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService.setContent(tippyName, 'New content');
   });
 
-  it('Should call setTemplateVisible when set new tooltip content', () => {
+  xit('Should call setTemplateVisible when set new tooltip content', () => {
     spyOn<any>(tippyService, 'setTemplateVisible');
     tippyService.setContent(tippyName, 'New content');
 

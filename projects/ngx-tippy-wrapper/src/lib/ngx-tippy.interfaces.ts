@@ -1,15 +1,13 @@
 import { Instance, Props, Content } from 'tippy.js';
 
-export interface NgxTippyProps extends Partial<Props> {
-  isSingleTon?: boolean;
-}
+export interface NgxTippyProps extends Partial<Props> {}
 
 export interface NgxSingletonProps extends Partial<Props> {
   overrides?: Array<keyof NgxTippyProps>;
 }
 
 export interface NgxTippyInstance extends Instance {
-  isSingleTon?: boolean;
+  isChildrenSingleton?: boolean;
 }
 
 export type NgxTippyContent = Content;

@@ -84,7 +84,6 @@ describe('Directive: NgxTippyDirective', () => {
       'setDefaultProps',
       'showAll',
       'hideAll',
-      'setTemplateVisible',
     ]);
 
     TestBed.configureTestingModule({

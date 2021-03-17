@@ -3,6 +3,7 @@ import { isPlatformServer } from '@angular/common';
 import tippy, { Instance } from 'tippy.js';
 import { NgxTippyService } from './ngx-tippy.service';
 import { NgxTippyProps, NgxTippyInstance, NgxTippyContent } from './ngx-tippy.interfaces';
+import { setTemplateVisible } from './ngx-tippy.utils';
 
 interface TippyHTMLElement extends HTMLElement {
   _tippy: Instance;
@@ -41,18 +42,16 @@ export class NgxTippyDirective implements OnInit {
 
     tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyTemplate && { content: tippyTemplate }) });
 
-    this.ngxTippyService.setTemplateVisible(tippyTemplate);
+    setTemplateVisible(tippyTemplate, this.renderer);
     this.setTippyInstance(tippyTarget);
   }
 
   private setTippyInstance(tippyTarget: TippyHTMLElement) {
     const tippyInstance: NgxTippyInstance = tippyTarget._tippy;
 
-    tippyInstance.isSingleTon = true;
-    console.log('log ~ setTippyInstance ~ tippyInstance', tippyInstance);
-
-    this.writeInstancesToStorage(tippyInstance);
     this.setClassName(tippyInstance);
+    this.setSingletonSign(tippyInstance, tippyTarget);
+    this.writeInstancesToStorage(tippyInstance);
   }
 
   private setClassName(tippyInstance: NgxTippyInstance) {
@@ -63,6 +62,10 @@ export class NgxTippyDirective implements OnInit {
       classNames.forEach((className) => {
         this.renderer.addClass(tippyInstance.popper.firstElementChild, className);
       });
+  }
+
+  private setSingletonSign(tippyInstance: NgxTippyInstance, tippyTarget: TippyHTMLElement) {
+    tippyInstance.isChildrenSingleton = tippyTarget.dataset.hasOwnProperty('tippySingleton');
   }
 
   /**

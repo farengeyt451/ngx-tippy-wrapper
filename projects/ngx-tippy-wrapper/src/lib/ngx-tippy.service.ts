@@ -9,6 +9,7 @@ import {
   InstancesChanges,
   InstanceChangeReason,
 } from './ngx-tippy.interfaces';
+import { setTemplateVisible } from './ngx-tippy.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -158,7 +159,8 @@ export class NgxTippyService {
       this.throwError(`Instance with identifier '${name}' does not exist`);
     }
 
-    this.setTemplateVisible(tippyContent);
+    setTemplateVisible(tippyContent, this.renderer);
+
     this.tippyInstances.get(name).setContent(tippyContent);
     this.emitInstancesChange('setContent', name);
   }
@@ -269,10 +271,6 @@ export class NgxTippyService {
   /**
    * Service methods
    */
-  public setTemplateVisible(tippyContent: NgxTippyContent) {
-    tippyContent instanceof Element && this.renderer.setStyle(tippyContent, 'display', 'block');
-  }
-
   private emitInstancesChange(reason: InstanceChangeReason, name: string) {
     const instance = this.tippyInstances.get(name);
     this.tippyInstances$.next({ name, reason, instance });
