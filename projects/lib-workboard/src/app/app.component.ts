@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
-import { NgxSingletonProps, NgxTippyProps, NgxTippyService } from 'ngx-tippy-wrapper';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgxSingletonProps, NgxTippyProps, NgxTippyService, NgxTippySingletonService } from 'ngx-tippy-wrapper';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import { NgxSingletonProps, NgxTippyProps, NgxTippyService } from 'ngx-tippy-wra
   styleUrls: ['./app.component.sass'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   singleton: NgxSingletonProps = {
     allowHTML: true,
     animation: 'shift-away',
@@ -28,9 +28,18 @@ export class AppComponent implements AfterViewInit {
     theme: 'light',
   };
 
-  constructor(private tippyService: NgxTippyService) {}
+  constructor(private ngxTippySingletonService: NgxTippySingletonService, private tippyService: NgxTippyService) {}
+
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    console.log(this.tippyService.getInstances());
+    const singletonInstances = this.ngxTippySingletonService.getInstances();
+    const firstSingletonInstances = this.ngxTippySingletonService.getInstance('first');
+
+    firstSingletonInstances.show('sing1');
+
+    setInterval(() => {
+      firstSingletonInstances.showNext();
+    }, 1000);
   }
 }

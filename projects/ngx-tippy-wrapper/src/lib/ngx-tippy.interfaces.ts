@@ -1,4 +1,4 @@
-import { Instance, Props, Content } from 'tippy.js';
+import { Instance, Props, Content, CreateSingleton, CreateSingletonInstance } from 'tippy.js';
 
 export interface NgxTippyProps extends Partial<Props> {}
 
@@ -7,7 +7,14 @@ export interface NgxSingletonProps extends Partial<Props> {
 }
 
 export interface NgxTippyInstance extends Instance {
-  isChildrenSingleton?: boolean;
+  isChildOfSingleton?: boolean;
+}
+
+export interface NgxTippySingletonInstance {
+  setInstances(instances: Instance<any>[]): void;
+  show(singletonTarget?: string | Instance | number): void;
+  showNext(): void;
+  showPrevious(): void;
 }
 
 export type NgxTippyContent = Content;

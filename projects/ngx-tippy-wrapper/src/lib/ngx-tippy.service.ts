@@ -8,6 +8,7 @@ import {
   NgxHideAllOptions,
   InstancesChanges,
   InstanceChangeReason,
+  NgxTippySingletonInstance,
 } from './ngx-tippy.interfaces';
 import { setTemplateVisible } from './ngx-tippy.utils';
 
@@ -22,7 +23,6 @@ export class NgxTippyService {
   constructor(rendererFactory: RendererFactory2) {
     this.createRenderer(rendererFactory);
   }
-
   /**
    * Working with storage
    */
@@ -267,6 +267,10 @@ export class NgxTippyService {
   get instancesChanges(): Observable<InstancesChanges> {
     return this.tippyInstances$.asObservable();
   }
+
+  /**
+   * Singleton methods
+   */
 
   /**
    * Service methods
