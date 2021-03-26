@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgxSingletonProps, NgxTippyProps, NgxTippyService, NgxTippySingletonService } from 'ngx-tippy-wrapper';
+import { NgxSingletonProps, NgxTippyProps, NgxTippyService } from 'ngx-tippy-wrapper';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +18,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     overrides: ['arrow', 'theme'],
   };
 
+  singletonDark = {
+    ...this.singleton,
+    theme: 'dark',
+  };
+
   tippy: NgxTippyProps = {
     arrow: false,
     theme: 'dark',
@@ -28,18 +33,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     theme: 'light',
   };
 
-  constructor(private ngxTippySingletonService: NgxTippySingletonService, private tippyService: NgxTippyService) {}
+  constructor(private tippyService: NgxTippyService) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    const singletonInstances = this.ngxTippySingletonService.getInstances();
-    const firstSingletonInstances = this.ngxTippySingletonService.getInstance('first');
-
-    firstSingletonInstances.show('sing1');
-
-    setInterval(() => {
-      firstSingletonInstances.showNext();
-    }, 1000);
+    console.log(this.tippyService.getSingletonInstances());
+    // console.log(this.tippyService.getInstances());
   }
 }

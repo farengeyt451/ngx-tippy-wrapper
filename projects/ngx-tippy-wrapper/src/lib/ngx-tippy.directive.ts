@@ -65,7 +65,7 @@ export class NgxTippyDirective implements OnInit {
   }
 
   private setSingletonSign(tippyInstance: NgxTippyInstance, tippyTarget: TippyHTMLElement) {
-    tippyInstance.isChildOfSingleton = tippyTarget.dataset.hasOwnProperty('tippySingleton');
+    tippyInstance.isChildrenOfSingleton = tippyTarget.dataset.hasOwnProperty('tippySingleton');
   }
 
   /**

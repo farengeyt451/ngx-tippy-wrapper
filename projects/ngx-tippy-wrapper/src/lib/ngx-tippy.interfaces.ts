@@ -7,10 +7,10 @@ export interface NgxSingletonProps extends Partial<Props> {
 }
 
 export interface NgxTippyInstance extends Instance {
-  isChildOfSingleton?: boolean;
+  isChildrenOfSingleton?: boolean;
 }
 
-export interface NgxTippySingletonInstance {
+export interface NgxTippySingletonInstance extends NgxTippyInstance {
   setInstances(instances: Instance<any>[]): void;
   show(singletonTarget?: string | Instance | number): void;
   showNext(): void;

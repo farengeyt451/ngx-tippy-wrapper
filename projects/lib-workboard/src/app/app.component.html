@@ -4,13 +4,12 @@
   </div>
 
   <div class="t-workboard__block">
-    <ngx-tippy-singleton [tippyProps]="singleton" [singletonName]="'first'">
+    <ngx-tippy-singleton [tippyProps]="singleton">
       <div class="t-workboard__grouped">
         <button
           class="t-workboard__btn"
           ngxTippy="First tooltip content"
           [tippyProps]="tippyCustom"
-          data-tippy-singleton
         >
           Singleton
         </button>
@@ -20,7 +19,6 @@
           ngxTippy="Second tooltip content"
           [tippyProps]="tippyCustom"
           [tippyName]="'sing1'"
-          data-tippy-singleton
         >
           Singleton
         </button>
@@ -29,7 +27,32 @@
           ngxTippy="Third tooltip content"
           [tippyProps]="tippyCustom"
           [tippyName]="'sing2'"
-          data-tippy-singleton
+        >
+          Singleton
+        </button>
+      </div>
+    </ngx-tippy-singleton>
+  </div>
+
+  <div class="t-workboard__block">
+    <ngx-tippy-singleton [tippyProps]="singletonDark">
+      <div class="t-workboard__grouped">
+        <button
+          class="t-workboard__btn"
+          ngxTippy="First tooltip content"
+        >
+          Singleton
+        </button>
+
+        <button
+          class="t-workboard__btn"
+          ngxTippy="Second tooltip content"
+        >
+          Singleton
+        </button>
+        <button
+          class="t-workboard__btn"
+          ngxTippy="Third tooltip content"
         >
           Singleton
         </button>
