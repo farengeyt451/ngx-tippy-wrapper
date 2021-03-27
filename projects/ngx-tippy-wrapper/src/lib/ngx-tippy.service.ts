@@ -63,10 +63,6 @@ export class NgxTippyService {
   }
 
   /**
-   * Singleton methods
-   */
-
-  /**
    * Write singleton instances to storage
    *
    * @param name { string } name of tippy instance
@@ -97,15 +93,6 @@ export class NgxTippyService {
    */
   getSingletonInstances(): Map<string, NgxTippySingletonInstance> | null {
     return this.tippySingletonInstances.size ? this.tippySingletonInstances : null;
-  }
-
-  /**
-   * Get children singleton tippy instances
-   *
-   * @returns { Map<string, NgxTippyInstance> | null } children singleton tippy instances
-   */
-  getChildrenSingletonInstances(): NgxTippyInstance[] | [] {
-    return [...this.tippyInstances.values()].filter((tippyInstance) => tippyInstance.isChildrenOfSingleton);
   }
 
   /**

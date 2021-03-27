@@ -1,4 +1,4 @@
-import { Instance, Props, Content, CreateSingleton, CreateSingletonInstance } from 'tippy.js';
+import { Instance, Props, Content } from 'tippy.js';
 
 export interface NgxTippyProps extends Partial<Props> {}
 
@@ -42,4 +42,8 @@ export interface InstancesChanges {
   name: string;
   reason: InstanceChangeReason;
   instance: NgxTippyInstance;
+}
+
+export interface TippyHTMLElement extends HTMLElement {
+  _tippy: Instance;
 }

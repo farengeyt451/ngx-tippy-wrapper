@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/farengeyt451/ngx-tippy-wrapper/raw/master/logo.png" alt="Logo" height="105">
+  <img src="https://github.com/farengeyt451/ngx-tippy-wrapper/raw/master/images/logo.png" alt="Logo" height="105">
 </div>
 
 <div align="center">
@@ -67,9 +67,7 @@ or angular.json:
 Apply directive for element and pass content through attribute:
 
 ```html
-<span ngxTippy data-tippy-content="Tooltip">
-  Tippy
-</span>
+<span ngxTippy data-tippy-content="Tooltip"> Tippy </span>
 ```
 
 ### Applying props
@@ -94,9 +92,7 @@ In template:
 Or pass props from component:
 
 ```html
-<span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps">
-  Tippy
-</span>
+<span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps"> Tippy </span>
 ```
 
 ---
@@ -134,9 +130,7 @@ export class DemoComponent implements OnInit {
 - **String**
 
 ```html
-<span ngxTippy [tippyProps]="tippyPropsWithString">
-  Tippy with string content
-</span>
+<span ngxTippy [tippyProps]="tippyPropsWithString"> Tippy with string content </span>
 ```
 
 ---
@@ -158,9 +152,7 @@ export class DemoComponent implements OnInit {
 
 ```html
 <div>
-  <span ngxTippy [tippyProps]="tippyContent">
-    Tippy with HTML content
-  </span>
+  <span ngxTippy [tippyProps]="tippyContent"> Tippy with HTML content </span>
 
   <!-- If passing element itself -->
   <div #tippyTemplate>
@@ -299,11 +291,7 @@ For singleton using - put in tippys inside ngx-tippy-singleton component:
 
 ```html
 <ngx-tippy-singleton [tippyProps]="{...}">
-  <button ngxTippy data-tippy-content="First tooltip">
-    Button
-  </button>
-  <button ngxTippy data-tippy-content="Second tooltip">
-    Button
-  </button>
+  <button ngxTippy data-tippy-content="First tooltip">Button</button>
+  <button ngxTippy data-tippy-content="Second tooltip">Button</button>
 </ngx-tippy-singleton>
 ```

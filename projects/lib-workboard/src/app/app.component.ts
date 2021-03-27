@@ -38,7 +38,26 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
+    const singleton = this.tippyService.getSingletonInstance('first');
+
+    singleton.show('sing1');
+
+    setTimeout(() => {
+      singleton.showNext();
+    }, 1000);
+
+    setTimeout(() => {
+      singleton.showPrevious();
+    }, 2000);
+
+    setTimeout(() => {
+      singleton.showPrevious();
+    }, 3000);
+
+    setTimeout(() => {
+      singleton.hide();
+    }, 4000);
+
     console.log(this.tippyService.getSingletonInstances());
-    // console.log(this.tippyService.getInstances());
   }
 }

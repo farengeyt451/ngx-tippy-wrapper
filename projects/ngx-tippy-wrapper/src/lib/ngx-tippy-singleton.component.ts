@@ -1,8 +1,8 @@
-import { Component, Input, Inject, PLATFORM_ID, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Inject, PLATFORM_ID, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 import { createSingleton } from 'tippy.js';
-import { NgxTippyProps, NgxTippyInstance, NgxTippySingletonInstance } from './ngx-tippy.interfaces';
 import { NgxTippyService } from './ngx-tippy.service';
+import { NgxTippyProps, NgxTippyInstance, NgxTippySingletonInstance, TippyHTMLElement } from './ngx-tippy.interfaces';
 
 /**
  * Tippy singleton - single tippy element that takes the place of an array of regular tippy instances
@@ -15,7 +15,7 @@ import { NgxTippyService } from './ngx-tippy.service';
     </div>
   `,
 })
-export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
+export class NgxTippySingletonComponent implements AfterViewInit {
   @Input() tippyProps?: NgxTippyProps;
   @Input() singletonName?: string;
   @ViewChild('contentWrapper', { read: ElementRef, static: false }) contentWrapper: ElementRef;
@@ -27,26 +27,31 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
     this.setTooltips();
   }
 
-  ngOnDestroy() {}
-
-  setTooltips() {
+  /**
+   * Take projected in component tooltips element
+   * Take initiated tippy instances
+   * Initiate `singleton addon` only for projected tooltips for current component instance
+   */
+  private setTooltips() {
     const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
-    const tooltips: number[] = Array.from(contentWrapperNativeEl.querySelectorAll('[ngxTippy]')).map(
-      (el: any) => el._tippy.id
+    const singletonTooltipIDs: number[] = Array.from(contentWrapperNativeEl.querySelectorAll('[ngxTippy]')).map(
+      (el: TippyHTMLElement) => el._tippy.id
     );
 
-    const childrenSingletonInstances = [...this.ngxTippyService.getInstances().values()];
+    const tippyInstances = [...this.ngxTippyService.getInstances().values()];
 
-    const filtered = childrenSingletonInstances.filter((el) => tooltips.includes(el.id));
+    const currentSingletonChildrenTippyInstances = tippyInstances.filter((tippyInstance) =>
+      singletonTooltipIDs.includes(tippyInstance.id)
+    );
 
-    if (filtered.length) {
-      this.initTippy(filtered);
+    if (currentSingletonChildrenTippyInstances.length) {
+      this.initTippySingleton(currentSingletonChildrenTippyInstances);
     } else {
-      throw new Error(`No singleton instances founded, check 'data-tippy-singleton' attribute`);
+      throw new Error(`No singleton instances founded`);
     }
   }
 
-  initTippy(childrenSingletonInstances: NgxTippyInstance[]) {
+  private initTippySingleton(childrenSingletonInstances: NgxTippyInstance[]) {
     const singleton: NgxTippySingletonInstance = createSingleton(childrenSingletonInstances, this.tippyProps);
     this.writeSingletonInstanceToStorage(singleton);
   }
@@ -59,7 +64,22 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
    * @param tippyInstance { NgxTippySingletonInstance }
    */
   private writeSingletonInstanceToStorage(singletonInstance: NgxTippySingletonInstance) {
-    console.log('log ~ writeSingletonInstanceToStorage ~ singletonInstance', singletonInstance);
+    const extendedSingletonInstance = this.extendShowFn(singletonInstance);
+
+    this.ngxTippyService.setSingletonInstance(
+      this.singletonName || `singleton-${singletonInstance.id}}`,
+      extendedSingletonInstance
+    );
+  }
+
+  /**
+   * Extend original `show` method
+   * Purpose: manipulate tooltip state by [tippyName]
+   *
+   * @param singletonInstance { NgxTippySingletonInstance }
+   * @returns { NgxTippySingletonInstance }
+   */
+  private extendShowFn(singletonInstance: NgxTippySingletonInstance): NgxTippySingletonInstance {
     const originalShowFn = singletonInstance.show;
 
     singletonInstance.show = (singletonInstanceIdentifier: string | number | NgxTippyInstance) => {
@@ -70,18 +90,6 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
       }
     };
 
-    this.ngxTippyService.setSingletonInstance(
-      this.singletonName || `singleton-${singletonInstance.id}}`,
-      singletonInstance
-    );
+    return singletonInstance;
   }
 }
-
-// TODO:
-// 1. singleton methods
-// 2. singleton destroy
-// 2.1 interfaces
-// 3. event delegation
-// 4. ng-template
-// 5. lightweight token
-// 6. unit tests

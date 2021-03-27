@@ -632,5 +632,4 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-[Documentation for v1.0.1](./docs/README-v1.01.md)
-[Documentation for v2.1.0](./docs/README-v2.1.0.md)
+[Documentation for v1.0.1](./README-v1.01.md)
