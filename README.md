@@ -538,27 +538,19 @@ For [singleton](https://atomiks.github.io/tippyjs/v6/addons/) - provide tooltips
 
 <!-- prettier-ignore-start -->
 ```html
-<ngx-tippy-singleton [tippyProps]="{ ... }">
-  <button
-    data-singleton
-    data-tippy-content="First tooltip content"
-  >
+<ngx-tippy-singleton [tippyProps]="..." [singletonName]="...">
+  <button ngxTippy="First tooltip content">
     Singleton
   </button>
 
-  <button
-    data-singleton
-    data-tippy-content="Second tooltip content"
-  >
+  <button ngxTippy="Second tooltip content">
     Singleton
   </button>
 
-  <button
-    data-singleton
-    data-tippy-content="Third tooltip content"
-  >
+  <button ngxTippy="Third tooltip content">
     Singleton
   </button>
+  </div>
 </ngx-tippy-singleton>
 ```
 <!-- prettier-ignore-end-->

@@ -65,7 +65,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
       tippyService.hideWithInteractivity(nameTypedWithMistake, {} as any);
     } catch (error) {
       expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
+      expect(error.message).toBe(`Instance with name '${nameTypedWithMistake}' does not exist`);
     }
   });
 
@@ -96,7 +96,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
       tippyService.setProps(nameTypedWithMistake, props);
     } catch (error) {
       expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
+      expect(error.message).toBe(`Instance with name '${nameTypedWithMistake}' does not exist`);
     }
   });
 
@@ -112,20 +112,20 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService.setContent(tippyName, 'New content');
   });
 
-  xit('Should call setTemplateVisible when set new tooltip content', () => {
-    spyOn<any>(tippyService, 'setTemplateVisible');
-    tippyService.setContent(tippyName, 'New content');
+  // fit('Should call setTemplateVisible when set new tooltip content', () => {
+  //   spyOn<any>(tippyService, 'setTemplateVisible');
+  //   tippyService.setContent(tippyName, 'New content');
 
-    expect(tippyService['setTemplateVisible']).toHaveBeenCalled();
-    expect(tippyService['setTemplateVisible']).toHaveBeenCalledTimes(1);
-  });
+  //   expect(tippyService['setTemplateVisible']).toHaveBeenCalled();
+  //   expect(tippyService['setTemplateVisible']).toHaveBeenCalledTimes(1);
+  // });
 
   it('Should throw error on: setContent, if wrong name passed', () => {
     try {
       tippyService.setContent(nameTypedWithMistake, 'New content');
     } catch (error) {
       expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
+      expect(error.message).toBe(`Instance with name '${nameTypedWithMistake}' does not exist`);
     }
   });
 
@@ -148,7 +148,16 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
       tippyService.setTriggerTarget(nameTypedWithMistake, setTriggerTarget);
     } catch (error) {
       expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
+      expect(error.message).toBe(`Instance with name '${nameTypedWithMistake}' does not exist`);
+    }
+  });
+
+  it('Should throw error on: setInstance, if name already exist', () => {
+    try {
+      tippyService.setInstance(tippyName, fakeInstance as any);
+    } catch (error) {
+      expect(error).toBeTruthy('Error does not exist');
+      expect(error.message).toBe(`Instance with name '${tippyName}' already exist, please pick unique [tippyName]`);
     }
   });
 
@@ -182,7 +191,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
         tippyService[method](nameTypedWithMistake);
       } catch (error) {
         expect(error).toBeTruthy('Error does not exist');
-        expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
+        expect(error.message).toBe(`Instance with name '${nameTypedWithMistake}' does not exist`);
       }
     });
   });
@@ -228,7 +237,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
       tippyService.destroy(nameTypedWithMistake);
     } catch (error) {
       expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
+      expect(error.message).toBe(`Instance with name '${nameTypedWithMistake}' does not exist`);
     }
   });
 
