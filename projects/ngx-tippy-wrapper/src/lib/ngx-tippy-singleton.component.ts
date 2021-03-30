@@ -2,7 +2,12 @@ import { Component, Input, Inject, PLATFORM_ID, AfterViewInit, ViewChild, Elemen
 import { isPlatformServer } from '@angular/common';
 import { createSingleton } from 'tippy.js';
 import { NgxTippyService } from './ngx-tippy.service';
-import { NgxTippyProps, NgxTippyInstance, NgxTippySingletonInstance, TippyHTMLElement } from './ngx-tippy.interfaces';
+import {
+  NgxTippyInstance,
+  NgxTippySingletonInstance,
+  TippyHTMLElement,
+  NgxSingletonProps,
+} from './ngx-tippy.interfaces';
 
 /**
  * Tippy singleton - single tippy element that takes the place of an array of regular tippy instances
@@ -16,7 +21,7 @@ import { NgxTippyProps, NgxTippyInstance, NgxTippySingletonInstance, TippyHTMLEl
   `,
 })
 export class NgxTippySingletonComponent implements AfterViewInit {
-  @Input() tippyProps?: NgxTippyProps;
+  @Input() singletonProps?: NgxSingletonProps;
   @Input() singletonName?: string;
   @ViewChild('contentWrapper', { read: ElementRef, static: false }) contentWrapper: ElementRef;
 
@@ -24,7 +29,7 @@ export class NgxTippySingletonComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if (isPlatformServer(this.platform)) return;
-    this.setTooltips();
+    this.setSingleton();
   }
 
   /**
@@ -32,7 +37,7 @@ export class NgxTippySingletonComponent implements AfterViewInit {
    * Take initiated tippy instances
    * Initiate `singleton addon` only for projected tooltips for current component instance
    */
-  private setTooltips() {
+  public setSingleton() {
     const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
     const singletonTooltipIDs: number[] = Array.from(contentWrapperNativeEl.querySelectorAll('[ngxTippy]')).map(
       (el: TippyHTMLElement) => el._tippy.id
@@ -51,8 +56,8 @@ export class NgxTippySingletonComponent implements AfterViewInit {
     }
   }
 
-  private initTippySingleton(childrenSingletonInstances: NgxTippyInstance[]) {
-    const singleton: NgxTippySingletonInstance = createSingleton(childrenSingletonInstances, this.tippyProps);
+  public initTippySingleton(childrenSingletonInstances: NgxTippyInstance[]) {
+    const singleton: NgxTippySingletonInstance = createSingleton(childrenSingletonInstances, this.singletonProps);
     this.writeSingletonInstanceToStorage(singleton);
   }
 

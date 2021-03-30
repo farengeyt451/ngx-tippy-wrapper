@@ -112,14 +112,6 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService.setContent(tippyName, 'New content');
   });
 
-  // fit('Should call setTemplateVisible when set new tooltip content', () => {
-  //   spyOn<any>(tippyService, 'setTemplateVisible');
-  //   tippyService.setContent(tippyName, 'New content');
-
-  //   expect(tippyService['setTemplateVisible']).toHaveBeenCalled();
-  //   expect(tippyService['setTemplateVisible']).toHaveBeenCalledTimes(1);
-  // });
-
   it('Should throw error on: setContent, if wrong name passed', () => {
     try {
       tippyService.setContent(nameTypedWithMistake, 'New content');
