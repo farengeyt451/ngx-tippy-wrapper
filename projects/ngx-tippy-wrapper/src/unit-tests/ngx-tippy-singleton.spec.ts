@@ -153,9 +153,36 @@ describe('Component: NgxTippySingletonComponent', () => {
     expect(component).toBeTruthy('Component does not created');
   });
 
+  it('Should throw error when children instances not founded', () => {
+    try {
+      component['setSingleton']();
+    } catch (error) {
+      expect(error).toBeTruthy('Error does not exist');
+      expect(error.message).toBe(`No children tippy instances founded within singleton component`);
+    }
+  });
+
+  it('Should call originalShowFn with tippy name', () => {
+    const showSpyFn = jasmine.createSpy('show', () => {});
+    const singletonInstance = component['extendShowFn']({ show: showSpyFn } as any);
+    singletonInstance.show('test');
+
+    expect(showSpyFn).toHaveBeenCalled();
+    expect(showSpyFn).toHaveBeenCalledTimes(1);
+  });
+
+  it('Should call originalShowFn without tippy name', () => {
+    const showSpyFn = jasmine.createSpy('show', () => {});
+    const singletonInstance = component['extendShowFn']({ show: showSpyFn } as any);
+    singletonInstance.show();
+
+    expect(showSpyFn).toHaveBeenCalled();
+    expect(showSpyFn).toHaveBeenCalledTimes(1);
+  });
+
   it('Should init tooltips only if platform browser', () => {
-    spyOn(component, 'setSingleton');
-    spyOn(component, 'initTippySingleton');
+    spyOn<any>(component, 'setSingleton');
+    spyOn<any>(component, 'initTippySingleton');
     component.ngAfterViewInit();
     expect(component['setSingleton']).toHaveBeenCalledTimes(0);
     expect(component['setSingleton']).toHaveBeenCalledTimes(0);

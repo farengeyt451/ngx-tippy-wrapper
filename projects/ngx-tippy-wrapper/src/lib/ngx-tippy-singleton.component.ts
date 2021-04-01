@@ -37,26 +37,27 @@ export class NgxTippySingletonComponent implements AfterViewInit {
    * Take initiated tippy instances
    * Initiate `singleton addon` only for projected tooltips for current component instance
    */
-  public setSingleton() {
+  private setSingleton() {
     const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
     const singletonTooltipIDs: number[] = Array.from(contentWrapperNativeEl.querySelectorAll('[ngxTippy]')).map(
       (el: TippyHTMLElement) => el._tippy.id
     );
 
-    const tippyInstances = [...this.ngxTippyService.getInstances().values()];
+    const tippyInstances: Map<string, NgxTippyInstance> | null = this.ngxTippyService.getInstances();
+    const tippyInstancesSerialized: NgxTippyInstance[] | undefined = tippyInstances && [...tippyInstances.values()];
 
-    const currentSingletonChildrenTippyInstances = tippyInstances.filter((tippyInstance) =>
-      singletonTooltipIDs.includes(tippyInstance.id)
-    );
+    const currentSingletonChildrenTippyInstances: NgxTippyInstance[] | undefined =
+      tippyInstancesSerialized &&
+      tippyInstancesSerialized.filter((tippyInstance) => singletonTooltipIDs.includes(tippyInstance.id));
 
-    if (currentSingletonChildrenTippyInstances.length) {
+    if (currentSingletonChildrenTippyInstances?.length) {
       this.initTippySingleton(currentSingletonChildrenTippyInstances);
     } else {
-      throw new Error(`No singleton instances founded`);
+      throw new Error(`No children tippy instances founded within singleton component`);
     }
   }
 
-  public initTippySingleton(childrenSingletonInstances: NgxTippyInstance[]) {
+  private initTippySingleton(childrenSingletonInstances: NgxTippyInstance[]) {
     const singleton: NgxTippySingletonInstance = createSingleton(childrenSingletonInstances, this.singletonProps);
     this.writeSingletonInstanceToStorage(singleton);
   }
