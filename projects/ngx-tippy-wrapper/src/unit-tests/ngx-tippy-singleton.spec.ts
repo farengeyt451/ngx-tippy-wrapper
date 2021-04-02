@@ -231,7 +231,6 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
     fixture.detectChanges();
 
     const tooltipArrow = fixture.debugElement.query(By.css('.tippy-arrow'));
-    console.log('log ~ fit ~ tooltipArrow', tooltipArrow);
     const tippyBox = fixture.debugElement.query(By.css('.tippy-box'));
     const tooltipBgColor = getComputedStyle(tippyBox.nativeElement).backgroundColor;
 
@@ -276,12 +275,9 @@ describe('Component: NgxTippySingletonComponent', () => {
   });
 
   it('Should throw error when children instances not founded', () => {
-    try {
-      component['setSingleton']();
-    } catch (error) {
-      expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`No children tippy instances founded within singleton component`);
-    }
+    expect(() => component['setSingleton']()).toThrowError(
+      `No children tippy instances founded within singleton component`
+    );
   });
 
   it('Should call originalShowFn with tippy name', () => {

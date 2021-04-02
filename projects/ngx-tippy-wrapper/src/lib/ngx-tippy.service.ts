@@ -12,6 +12,13 @@ import {
 } from './ngx-tippy.interfaces';
 import { setTemplateVisible } from './ngx-tippy.utils';
 
+@Injectable({ providedIn: 'root' })
+export class DevModeService {
+  public isDevMode() {
+    return isDevMode();
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +28,7 @@ export class NgxTippyService {
   private tippyInstances$ = new Subject<InstancesChanges>();
   private renderer: Renderer2;
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor(rendererFactory: RendererFactory2, private devModeService: DevModeService) {
     this.createRenderer(rendererFactory);
   }
   /**
@@ -69,7 +76,7 @@ export class NgxTippyService {
    * @param state { NgxTippyInstance } tippy instance
    */
   setSingletonInstance(name: string, state: NgxTippySingletonInstance) {
-    if (this.tippyInstances.has(name)) {
+    if (this.tippySingletonInstances.has(name)) {
       this.throwError(`Singleton instance with name '${name}' already exist, please pick unique [singletonName]`);
     } else {
       this.tippySingletonInstances.set(name, state);
@@ -319,7 +326,6 @@ export class NgxTippyService {
   }
 
   private throwError(message: string, errorConstrictor: ErrorConstructor = Error) {
-    if (!isDevMode()) return;
-    throw new errorConstrictor(message);
+    if (this.devModeService.isDevMode()) throw new errorConstrictor(message);
   }
 }

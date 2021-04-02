@@ -108,6 +108,34 @@ describe('Directive: NgxTippyDirective', () => {
     expect(component).toBeTruthy('Wrapper component does not created');
   });
 
+  it('Should not init tooltip', () => {
+    component.addComponent(
+      `
+      <div class="test">
+        <button
+          class="test__btn"
+          [ngxTippy]="null"
+          [tippyProps]="{
+            appendTo: 'parent',
+            trigger: 'click'
+          }"
+        >
+          Element with tooltip
+        </button>
+      </div>
+      `,
+      styles
+    );
+
+    fixture.detectChanges();
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('click'));
+    fixture.detectChanges();
+    const tooltip = fixture.debugElement.query(By.css('.tippy-content'));
+
+    expect(tooltip).toBeNull('Tooltip initialized');
+  });
+
   it('Should show tooltip on hover', () => {
     component.addComponent(
       `
