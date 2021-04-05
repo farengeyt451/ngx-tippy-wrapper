@@ -15,22 +15,20 @@ export class AppComponent implements OnInit, AfterViewInit {
     interactiveDebounce: 75,
     moveTransition: 'transform 0.2s ease-out',
     theme: 'light',
-    overrides: ['arrow', 'theme'],
   };
+
+  singletonOverrides: NgxSingletonProps = { ...this.singleton, overrides: ['arrow', 'placement'] };
+
+  groupedProps = { ...this.singleton };
 
   singletonDark = {
     ...this.singleton,
     theme: 'dark',
   };
 
-  tippy: NgxTippyProps = {
+  tippyOverrides: NgxTippyProps = {
     arrow: false,
     theme: 'dark',
-  };
-
-  tippyCustom: NgxTippyProps = {
-    arrow: true,
-    theme: 'light',
   };
 
   constructor(private tippyService: NgxTippyService) {}
@@ -38,6 +36,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    const singleton = this.tippyService.getSingletonInstance('first');
+    const i = this.tippyService.getSingletonInstance('main-page');
   }
 }

@@ -7,11 +7,11 @@ import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 @Component({
   template: `
     <div class="tippy-group">
-      <ngx-tippy-group [tippyProps]="props">
+      <ngx-tippy-group [groupedProps]="props">
         <div class="tippy-group__items">
-          <button class="tippy-group__item" data-grouped data-tippy-content="Tooltip content">Group</button>
-          <button class="tippy-group__item" data-grouped data-tippy-content="Tooltip content">Group</button>
-          <button class="tippy-group__item" data-grouped data-tippy-content="Tooltip content">Group</button>
+          <button class="tippy-group__item" data-tippy-grouped data-tippy-content="Tooltip content">Group</button>
+          <button class="tippy-group__item" data-tippy-grouped data-tippy-content="Tooltip content">Group</button>
+          <button class="tippy-group__item" data-tippy-grouped data-tippy-content="Tooltip content">Group</button>
         </div>
       </ngx-tippy-group>
     </div>
@@ -81,14 +81,14 @@ describe('Component: NgxTippyGroupComponent (wrapped)', () => {
   });
 
   it('Should render all grouped elements', () => {
-    const groupEls = debugEl.queryAll(By.css('button[data-grouped]'));
+    const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
 
     expect(groupEls).toBeTruthy('Group items does not created');
     expect(groupEls.length).toBe(3, 'Unexpected number of elements');
   });
 
   it('Should show tooltips on click', () => {
-    const groupEls = debugEl.queryAll(By.css('button[data-grouped]'));
+    const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
     groupEls.forEach((el) => {
       el.nativeElement.dispatchEvent(new MouseEvent('click'));
     });
@@ -100,7 +100,7 @@ describe('Component: NgxTippyGroupComponent (wrapped)', () => {
   });
 
   it('Should apply props', fakeAsync(() => {
-    const groupEls = debugEl.queryAll(By.css('button[data-grouped]'));
+    const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
     groupEls.forEach((el) => {
       el.nativeElement.dispatchEvent(new MouseEvent('click'));
     });

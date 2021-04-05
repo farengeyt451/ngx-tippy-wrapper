@@ -15,7 +15,7 @@ import { NgxTippyProps } from './ngx-tippy.interfaces';
   `,
 })
 export class NgxTippyGroupComponent implements AfterViewInit {
-  @Input() tippyProps?: NgxTippyProps;
+  @Input() groupedProps?: NgxTippyProps;
   @ViewChild('contentWrapper', { read: ElementRef, static: false }) contentWrapper: ElementRef;
 
   constructor(@Inject(PLATFORM_ID) private platform: Object) {}
@@ -27,12 +27,12 @@ export class NgxTippyGroupComponent implements AfterViewInit {
 
   setTooltips() {
     const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
-    const tooltips: HTMLElement[] = Array.from(contentWrapperNativeEl.querySelectorAll('[data-grouped]'));
+    const tooltips: HTMLElement[] = Array.from(contentWrapperNativeEl.querySelectorAll('[data-tippy-grouped]'));
 
     this.initTippy(tooltips);
   }
 
   initTippy(tooltips: HTMLElement[]) {
-    tippy(tooltips, this.tippyProps);
+    tippy(tooltips, this.groupedProps);
   }
 }

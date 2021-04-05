@@ -1,24 +1,30 @@
 <div class="t-workboard">
   <div class="t-workboard__block">
-    <button class="t-workboard__btn" ngxTippy="null" >Element with tooltip</button>
+    <button class="t-workboard__btn" ngxTippy="Tooltip" >Element with tooltip</button>
   </div>
 
-  <!-- <div class="t-workboard__block">
-    <ngx-tippy-singleton [singletonProps]="singleton" [singletonName]="'first'">
+  <div class="t-workboard__block">
+    <ngx-tippy-singleton
+      [singletonName]="'main-page'"
+    >
       <div class="t-workboard__grouped">
         <button
           class="t-workboard__btn"
+          ngxTippy="Tooltip"
         >
           Singleton
         </button>
 
         <button
           class="t-workboard__btn"
+          ngxTippy="Tooltip"
         >
           Singleton
         </button>
         <button
           class="t-workboard__btn"
+          ngxTippy="Tooltip"
+          [tippyName]="'cx'"
         >
           Singleton
         </button>
@@ -31,21 +37,84 @@
       <div class="t-workboard__grouped">
         <button
           class="t-workboard__btn"
+          ngxTippy="Tooltip"
         >
           Singleton
         </button>
 
         <button
           class="t-workboard__btn"
+          ngxTippy="Tooltip"
         >
           Singleton
         </button>
         <button
           class="t-workboard__btn"
+          ngxTippy="Tooltip"
         >
           Singleton
         </button>
       </div>
     </ngx-tippy-singleton>
-  </div> -->
+  </div>
+
+  <div class="t-workboard__block">
+    <ngx-tippy-singleton [singletonProps]="singletonOverrides">
+      <div class="t-workboard__grouped">
+        <button
+          class="t-workboard__btn"
+          ngxTippy
+          data-tippy-content="First tooltip content"
+          data-tippy-placement="bottom"
+        >
+          Singleton
+        </button>
+
+        <button
+          class="t-workboard__btn"
+          ngxTippy
+          data-tippy-content="Second tooltip content"
+          data-tippy-arrow="false"
+        >
+          Singleton
+        </button>
+
+        <button
+          class="t-workboard__btn"
+          ngxTippy
+          data-tippy-content="Third tooltip content"
+        >
+          Singleton
+        </button>
+      </div>
+    </ngx-tippy-singleton>
+  </div>
+
+  <!-- Grouped -->
+<!-- <ngx-tippy-group [groupedProps]="groupedProps">
+  <button
+    data-tippy-grouped
+    data-tippy-content="Tooltip content"
+  >
+    Group
+  </button>
+
+  <button
+    data-tippy-grouped
+    data-tippy-arrow="false"
+    data-tippy-content="Tooltip content"
+  >
+    Group
+  </button>
+
+  <button
+    data-tippy-grouped
+    data-tippy-delay="[1000, 200]"
+    data-tippy-content="Tooltip content"
+  >
+    Group
+  </button>
+</ngx-tippy-group> -->
 </div>
+
+

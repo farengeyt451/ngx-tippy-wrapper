@@ -65,7 +65,7 @@ export class NgxTippySingletonComponent implements AfterViewInit {
   /**
    * To manipulate singleton groups, write all instances to storage
    * `singletonName` used as unique key
-   * If `singletonName` does not provided - it will be generated using counter
+   * If `singletonName` does not provided - it will be generated using id of singletonInstance
    *
    * @param tippyInstance { NgxTippySingletonInstance }
    */
