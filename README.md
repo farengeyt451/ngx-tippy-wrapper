@@ -530,7 +530,7 @@ For multiple tooltips on a single element - use nest elements with applied `ngxT
 
 ## Singleton
 
-For [singleton](https://atomiks.github.io/tippyjs/v6/addons/) - provide tooltips elements within `ngx-tippy-singleton` component:
+For [singleton](https://atomiks.github.io/tippyjs/v6/addons/#singleton) - provide tooltip elements within `ngx-tippy-singleton` component:
 
 <!-- prettier-ignore-start -->
 ```html
@@ -538,19 +538,21 @@ For [singleton](https://atomiks.github.io/tippyjs/v6/addons/) - provide tooltips
   [singletonProps]="singleton"
   [singletonName]="'main-page'"
 >
+
   <button ngxTippy="Tooltip content">Singleton</button>
   <button ngxTippy="Tooltip content">Singleton</button>
   <button ngxTippy="Tooltip content">Singleton</button>
+
 </ngx-tippy-singleton>
 ```
 <!-- prettier-ignore-end-->
 
-Use _optional_ `[singletonProps]` for pass shared tooltips props
+Use _optional_ `[singletonProps]` for pass common props
 
 Use _optional_ `[singletonName]` for pass unique singleton name, need to control singletons
 **programmatically**
 
-### To overrides general `singletonProps` by the individual tippy `props`:
+### To overrides common `singletonProps` by the individual tippy `props`:
 
 <!-- prettier-ignore-start -->
 ```html
@@ -583,7 +585,7 @@ import { NgxSingletonProps } from 'ngx-tippy-wrapper';
 @Component({ ... })
 export class DemoComponent implements OnInit {
 
-  tippyProps: NgxSingletonProps = {
+  singletonProps: NgxSingletonProps = {
     ...,
     overrides: ['arrow', 'placement'],
   };
@@ -602,7 +604,7 @@ import { NgxSingletonProps } from 'ngx-tippy-wrapper';
 @Component({ ... })
 export class DemoComponent implements OnInit {
 
-  tippyProps: NgxSingletonProps = {
+  singletonProps: NgxSingletonProps = {
     ...,
     moveTransition: 'transform 0.4s linear',
   };
@@ -627,7 +629,10 @@ In addition for `show()` method is possible to pass child `[tippyName]` prop
 
 <!-- prettier-ignore-start -->
 ```html
-<ngx-tippy-singleton [singletonProps]="singleton" [singletonName]="'main-page'">
+<ngx-tippy-singleton
+  [singletonProps]="..."
+  [singletonName]="'main-page'"
+>
   <button ngxTippy="Tooltip content">Singleton</button>
 
   <button ngxTippy="Tooltip content">Singleton</button>
@@ -657,17 +662,25 @@ export class DemoComponent implements OnInit {
 
   ngAfterViewInit() {
 
+    // Get singleton instance by name
+    const mainPageSingleton = this.tippyService.getSingletonInstance('main-page');
+
+    // Programmatically manipulate tooltips
+
     // Show first child in singleton
-    this.tippyService.getSingletonInstance('main-page').show();
+    mainPageSingleton.show();
 
     // Show child instance at given index
-    this.tippyService.getSingletonInstance('main-page').show(1);
+    mainPageSingleton.show(1);
 
     // Show child `[tippyName]`
-    this.tippyService.getSingletonInstance('main-page').show('custom');
+    mainPageSingleton.show('custom');
+
+    ...
   }
 }
 ```
 
 [Documentation for v1.0.1](./docs/README-v1.01.md)
+
 [Documentation for v2.1.0](./docs/README-v2.1.0.md)

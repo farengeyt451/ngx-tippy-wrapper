@@ -17,6 +17,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     theme: 'light',
   };
 
+  singletonProps: NgxSingletonProps = {
+    overrides: ['arrow', 'placement'],
+    moveTransition: 'transform 0.4s linear',
+  };
+
   singletonOverrides: NgxSingletonProps = { ...this.singleton, overrides: ['arrow', 'placement'] };
 
   groupedProps = { ...this.singleton };
@@ -36,6 +41,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    const i = this.tippyService.getSingletonInstance('main-page');
+    const mainPageSingleton = this.tippyService.getSingletonInstance('main-page');
+
+    mainPageSingleton.show('custom');
   }
 }

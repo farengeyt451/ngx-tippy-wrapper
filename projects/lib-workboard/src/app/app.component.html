@@ -1,4 +1,4 @@
-<div class="t-workboard">
+<!-- <div class="t-workboard">
   <div class="t-workboard__block">
     <button class="t-workboard__btn" ngxTippy="Tooltip" >Element with tooltip</button>
   </div>
@@ -88,7 +88,7 @@
         </button>
       </div>
     </ngx-tippy-singleton>
-  </div>
+  </div> -->
 
   <!-- Grouped -->
 <!-- <ngx-tippy-group [groupedProps]="groupedProps">
@@ -115,6 +115,19 @@
     Group
   </button>
 </ngx-tippy-group> -->
-</div>
+<!-- </div> -->
 
 
+
+<button
+  [ngxTippy]="tippyTemplate"
+  tippyName="content"
+>
+  Element with tooltip
+</button>
+
+<ng-template #tippyTemplate>
+  <h4>Caption</h4>
+  <p>Some content</p>
+  <button>Action</button>
+</ng-template>
