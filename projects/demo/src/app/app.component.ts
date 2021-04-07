@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   singletonOverrides: NgxSingletonProps = { ...this.singleton, overrides: ['arrow', 'placement'] };
-  singletonTransitions: NgxSingletonProps = { ...this.singleton, moveTransition: 'transform 0.4s linear' };
+  singletonTransitions: NgxSingletonProps = { ...this.singleton, theme: 'dark', moveTransition: 'transform 0.4s ease' };
 
   constructor(private tippyService: NgxTippyService) {}
 
@@ -93,6 +93,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setContentForTooltipPassElement();
     this.setContentForTooltipInnerHTML();
     this.initManualControl();
+    this.initManualSingletonControl();
   }
 
   ngOnDestroy() {
@@ -149,6 +150,24 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         console.warn('subToInstancesChanges -> changes', changes);
       }
     });
+  }
+
+  initManualSingletonControl() {
+    const mainPageSingleton = this.tippyService.getSingletonInstance('main-page');
+
+    mainPageSingleton.show(2);
+
+    setTimeout(() => {
+      mainPageSingleton.show('s-child');
+    }, 2000);
+
+    setTimeout(() => {
+      mainPageSingleton.showPrevious();
+    }, 4000);
+
+    setTimeout(() => {
+      mainPageSingleton.hide();
+    }, 6000);
   }
 
   onTemplateClick(event: MouseEvent) {

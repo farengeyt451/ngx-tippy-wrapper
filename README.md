@@ -552,7 +552,9 @@ Use _optional_ `[singletonProps]` for pass common props
 Use _optional_ `[singletonName]` for pass unique singleton name, need to control singletons
 **programmatically**
 
-### To overrides common `singletonProps` by the individual tippy `props`:
+### Overrides props
+
+To overrides common `singletonProps` by the individual tippy `props`:
 
 <!-- prettier-ignore-start -->
 ```html
