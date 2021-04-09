@@ -1,12 +1,9 @@
 import { Directive, OnInit, ElementRef, Input, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import tippy, { Instance } from 'tippy.js';
+import tippy from 'tippy.js';
 import { NgxTippyService } from './ngx-tippy.service';
-import { NgxTippyProps, NgxTippyInstance, NgxTippyContent } from './ngx-tippy.interfaces';
-
-interface TippyHTMLElement extends HTMLElement {
-  _tippy: Instance;
-}
+import { NgxTippyProps, NgxTippyInstance, NgxTippyContent, TippyHTMLElement } from './ngx-tippy.interfaces';
+import { setTemplateVisible } from './ngx-tippy.utils';
 
 @Directive({
   selector: '[ngxTippy]',
@@ -36,20 +33,20 @@ export class NgxTippyDirective implements OnInit {
   private initTippy() {
     if (this.ngxTippy === null || this.ngxTippy === undefined) return;
 
-    const tippyTarget = this.tippyEl.nativeElement;
+    const tippyTarget: TippyHTMLElement = this.tippyEl.nativeElement;
     const tippyTemplate = this.ngxTippy;
 
     tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyTemplate && { content: tippyTemplate }) });
 
-    this.ngxTippyService.setTemplateVisible(tippyTemplate);
+    setTemplateVisible(tippyTemplate, this.renderer);
     this.setTippyInstance(tippyTarget);
   }
 
   private setTippyInstance(tippyTarget: TippyHTMLElement) {
     const tippyInstance: NgxTippyInstance = tippyTarget._tippy;
 
-    this.writeInstancesToStorage(tippyInstance);
     this.setClassName(tippyInstance);
+    this.writeInstancesToStorage(tippyInstance);
   }
 
   private setClassName(tippyInstance: NgxTippyInstance) {

@@ -1,6 +1,5 @@
 <div class="t-demo">
   <div class="t-demo__block">
-
     <!-- Basic examples section -->
 
     <h2 class="t-demo__heading">Basic examples</h2>
@@ -73,26 +72,15 @@
     <!-- Example block -->
     <p class="t-demo__text">Initialize tooltip <span class="t-demo__highlighted">on condition (false)</span></p>
 
-    <button
-      class="t-demo__btn"
-      [ngxTippy]="inputContent"
-    >
-      Element with tooltip
-    </button>
+    <button class="t-demo__btn" [ngxTippy]="inputContent">Element with tooltip</button>
 
     <!-- Example block -->
     <p class="t-demo__text">Initialize tooltip <span class="t-demo__highlighted">on condition (true)</span></p>
 
-    <button
-      class="t-demo__btn"
-      [ngxTippy]="bindedContent && 'Tooltip content'"
-    >
-      Element with tooltip
-    </button>
+    <button class="t-demo__btn" [ngxTippy]="bindedContent && 'Tooltip content'">Element with tooltip</button>
   </div>
 
   <div class="t-demo__block">
-
     <!-- Applying content section -->
 
     <h2 class="t-demo__heading">Applying content</h2>
@@ -217,7 +205,6 @@
   </div>
 
   <div class="t-demo__block">
-
     <!-- Plugins usage section -->
 
     <h2 class="t-demo__heading">Plugins usage</h2>
@@ -254,11 +241,29 @@
     <h2 class="t-demo__heading">Grouped tooltips</h2>
 
     <!-- Example block -->
-    <ngx-tippy-group [tippyProps]="grouped">
+    <ngx-tippy-group [groupedProps]="grouped">
       <div class="t-demo__grouped">
-        <button class="t-demo__btn" data-grouped data-tippy-content="Tooltip content">Grouped</button>
-        <button class="t-demo__btn" data-grouped data-tippy-content="Tooltip content">Grouped</button>
-        <button class="t-demo__btn" data-grouped data-tippy-content="Tooltip content">Grouped</button>
+        <button
+          class="t-demo__btn"
+          data-tippy-grouped
+          data-tippy-content="Tooltip content"
+        >
+          Grouped
+        </button>
+        <button
+          class="t-demo__btn"
+          data-tippy-grouped
+          data-tippy-content="Tooltip content"
+        >
+          Grouped
+        </button>
+        <button
+          class="t-demo__btn"
+          data-tippy-grouped
+          data-tippy-content="Tooltip content"
+        >
+          Grouped
+        </button>
       </div>
     </ngx-tippy-group>
 
@@ -310,33 +315,124 @@
     <h2 class="t-demo__heading">Singleton</h2>
 
     <!-- Example block -->
-    <ngx-tippy-singleton [tippyProps]="singleton">
+    <ngx-tippy-singleton [singletonProps]="singletonProps">
       <div class="t-demo__grouped">
-        <button class="t-demo__btn" data-singleton data-tippy-content="First tooltip content">Singleton</button>
-        <button class="t-demo__btn" data-singleton data-tippy-content="Second tooltip content">Singleton</button>
-        <button class="t-demo__btn" data-singleton data-tippy-content="Third tooltip content">Singleton</button>
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="First tooltip content"
+        >
+          Singleton
+        </button>
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="Second tooltip content"
+        >
+          Singleton
+        </button>
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="Third tooltip content"
+        >
+          Singleton
+        </button>
       </div>
     </ngx-tippy-singleton>
 
     <p class="t-demo__text">Overridden props</p>
 
     <!-- Example block -->
-    <ngx-tippy-singleton [tippyProps]="singletonOverrides">
+    <ngx-tippy-singleton [singletonProps]="singletonOverrides">
       <div class="t-demo__grouped">
         <button
           class="t-demo__btn"
-          data-singleton
+          ngxTippy
           data-tippy-content="First tooltip content"
           data-tippy-placement="bottom"
         >
           Singleton
         </button>
 
-        <button class="t-demo__btn" data-singleton data-tippy-content="Second tooltip content" data-tippy-arrow="false">
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="Second tooltip content"
+          data-tippy-arrow="false"
+        >
           Singleton
         </button>
 
-        <button class="t-demo__btn" data-singleton data-tippy-content="Third tooltip content">Singleton</button>
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="Third tooltip content"
+        >
+          Singleton
+        </button>
+      </div>
+    </ngx-tippy-singleton>
+
+    <p class="t-demo__text">Smooth transitions</p>
+
+    <!-- Example block -->
+    <ngx-tippy-singleton [singletonProps]="singletonTransitions">
+      <div class="t-demo__grouped">
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="First tooltip content"
+          data-tippy-placement="bottom"
+        >
+          Singleton
+        </button>
+
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="Second tooltip content" data-tippy-arrow="false"
+        >
+          Singleton
+        </button>
+
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="Third tooltip content"
+        >
+          Singleton
+        </button>
+      </div>
+    </ngx-tippy-singleton>
+
+    <p class="t-demo__text">Programmatically control singleton instance</p>
+
+    <!-- Example block -->
+    <ngx-tippy-singleton
+      [singletonProps]="singletonTransitions"
+      singletonName="main-page"
+    >
+      <div class="t-demo__grouped">
+        <button
+          class="t-demo__btn"
+          ngxTippy="First tooltip content"
+        >
+          Singleton
+        </button>
+        <button
+          class="t-demo__btn"
+          ngxTippy="Second tooltip content"
+          tippyName="s-child"
+        >
+          Singleton
+        </button>
+        <button
+          class="t-demo__btn"
+          ngxTippy="Third tooltip content"
+        >
+          Singleton
+        </button>
       </div>
     </ngx-tippy-singleton>
   </div>

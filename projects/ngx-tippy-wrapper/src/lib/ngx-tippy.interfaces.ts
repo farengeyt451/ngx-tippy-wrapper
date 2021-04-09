@@ -6,7 +6,16 @@ export interface NgxSingletonProps extends Partial<Props> {
   overrides?: Array<keyof NgxTippyProps>;
 }
 
-export interface NgxTippyInstance extends Instance {}
+export interface NgxTippyInstance extends Instance {
+  isChildrenOfSingleton?: boolean;
+}
+
+export interface NgxTippySingletonInstance extends NgxTippyInstance {
+  setInstances(instances: Instance<any>[]): void;
+  show(singletonTarget?: string | Instance | number): void;
+  showNext(): void;
+  showPrevious(): void;
+}
 
 export type NgxTippyContent = Content;
 
@@ -33,4 +42,8 @@ export interface InstancesChanges {
   name: string;
   reason: InstanceChangeReason;
   instance: NgxTippyInstance;
+}
+
+export interface TippyHTMLElement extends HTMLElement {
+  _tippy: Instance;
 }

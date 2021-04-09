@@ -8,20 +8,29 @@ import {
   NgxHideAllOptions,
   InstancesChanges,
   InstanceChangeReason,
+  NgxTippySingletonInstance,
 } from './ngx-tippy.interfaces';
+import { setTemplateVisible } from './ngx-tippy.utils';
+
+@Injectable({ providedIn: 'root' })
+export class DevModeService {
+  public isDevMode() {
+    return isDevMode();
+  }
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class NgxTippyService {
   private tippyInstances: Map<string, NgxTippyInstance> = new Map();
+  private tippySingletonInstances: Map<string, NgxTippySingletonInstance> = new Map();
   private tippyInstances$ = new Subject<InstancesChanges>();
   private renderer: Renderer2;
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor(rendererFactory: RendererFactory2, private devModeService: DevModeService) {
     this.createRenderer(rendererFactory);
   }
-
   /**
    * Working with storage
    */
@@ -33,8 +42,12 @@ export class NgxTippyService {
    * @param state { NgxTippyInstance } tippy instance
    */
   setInstance(name: string, state: NgxTippyInstance) {
-    this.tippyInstances.set(name, state);
-    this.emitInstancesChange('setInstance', name);
+    if (this.tippyInstances.has(name)) {
+      this.throwError(`Instance with name '${name}' already exist, please pick unique [tippyName]`);
+    } else {
+      this.tippyInstances.set(name, state);
+      this.emitInstancesChange('setInstance', name);
+    }
   }
 
   /**
@@ -57,6 +70,39 @@ export class NgxTippyService {
   }
 
   /**
+   * Write singleton instances to storage
+   *
+   * @param name { string } name of tippy instance
+   * @param state { NgxTippyInstance } tippy instance
+   */
+  setSingletonInstance(name: string, state: NgxTippySingletonInstance) {
+    if (this.tippySingletonInstances.has(name)) {
+      this.throwError(`Singleton instance with name '${name}' already exist, please pick unique [singletonName]`);
+    } else {
+      this.tippySingletonInstances.set(name, state);
+    }
+  }
+
+  /**
+   * Get specific singleton tippy instance
+   *
+   * @param name { string } name of singleton tippy instance
+   * @returns { NgxTippySingletonInstance | null } specific singleton tippy instance or null
+   */
+  getSingletonInstance(name: string): NgxTippySingletonInstance | null {
+    return this.tippySingletonInstances.has(name) ? this.tippySingletonInstances.get(name) : null;
+  }
+
+  /**
+   * Get all singleton tippy instances
+   *
+   * @returns { Map<string, NgxTippyInstance> | null } all singleton tippy instances or null
+   */
+  getSingletonInstances(): Map<string, NgxTippySingletonInstance> | null {
+    return this.tippySingletonInstances.size ? this.tippySingletonInstances : null;
+  }
+
+  /**
    * Working with tippy instance methods
    */
 
@@ -67,7 +113,7 @@ export class NgxTippyService {
    */
   show(name: string) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).show();
@@ -81,7 +127,7 @@ export class NgxTippyService {
    */
   hide(name: string) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).hide();
@@ -97,7 +143,7 @@ export class NgxTippyService {
    */
   hideWithInteractivity(name: string, mouseEvent: MouseEvent) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).hideWithInteractivity(mouseEvent);
@@ -111,7 +157,7 @@ export class NgxTippyService {
    */
   disable(name: string) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).disable();
@@ -125,7 +171,7 @@ export class NgxTippyService {
    */
   enable(name: string) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).enable();
@@ -140,7 +186,7 @@ export class NgxTippyService {
    */
   setProps(name: string, tippyProps: NgxTippyProps) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).setProps(tippyProps);
@@ -155,10 +201,11 @@ export class NgxTippyService {
    */
   setContent(name: string, tippyContent: NgxTippyContent) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
-    this.setTemplateVisible(tippyContent);
+    setTemplateVisible(tippyContent, this.renderer);
+
     this.tippyInstances.get(name).setContent(tippyContent);
     this.emitInstancesChange('setContent', name);
   }
@@ -172,7 +219,7 @@ export class NgxTippyService {
    */
   setTriggerTarget(name: string, triggerTarget: Element | Element[]) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).setProps({ triggerTarget });
@@ -186,7 +233,7 @@ export class NgxTippyService {
    */
   unmount(name: string) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).unmount();
@@ -200,7 +247,7 @@ export class NgxTippyService {
    */
   clearDelayTimeouts(name: string) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).clearDelayTimeouts();
@@ -214,7 +261,7 @@ export class NgxTippyService {
    */
   destroy(name: string) {
     if (!this.tippyInstances.has(name)) {
-      this.throwError(`Instance with identifier '${name}' does not exist`);
+      this.throwError(`Instance with name '${name}' does not exist`);
     }
 
     this.tippyInstances.get(name).destroy();
@@ -269,10 +316,6 @@ export class NgxTippyService {
   /**
    * Service methods
    */
-  public setTemplateVisible(tippyContent: NgxTippyContent) {
-    tippyContent instanceof Element && this.renderer.setStyle(tippyContent, 'display', 'block');
-  }
-
   private emitInstancesChange(reason: InstanceChangeReason, name: string) {
     const instance = this.tippyInstances.get(name);
     this.tippyInstances$.next({ name, reason, instance });
@@ -283,7 +326,6 @@ export class NgxTippyService {
   }
 
   private throwError(message: string, errorConstrictor: ErrorConstructor = Error) {
-    if (!isDevMode()) return;
-    throw new errorConstrictor(message);
+    if (this.devModeService.isDevMode()) throw new errorConstrictor(message);
   }
 }

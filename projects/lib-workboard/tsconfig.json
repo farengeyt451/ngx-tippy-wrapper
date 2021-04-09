@@ -17,28 +17,11 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "ngx-tippy-wrapper": [
-        "dist/ngx-tippy-wrapper"
-      ],
-      "ngx-tippy-wrapper/*": [
-        "dist/ngx-tippy-wrapper/*"
-      ],
-      "lib-workboard": [
-        "dist/lib-workboard/lib-workboard",
-        "dist/lib-workboard"
-      ],
-      "demo": [
-        "dist/demo"
-      ],
-      "demo/*": [
-        "dist/demo/*"
-      ]
-    }
+    ]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "strictTemplates": true
   }
 }

@@ -1,10 +1,16 @@
-import { Component, ElementRef, Input, ViewChild, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
+import { Component, Input, Inject, PLATFORM_ID, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import tippy, { createSingleton } from 'tippy.js';
-import { NgxTippyProps } from './ngx-tippy.interfaces';
+import { createSingleton } from 'tippy.js';
+import { NgxTippyService } from './ngx-tippy.service';
+import {
+  NgxTippyInstance,
+  NgxTippySingletonInstance,
+  TippyHTMLElement,
+  NgxSingletonProps,
+} from './ngx-tippy.interfaces';
 
 /**
- * This component implements case - singleton: single tippy element that takes the place of an array of regular tippy instances
+ * Tippy singleton - single tippy element that takes the place of an array of regular tippy instances
  */
 @Component({
   selector: 'ngx-tippy-singleton',
@@ -15,24 +21,81 @@ import { NgxTippyProps } from './ngx-tippy.interfaces';
   `,
 })
 export class NgxTippySingletonComponent implements AfterViewInit {
-  @Input() tippyProps?: NgxTippyProps;
+  @Input() singletonProps?: NgxSingletonProps;
+  @Input() singletonName?: string;
   @ViewChild('contentWrapper', { read: ElementRef, static: false }) contentWrapper: ElementRef;
 
-  constructor(@Inject(PLATFORM_ID) private platform: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platform: Object, private ngxTippyService: NgxTippyService) {}
 
   ngAfterViewInit() {
     if (isPlatformServer(this.platform)) return;
-    this.setTooltips();
+    this.setSingleton();
   }
 
-  setTooltips() {
+  /**
+   * Take projected in component tooltips element
+   * Take initiated tippy instances
+   * Initiate `singleton addon` only for projected tooltips for current component instance
+   */
+  private setSingleton() {
     const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
-    const tooltips: HTMLElement[] = Array.from(contentWrapperNativeEl.querySelectorAll('[data-singleton]'));
+    const singletonTooltipIDs: number[] = Array.from(contentWrapperNativeEl.querySelectorAll('[ngxTippy]')).map(
+      (el: TippyHTMLElement) => el._tippy.id
+    );
 
-    this.initTippy(tooltips);
+    const tippyInstances: Map<string, NgxTippyInstance> | null = this.ngxTippyService.getInstances();
+    const tippyInstancesSerialized: NgxTippyInstance[] | undefined = tippyInstances && [...tippyInstances.values()];
+
+    const currentSingletonChildrenTippyInstances: NgxTippyInstance[] | undefined =
+      tippyInstancesSerialized &&
+      tippyInstancesSerialized.filter((tippyInstance) => singletonTooltipIDs.includes(tippyInstance.id));
+
+    if (currentSingletonChildrenTippyInstances?.length) {
+      this.initTippySingleton(currentSingletonChildrenTippyInstances);
+    } else {
+      throw new Error(`No children tippy instances founded within singleton component`);
+    }
   }
 
-  initTippy(tooltips: HTMLElement[]) {
-    createSingleton(tippy(tooltips), this.tippyProps);
+  private initTippySingleton(childrenSingletonInstances: NgxTippyInstance[]) {
+    const singleton: NgxTippySingletonInstance = createSingleton(childrenSingletonInstances, this.singletonProps);
+    this.writeSingletonInstanceToStorage(singleton);
+  }
+
+  /**
+   * To manipulate singleton groups, write all instances to storage
+   * `singletonName` used as unique key
+   * If `singletonName` does not provided - it will be generated using id of singletonInstance
+   *
+   * @param tippyInstance { NgxTippySingletonInstance }
+   */
+  private writeSingletonInstanceToStorage(singletonInstance: NgxTippySingletonInstance) {
+    const extendedSingletonInstance = this.extendShowFn(singletonInstance);
+
+    this.ngxTippyService.setSingletonInstance(
+      this.singletonName || `singleton-${singletonInstance.id}}`,
+      extendedSingletonInstance
+    );
+  }
+
+  /**
+   * Extend original `show` method
+   * Purpose: manipulate tooltip state by [tippyName]
+   *
+   * @param singletonInstance { NgxTippySingletonInstance }
+   * @returns { NgxTippySingletonInstance }
+   */
+  private extendShowFn(singletonInstance: NgxTippySingletonInstance): NgxTippySingletonInstance {
+    const originalShowFn = singletonInstance.show;
+
+    singletonInstance.show = (singletonInstanceIdentifier: string | number | NgxTippyInstance) => {
+      if (typeof singletonInstanceIdentifier === 'string') {
+        originalShowFn(this.ngxTippyService.getInstance(singletonInstanceIdentifier));
+      } else {
+        originalShowFn(singletonInstanceIdentifier);
+      }
+    };
+
+    return singletonInstance;
   }
 }

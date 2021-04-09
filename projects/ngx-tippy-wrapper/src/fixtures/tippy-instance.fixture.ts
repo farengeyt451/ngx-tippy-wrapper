@@ -10,13 +10,10 @@ export const fakeInstance = {
     {
       name: 'followCursor',
       defaultValue: false,
-      fn: () => {},
     },
   ],
   popper: {
     state: {},
-    destroy: () => {},
-    forceUpdate: () => {},
   },
   popperInstance: {},
   props: {},

@@ -1,5 +1,5 @@
 import { TestBed, getTestBed, fakeAsync } from '@angular/core/testing';
-import { NgxTippyService } from '../lib/ngx-tippy.service';
+import { DevModeService, NgxTippyService } from '../lib/ngx-tippy.service';
 import { fakeInstance } from '../fixtures/tippy-instance.fixture';
 import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 
@@ -7,7 +7,9 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   let injector: TestBed;
   let tippyService: NgxTippyService;
   let tippyInstance: any;
+  let tippySingletonInstance: any;
   const tippyName = 'unit-test';
+  const tippySingletonName = 's-test';
   const nameTypedWithMistake = 'unit-tst';
 
   beforeEach(() => {
@@ -18,11 +20,27 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     injector = getTestBed();
     tippyService = injector.inject(NgxTippyService);
     tippyService.setInstance(tippyName, fakeInstance as any);
+    tippyService.setSingletonInstance(tippySingletonName, fakeInstance as any);
     tippyInstance = tippyService.getInstance(tippyName);
+    tippySingletonInstance = tippyService.getSingletonInstance(tippySingletonName);
   });
 
   it('Should create service', () => {
     expect(tippyService).toBeTruthy('Service does not created');
+  });
+
+  it('Should throw error isDevMode = true', () => {
+    const devModeService = TestBed.inject(DevModeService);
+    spyOn(devModeService, 'isDevMode').and.returnValue(true);
+
+    expect(() => tippyService['throwError']('Error')).toThrowError('Error');
+  });
+
+  it('Should not throw error isDevMode = false', () => {
+    const devModeService = TestBed.inject(DevModeService);
+    spyOn(devModeService, 'isDevMode').and.returnValue(false);
+
+    expect(() => tippyService['throwError']('Err')).not.toThrow();
   });
 
   it('Should set new instance and emit change', () => {
@@ -42,8 +60,20 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     expect(tippyInstance.id).toBe(0, 'Instance has wrong ID');
   });
 
+  it('Should return singleton instance, if right singleton name passed', () => {
+    expect(tippySingletonInstance).toBeTruthy('Instance not found');
+    expect(tippySingletonInstance.id).toBe(0, 'Instance has wrong ID');
+  });
+
   it('Should return <Map> of all instances', () => {
     const instances = tippyService.getInstances();
+
+    expect(instances).toBeTruthy('Instances not found');
+    expect(instances.size).toBeGreaterThan(0, 'Got less then one instance');
+  });
+
+  it('Should return <Map> of all singleton instances', () => {
+    const instances = tippyService.getSingletonInstances();
 
     expect(instances).toBeTruthy('Instances not found');
     expect(instances.size).toBeGreaterThan(0, 'Got less then one instance');
@@ -61,12 +91,9 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   });
 
   it('Should throw error on: hideWithInteractivity, if wrong name passed', () => {
-    try {
-      tippyService.hideWithInteractivity(nameTypedWithMistake, {} as any);
-    } catch (error) {
-      expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
-    }
+    expect(() => tippyService.hideWithInteractivity(nameTypedWithMistake, {} as any)).toThrowError(
+      `Instance with name '${nameTypedWithMistake}' does not exist`
+    );
   });
 
   it('Should emit changes on: setProps', () => {
@@ -92,12 +119,9 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
       content: 'New content',
     };
 
-    try {
-      tippyService.setProps(nameTypedWithMistake, props);
-    } catch (error) {
-      expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
-    }
+    expect(() => tippyService.setProps(nameTypedWithMistake, props)).toThrowError(
+      `Instance with name '${nameTypedWithMistake}' does not exist`
+    );
   });
 
   it('Should emit changes on: setContent', () => {
@@ -112,21 +136,10 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService.setContent(tippyName, 'New content');
   });
 
-  it('Should call setTemplateVisible when set new tooltip content', () => {
-    spyOn<any>(tippyService, 'setTemplateVisible');
-    tippyService.setContent(tippyName, 'New content');
-
-    expect(tippyService['setTemplateVisible']).toHaveBeenCalled();
-    expect(tippyService['setTemplateVisible']).toHaveBeenCalledTimes(1);
-  });
-
   it('Should throw error on: setContent, if wrong name passed', () => {
-    try {
-      tippyService.setContent(nameTypedWithMistake, 'New content');
-    } catch (error) {
-      expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
-    }
+    expect(() => tippyService.setContent(nameTypedWithMistake, 'New content')).toThrowError(
+      `Instance with name '${nameTypedWithMistake}' does not exist`
+    );
   });
 
   it('Should emit changes on: setTriggerTarget', () => {
@@ -144,12 +157,22 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
 
   it('Should throw error on: setTriggerTarget, if wrong name passed', () => {
     const setTriggerTarget = document.createElement('div');
-    try {
-      tippyService.setTriggerTarget(nameTypedWithMistake, setTriggerTarget);
-    } catch (error) {
-      expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
-    }
+
+    expect(() => tippyService.setTriggerTarget(nameTypedWithMistake, setTriggerTarget)).toThrowError(
+      `Instance with name '${nameTypedWithMistake}' does not exist`
+    );
+  });
+
+  it('Should throw error on: setInstance, if name already exist', () => {
+    expect(() => tippyService.setInstance(tippyName, fakeInstance as any)).toThrowError(
+      `Instance with name '${tippyName}' already exist, please pick unique [tippyName]`
+    );
+  });
+
+  it('Should throw error on: setSingletonInstance, if name already exist', () => {
+    expect(() => tippyService.setSingletonInstance(tippySingletonName, fakeInstance as any)).toThrowError(
+      `Singleton instance with name '${tippySingletonName}' already exist, please pick unique [singletonName]`
+    );
   });
 
   ['show', 'hide', 'disable', 'enable', 'unmount', 'clearDelayTimeouts'].forEach((method) => {
@@ -178,12 +201,9 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     }));
 
     it(`Should throw error on: ${method}, if wrong name passed`, () => {
-      try {
-        tippyService[method](nameTypedWithMistake);
-      } catch (error) {
-        expect(error).toBeTruthy('Error does not exist');
-        expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
-      }
+      expect(() => tippyService[method](nameTypedWithMistake)).toThrowError(
+        `Instance with name '${nameTypedWithMistake}' does not exist`
+      );
     });
   });
 
@@ -224,12 +244,9 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   });
 
   it(`Should throw error on: destroy, if wrong name passed`, () => {
-    try {
-      tippyService.destroy(nameTypedWithMistake);
-    } catch (error) {
-      expect(error).toBeTruthy('Error does not exist');
-      expect(error.message).toBe(`Instance with identifier '${nameTypedWithMistake}' does not exist`);
-    }
+    expect(() => tippyService.destroy(nameTypedWithMistake)).toThrowError(
+      `Instance with name '${nameTypedWithMistake}' does not exist`
+    );
   });
 
   it('Should emit changes', () => {
