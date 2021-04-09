@@ -11,7 +11,7 @@
     "package": "npm run build-lib && npm run copy-files && npm run npm-pack",
     "unit-tests:lib": "ng test ngx-tippy-wrapper",
     "unit-tests:lib-coverage": "ng test ngx-tippy-wrapper --code-coverage --watch=false --browsers=ChromeHeadlessNoSandbox",
-    "unit-tests:lib-codecov": "cat ./coverage/ngx-tippy-wrapper/lcov.info | codecov",
+    "unit-tests:lib-codecov": "cat ./coverage/ngx-tippy-wrapper/**/lcov.info | codecov",
     "e2e": "ng e2e"
   },
   "dependencies": {

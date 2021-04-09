@@ -22,10 +22,7 @@ module.exports = function (config) {
     },
     coverageReporter: {
       dir: require('path').join(__dirname, '../../coverage/ngx-tippy-wrapper'),
-      reporters: [
-        { type: 'html' },
-        { type: 'text-summary' }
-      ]
+      reporters: [{ type: 'html' }, { type: 'text-summary' }, { type: 'lcovonly' }],
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
