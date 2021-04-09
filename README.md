@@ -28,6 +28,10 @@ Install from npm:
 npm i ngx-tippy-wrapper --save
 ```
 
+## Before upgrade
+
+[Migration guide](./MIGRATION_GUIDE.md)
+
 ## Importing
 
 Import `NgxTippyModule`:
@@ -448,8 +452,11 @@ If you want to give different tooltip content to many different elements, while 
 <!-- prettier-ignore-start -->
 ```html
 <ngx-tippy-group [groupedProps]="groupedProps">
+
   <button data-tippy-grouped data-tippy-content="Tooltip content">Element with tooltip</button>
+
   <button data-tippy-grouped data-tippy-content="Tooltip content">Element with tooltip</button>
+
 </ngx-tippy-group>
 ```
 <!-- prettier-ignore-end -->
@@ -535,12 +542,14 @@ For [singleton](https://atomiks.github.io/tippyjs/v6/addons/#singleton) - provid
 <!-- prettier-ignore-start -->
 ```html
 <ngx-tippy-singleton
-  [singletonProps]="singleton"
+  [singletonProps]="singletonProps"
   [singletonName]="'main-page'"
 >
 
   <button ngxTippy="Tooltip content">Singleton</button>
+
   <button ngxTippy="Tooltip content">Singleton</button>
+
   <button ngxTippy="Tooltip content">Singleton</button>
 
 </ngx-tippy-singleton>

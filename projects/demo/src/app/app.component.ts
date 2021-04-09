@@ -69,7 +69,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   grouped: NgxTippyProps = this.templateRef;
 
-  singleton: NgxSingletonProps = {
+  singletonProps: NgxSingletonProps = {
     allowHTML: true,
     animation: 'shift-away',
     interactiveBorder: 30,
@@ -78,8 +78,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     theme: 'light',
   };
 
-  singletonOverrides: NgxSingletonProps = { ...this.singleton, overrides: ['arrow', 'placement'] };
-  singletonTransitions: NgxSingletonProps = { ...this.singleton, theme: 'dark', moveTransition: 'transform 0.4s ease' };
+  singletonOverrides: NgxSingletonProps = { ...this.singletonProps, overrides: ['arrow', 'placement'] };
+  singletonTransitions: NgxSingletonProps = {
+    ...this.singletonProps,
+    theme: 'dark',
+    moveTransition: 'transform 0.4s ease',
+  };
 
   constructor(private tippyService: NgxTippyService) {}
 
