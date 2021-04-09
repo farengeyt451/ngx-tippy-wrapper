@@ -267,7 +267,9 @@ describe('Service: NgxTippyWrapperService - No instances exist', () => {
   let injector: TestBed;
   let tippyService: NgxTippyService;
   let tippyInstance: any;
+  let tippySingletonInstance: any;
   const tippyName = 'unit-test';
+  const tippySingletonName = 's-test';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -277,15 +279,26 @@ describe('Service: NgxTippyWrapperService - No instances exist', () => {
     injector = getTestBed();
     tippyService = injector.inject(NgxTippyService);
     tippyInstance = tippyService.getInstance(tippyName);
+    tippySingletonInstance = tippyService.getSingletonInstance(tippySingletonName);
   });
 
   it('Should return null if wrong tippy name passed', () => {
     expect(tippyInstance).toBeNull('Instance should not be found');
   });
 
+  it('Should return null if wrong singleton name passed', () => {
+    expect(tippySingletonInstance).toBeNull('Singleton instance should not be found');
+  });
+
   it('Should return null if no instances set', () => {
     const instances = tippyService.getInstances();
 
     expect(instances).toBeNull('Instances should not be found');
+  });
+
+  it('Should return null if no singleton instances set', () => {
+    const instances = tippyService.getSingletonInstances();
+
+    expect(instances).toBeNull('Singleton instances should not be found');
   });
 });
