@@ -20,6 +20,11 @@
 
 [Run demo locally](./projects/demo/README.md)
 
+## Recommended versions to use
+
+- **Angular 8**: ~2.0.4
+- **Angular 9+**: @latest
+
 ## Installation
 
 Install from npm:
@@ -543,7 +548,7 @@ For [singleton](https://atomiks.github.io/tippyjs/v6/addons/#singleton) - provid
 ```html
 <ngx-tippy-singleton
   [singletonProps]="singletonProps"
-  [singletonName]="'main-page'"
+  singletonName="main-page"
 >
 
   <button ngxTippy="Tooltip content">Singleton</button>
@@ -556,9 +561,9 @@ For [singleton](https://atomiks.github.io/tippyjs/v6/addons/#singleton) - provid
 ```
 <!-- prettier-ignore-end-->
 
-Use _optional_ `[singletonProps]` for pass common props
+Use _optional_ `singletonProps` for pass common props
 
-Use _optional_ `[singletonName]` for pass unique singleton name, need to control singletons
+Use _optional_ `singletonName` for pass unique singleton name, need to control singletons
 **programmatically**
 
 ### Overrides props
@@ -642,7 +647,7 @@ In addition for `show()` method is possible to pass child `[tippyName]` prop
 ```html
 <ngx-tippy-singleton
   [singletonProps]="..."
-  [singletonName]="'main-page'"
+  singletonName="main-page"
 >
   <button ngxTippy="Tooltip content">Singleton</button>
 

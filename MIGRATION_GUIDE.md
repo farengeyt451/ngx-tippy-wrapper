@@ -2,12 +2,12 @@
 
 - From version 2.x.x to version 3.x.x
 
-#### Grouped tooltips
+### Grouped tooltips
 
 1. In order to pass common props use `[groupedProps]` instead of `[tippyProps]`
 2. For each tooltip within `ngx-tippy-group` component you should pass `data-tippy-grouped` attribute instead of `data-tippy`
 
-#### Singleton
+### Singleton
 
 Whats new:
 
@@ -16,7 +16,7 @@ Whats new:
 
 Migration steps:
 
-1. In order to pass singleton props use `[singletonProps]` instead of `[tippyProps]`
-2. Now you can also pass `[singletonName]` for control each `singleton` instance manually
+1. In order to pass singleton props use `singletonProps` instead of `tippyProps`
+2. Now you can also pass `singletonName` for control each `singleton` instance manually
 3. Pass `ngxTippy` directive for each `ngx-tippy-singleton` child
 4. Attribute `data-singleton` does not need now

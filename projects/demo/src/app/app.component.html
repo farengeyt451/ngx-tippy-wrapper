@@ -409,7 +409,10 @@
     <p class="t-demo__text">Programmatically control singleton instance</p>
 
     <!-- Example block -->
-    <ngx-tippy-singleton [singletonProps]="singletonTransitions" [singletonName]="'main-page'">
+    <ngx-tippy-singleton
+      [singletonProps]="singletonTransitions"
+      singletonName="main-page"
+    >
       <div class="t-demo__grouped">
         <button
           class="t-demo__btn"
