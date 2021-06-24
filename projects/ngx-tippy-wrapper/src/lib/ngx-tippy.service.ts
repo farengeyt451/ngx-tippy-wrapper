@@ -1,13 +1,13 @@
-import { Injectable, Renderer2, RendererFactory2, isDevMode } from '@angular/core';
+import { Injectable, isDevMode, Renderer2, RendererFactory2 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import tippy, { hideAll } from 'tippy.js';
 import {
+  InstanceChangeReason,
+  InstancesChanges,
+  NgxHideAllOptions,
+  NgxTippyContent,
   NgxTippyInstance,
   NgxTippyProps,
-  NgxTippyContent,
-  NgxHideAllOptions,
-  InstancesChanges,
-  InstanceChangeReason,
   NgxTippySingletonInstance,
 } from './ngx-tippy.interfaces';
 import { setTemplateVisible } from './ngx-tippy.utils';

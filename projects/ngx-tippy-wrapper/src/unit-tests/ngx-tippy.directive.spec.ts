@@ -1,9 +1,9 @@
-import { TestBed, ComponentFixture, getTestBed, fakeAsync, tick } from '@angular/core/testing';
-import { DebugElement, Component, ViewChild, ViewContainerRef, Compiler, NgModule, PLATFORM_ID } from '@angular/core';
+import { Compiler, Component, DebugElement, NgModule, PLATFORM_ID, ViewChild, ViewContainerRef } from '@angular/core';
+import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
+import { fakeInstance } from '../fixtures/tippy-instance.fixture';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
 import { NgxTippyService } from '../lib/ngx-tippy.service';
-import { fakeInstance } from '../fixtures/tippy-instance.fixture';
 
 const styles = [
   `
@@ -132,8 +132,34 @@ describe('Directive: NgxTippyDirective', () => {
     tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('click'));
     fixture.detectChanges();
     const tooltip = fixture.debugElement.query(By.css('.tippy-content'));
-
     expect(tooltip).toBeNull('Tooltip initialized');
+  });
+
+  it('Should destroy tooltip in case component destruction', () => {
+    component.addComponent(
+      `
+      <div class="test">
+        <button
+          class="test__btn"
+          [ngxTippy]="'Value'"
+          [tippyProps]="{
+            appendTo: 'parent',
+            trigger: 'click'
+          }"
+        >
+          Element with tooltip
+        </button>
+      </div>
+      `,
+      styles
+    );
+
+    fixture.destroy();
+    fixture.detectChanges();
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('click'));
+    const tooltip = fixture.debugElement.query(By.css('.tippy-content'));
+    expect(tooltip).toBeNull('Tooltip did not destroy');
   });
 
   it('Should show tooltip on hover', () => {

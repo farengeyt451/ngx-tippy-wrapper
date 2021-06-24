@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, ViewChild, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewChild } from '@angular/core';
 import tippy from 'tippy.js';
 import { NgxTippyProps } from './ngx-tippy.interfaces';
 

@@ -1,18 +1,20 @@
-import { Directive, OnInit, ElementRef, Input, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
+import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 import tippy from 'tippy.js';
+import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement } from './ngx-tippy.interfaces';
 import { NgxTippyService } from './ngx-tippy.service';
-import { NgxTippyProps, NgxTippyInstance, NgxTippyContent, TippyHTMLElement } from './ngx-tippy.interfaces';
 import { setTemplateVisible } from './ngx-tippy.utils';
 
 @Directive({
   selector: '[ngxTippy]',
 })
-export class NgxTippyDirective implements OnInit {
+export class NgxTippyDirective implements OnInit, OnDestroy {
   @Input() ngxTippy?: NgxTippyContent | null;
   @Input() tippyProps?: NgxTippyProps;
   @Input() tippyName?: string;
   @Input() tippyClassName?: string;
+
+  private tippyInstance!: NgxTippyInstance;
 
   constructor(
     private tippyEl: ElementRef,
@@ -24,6 +26,10 @@ export class NgxTippyDirective implements OnInit {
   ngOnInit() {
     if (isPlatformServer(this.platform)) return;
     this.initTippy();
+  }
+
+  ngOnDestroy() {
+    this.deleteEntryInStorage();
   }
 
   /**
@@ -43,10 +49,9 @@ export class NgxTippyDirective implements OnInit {
   }
 
   private setTippyInstance(tippyTarget: TippyHTMLElement) {
-    const tippyInstance: NgxTippyInstance = tippyTarget._tippy;
-
-    this.setClassName(tippyInstance);
-    this.writeInstancesToStorage(tippyInstance);
+    this.tippyInstance = tippyTarget._tippy;
+    this.setClassName(this.tippyInstance);
+    this.writeInstancesToStorage(this.tippyInstance);
   }
 
   private setClassName(tippyInstance: NgxTippyInstance) {
@@ -68,5 +73,9 @@ export class NgxTippyDirective implements OnInit {
    */
   private writeInstancesToStorage(tippyInstance: NgxTippyInstance) {
     this.ngxTippyService.setInstance(this.tippyName || `tippy-${tippyInstance.id}`, tippyInstance);
+  }
+
+  private deleteEntryInStorage() {
+    this.ngxTippyService.getInstances()?.delete(this.tippyName || `tippy-${this.tippyInstance.id}`);
   }
 }

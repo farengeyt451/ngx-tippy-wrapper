@@ -1,4 +1,4 @@
-import { Instance, Props, Content } from 'tippy.js';
+import { Content, Instance, Props } from 'tippy.js';
 
 export interface NgxTippyProps extends Partial<Props> {}
 
