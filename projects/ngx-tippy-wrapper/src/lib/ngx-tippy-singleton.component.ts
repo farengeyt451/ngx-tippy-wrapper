@@ -1,5 +1,5 @@
 import { isPlatformServer } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, Input, OnDestroy, PLATFORM_ID, ViewChild } from '@angular/core';
 import { createSingleton } from 'tippy.js';
 import {
   NgxSingletonProps,
@@ -20,16 +20,23 @@ import { NgxTippyService } from './ngx-tippy.service';
     </div>
   `,
 })
-export class NgxTippySingletonComponent implements AfterViewInit {
+export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
   @Input() singletonProps?: NgxSingletonProps;
   @Input() singletonName?: string;
   @ViewChild('contentWrapper', { read: ElementRef, static: false }) contentWrapper: ElementRef;
+
+  private singletonInstance!: NgxTippySingletonInstance;
+  private currentSingletonChildrenTippyInstances!: NgxTippyInstance[] | undefined;
 
   constructor(@Inject(PLATFORM_ID) private platform: Object, private ngxTippyService: NgxTippyService) {}
 
   ngAfterViewInit() {
     if (isPlatformServer(this.platform)) return;
     this.setSingleton();
+  }
+
+  ngOnDestroy() {
+    this.clearSingletonInstance();
   }
 
   /**
@@ -46,20 +53,20 @@ export class NgxTippySingletonComponent implements AfterViewInit {
     const tippyInstances: Map<string, NgxTippyInstance> | null = this.ngxTippyService.getInstances();
     const tippyInstancesSerialized: NgxTippyInstance[] | undefined = tippyInstances && [...tippyInstances.values()];
 
-    const currentSingletonChildrenTippyInstances: NgxTippyInstance[] | undefined =
+    this.currentSingletonChildrenTippyInstances =
       tippyInstancesSerialized &&
       tippyInstancesSerialized.filter((tippyInstance) => singletonTooltipIDs.includes(tippyInstance.id));
 
-    if (currentSingletonChildrenTippyInstances?.length) {
-      this.initTippySingleton(currentSingletonChildrenTippyInstances);
+    if (this.currentSingletonChildrenTippyInstances?.length) {
+      this.initTippySingleton(this.currentSingletonChildrenTippyInstances);
     } else {
       throw new Error(`No children tippy instances founded within singleton component`);
     }
   }
 
   private initTippySingleton(childrenSingletonInstances: NgxTippyInstance[]) {
-    const singleton: NgxTippySingletonInstance = createSingleton(childrenSingletonInstances, this.singletonProps);
-    this.writeSingletonInstanceToStorage(singleton);
+    this.singletonInstance = createSingleton(childrenSingletonInstances, this.singletonProps);
+    this.writeSingletonInstanceToStorage(this.singletonInstance);
   }
 
   /**
@@ -73,7 +80,7 @@ export class NgxTippySingletonComponent implements AfterViewInit {
     const extendedSingletonInstance = this.extendShowFn(singletonInstance);
 
     this.ngxTippyService.setSingletonInstance(
-      this.singletonName || `singleton-${singletonInstance.id}}`,
+      this.singletonName || `singleton-${singletonInstance.id}`,
       extendedSingletonInstance
     );
   }
@@ -97,5 +104,22 @@ export class NgxTippySingletonComponent implements AfterViewInit {
     };
 
     return singletonInstance;
+  }
+
+  private clearSingletonInstance() {
+    const singletonInstances = this.ngxTippyService.getSingletonInstances();
+
+    if (singletonInstances && this.singletonInstance) {
+      this.destroySingletonInstance();
+      this.deleteEntryInStorage(singletonInstances);
+    }
+  }
+
+  private destroySingletonInstance() {
+    this.singletonInstance.destroy();
+  }
+
+  private deleteEntryInStorage(singletonInstances: Map<string, NgxTippySingletonInstance>) {
+    singletonInstances.delete(this.singletonName || `singleton-${this.singletonInstance.id}`);
   }
 }

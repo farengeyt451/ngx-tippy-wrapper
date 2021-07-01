@@ -29,7 +29,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.deleteEntryInStorage();
+    this.clearInstance();
   }
 
   /**
@@ -75,7 +75,22 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     this.ngxTippyService.setInstance(this.tippyName || `tippy-${tippyInstance.id}`, tippyInstance);
   }
 
-  private deleteEntryInStorage() {
-    this.ngxTippyService.getInstances()?.delete(this.tippyName || `tippy-${this.tippyInstance.id}`);
+  private clearInstance() {
+    const instances = this.ngxTippyService.getInstances();
+
+    if (instances && this.tippyInstance) {
+      const tippyName = this.tippyName || `tippy-${this.tippyInstance.id}`;
+
+      this.destroyTippyInstance(tippyName);
+      this.deleteEntryInStorage(instances, tippyName);
+    }
+  }
+
+  private destroyTippyInstance(tippyName: string) {
+    this.ngxTippyService.destroy(tippyName);
+  }
+
+  private deleteEntryInStorage(instances: Map<string, NgxTippyInstance>, tippyName: string) {
+    instances.delete(tippyName);
   }
 }
