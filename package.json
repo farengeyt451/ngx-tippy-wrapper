@@ -5,6 +5,7 @@
     "build-lib": "ng build ngx-tippy-wrapper",
     "watch-lib": "ng build ngx-tippy-wrapper --watch",
     "unit-tests:lib": "ng test ngx-tippy-wrapper",
+    "unit-tests:lib-coverage": "ng test ngx-tippy-wrapper --code-coverage --watch=false --browsers=ChromeHeadlessNoSandbox",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

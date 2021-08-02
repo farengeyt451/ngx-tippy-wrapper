@@ -280,13 +280,12 @@ describe('Component: NgxTippySingletonComponent', () => {
     );
   });
 
-  it('Should call originalShowFn with tippy name', () => {
+  it('Should not call originalShowFn with tippy name', () => {
     const showSpyFn = jasmine.createSpy('show', () => {});
     const singletonInstance = component['extendShowFn']({ show: showSpyFn } as any);
     singletonInstance.show('test');
 
-    expect(showSpyFn).toHaveBeenCalled();
-    expect(showSpyFn).toHaveBeenCalledTimes(1);
+    expect(showSpyFn).toHaveBeenCalledTimes(0);
   });
 
   it('Should call originalShowFn without tippy name', () => {

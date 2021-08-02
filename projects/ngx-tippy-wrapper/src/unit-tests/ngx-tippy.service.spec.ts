@@ -240,7 +240,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
 
     tippyService.destroy(tippyName);
 
-    expect(tippyService.getInstance(tippyName)).toBeNull('Instance exist, but should be deleted');
+    expect(tippyService.getInstance(tippyName)).toBeUndefined('Instance exist, but should be deleted');
   });
 
   it(`Should throw error on: destroy, if wrong name passed`, () => {
@@ -249,13 +249,56 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     );
   });
 
-  it('Should emit changes', () => {
+  it('Should emit changes contains data object', () => {
     tippyService.instancesChanges.subscribe(data => {
       expect(data).toBeTruthy('No data emitted');
+    });
+
+    tippyService['emitInstancesChange']({
+      name: 'test',
+      reason: 'show',
+      instance: fakeInstance as any,
+    });
+  });
+
+  it('Should emit changes contains reason', () => {
+    tippyService.instancesChanges.subscribe(data => {
       expect(data.reason).toBeTruthy('No data reason emitted');
+    });
+
+    tippyService['emitInstancesChange']({
+      name: 'test',
+      reason: 'show',
+      instance: fakeInstance as any,
+    });
+  });
+
+  it('Should emit changes contains reason `show`', () => {
+    tippyService.instancesChanges.subscribe(data => {
       expect(data.reason).toBe('show');
-      expect(data.instance).toBeUndefined('Instance emitted');
+    });
+
+    tippyService['emitInstancesChange']({
+      name: 'test',
+      reason: 'show',
+      instance: fakeInstance as any,
+    });
+  });
+
+  it('Should emit changes contains name', () => {
+    tippyService.instancesChanges.subscribe(data => {
       expect(data.name).toBeTruthy('No data name instance emitted');
+    });
+
+    tippyService['emitInstancesChange']({
+      name: 'test',
+      reason: 'show',
+      instance: fakeInstance as any,
+    });
+  });
+
+  it('Should emit changes contains name `test`', () => {
+    tippyService.instancesChanges.subscribe(data => {
       expect(data.name).toBe('test');
     });
 
@@ -286,23 +329,23 @@ describe('Service: NgxTippyWrapperService - No instances exist', () => {
     tippySingletonInstance = tippyService.getSingletonInstance(tippySingletonName);
   });
 
-  it('Should return null if wrong tippy name passed', () => {
-    expect(tippyInstance).toBeNull('Instance should not be found');
+  it('Should return undefined if wrong tippy name passed', () => {
+    expect(tippyInstance).toBeUndefined('Instance should not be found');
   });
 
-  it('Should return null if wrong singleton name passed', () => {
-    expect(tippySingletonInstance).toBeNull('Singleton instance should not be found');
+  it('Should return undefined if wrong singleton name passed', () => {
+    expect(tippySingletonInstance).toBeUndefined('Singleton instance should not be found');
   });
 
-  it('Should return null if no instances set', () => {
+  it('Should return undefined if no instances set', () => {
     const instances = tippyService.getInstances();
 
-    expect(instances).toBeNull('Instances should not be found');
+    expect(instances).toBeUndefined('Instances should not be found');
   });
 
-  it('Should return null if no singleton instances set', () => {
+  it('Should return undefined if no singleton instances set', () => {
     const instances = tippyService.getSingletonInstances();
 
-    expect(instances).toBeNull('Singleton instances should not be found');
+    expect(instances).toBeUndefined('Singleton instances should not be found');
   });
 });

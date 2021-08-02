@@ -64,14 +64,13 @@ export class NgxTippyService {
    * @returns { NgxTippyInstance | undefined } specific tippy instance or undefined
    */
   getInstance(name: string): NgxTippyInstance | undefined {
-    const instance = this.tippyInstances.get(name);
-
-    if (instance) {
-      return instance;
-    } else {
-      this.throwError(`Instance with name '${name}' does not exist`);
-      return undefined;
-    }
+    return this.tippyInstances.get(name);
+    // if (instance) {
+    //   return instance;
+    // } else {
+    //   console.error(`Instance with name '${name}' does not exist`);
+    //   return undefined;
+    // }
   }
 
   /**
@@ -112,8 +111,8 @@ export class NgxTippyService {
    *
    * @returns { Map<string, NgxTippyInstance> | null } all singleton tippy instances or null
    */
-  getSingletonInstances(): Map<string, NgxTippySingletonInstance> | null {
-    return this.tippySingletonInstances.size ? this.tippySingletonInstances : null;
+  getSingletonInstances(): Map<string, NgxTippySingletonInstance> | undefined {
+    return this.tippySingletonInstances.size ? this.tippySingletonInstances : undefined;
   }
 
   /**
@@ -135,6 +134,8 @@ export class NgxTippyService {
         reason: 'show',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -153,6 +154,8 @@ export class NgxTippyService {
         reason: 'hide',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -173,6 +176,8 @@ export class NgxTippyService {
         reason: 'hideWithInteractivity',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -191,6 +196,8 @@ export class NgxTippyService {
         reason: 'disable',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -209,6 +216,8 @@ export class NgxTippyService {
         reason: 'enable',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -228,6 +237,8 @@ export class NgxTippyService {
         reason: 'setProps',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -248,6 +259,8 @@ export class NgxTippyService {
         reason: 'setContent',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -268,6 +281,8 @@ export class NgxTippyService {
         reason: 'setTriggerTarget',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -286,6 +301,8 @@ export class NgxTippyService {
         reason: 'unmount',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -304,6 +321,8 @@ export class NgxTippyService {
         reason: 'clearDelayTimeouts',
         instance,
       });
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -323,6 +342,8 @@ export class NgxTippyService {
         instance,
       });
       this.tippyInstances.delete(name);
+    } else {
+      this.throwErrorInstanceExist(name);
     }
   }
 
@@ -392,6 +413,9 @@ export class NgxTippyService {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 
+  private throwErrorInstanceExist(name: string) {
+    this.throwError(`Instance with name '${name}' does not exist`);
+  }
   private throwError(message: string, errorConstrictor: ErrorConstructor = Error) {
     if (this.devModeService.isDevMode()) throw new errorConstrictor(message);
   }
