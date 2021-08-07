@@ -27,7 +27,7 @@
   },
   "bugs": "https://github.com/farengeyt451/ngx-tippy-wrapper/issues",
   "dependencies": {
-    "tslib": "^2.2.0",
+    "tslib": "^2.3.0",
     "tippy.js": "^6.3.1"
   }
 }
