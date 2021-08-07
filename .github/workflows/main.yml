@@ -37,13 +37,13 @@ jobs:
         run: npm run build:demo
 
   deploy:
-    name: Deploy
     needs: dist/ngx-tippy-demo
     runs-on: ubuntu-latest
 
     steps:
-      uses: JamesIves/github-pages-deploy-action@3.6.2
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: dist/ngx-tippy-demo
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.6.2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist/ngx-tippy-demo
