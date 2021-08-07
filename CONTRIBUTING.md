@@ -1,4 +1,4 @@
-# Contributing to Transcriptase
+# Contributing to _ngx-tippy-wrapper_
 
 Thank you for your input! I want to make contributing to this project as easy and transparent as possible, whether it's:
 
@@ -14,7 +14,7 @@ I use github to host code, to track issues and feature requests, as well as acce
 
 ## I Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
 
-Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). I actively welcome your pull requests:
+Pull requests are the best way to propose changes to the codebase ([Github Flow](https://guides.github.com/introduction/flow/index.html)). I actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `master`.
 2. If you've added code that should be tested, add tests.
@@ -29,7 +29,7 @@ In short, when you submit code changes, your submissions are understood to be un
 
 ## Report bugs using Github's [issues](https://github.com/farengeyt451/ngx-tippy-wrapper/issues)
 
-I use GitHub issues to track public bugs. Report a bug by [opening a new issue](); it's that easy!
+I use GitHub issues to track public bugs. Report a bug by opening a new issue.
 
 ## Write bug reports with detail, background, and sample code
 
@@ -43,7 +43,9 @@ I use GitHub issues to track public bugs. Report a bug by [opening a new issue](
 - What actually happens
 - Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
-## Use Prettier for Consistent Coding Style
+## Coding Style
+
+_Use Prettier for Consistent Coding Style_
 
 ## License
 
