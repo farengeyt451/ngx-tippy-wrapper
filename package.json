@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build:lib": "ng build ngx-tippy-wrapper",
-    "build:demo": "ng build ngx-tippy-demo",
+    "build:demo": "ng build ngx-tippy-demo --base-href https://farengeyt451.github.io/ngx-tippy-wrapper/",
     "serve:demo": "angular-http-server --path dist/ngx-tippy-demo -p 4200",
     "watch:lib": "ng build ngx-tippy-wrapper --watch",
     "unit-tests:lib": "ng test ngx-tippy-wrapper",
