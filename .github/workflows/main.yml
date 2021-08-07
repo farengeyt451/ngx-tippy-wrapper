@@ -40,17 +40,10 @@ jobs:
     name: Deploy
     needs: dist/ngx-tippy-demo
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Download artifact
-      uses: actions/download-artifact@v2
+      uses: JamesIves/github-pages-deploy-action@3.6.2
       with:
-        name: production-files
-        path: ./dist/ngx-tippy-demo
-
-      - name: Deploy to gh-pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist/ngx-tippy-demo
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dist/ngx-tippy-demo
