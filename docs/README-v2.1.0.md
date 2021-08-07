@@ -20,11 +20,6 @@
 
 [Run demo locally](./projects/demo/README.md)
 
-## Recommended versions to use
-
-- **Angular 8**: ~2.0.4
-- **Angular 9+**: @latest
-
 ## Installation
 
 Install from npm:
@@ -32,10 +27,6 @@ Install from npm:
 ```js
 npm i ngx-tippy-wrapper --save
 ```
-
-## Before upgrade
-
-[Migration guide](./MIGRATION_GUIDE.md)
 
 ## Importing
 
@@ -452,49 +443,47 @@ type InstanceChangeReason =
 
 ## Grouped tooltips
 
-If you want to give different tooltip content to many different elements, while only needing to initialize once with shared props - use `ngx-tippy-group` component:
+If you want to give different tooltip content to many different elements, while only needing to initialize once with shared props use `ngx-tippy-group` component:
 
 <!-- prettier-ignore-start -->
 ```html
-<ngx-tippy-group [groupedProps]="groupedProps">
+<ngx-tippy-group [tippyProps]="tippyProps">
 
-  <button data-tippy-grouped data-tippy-content="Tooltip content">Element with tooltip</button>
+  <button data-grouped data-tippy-content="Tooltip content">Element with tooltip</button>
 
-  <button data-tippy-grouped data-tippy-content="Tooltip content">Element with tooltip</button>
+  <button data-grouped data-tippy-content="Tooltip content">Element with tooltip</button>
 
 </ngx-tippy-group>
 ```
 <!-- prettier-ignore-end -->
 
-_For each tooltip within component you should pass `data-tippy-grouped` attribute_
+_For each tooltip within component you should pass `data-grouped` attribute_
 
-Also you can pass new `content` and `props` through `attribute` for every tooltip element, see [customization](https://atomiks.github.io/tippyjs/v6/customization/):
+Also you can pass new content and props for every tooltip element, see [customization](https://atomiks.github.io/tippyjs/v6/customization/):
 
 <!-- prettier-ignore-start -->
 ```html
 
-<ngx-tippy-group [groupedProps]="groupedProps">
+<ngx-tippy-group [tippyProps]="tippyPropsEx13">
   <button
-    data-tippy-grouped
+    data-grouped
     data-tippy-content="Tooltip content"
   >
-    Grouped
+    Group
   </button>
 
   <button
-    data-tippy-grouped
-    data-tippy-arrow="false"
+    data-grouped
     data-tippy-content="Tooltip content"
   >
-    Grouped
+    Group
   </button>
 
   <button
-    data-tippy-grouped
-    data-tippy-delay="[1000, 200]"
+    data-grouped
     data-tippy-content="Tooltip content"
   >
-    Grouped
+    Group
   </button>
 </ngx-tippy-group>
 ```
@@ -507,7 +496,10 @@ import { NgxTippyProps } from 'ngx-tippy-wrapper';
 
 @Component({ ... })
 export class DemoComponent implements OnInit {
-  groupedProps: NgxTippyProps = { ... };
+  bindedContent: string = 'Binded tooltip content';
+  bindedHTMLContent: string = '<p>Binded <strong>HTML</strong> content</p>';
+
+  tippyProps: NgxTippyProps = { ... };
   ...
 }
 ```
@@ -542,49 +534,61 @@ For multiple tooltips on a single element - use nest elements with applied `ngxT
 
 ## Singleton
 
-For [singleton](https://atomiks.github.io/tippyjs/v6/addons/#singleton) - provide tooltip elements within `ngx-tippy-singleton` component:
+For [singleton](https://atomiks.github.io/tippyjs/v6/addons/) - provide tooltips elements within `ngx-tippy-singleton` component:
 
 <!-- prettier-ignore-start -->
 ```html
-<ngx-tippy-singleton
-  [singletonProps]="singletonProps"
-  singletonName="main-page"
->
+<ngx-tippy-singleton [tippyProps]="{ ... }">
+  <button
+    data-singleton
+    data-tippy-content="First tooltip content"
+  >
+    Singleton
+  </button>
 
-  <button ngxTippy="Tooltip content">Singleton</button>
+  <button
+    data-singleton
+    data-tippy-content="Second tooltip content"
+  >
+    Singleton
+  </button>
 
-  <button ngxTippy="Tooltip content">Singleton</button>
-
-  <button ngxTippy="Tooltip content">Singleton</button>
-
+  <button
+    data-singleton
+    data-tippy-content="Third tooltip content"
+  >
+    Singleton
+  </button>
 </ngx-tippy-singleton>
 ```
 <!-- prettier-ignore-end-->
 
-Use _optional_ `singletonProps` for pass common props
+_For each tooltip you should pass `data-singleton` attribute_
 
-Use _optional_ `singletonName` for pass unique singleton name, need to control singletons
-**programmatically**
-
-### Overrides props
-
-To overrides common `singletonProps` by the individual tippy `props`:
+**To overrides general `tippyProps` by the individual tippy `props`:**
 
 <!-- prettier-ignore-start -->
 ```html
-<ngx-tippy-singleton [singletonProps]="singletonProps">
+<ngx-tippy-singleton [tippyProps]="tippyProps">
   <button
-    ngxTippy="Tooltip content"
+    data-singleton
+    data-tippy-content="First tooltip content"
     data-tippy-placement="bottom"
   >
     Singleton
   </button>
 
-  <button ngxTippy="Tooltip content">Singleton</button>
+  <button
+    data-singleton
+    data-tippy-content="Second tooltip content"
+    data-tippy-arrow="false"
+  >
+    Singleton
+  </button>
 
   <button
-    ngxTippy="Tooltip content"
-    data-tippy-arrow="false"
+    data-singleton
+    data-tippy-content="Third tooltip content"
   >
     Singleton
   </button>
@@ -601,7 +605,7 @@ import { NgxSingletonProps } from 'ngx-tippy-wrapper';
 @Component({ ... })
 export class DemoComponent implements OnInit {
 
-  singletonProps: NgxSingletonProps = {
+  tippyProps: NgxSingletonProps = {
     ...,
     overrides: ['arrow', 'placement'],
   };
@@ -609,7 +613,7 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-### Smooth transitions
+**Smooth transitions**
 
 Use the `moveTransition` prop, which is the transition between moves:
 
@@ -620,7 +624,7 @@ import { NgxSingletonProps } from 'ngx-tippy-wrapper';
 @Component({ ... })
 export class DemoComponent implements OnInit {
 
-  singletonProps: NgxSingletonProps = {
+  tippyProps: NgxSingletonProps = {
     ...,
     moveTransition: 'transform 0.4s linear',
   };
@@ -628,75 +632,4 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-### Programmatically control singleton instance
-
-**Get singleton instance(s)**
-
-| Method name             | Method parameter/parameters | Method short description          |
-| ----------------------- | --------------------------- | --------------------------------- |
-| getSingletonInstance()  | `name`: string              | Get specific singleton instance   |
-| getSingletonInstances() | -                           | Get all tippy singleton instances |
-
----
-
-_You can use all methods described [here](https://atomiks.github.io/tippyjs/v6/addons/#showing-specific-tippy-instance)_
-
-In addition for `show()` method is possible to pass child `[tippyName]` prop
-
-<!-- prettier-ignore-start -->
-```html
-<ngx-tippy-singleton
-  [singletonProps]="..."
-  singletonName="main-page"
->
-  <button ngxTippy="Tooltip content">Singleton</button>
-
-  <button ngxTippy="Tooltip content">Singleton</button>
-
-  <button
-    ngxTippy="Tooltip content"
-    [tippyName]="'custom'"
-  >
-    Singleton
-  </button>
-</ngx-tippy-singleton>
-```
-<!-- prettier-ignore-end-->
-
----
-
-```ts
-...
-import { NgxSingletonProps, NgxTippyService } from 'ngx-tippy-wrapper';
-
-@Component({ ... })
-export class DemoComponent implements OnInit {
-
-  constructor(private tippyService: NgxTippyService) {}
-
-  tippyProps: NgxSingletonProps = { ... };
-
-  ngAfterViewInit() {
-
-    // Get singleton instance by name
-    const mainPageSingleton = this.tippyService.getSingletonInstance('main-page');
-
-    // Programmatically manipulate tooltips
-
-    // Show first child in singleton
-    mainPageSingleton.show();
-
-    // Show child instance at given index
-    mainPageSingleton.show(1);
-
-    // Show child `[tippyName]`
-    mainPageSingleton.show('custom');
-
-    ...
-  }
-}
-```
-
-[Documentation for v1.0.1](./docs/README-v1.01.md)
-
-[Documentation for v2.1.0](./docs/README-v2.1.0.md)
+[Documentation for v1.0.1](./README-v1.01.md)

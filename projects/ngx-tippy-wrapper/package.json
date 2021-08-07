@@ -3,10 +3,13 @@
   "version": "4.0.0",
   "description": "Angular 8+ wrapper for Tippy.js",
   "keywords": [
+    "angular tooltip",
+    "angular popover",
+    "angular",
     "tooltip",
     "popover",
-    "tippy",
-    "angular",
+    "tippy.js",
+    "popper.js",
     "library",
     "wrapper"
   ],
@@ -24,9 +27,7 @@
   },
   "bugs": "https://github.com/farengeyt451/ngx-tippy-wrapper/issues",
   "dependencies": {
-    "tslib": "^2.2.0"
-  },
-  "peerDependencies": {
+    "tslib": "^2.2.0",
     "tippy.js": "^6.3.1"
   }
 }

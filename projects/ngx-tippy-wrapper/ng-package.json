@@ -4,5 +4,7 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": { "tippy.js": "tippy" }
-  }
+  },
+  "allowedNonPeerDependencies": ["tippy.js"]
+}
 }
