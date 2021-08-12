@@ -6,7 +6,8 @@ name: 'farengeyt451/ngx-tippy-wrapper'
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [master, v4.0]
+    branches: [v4.0]
+
   pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -36,8 +37,8 @@ jobs:
       - name: Build demo in production mode
         run: npm run build:demo
 
-      - name: Deploy 🚀
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: dist/ngx-tippy-demo # The folder the action should deploy.
+          branch: gh-pages
+          folder: dist/ngx-tippy-demo
