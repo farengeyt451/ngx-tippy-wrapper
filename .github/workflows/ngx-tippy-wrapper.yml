@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Install Google Chrome
-        run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-          echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable xvfb
+#       - name: Install Google Chrome
+#         run: |
+#           wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+#           echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+#           sudo apt-get update
+#           sudo apt-get install -y google-chrome-stable xvfb
       - name: Install main dependencies
         run: npm ci
       - name: Install lib dependencies
