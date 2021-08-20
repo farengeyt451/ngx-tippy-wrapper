@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="https://github.com/farengeyt451/ngx-tippy-wrapper/raw/master/images/logo.png" alt="Logo" height="105">
+  <img src="https://github.com/farengeyt451/ngx-tippy-wrapper/raw/master/images/logo.svg" alt="library logo" height="180">
 </div>
 
 <div align="center">
-  <h1>Angular 8+ wrapper for Tippy.js</h1>
+  <h1>Angular wrapper for <a href="https://atomiks.github.io/tippyjs/">Tippy.js</a></h1>
 
 [![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/v4.0?color=%2300ba00&label=unit-tests&logo=jasmine&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
 [![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/v4.0?color=%2300ba00&label=build&logo=github&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
