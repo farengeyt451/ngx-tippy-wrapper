@@ -5,7 +5,7 @@ on:
     branches: [v4.0]
 
 jobs:
-  build-test-deploy:
+  build—>test—>deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,24 +20,23 @@ jobs:
       - name: Install lib dependencies
         run: npm install --prefix ./projects/ngx-tippy-wrapper
 
-      - name: Run unit-tests with coverage
+      - name: Run unit-tests and generate test coverage
         run: npm run unit-tests:lib-coverage
 
-      - name: Upload report to codecov
+      - name: Upload coverage report to codecov
         run: npm run unit-tests:lib-codecov
 
-      - name: Build npm package
+      - name: Build lib npm package
         run: npm run package
 
-      - name: Install lib
+      - name: Install lib to demo app
         run: npm install /home/runner/work/ngx-tippy-wrapper/ngx-tippy-wrapper/dist/ngx-tippy-wrapper/ngx-tippy-wrapper-**.tgz
-      
-      - name: Build demo in production mode
+
+      - name: Build demo app in production mode
         run: npm run build:demo
 
-      - name: Deploy docs and demo
+      - name: Deploy demo app to gh-pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
           folder: dist/ngx-tippy-demo
-
