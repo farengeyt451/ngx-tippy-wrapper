@@ -9,8 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Build library
         run: npm run build:lib
 
@@ -18,17 +22,15 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-#       - name: Install Google Chrome
-#         run: |
-#           wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-#           echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
-#           sudo apt-get update
-#           sudo apt-get install -y google-chrome-stable xvfb
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
       - name: Install main dependencies
-        run: npm ci
+        run: npm install
       - name: Install lib dependencies
-        run: npm i --prefix ./projects/ngx-tippy-wrapper
+        run: npm install --prefix ./projects/ngx-tippy-wrapper
       - name: Run unit-tests with coverage
         run: npm run unit-tests:lib-coverage
 
@@ -37,8 +39,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Build demo in production mode
         run: npm run build:demo
       - name: Deploy docs and demo
