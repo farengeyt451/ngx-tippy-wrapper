@@ -5,7 +5,7 @@ on:
     branches: [v4.0]
 
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,59 +13,25 @@ jobs:
         with:
           node-version: '14'
           cache: 'npm'
-      - name: Install dependencies
-        run: npm install
-      - name: Build library
-        run: npm run build:lib
-      - name: Build npm package
-        run: npm run package
-      - name: Upload lib package as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: lib-build
-          path: /home/**/ngx-tippy-wrapper-**.tgz
 
-  test:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'npm'
       - name: Install main dependencies
         run: npm install
+
       - name: Install lib dependencies
         run: npm install --prefix ./projects/ngx-tippy-wrapper
+
       - name: Run unit-tests with coverage
         run: npm run unit-tests:lib-coverage
 
-  deploy:
-    needs: [test]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'npm'
-      - name: Download math result for job build
-        uses: actions/download-artifact@v2
-        with:
-          name: lib-build
-          path: /home/**/ngx-tippy-wrapper-**.tgz
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: dist/ngx-tippy-wrapper/
-      - name: Install dependencies
-        run: npm install
-      - name: Install lib
-        run: npm install dist/ngx-tippy-wrapper/ngx-tippy-wrapper-**.tgz
+      - name: Build npm package
+        run: npm run package
+
       - name: Build demo in production mode
         run: npm run build:demo
+
       - name: Deploy docs and demo
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
           folder: dist/ngx-tippy-demo
+
