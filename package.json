@@ -1,5 +1,5 @@
 {
-  "name": "ngx-tippy-wrapper",
+  "name": "tippy-wrapper",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
