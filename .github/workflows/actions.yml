@@ -23,6 +23,9 @@ jobs:
       - name: Run unit-tests with coverage
         run: npm run unit-tests:lib-coverage
 
+      - name: Upload report to codecov
+        run: npm run unit-tests:lib-codecov
+
       - name: Build npm package
         run: npm run package
 
