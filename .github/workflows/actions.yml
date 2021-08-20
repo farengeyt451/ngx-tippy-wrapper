@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: lib-build
-          path: dist/ngx-tippy-demo/ngx-tippy-wrapper-**.tgz
+          path: /**/ngx-tippy-wrapper-**.tgz
 
   test:
     needs: [build]
@@ -54,7 +54,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: lib-build
-          path: dist/ngx-tippy-wrapper/
+          path: /**/ngx-tippy-wrapper-**.tgz
       - name: Display structure of downloaded files
         run: ls -R
         working-directory: dist/ngx-tippy-wrapper/
