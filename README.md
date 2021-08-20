@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/farengeyt451/ngx-tippy-wrapper/raw/master/images/logo.svg" alt="library logo" height="180">
+  <img src="https://raw.githubusercontent.com/farengeyt451/ngx-tippy-wrapper/v4.0/images/logo.svg" alt="library logo" height="180">
 </div>
 
 <div align="center">
