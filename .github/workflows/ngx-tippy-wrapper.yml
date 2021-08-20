@@ -17,6 +17,13 @@ jobs:
         run: npm install
       - name: Build library
         run: npm run build:lib
+      - name: Build npm package
+        run: npm run package
+      - name: Upload lib package as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib-build
+          path: dist/ngx-tippy-demo/ngx-tippy-wrapper-**.tgz
 
   test:
     needs: [build]
@@ -43,8 +50,18 @@ jobs:
         with:
           node-version: '14'
           cache: 'npm'
+      - name: Download math result for job build
+        uses: actions/download-artifact@v2
+        with:
+          name: lib-build
+          path: dist/ngx-tippy-wrapper/
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: dist/ngx-tippy-wrapper/
       - name: Install dependencies
         run: npm install
+      - name: Install lib
+        run: npm install dist/ngx-tippy-wrapper/ngx-tippy-wrapper-**.tgz
       - name: Build demo in production mode
         run: npm run build:demo
       - name: Deploy docs and demo
