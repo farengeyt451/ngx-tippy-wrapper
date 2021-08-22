@@ -8,10 +8,12 @@
     "angular",
     "tooltip",
     "popover",
-    "tippy.js",
-    "popper.js",
+    "tippyjs",
+    "popperjs",
     "library",
-    "wrapper"
+    "wrapper",
+    "tooltip library",
+    "popover library"
   ],
   "license": "MIT",
   "authors": [
