@@ -38,7 +38,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "sass"
+          "style": "scss"
         },
         "@schematics/angular:application": {
           "strict": true
@@ -56,13 +56,21 @@
             "main": "projects/ngx-tippy-demo/src/main.ts",
             "polyfills": "projects/ngx-tippy-demo/src/polyfills.ts",
             "tsConfig": "projects/ngx-tippy-demo/tsconfig.app.json",
-            "inlineStyleLanguage": "sass",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "projects/ngx-tippy-demo/src/favicon.ico",
-              "projects/ngx-tippy-demo/src/assets"
+              "projects/ngx-tippy-demo/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@taiga-ui/icons/src",
+                "output": "assets/taiga-ui/icons"
+              }
             ],
             "styles": [
-              "projects/ngx-tippy-demo/src/styles.sass"
+              "projects/ngx-tippy-demo/src/styles.scss",
+              "node_modules/tippy.js/dist/tippy.css",
+              "node_modules/@taiga-ui/core/styles/taiga-ui-global.less",
+              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less"
             ],
             "scripts": []
           },
@@ -124,18 +132,18 @@
             "polyfills": "projects/ngx-tippy-demo/src/polyfills.ts",
             "tsConfig": "projects/ngx-tippy-demo/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-tippy-demo/karma.conf.js",
-            "inlineStyleLanguage": "sass",
-            "assets": [
-              "projects/ngx-tippy-demo/src/favicon.ico",
-              "projects/ngx-tippy-demo/src/assets"
-            ],
-            "styles": [
-              "projects/ngx-tippy-demo/src/styles.sass"
-            ],
+            "inlineStyleLanguage": "scss",
+            "assets": ["projects/ngx-tippy-demo/src/favicon.ico", "projects/ngx-tippy-demo/src/assets"],
+            "styles": ["projects/ngx-tippy-demo/src/styles.scss"],
             "scripts": []
           }
         }
       }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
     }
   },
   "defaultProject": "ngx-tippy-wrapper"

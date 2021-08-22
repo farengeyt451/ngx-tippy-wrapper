@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TuiButtonModule, TuiNotificationsModule, TuiRootModule, TUI_SANITIZER } from '@taiga-ui/core';
+import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
+import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgxTippyModule
+    NgxTippyModule,
+    TuiRootModule,
+    TuiButtonModule,
+    BrowserAnimationsModule,
+    TuiNotificationsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
