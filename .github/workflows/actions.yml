@@ -29,8 +29,14 @@ jobs:
       - name: Build lib npm package
         run: npm run package
 
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib-npm-package
+          path: dist/ngx-tippy-wrapper/ngx-tippy-wrapper-**.tgz
+
       - name: Install lib to demo app
-        run: npm install /home/runner/work/ngx-tippy-wrapper/ngx-tippy-wrapper/dist/ngx-tippy-wrapper/ngx-tippy-wrapper-**.tgz
+        run: npm install dist/ngx-tippy-wrapper/ngx-tippy-wrapper-**.tgz
 
       - name: Build demo app in production mode
         run: npm run build:demo
