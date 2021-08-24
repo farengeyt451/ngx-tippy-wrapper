@@ -1,4 +1,4 @@
-import { Injectable, isDevMode, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, isDevMode, Renderer2, RendererFactory2, TemplateRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import tippy, { hideAll } from 'tippy.js';
 import {
@@ -251,7 +251,7 @@ export class NgxTippyService {
   setContent(name: string, tippyContent: NgxTippyContent) {
     const instance = this.getInstance(name);
 
-    if (instance) {
+    if (instance && tippyContent && !(tippyContent instanceof TemplateRef)) {
       setTemplateVisible(tippyContent, this.renderer);
       instance.setContent(tippyContent);
       this.emitInstancesChange({
