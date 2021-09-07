@@ -1,10 +1,10 @@
 import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgxTippySingletonComponent } from '../lib/ngx-tippy-singleton.component';
+import { NgxTippySingletonComponent } from '../lib/components';
+import { NgxSingletonProps, NgxTippyProps } from '../lib/interfaces';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
-import { NgxSingletonProps, NgxTippyProps } from '../lib/ngx-tippy.interfaces';
-import { NgxTippyService } from '../lib/ngx-tippy.service';
+import { NgxTippyService } from '../lib/services/ngx-tippy.service';
 
 const template = `
   <div class="singleton">

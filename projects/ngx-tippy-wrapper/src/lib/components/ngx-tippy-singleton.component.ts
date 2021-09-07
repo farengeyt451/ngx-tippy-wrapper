@@ -1,13 +1,8 @@
 import { isPlatformServer } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, Input, OnDestroy, PLATFORM_ID, ViewChild } from '@angular/core';
 import { createSingleton } from 'tippy.js';
-import {
-  NgxSingletonProps,
-  NgxTippyInstance,
-  NgxTippySingletonInstance,
-  TippyHTMLElement,
-} from './ngx-tippy.interfaces';
-import { NgxTippyService } from './ngx-tippy.service';
+import { NgxSingletonProps, NgxTippyInstance, NgxTippySingletonInstance, TippyHTMLElement } from '../interfaces';
+import { NgxTippyService } from '../services';
 
 /**
  * Tippy singleton - single tippy element that takes the place of an array of regular tippy instances

@@ -1,8 +1,8 @@
 import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgxTippyGroupComponent } from '../lib/ngx-tippy-group.component';
-import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
+import { NgxTippyGroupComponent } from '../lib/components';
+import { NgxTippyProps } from '../lib/interfaces';
 
 @Component({
   template: `

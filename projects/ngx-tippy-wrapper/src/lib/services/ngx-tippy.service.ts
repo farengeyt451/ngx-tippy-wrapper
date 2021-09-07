@@ -1,4 +1,4 @@
-import { Injectable, isDevMode, Renderer2, RendererFactory2, TemplateRef } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2, TemplateRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import tippy, { hideAll } from 'tippy.js';
 import {
@@ -10,15 +10,9 @@ import {
   NgxTippyInstance,
   NgxTippyProps,
   NgxTippySingletonInstance,
-} from './ngx-tippy.interfaces';
-import { setTemplateVisible } from './ngx-tippy.utils';
-
-@Injectable({ providedIn: 'root' })
-export class DevModeService {
-  public isDevMode() {
-    return isDevMode();
-  }
-}
+} from '../interfaces';
+import { setTemplateVisible } from '../utils';
+import { DevModeService } from './dev-mode.service';
 
 @Injectable({
   providedIn: 'root',
@@ -251,9 +245,9 @@ export class NgxTippyService {
   setContent(name: string, tippyContent: NgxTippyContent) {
     const instance = this.getInstance(name);
 
-    if (instance && tippyContent && !(tippyContent instanceof TemplateRef)) {
+    if (instance && tippyContent && !(tippyContent instanceof TemplateRef) && !(typeof tippyContent === 'function')) {
       setTemplateVisible(tippyContent, this.renderer);
-      instance.setContent(tippyContent);
+      instance.setContent(tippyContent as any);
       this.emitInstancesChange({
         name,
         reason: 'setContent',

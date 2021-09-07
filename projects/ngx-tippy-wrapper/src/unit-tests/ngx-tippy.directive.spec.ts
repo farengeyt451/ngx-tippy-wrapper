@@ -1,9 +1,9 @@
 import { Compiler, Component, DebugElement, NgModule, PLATFORM_ID, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { fakeInstance } from '../fixtures/tippy-instance.fixture';
+import { fakeInstance } from '../lib/fixtures';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
-import { NgxTippyService } from '../lib/ngx-tippy.service';
+import { NgxTippyService } from '../lib/services/ngx-tippy.service';
 
 const styles = [
   `

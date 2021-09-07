@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgxTippyGroupComponent } from './ngx-tippy-group.component';
-import { NgxTippySingletonComponent } from './ngx-tippy-singleton.component';
+import { NgxTippyGroupComponent, NgxTippySingletonComponent } from './components';
 import { NgxTippyDirective } from './ngx-tippy.directive';
 
 @NgModule({

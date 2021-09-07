@@ -1,5 +1,13 @@
-import { Injector, TemplateRef, Type, ViewContainerRef } from '@angular/core';
+import { InjectionToken, Injector, TemplateRef, Type, ViewContainerRef } from '@angular/core';
 import { Content, DefaultProps, Instance, Props } from 'tippy.js';
+
+type ExcludeFunctionPropertyNames<T> = {
+  [Key in keyof T]: T[Key] extends Function ? never : Key;
+}[keyof T];
+
+interface _ViewOptions {
+  vcr?: ViewContainerRef | undefined;
+}
 
 export interface NgxTippyProps extends Partial<Props> {}
 
@@ -20,7 +28,9 @@ export interface NgxTippySingletonInstance extends NgxTippyInstance {
   showPrevious(): void;
 }
 
-export type NgxTippyContent = (Content | TemplateRef<any>) | null | undefined;
+export type NgxTippyContent = NgxTippyTemplate | TemplateRef<any> | Type<any>;
+
+export type NgxTippyTemplate = Content | null | undefined;
 
 export interface NgxHideAllOptions {
   duration?: number;
@@ -57,28 +67,7 @@ export interface ViewRef {
   destroy(): void;
 }
 
-type ExcludeFunctionPropertyNames<T> = {
-  [Key in keyof T]: T[Key] extends Function ? never : Key;
-}[keyof T];
-
 export type ExcludeFunctions<T> = Pick<T, ExcludeFunctionPropertyNames<T>>;
-// export type Content = string | TemplateRef<any> | Type<any>;
-
-export function isTemplateRef(value: any): value is TemplateRef<any> {
-  return value instanceof TemplateRef;
-}
-
-export function isComponent(value: any): value is Type<any> {
-  return typeof value === 'function';
-}
-
-export function isString(value: any): value is string {
-  return typeof value === 'string';
-}
-
-export interface _ViewOptions {
-  vcr?: ViewContainerRef | undefined;
-}
 
 export interface CompViewOptions extends _ViewOptions {
   injector?: Injector | undefined;
@@ -89,3 +78,5 @@ export interface TemplateViewOptions extends _ViewOptions {
 }
 
 export type ViewOptions = _ViewOptions & CompViewOptions & TemplateViewOptions;
+
+export const TIPPY_REF = new InjectionToken('TIPPY_REF');

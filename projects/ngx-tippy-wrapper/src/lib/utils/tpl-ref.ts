@@ -1,10 +1,9 @@
-import { ApplicationRef, EmbeddedViewRef, TemplateRef, ViewContainerRef } from '@angular/core';
-import { ViewRef } from '../lib/ngx-tippy.interfaces';
+import { ApplicationRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
+import { ViewRef } from '../interfaces';
 
-interface Args<C> {
+interface CustomTmlRefArgs<C> {
   tpl: TemplateRef<C>;
   context: C;
-  vcr: ViewContainerRef | undefined;
   appRef: ApplicationRef | undefined;
 }
 
@@ -12,15 +11,10 @@ export class TplRef<C> implements ViewRef {
   private viewRef: EmbeddedViewRef<{}> | null;
   private element!: Element | null;
 
-  constructor(private args: Args<C>) {
-    if (this.args.vcr) {
-      this.viewRef = this.args.vcr.createEmbeddedView(this.args.tpl, this.args.context || {});
-      this.viewRef.detectChanges();
-    } else {
-      this.viewRef = this.args.tpl.createEmbeddedView(this.args.context || ({} as C));
-      this.viewRef.detectChanges();
-      this.args.appRef?.attachView(this.viewRef);
-    }
+  constructor(private args: CustomTmlRefArgs<C>) {
+    this.viewRef = this.args.tpl.createEmbeddedView(this.args.context || ({} as C));
+    this.viewRef.detectChanges();
+    this.args.appRef?.attachView(this.viewRef);
   }
 
   detectChanges() {
@@ -43,15 +37,13 @@ export class TplRef<C> implements ViewRef {
   }
 
   destroy() {
+    console.log('Destriy');
+
     if (!this.viewRef) return;
 
     if (this.viewRef.rootNodes[0] !== 1) {
       this.element?.parentNode?.removeChild(this.element);
       this.element = null;
-    }
-
-    if (!this.args.vcr) {
-      this.args.appRef?.detachView(this.viewRef);
     }
 
     this.viewRef.destroy();
