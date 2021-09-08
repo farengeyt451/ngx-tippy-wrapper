@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, RendererFactory2, TemplateRef } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import tippy, { hideAll } from 'tippy.js';
 import {
@@ -13,6 +13,7 @@ import {
 } from '../interfaces';
 import { setTemplateVisible } from '../utils';
 import { DevModeService } from './dev-mode.service';
+import { NgxViewService } from './ngx-view.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,11 @@ export class NgxTippyService {
   private tippyInstances$ = new Subject<InstancesChanges>();
   private renderer!: Renderer2;
 
-  constructor(rendererFactory: RendererFactory2, private devModeService: DevModeService) {
+  constructor(
+    rendererFactory: RendererFactory2,
+    private devModeService: DevModeService,
+    private ngxViewService: NgxViewService
+  ) {
     this.createRenderer(rendererFactory);
   }
   /**
@@ -244,10 +249,11 @@ export class NgxTippyService {
    */
   setContent(name: string, tippyContent: NgxTippyContent) {
     const instance = this.getInstance(name);
+    const content = this.ngxViewService.setTippyTemplate(tippyContent);
 
-    if (instance && tippyContent && !(tippyContent instanceof TemplateRef) && !(typeof tippyContent === 'function')) {
+    if (instance && content) {
       setTemplateVisible(tippyContent, this.renderer);
-      instance.setContent(tippyContent as any);
+      instance.setContent(content);
       this.emitInstancesChange({
         name,
         reason: 'setContent',

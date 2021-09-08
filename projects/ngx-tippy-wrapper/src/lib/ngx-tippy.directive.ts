@@ -1,5 +1,6 @@
 import { isPlatformServer } from '@angular/common';
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
   Inject,
@@ -8,25 +9,16 @@ import {
   OnInit,
   PLATFORM_ID,
   Renderer2,
-  ViewContainerRef,
 } from '@angular/core';
 import tippy from 'tippy.js';
-import { isComponent, isTemplateRef } from '../lib/utils';
-import {
-  NgxTippyContent,
-  NgxTippyInstance,
-  NgxTippyProps,
-  NgxTippyTemplate,
-  TippyHTMLElement,
-  ViewRef,
-} from './interfaces';
+import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from './interfaces';
 import { NgxTippyService, NgxViewService } from './services';
 import { setTemplateVisible } from './utils';
 
 @Directive({
   selector: '[ngxTippy]',
 })
-export class NgxTippyDirective implements OnInit, OnDestroy {
+export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
   @Input() ngxTippy?: NgxTippyContent;
   @Input() tippyProps?: NgxTippyProps;
   @Input() tippyName?: string;
@@ -38,7 +30,6 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   constructor(
     private tippyEl: ElementRef,
     private renderer: Renderer2,
-    private vcr: ViewContainerRef,
     private ngxTippyService: NgxTippyService,
     private ngxViewService: NgxViewService,
     @Inject(PLATFORM_ID) private platform: Object
@@ -49,9 +40,11 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     this.initTippy();
   }
 
+  ngAfterViewInit() {}
+
   ngOnDestroy() {
     this.clearInstance();
-    this.viewRef?.destroy();
+    this.clearViewRef();
   }
 
   /**
@@ -60,31 +53,17 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
    */
   private initTippy() {
     const tippyTarget: TippyHTMLElement = this.tippyEl.nativeElement;
-    let tippyTemplate: NgxTippyTemplate | null;
-
-    if (isTemplateRef(this.ngxTippy)) {
-      this.viewRef = this.ngxViewService.createTemplate(this.ngxTippy, {
-        context: {
-          $implicit: this.tippyName,
-        },
-      });
-    }
-
-    if (isComponent(this.ngxTippy)) {
-      this.viewRef = this.ngxViewService.createComponent(this.ngxTippy);
-    }
-
-    tippyTemplate = this.viewRef?.getElement() || (this.ngxTippy as NgxTippyTemplate);
+    const tippyTemplate = this.ngxViewService.setTippyTemplate(this.ngxTippy);
 
     if (tippyTemplate === null || tippyTemplate === undefined) return;
 
     tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyTemplate && { content: tippyTemplate }) });
 
     setTemplateVisible(tippyTemplate, this.renderer);
-    this.setTippyInstance(tippyTarget);
+    this.setTippyInstance(tippyTarget, tippyTemplate);
   }
 
-  private setTippyInstance(tippyTarget: TippyHTMLElement) {
+  private setTippyInstance(tippyTarget: TippyHTMLElement, tippyTemplate: any) {
     this.tippyInstance = tippyTarget._tippy;
     this.setClassName(this.tippyInstance);
     this.writeInstancesToStorage(this.tippyInstance);
@@ -120,6 +99,10 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
       this.destroyTippyInstance(tippyName);
       this.deleteEntryInStorage(instances, tippyName);
     }
+  }
+
+  private clearViewRef() {
+    this.viewRef?.destroy();
   }
 
   private destroyTippyInstance(tippyName: string) {
