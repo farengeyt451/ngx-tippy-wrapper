@@ -249,11 +249,13 @@ export class NgxTippyService {
    */
   setContent(name: string, tippyContent: NgxTippyContent) {
     const instance = this.getInstance(name);
-    const content = this.ngxViewService.setTippyTemplate(tippyContent);
 
-    if (instance && content) {
+    if (instance && tippyContent) {
+      const ref = this.ngxViewService.getViewRefInstance(tippyContent, instance.id);
+      const content = ref.getElement();
       setTemplateVisible(tippyContent, this.renderer);
-      instance.setContent(content);
+      content && instance.setContent(content);
+      instance.viewRef = ref;
       this.emitInstancesChange({
         name,
         reason: 'setContent',

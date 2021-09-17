@@ -25,7 +25,6 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
   @Input() tippyClassName?: string;
 
   private tippyInstance!: NgxTippyInstance;
-  private viewRef: ViewRef | undefined;
 
   constructor(
     private tippyEl: ElementRef,
@@ -44,7 +43,6 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.clearInstance();
-    this.clearViewRef();
   }
 
   /**
@@ -53,18 +51,21 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
    */
   private initTippy() {
     const tippyTarget: TippyHTMLElement = this.tippyEl.nativeElement;
-    const tippyTemplate = this.ngxViewService.setTippyTemplate(this.ngxTippy);
 
-    if (tippyTemplate === null || tippyTemplate === undefined) return;
+    if (this.ngxTippy === null || this.ngxTippy === undefined) return;
 
-    tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyTemplate && { content: tippyTemplate }) });
+    const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy, this.tippyName);
+    const tippyElement = viewRef.getElement();
 
-    setTemplateVisible(tippyTemplate, this.renderer);
-    this.setTippyInstance(tippyTarget, tippyTemplate);
+    tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyElement && { content: tippyElement }) });
+
+    setTemplateVisible(tippyElement, this.renderer);
+    this.setTippyInstance(tippyTarget, viewRef);
   }
 
-  private setTippyInstance(tippyTarget: TippyHTMLElement, tippyTemplate: any) {
+  private setTippyInstance(tippyTarget: TippyHTMLElement, viewRef: ViewRef) {
     this.tippyInstance = tippyTarget._tippy;
+    this.tippyInstance.viewRef = viewRef;
     this.setClassName(this.tippyInstance);
     this.writeInstancesToStorage(this.tippyInstance);
   }
@@ -96,13 +97,14 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
     if (instances && this.tippyInstance) {
       const tippyName = this.tippyName || `tippy-${this.tippyInstance.id}`;
 
+      this.clearViewRef(this.tippyInstance);
       this.destroyTippyInstance(tippyName);
       this.deleteEntryInStorage(instances, tippyName);
     }
   }
 
-  private clearViewRef() {
-    this.viewRef?.destroy();
+  private clearViewRef(tippyInstance: NgxTippyInstance) {
+    tippyInstance.viewRef?.destroy();
   }
 
   private destroyTippyInstance(tippyName: string) {
@@ -113,3 +115,5 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
     instances.delete(tippyName);
   }
 }
+
+// Write ViewRef to tippy instance

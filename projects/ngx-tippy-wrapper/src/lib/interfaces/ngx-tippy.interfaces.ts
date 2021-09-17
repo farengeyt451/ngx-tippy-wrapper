@@ -19,6 +19,7 @@ export interface NgxSingletonProps extends Partial<Props> {
 
 export interface NgxTippyInstance extends Instance {
   isChildrenOfSingleton?: boolean;
+  viewRef?: ViewRef;
 }
 
 export interface NgxTippySingletonInstance extends NgxTippyInstance {
@@ -28,9 +29,9 @@ export interface NgxTippySingletonInstance extends NgxTippyInstance {
   showPrevious(): void;
 }
 
-export type NgxTippyContent = NgxTippyTemplate | TemplateRef<any> | Type<any>;
+export type NgxTippyContent = NgxTippyTemplate | null | undefined;
 
-export type NgxTippyTemplate = Content | null | undefined;
+export type NgxTippyTemplate = Content | TemplateRef<any> | Type<any>;
 
 export interface NgxHideAllOptions {
   duration?: number;
@@ -62,7 +63,7 @@ export interface TippyHTMLElement extends HTMLElement {
 }
 
 export interface ViewRef {
-  getElement(): Element | null;
+  getElement(): Content | null;
   detectChanges(): void;
   destroy(): void;
 }
