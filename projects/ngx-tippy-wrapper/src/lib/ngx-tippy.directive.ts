@@ -15,6 +15,9 @@ import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, Vie
 import { NgxTippyService, NgxViewService } from './services';
 import { setTemplateVisible } from './utils';
 
+// Increasing integer for generating unique ids
+let nextUniqueId: number = 0;
+
 @Directive({
   selector: '[ngxTippy]',
 })
@@ -25,6 +28,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
   @Input() tippyClassName?: string;
 
   private tippyInstance!: NgxTippyInstance;
+  private uniqueId: string = `tippy-${++nextUniqueId}`;
 
   constructor(
     private tippyEl: ElementRef,
@@ -43,6 +47,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.clearInstance();
+    this.resetIDCounter();
   }
 
   /**
@@ -54,20 +59,34 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.ngxTippy === null || this.ngxTippy === undefined) return;
 
-    const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy, this.tippyName);
+    const tippyName = this.tippyName || this.uniqueId;
+    const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy, tippyName);
     const tippyElement = viewRef.getElement();
 
     tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyElement && { content: tippyElement }) });
 
     setTemplateVisible(tippyElement, this.renderer);
-    this.setTippyInstance(tippyTarget, viewRef);
+
+    this.setTippyInstance({ tippyTarget, tippyName, viewRef });
+    this.setViewRef(viewRef);
+    this.setClassName(this.tippyInstance);
+    this.writeInstancesToStorage(this.tippyInstance, tippyName);
   }
 
-  private setTippyInstance(tippyTarget: TippyHTMLElement, viewRef: ViewRef) {
-    this.tippyInstance = tippyTarget._tippy;
+  private setTippyInstance({
+    tippyTarget,
+    tippyName,
+    viewRef,
+  }: {
+    tippyTarget: TippyHTMLElement;
+    tippyName: string;
+    viewRef: ViewRef;
+  }) {
+    this.tippyInstance = { ...tippyTarget._tippy, tippyName, viewRef };
+  }
+
+  private setViewRef(viewRef: ViewRef) {
     this.tippyInstance.viewRef = viewRef;
-    this.setClassName(this.tippyInstance);
-    this.writeInstancesToStorage(this.tippyInstance);
   }
 
   private setClassName(tippyInstance: NgxTippyInstance) {
@@ -87,20 +106,24 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
    *
    * @param tippyInstance { NgxTippyInstance }
    */
-  private writeInstancesToStorage(tippyInstance: NgxTippyInstance) {
-    this.ngxTippyService.setInstance(this.tippyName || `tippy-${tippyInstance.id}`, tippyInstance);
+  private writeInstancesToStorage(tippyInstance: NgxTippyInstance, tippyResolvedName: string) {
+    this.ngxTippyService.setInstance(tippyResolvedName, tippyInstance);
   }
 
   private clearInstance() {
     const instances = this.ngxTippyService.getInstances();
 
     if (instances && this.tippyInstance) {
-      const tippyName = this.tippyName || `tippy-${this.tippyInstance.id}`;
+      const tippyName = this.tippyInstance.tippyName || '';
 
       this.clearViewRef(this.tippyInstance);
       this.destroyTippyInstance(tippyName);
       this.deleteEntryInStorage(instances, tippyName);
     }
+  }
+
+  private resetIDCounter() {
+    nextUniqueId = 0;
   }
 
   private clearViewRef(tippyInstance: NgxTippyInstance) {
@@ -115,5 +138,3 @@ export class NgxTippyDirective implements OnInit, OnDestroy, AfterViewInit {
     instances.delete(tippyName);
   }
 }
-
-// Write ViewRef to tippy instance

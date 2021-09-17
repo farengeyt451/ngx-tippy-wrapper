@@ -37,7 +37,7 @@ export class TplRef<C> implements ViewRef {
   }
 
   destroy() {
-    console.log('Destriy');
+    console.log('TemplateRef Destroy');
 
     if (!this.viewRef) return;
 

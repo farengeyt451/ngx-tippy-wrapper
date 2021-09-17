@@ -18,11 +18,12 @@ export interface NgxSingletonProps extends Partial<Props> {
 }
 
 export interface NgxTippyInstance extends Instance {
+  tippyName: string;
   isChildrenOfSingleton?: boolean;
   viewRef?: ViewRef;
 }
 
-export interface NgxTippySingletonInstance extends NgxTippyInstance {
+export interface NgxTippySingletonInstance extends Omit<NgxTippyInstance, 'tippyName'> {
   setInstances(instances: Instance<any>[]): void;
   show(singletonTarget?: string | Instance | number): void;
   showNext(): void;

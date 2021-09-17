@@ -251,7 +251,7 @@ export class NgxTippyService {
     const instance = this.getInstance(name);
 
     if (instance && tippyContent) {
-      const ref = this.ngxViewService.getViewRefInstance(tippyContent, instance.id);
+      const ref = this.ngxViewService.getViewRefInstance(tippyContent, instance.tippyName);
       const content = ref.getElement();
       setTemplateVisible(tippyContent, this.renderer);
       content && instance.setContent(content);

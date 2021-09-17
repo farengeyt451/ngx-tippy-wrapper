@@ -24,7 +24,7 @@ export class NgxViewService {
     });
   }
 
-  getViewRefInstance(content: NgxTippyTemplate, tippyName: string | any): ViewRef {
+  getViewRefInstance(content: NgxTippyTemplate, tippyName: string): ViewRef {
     let viewRef!: ViewRef;
 
     if (isTemplateRef(content)) {
