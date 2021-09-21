@@ -64,12 +64,6 @@ export class NgxTippyService {
    */
   getInstance(name: string): NgxTippyInstance | undefined {
     return this.tippyInstances.get(name);
-    // if (instance) {
-    //   return instance;
-    // } else {
-    //   console.error(`Instance with name '${name}' does not exist`);
-    //   return undefined;
-    // }
   }
 
   /**
@@ -250,19 +244,25 @@ export class NgxTippyService {
   setContent(name: string, tippyContent: NgxTippyContent) {
     const instance = this.getInstance(name);
 
-    if (instance && tippyContent) {
-      const ref = this.ngxViewService.getViewRefInstance(tippyContent, instance.tippyName);
-      const content = ref.getElement();
+    if (!instance) {
+      this.throwErrorInstanceExist(name);
+      return;
+    }
+
+    if (tippyContent) {
+      const viewRef = this.ngxViewService.getViewRefInstance(tippyContent, instance.tippyName);
+      const content = viewRef.getElement();
+
       setTemplateVisible(tippyContent, this.renderer);
+
       content && instance.setContent(content);
-      instance.viewRef = ref;
+      instance.viewRef = viewRef;
+
       this.emitInstancesChange({
         name,
         reason: 'setContent',
         instance,
       });
-    } else {
-      this.throwErrorInstanceExist(name);
     }
   }
 

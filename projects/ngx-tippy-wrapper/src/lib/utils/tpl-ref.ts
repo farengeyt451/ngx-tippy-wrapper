@@ -4,7 +4,7 @@ import { ViewRef } from '../interfaces';
 interface CustomTmlRefArgs<C> {
   tpl: TemplateRef<C>;
   context: C;
-  appRef: ApplicationRef | undefined;
+  appRef: ApplicationRef;
 }
 
 export class TplRef<C> implements ViewRef {

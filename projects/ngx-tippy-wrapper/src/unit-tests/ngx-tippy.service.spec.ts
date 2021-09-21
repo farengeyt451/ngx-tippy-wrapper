@@ -231,6 +231,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
 
   it('Should destroy tooltip, delete instance and emit changes', () => {
     tippyService.instancesChanges.subscribe(data => {
+      console.log('log ~ it ~ data', data);
       expect(data).toBeTruthy('No data emitted');
       expect(data.reason).toBe('destroy', 'Wrong reason emitted');
       expect(data.instance).toBeTruthy('Data does not contain tippy instance');

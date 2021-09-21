@@ -14,11 +14,10 @@ export class NgxViewService {
     });
   }
 
-  createComponent<C>(component: Type<C>, options: any = {}) {
+  createComponent<C>(component: Type<C>) {
     return new CompRef<C>({
       component,
-      vcr: options.vcr,
-      injector: options.injector || this.injector,
+      injector: this.injector,
       appRef: this.appRef,
       resolver: this.resolver,
     });

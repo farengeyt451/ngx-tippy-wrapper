@@ -1,18 +1,10 @@
-import {
-  ApplicationRef,
-  ComponentFactoryResolver,
-  ComponentRef,
-  Injector,
-  Type,
-  ViewContainerRef,
-} from '@angular/core';
+import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Injector, Type } from '@angular/core';
 import { ExcludeFunctions, ViewRef } from '../interfaces';
 
 interface Args<C> {
   component: Type<C>;
   injector: Injector;
   resolver: ComponentFactoryResolver;
-  vcr: ViewContainerRef | undefined;
   appRef: ApplicationRef | undefined;
 }
 
@@ -21,16 +13,8 @@ export class CompRef<T> implements ViewRef {
 
   constructor(private args: Args<T>) {
     const factory = this.args.resolver.resolveComponentFactory<T>(this.args.component);
-    if (this.args.vcr) {
-      this.compRef = this.args.vcr.createComponent(
-        factory,
-        this.args.vcr.length,
-        args.injector || this.args.vcr.injector
-      );
-    } else {
-      this.compRef = factory.create(this.args.injector);
-      this.args.appRef?.attachView(this.compRef.hostView);
-    }
+    this.compRef = factory.create(this.args.injector);
+    this.args.appRef?.attachView(this.compRef.hostView);
   }
 
   get ref() {
@@ -80,7 +64,6 @@ export class CompRef<T> implements ViewRef {
   destroy() {
     console.log('ComponentRef destroy');
     this.compRef?.destroy();
-    !this.args.vcr && this.args.appRef?.detachView((this.compRef as any).hostView);
     this.compRef = null;
   }
 }

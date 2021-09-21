@@ -1,4 +1,4 @@
-import { InjectionToken, Injector, TemplateRef, Type, ViewContainerRef } from '@angular/core';
+import { TemplateRef, Type, ViewContainerRef } from '@angular/core';
 import { Content, DefaultProps, Instance, Props } from 'tippy.js';
 
 type ExcludeFunctionPropertyNames<T> = {
@@ -71,14 +71,6 @@ export interface ViewRef {
 
 export type ExcludeFunctions<T> = Pick<T, ExcludeFunctionPropertyNames<T>>;
 
-export interface CompViewOptions extends _ViewOptions {
-  injector?: Injector | undefined;
-}
-
 export interface TemplateViewOptions extends _ViewOptions {
   context?: Record<string, any> | undefined;
 }
-
-export type ViewOptions = _ViewOptions & CompViewOptions & TemplateViewOptions;
-
-export const TIPPY_REF = new InjectionToken('TIPPY_REF');

@@ -7,6 +7,6 @@ import { NgxTippyContent } from '../interfaces';
  * @param tippyContent  { NgxTippyContent }
  * @param renderer { Renderer2 }
  */
-export const setTemplateVisible = (tippyContent: NgxTippyContent | null, renderer: Renderer2) => {
+export const setTemplateVisible = (tippyContent: NgxTippyContent, renderer: Renderer2) => {
   tippyContent && tippyContent instanceof Element && renderer.setStyle(tippyContent, 'display', 'block');
 };
