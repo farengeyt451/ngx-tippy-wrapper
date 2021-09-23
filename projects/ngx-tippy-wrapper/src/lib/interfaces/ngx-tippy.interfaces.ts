@@ -39,19 +39,21 @@ export interface NgxHideAllOptions {
   excludeName?: string;
 }
 
-export type InstanceChangeReason =
-  | 'setInstance'
-  | 'show'
-  | 'hide'
-  | 'hideWithInteractivity'
-  | 'disable'
-  | 'enable'
-  | 'setProps'
-  | 'setContent'
-  | 'setTriggerTarget'
-  | 'unmount'
-  | 'clearDelayTimeouts'
-  | 'destroy';
+export enum InstanceChangeReasonEnum {
+  SetInstance = 'setInstance',
+  Show = 'show',
+  Hide = 'hide',
+  HideWithInteractivity = 'hideWithInteractivity',
+  Disable = 'disable',
+  Enable = 'enable',
+  SetProps = 'setProps',
+  SetContent = 'setContent',
+  Unmount = 'unmount',
+  ClearDelayTimeouts = 'clearDelayTimeouts',
+  Destroy = 'destroy',
+}
+
+export type InstanceChangeReason = `${InstanceChangeReasonEnum}`;
 
 export interface InstancesChanges {
   name: string;

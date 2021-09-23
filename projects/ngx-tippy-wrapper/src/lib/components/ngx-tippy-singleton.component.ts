@@ -21,7 +21,7 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
   @ViewChild('contentWrapper', { read: ElementRef, static: false }) contentWrapper!: ElementRef;
 
   private singletonInstance!: NgxTippySingletonInstance;
-  private currentSingletonChildrenTippyInstances!: NgxTippyInstance[] | undefined;
+  private currentSingletonChildrenTippyInstances!: NgxTippyInstance[] | null;
 
   constructor(@Inject(PLATFORM_ID) private platform: Object, private ngxTippyService: NgxTippyService) {}
 
@@ -45,9 +45,9 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
       contentWrapperNativeEl.querySelectorAll('[ngxTippy]')
     ).map((el: TippyHTMLElement) => el._tippy.id);
 
-    const tippyInstances: Map<string, NgxTippyInstance> | undefined = this.ngxTippyService.getInstances();
+    const tippyInstances = this.ngxTippyService.getInstances();
 
-    const tippyInstancesSerialized: NgxTippyInstance[] | undefined = tippyInstances && [...tippyInstances.values()];
+    const tippyInstancesSerialized = tippyInstances && [...tippyInstances.values()];
 
     this.currentSingletonChildrenTippyInstances =
       tippyInstancesSerialized &&

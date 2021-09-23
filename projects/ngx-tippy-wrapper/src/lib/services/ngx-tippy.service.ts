@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import tippy, { hideAll } from 'tippy.js';
 import {
   InstanceChangeReason,
+  InstanceChangeReasonEnum,
   InstancesChanges,
   NgxHideAllOptions,
   NgxTippyContent,
@@ -50,8 +51,8 @@ export class NgxTippyService {
       this.tippyInstances.set(name, state);
       this.emitInstancesChange({
         name,
-        reason: 'setInstance',
-        instance: this.tippyInstances.get(name) as NgxTippyInstance,
+        reason: InstanceChangeReasonEnum.SetInstance,
+        instance: state,
       });
     }
   }
@@ -62,8 +63,8 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    * @returns { NgxTippyInstance | undefined } specific tippy instance or undefined
    */
-  getInstance(name: string): NgxTippyInstance | undefined {
-    return this.tippyInstances.get(name);
+  getInstance(name: string): NgxTippyInstance | null {
+    return this.tippyInstances.has(name) ? this.tippyInstances.get(name)! : null;
   }
 
   /**
@@ -71,8 +72,8 @@ export class NgxTippyService {
    *
    * @returns { Map<string, NgxTippyInstance> | undefined } all tippy instances or undefined
    */
-  getInstances(): Map<string, NgxTippyInstance> | undefined {
-    return this.tippyInstances.size ? this.tippyInstances : undefined;
+  getInstances(): Map<string, NgxTippyInstance> | null {
+    return this.tippyInstances.size ? this.tippyInstances : null;
   }
 
   /**
@@ -118,18 +119,7 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    */
   show(name: string) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.show();
-      this.emitInstancesChange({
-        name,
-        reason: 'show',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.Show);
   }
 
   /**
@@ -138,18 +128,7 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    */
   hide(name: string) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.hide();
-      this.emitInstancesChange({
-        name,
-        reason: 'hide',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.Hide);
   }
 
   /**
@@ -160,18 +139,7 @@ export class NgxTippyService {
    * @param name { mouseEvent } pass the mouse event object in from your event listener
    */
   hideWithInteractivity(name: string, mouseEvent: MouseEvent) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.hideWithInteractivity(mouseEvent);
-      this.emitInstancesChange({
-        name,
-        reason: 'hideWithInteractivity',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.HideWithInteractivity, mouseEvent);
   }
 
   /**
@@ -180,18 +148,7 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    */
   disable(name: string) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.disable();
-      this.emitInstancesChange({
-        name,
-        reason: 'disable',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.Disable);
   }
 
   /**
@@ -200,18 +157,7 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    */
   enable(name: string) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.enable();
-      this.emitInstancesChange({
-        name,
-        reason: 'enable',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.Enable);
   }
 
   /**
@@ -221,18 +167,7 @@ export class NgxTippyService {
    * @param tippyProps { NgxTippyProps } new props
    */
   setProps(name: string, tippyProps: NgxTippyProps) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.setProps(tippyProps);
-      this.emitInstancesChange({
-        name,
-        reason: 'setProps',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.SetProps, tippyProps);
   }
 
   /**
@@ -267,45 +202,12 @@ export class NgxTippyService {
   }
 
   /**
-   * The element(s) that the trigger event listeners are added to
-   * Allows you to separate the tippy's positioning from its trigger source
-   *
-   * @param name { string } name of tippy instance
-   * @param triggerTarget { Element | Element[] } element(s) that the trigger tooltip
-   */
-  setTriggerTarget(name: string, triggerTarget: Element | Element[]) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.setProps({ triggerTarget });
-      this.emitInstancesChange({
-        name,
-        reason: 'setTriggerTarget',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
-  }
-
-  /**
    * Unmount the tippy from the DOM
    *
    * @param name { string } name of tippy instance
    */
   unmount(name: string) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.unmount();
-      this.emitInstancesChange({
-        name,
-        reason: 'unmount',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.Unmount);
   }
 
   /**
@@ -314,18 +216,7 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    */
   clearDelayTimeouts(name: string) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.clearDelayTimeouts();
-      this.emitInstancesChange({
-        name,
-        reason: 'clearDelayTimeouts',
-        instance,
-      });
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.ClearDelayTimeouts);
   }
 
   /**
@@ -334,19 +225,7 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    */
   destroy(name: string) {
-    const instance = this.getInstance(name);
-
-    if (instance) {
-      instance.destroy();
-      this.emitInstancesChange({
-        name,
-        reason: 'destroy',
-        instance,
-      });
-      this.tippyInstances.delete(name);
-    } else {
-      this.throwErrorInstanceExist(name);
-    }
+    this.callNativeTippyMethod(name, InstanceChangeReasonEnum.Destroy);
   }
 
   /** Working with tippy static methods */
@@ -384,7 +263,7 @@ export class NgxTippyService {
     const exclude = this.getInstance(options?.excludeName || '');
     const duration = options?.duration;
 
-    hideAll({ duration, exclude });
+    hideAll({ duration, ...exclude });
   }
 
   /**
@@ -399,6 +278,23 @@ export class NgxTippyService {
   /**
    * Service methods
    */
+
+  private callNativeTippyMethod(name: string, method: any, arg?: any) {
+    const instance = this.getInstance(name);
+
+    if (instance) {
+      instance[method as Exclude<InstanceChangeReason, 'setInstance'>](arg);
+
+      this.emitInstancesChange({
+        name,
+        reason: method,
+        instance,
+      });
+    } else {
+      this.throwErrorInstanceExist(name);
+    }
+  }
+
   private emitInstancesChange({
     name,
     reason,

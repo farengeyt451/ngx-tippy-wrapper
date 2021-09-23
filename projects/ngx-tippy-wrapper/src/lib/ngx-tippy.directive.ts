@@ -6,7 +6,7 @@ import { NgxTippyService, NgxViewService } from './services';
 import { setTemplateVisible } from './utils';
 
 // Increasing integer for generating unique ids
-let nextUniqueId: number = 0;
+let nextUniqueID: number = 0;
 
 @Directive({
   selector: '[ngxTippy]',
@@ -18,7 +18,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   @Input() tippyClassName?: string;
 
   private tippyInstance!: NgxTippyInstance;
-  private uniqueId: string = `tippy-${++nextUniqueId}`;
+  private uniqueID: string = `tippy-${++nextUniqueID}`;
 
   constructor(
     private tippyEl: ElementRef,
@@ -49,7 +49,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
 
     if (this.ngxTippy === null || this.ngxTippy === undefined) return;
 
-    const tippyName = this.tippyName || this.uniqueId;
+    const tippyName = this.tippyName || this.uniqueID;
     const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy, tippyName);
     const tippyElement = viewRef.getElement();
 
@@ -100,7 +100,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     this.ngxTippyService.setInstance(tippyName, tippyInstance);
   }
 
-  private clearInstance(tippyInstance: NgxTippyInstance, tippyInstances: Map<string, NgxTippyInstance> | undefined) {
+  private clearInstance(tippyInstance: NgxTippyInstance, tippyInstances: Map<string, NgxTippyInstance> | null) {
     if (!tippyInstance || !tippyInstances) return;
 
     const { tippyName } = tippyInstance;
@@ -110,7 +110,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   }
 
   private resetIDCounter() {
-    nextUniqueId = 0;
+    nextUniqueID = 0;
   }
 
   private clearViewRef(tippyInstance: NgxTippyInstance) {
