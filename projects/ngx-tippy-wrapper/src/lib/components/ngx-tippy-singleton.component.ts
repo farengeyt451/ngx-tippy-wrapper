@@ -4,6 +4,8 @@ import { createSingleton } from 'tippy.js';
 import { NgxSingletonProps, NgxTippyInstance, NgxTippySingletonInstance, TippyHTMLElement } from '../interfaces';
 import { NgxTippyService } from '../services';
 
+type sonTon = Omit<NgxTippyInstance, 'viewRef'>;
+
 /**
  * Tippy singleton - single tippy element that takes the place of an array of regular tippy instances
  */
@@ -42,7 +44,7 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
   private setSingleton() {
     const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
     const singletonTooltipIDs: number[] = Array.from<TippyHTMLElement>(
-      contentWrapperNativeEl.querySelectorAll('[ngxTippy]')
+      contentWrapperNativeEl.querySelectorAll('[ngxSingleton]')
     ).map((el: TippyHTMLElement) => el._tippy.id);
 
     const tippyInstances = this.ngxTippyService.getInstances();
@@ -60,7 +62,7 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private initTippySingleton(childrenSingletonInstances: NgxTippyInstance[]) {
+  private initTippySingleton(childrenSingletonInstances: any[]) {
     this.singletonInstance = createSingleton(childrenSingletonInstances, this.singletonProps);
     this.writeSingletonInstanceToStorage(this.singletonInstance);
   }

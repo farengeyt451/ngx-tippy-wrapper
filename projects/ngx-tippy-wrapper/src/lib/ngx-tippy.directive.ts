@@ -17,7 +17,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   @Input() tippyName?: string;
   @Input() tippyClassName?: string;
 
-  private tippyInstance!: NgxTippyInstance;
+  private tippyInstance: NgxTippyInstance | null = null;
   private uniqueID: string = `tippy-${++nextUniqueID}`;
 
   constructor(
@@ -34,9 +34,12 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (!this.tippyInstance) return;
+    const tippyInstances = this.ngxTippyService.getInstances();
+    const tippyInstance = this.tippyInstance;
 
-    this.clearInstance(this.tippyInstance, this.ngxTippyService.getInstances());
+    if (!tippyInstance || !tippyInstances) return;
+
+    this.clearInstance({ tippyInstance, tippyInstances });
     this.resetIDCounter();
   }
 
@@ -58,7 +61,9 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     setTemplateVisible(tippyElement, this.renderer);
 
     this.setTippyInstance({ tippyTarget, tippyName, viewRef });
-    this.setViewRefForInstance(viewRef);
+
+    if (!this.tippyInstance) return;
+
     this.setClassName(this.tippyInstance);
     this.writeInstancesToStorage(this.tippyInstance, tippyName);
   }
@@ -73,10 +78,6 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     viewRef: ViewRef;
   }) {
     this.tippyInstance = { ...tippyTarget._tippy, tippyName, viewRef };
-  }
-
-  private setViewRefForInstance(viewRef: ViewRef) {
-    this.tippyInstance.viewRef = viewRef;
   }
 
   private setClassName(tippyInstance: NgxTippyInstance) {
@@ -100,13 +101,18 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     this.ngxTippyService.setInstance(tippyName, tippyInstance);
   }
 
-  private clearInstance(tippyInstance: NgxTippyInstance, tippyInstances: Map<string, NgxTippyInstance> | null) {
-    if (!tippyInstance || !tippyInstances) return;
-
+  private clearInstance({
+    tippyInstance,
+    tippyInstances,
+  }: {
+    tippyInstance: NgxTippyInstance;
+    tippyInstances: Map<string, NgxTippyInstance>;
+  }) {
     const { tippyName } = tippyInstance;
     this.clearViewRef(tippyInstance);
     this.destroyTippyInstance(tippyName);
     this.deleteEntryInStorage(tippyInstances, tippyName);
+    this.resetLocalInstance();
   }
 
   private resetIDCounter() {
@@ -124,4 +130,12 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   private deleteEntryInStorage(tippyInstances: Map<string, NgxTippyInstance>, tippyName: string) {
     tippyInstances.delete(tippyName);
   }
+
+  private resetLocalInstance() {
+    this.tippyInstance = null;
+  }
 }
+
+// TODO:
+// 1. Dictionary
+// 2. https://github.com/farengeyt451/ngx-tippy-wrapper/issues/23

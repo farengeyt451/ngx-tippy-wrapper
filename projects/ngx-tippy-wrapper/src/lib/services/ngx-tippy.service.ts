@@ -105,8 +105,8 @@ export class NgxTippyService {
    *
    * @returns { Map<string, NgxTippyInstance> | null } all singleton tippy instances or null
    */
-  getSingletonInstances(): Map<string, NgxTippySingletonInstance> | undefined {
-    return this.tippySingletonInstances.size ? this.tippySingletonInstances : undefined;
+  getSingletonInstances(): Map<string, NgxTippySingletonInstance> | null {
+    return this.tippySingletonInstances.size ? this.tippySingletonInstances : null;
   }
 
   /**

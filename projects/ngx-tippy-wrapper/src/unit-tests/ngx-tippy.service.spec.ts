@@ -347,6 +347,6 @@ describe('Service: NgxTippyWrapperService - No instances exist', () => {
   it('Should return undefined if no singleton instances set', () => {
     const instances = tippyService.getSingletonInstances();
 
-    expect(instances).toBeUndefined('Singleton instances should not be found');
+    expect(instances).toBeNull('Singleton instances should not be found');
   });
 });

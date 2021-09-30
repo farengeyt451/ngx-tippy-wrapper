@@ -19,7 +19,6 @@ export interface NgxSingletonProps extends Partial<Props> {
 
 export interface NgxTippyInstance extends Instance {
   tippyName: string;
-  isChildrenOfSingleton?: boolean;
   viewRef?: ViewRef;
 }
 

@@ -10,9 +10,9 @@ const template = `
   <div class="singleton">
     <ngx-tippy-singleton [singletonProps]="singletonProps">
       <div class="singleton__items">
-        <button class="singleton__item" ngxTippy="First tooltip content">Singleton</button>
-        <button class="singleton__item" ngxTippy="Second tooltip content">Singleton</button>
-        <button class="singleton__item" ngxTippy="Third tooltip content">Singleton</button>
+        <button class="singleton__item" ngxSingleton ngxTippy="First tooltip content">Singleton</button>
+        <button class="singleton__item" ngxSingleton ngxTippy="Second tooltip content">Singleton</button>
+        <button class="singleton__item" ngxSingleton ngxTippy="Third tooltip content">Singleton</button>
       </div>
     </ngx-tippy-singleton>
   </div>
@@ -25,6 +25,7 @@ const templateOverridden = `
         <button
           class="singleton__item"
           ngxTippy="First tooltip content"
+          ngxSingleton
           [tippyProps]="overriddenProps"
         >
           Singleton
@@ -32,6 +33,7 @@ const templateOverridden = `
         <button
           class="singleton__item"
           ngxTippy="Second tooltip content"
+          ngxSingleton
           [tippyProps]="overriddenProps"
         >
           Singleton
@@ -39,6 +41,7 @@ const templateOverridden = `
         <button
           class="singleton__item"
           ngxTippy="Third tooltip content"
+          ngxSingleton
           [tippyProps]="overriddenProps"
         >
           Singleton
@@ -137,14 +140,14 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
   });
 
   it('Should render all grouped elements', () => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxTippy]'));
+    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
 
     expect(singletonItems).toBeTruthy('Group items does not created');
     expect(singletonItems.length).toBe(3, 'Unexpected number of elements');
   });
 
   it('Should show tooltips on hover', () => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxTippy]'));
+    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     });
@@ -156,7 +159,7 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
   });
 
   it('Should apply props', fakeAsync(() => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxTippy]'));
+    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     });
@@ -205,14 +208,14 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
   });
 
   it('Should render all grouped elements', () => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxTippy]'));
+    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
 
     expect(singletonItems).toBeTruthy('Group items does not created');
     expect(singletonItems.length).toBe(3, 'Unexpected number of elements');
   });
 
   it('Should show tooltips on hover', () => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxTippy]'));
+    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     });
@@ -224,7 +227,7 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
   });
 
   it('Should apply props', fakeAsync(() => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxTippy]'));
+    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     });
