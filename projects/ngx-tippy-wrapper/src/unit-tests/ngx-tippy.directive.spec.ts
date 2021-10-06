@@ -1,9 +1,10 @@
 import { Compiler, Component, DebugElement, NgModule, PLATFORM_ID, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { fakeInstance } from '../lib/fixtures';
-import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
-import { NgxTippyService } from '../lib/services/ngx-tippy.service';
+import { NgxTippyDirective } from '../lib/directives';
+import { libMessagesDict, tippyFakeInstance } from '../lib/fixtures';
+import { NgxTippyService } from '../lib/services';
+import { FAKE_INSTANCE_TOKEN, LIB_MESSAGES_TOKEN } from '../lib/tokens';
 
 const styles = [
   `
@@ -92,6 +93,14 @@ describe('Directive: NgxTippyDirective', () => {
       providers: [
         { provide: NgxTippyService, useValue: tippyServiceSpy },
         { provide: PLATFORM_ID, useValue: 'browser' },
+        {
+          provide: FAKE_INSTANCE_TOKEN,
+          useValue: tippyFakeInstance,
+        },
+        {
+          provide: LIB_MESSAGES_TOKEN,
+          useValue: libMessagesDict,
+        },
       ],
     })
       .compileComponents()
@@ -478,12 +487,12 @@ describe('Directive: NgxTippyDirective', () => {
     tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
 
-    tippyService.getInstance.and.returnValue(fakeInstance);
+    tippyService.getInstance.and.returnValue(tippyFakeInstance);
     const instance = tippyService.getInstance('tippy-content');
 
     expect(tippyService.getInstance).toHaveBeenCalledTimes(1);
     expect(tippyService.getInstance).toHaveBeenCalledWith('tippy-content');
-    expect(instance).toBe(fakeInstance, 'Returned instance is wrong');
+    expect(instance).toBe(tippyFakeInstance, 'Returned instance is wrong');
   });
 
   it('Should call setProps method for defined instance', () => {
@@ -633,7 +642,17 @@ describe('Directive: NgxTippyDirective - Platform test', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [TestPlatformComponent, NgxTippyDirective],
-      providers: [{ provide: PLATFORM_ID, useValue: 'server' }],
+      providers: [
+        { provide: PLATFORM_ID, useValue: 'server' },
+        {
+          provide: FAKE_INSTANCE_TOKEN,
+          useValue: tippyFakeInstance,
+        },
+        {
+          provide: LIB_MESSAGES_TOKEN,
+          useValue: libMessagesDict,
+        },
+      ],
     })
       .compileComponents()
       .then(() => {

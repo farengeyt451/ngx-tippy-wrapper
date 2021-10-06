@@ -1,4 +1,4 @@
-export const fakeInstance = {
+export const tippyFakeInstance = {
   clearDelayTimeouts: () => {},
   destroy: () => {},
   disable: () => {},

@@ -1,28 +1,39 @@
 import { fakeAsync, getTestBed, TestBed } from '@angular/core/testing';
-import { fakeInstance } from '../lib/fixtures';
+import { libMessagesDict, tippyFakeInstance } from '../lib/fixtures';
 import { NgxTippyProps } from '../lib/interfaces';
 import { DevModeService, NgxTippyService } from '../lib/services';
+import { FAKE_INSTANCE_TOKEN, LIB_MESSAGES_TOKEN } from '../lib/tokens';
 
 describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   let injector: TestBed;
   let tippyService: NgxTippyService;
   let tippyInstance: any;
-  let tippySingletonInstance: any;
+  let NgxTippySingletonInstance: any;
   const tippyName = 'unit-test';
-  const tippySingletonName = 's-test';
+  const tippySingletonEntryName = 's-test';
   const nameTypedWithMistake = 'unit-tst';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NgxTippyService],
+      providers: [
+        NgxTippyService,
+        {
+          provide: FAKE_INSTANCE_TOKEN,
+          useValue: tippyFakeInstance,
+        },
+        {
+          provide: LIB_MESSAGES_TOKEN,
+          useValue: libMessagesDict,
+        },
+      ],
     });
 
     injector = getTestBed();
     tippyService = injector.inject(NgxTippyService);
-    tippyService.setInstance(tippyName, fakeInstance as any);
-    tippyService.setSingletonInstance(tippySingletonName, fakeInstance as any);
+    tippyService.setInstance(tippyName, tippyFakeInstance as any);
+    tippyService.setSingletonInstance(tippySingletonEntryName, tippyFakeInstance as any);
     tippyInstance = tippyService.getInstance(tippyName);
-    tippySingletonInstance = tippyService.getSingletonInstance(tippySingletonName);
+    NgxTippySingletonInstance = tippyService.getSingletonInstance(tippySingletonEntryName);
   });
 
   it('Should create service', () => {
@@ -61,8 +72,8 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   });
 
   it('Should return singleton instance, if right singleton name passed', () => {
-    expect(tippySingletonInstance).toBeTruthy('Instance not found');
-    expect(tippySingletonInstance.id).toBe(0, 'Instance has wrong ID');
+    expect(NgxTippySingletonInstance).toBeTruthy('Instance not found');
+    expect(NgxTippySingletonInstance.id).toBe(0, 'Instance has wrong ID');
   });
 
   it('Should return <Map> of all instances', () => {
@@ -164,14 +175,14 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   // });
 
   it('Should throw error on: setInstance, if name already exist', () => {
-    expect(() => tippyService.setInstance(tippyName, fakeInstance as any)).toThrowError(
+    expect(() => tippyService.setInstance(tippyName, tippyFakeInstance as any)).toThrowError(
       `Instance with name '${tippyName}' already exist, please pick unique [tippyName]`
     );
   });
 
   it('Should throw error on: setSingletonInstance, if name already exist', () => {
-    expect(() => tippyService.setSingletonInstance(tippySingletonName, fakeInstance as any)).toThrowError(
-      `Singleton instance with name '${tippySingletonName}' already exist, please pick unique [singletonName]`
+    expect(() => tippyService.setSingletonInstance(tippySingletonEntryName, tippyFakeInstance as any)).toThrowError(
+      `Singleton instance with name '${tippySingletonEntryName}' already exist, please pick unique [singletonName]`
     );
   });
 
@@ -229,20 +240,19 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     expect(tippyService.setDefaultProps).toHaveBeenCalledTimes(1);
   });
 
-  // it('Should destroy tooltip, delete instance and emit changes', () => {
-  //   tippyService.instancesChanges.subscribe(data => {
-  //     console.log('log ~ it ~ data', data);
-  //     expect(data).toBeTruthy('No data emitted');
-  //     expect(data.reason).toBe('destroy', 'Wrong reason emitted');
-  //     expect(data.instance).toBeTruthy('Data does not contain tippy instance');
-  //     expect(data.name).toBeTruthy('Data does not contain tippy name');
-  //     expect(data.name).toBe(tippyName);
-  //   });
+  it('Should destroy tooltip, delete instance and emit changes', () => {
+    tippyService.instancesChanges.subscribe(data => {
+      expect(data).toBeTruthy('No data emitted');
+      expect(data.reason).toBe('destroy', 'Wrong reason emitted');
+      expect(data.instance).toBeTruthy('Data does not contain tippy instance');
+      expect(data.name).toBeTruthy('Data does not contain tippy name');
+      expect(data.name).toBe(tippyName);
+    });
 
-  //   tippyService.destroy(tippyName);
+    tippyService.destroy(tippyName);
 
-  //   expect(tippyService.getInstance(tippyName)).toBeNull('Instance exist, but should be deleted');
-  // });
+    expect(tippyService.getInstance(tippyName)).toBeNull('Instance exist, but should be deleted');
+  });
 
   it(`Should throw error on: destroy, if wrong name passed`, () => {
     expect(() => tippyService.destroy(nameTypedWithMistake)).toThrowError(
@@ -258,7 +268,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService['emitInstancesChange']({
       name: 'test',
       reason: 'show',
-      instance: fakeInstance as any,
+      instance: tippyFakeInstance as any,
     });
   });
 
@@ -270,7 +280,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService['emitInstancesChange']({
       name: 'test',
       reason: 'show',
-      instance: fakeInstance as any,
+      instance: tippyFakeInstance as any,
     });
   });
 
@@ -282,7 +292,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService['emitInstancesChange']({
       name: 'test',
       reason: 'show',
-      instance: fakeInstance as any,
+      instance: tippyFakeInstance as any,
     });
   });
 
@@ -294,7 +304,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService['emitInstancesChange']({
       name: 'test',
       reason: 'show',
-      instance: fakeInstance as any,
+      instance: tippyFakeInstance as any,
     });
   });
 
@@ -306,7 +316,7 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
     tippyService['emitInstancesChange']({
       name: 'test',
       reason: 'show',
-      instance: fakeInstance as any,
+      instance: tippyFakeInstance as any,
     });
   });
 });
@@ -315,19 +325,29 @@ describe('Service: NgxTippyWrapperService - No instances exist', () => {
   let injector: TestBed;
   let tippyService: NgxTippyService;
   let tippyInstance: any;
-  let tippySingletonInstance: any;
+  let NgxTippySingletonInstance: any;
   const tippyName = 'unit-test';
-  const tippySingletonName = 's-test';
+  const tippySingletonEntryName = 's-test';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NgxTippyService],
+      providers: [
+        NgxTippyService,
+        {
+          provide: FAKE_INSTANCE_TOKEN,
+          useValue: tippyFakeInstance,
+        },
+        {
+          provide: LIB_MESSAGES_TOKEN,
+          useValue: libMessagesDict,
+        },
+      ],
     });
 
     injector = getTestBed();
     tippyService = injector.inject(NgxTippyService);
     tippyInstance = tippyService.getInstance(tippyName);
-    tippySingletonInstance = tippyService.getSingletonInstance(tippySingletonName);
+    NgxTippySingletonInstance = tippyService.getSingletonInstance(tippySingletonEntryName);
   });
 
   it('Should return undefined if wrong tippy name passed', () => {
@@ -335,7 +355,7 @@ describe('Service: NgxTippyWrapperService - No instances exist', () => {
   });
 
   it('Should return undefined if wrong singleton name passed', () => {
-    expect(tippySingletonInstance).toBeUndefined('Singleton instance should not be found');
+    expect(NgxTippySingletonInstance).toBeUndefined('Singleton instance should not be found');
   });
 
   it('Should return undefined if no instances set', () => {

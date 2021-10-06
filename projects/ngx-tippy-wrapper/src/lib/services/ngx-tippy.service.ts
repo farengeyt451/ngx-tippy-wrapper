@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import tippy, { hideAll } from 'tippy.js';
 import {
@@ -9,9 +9,13 @@ import {
   NgxTippyContent,
   NgxTippyDefaultProps,
   NgxTippyInstance,
+  NgxTippyMessagesDict,
+  NgxTippyMessagesTypes,
+  NgxTippyNamesEnum,
   NgxTippyProps,
   NgxTippySingletonInstance,
 } from '../interfaces';
+import { LIB_MESSAGES_TOKEN } from '../tokens';
 import { setTemplateVisible } from '../utils';
 import { DevModeService } from './dev-mode.service';
 import { NgxViewService } from './ngx-view.service';
@@ -21,14 +25,15 @@ import { NgxViewService } from './ngx-view.service';
 })
 export class NgxTippyService {
   private tippyInstances: Map<string, NgxTippyInstance> = new Map();
-  private tippySingletonInstances: Map<string, NgxTippySingletonInstance> = new Map();
+  private tippySingletonEntryInstances: Map<string, NgxTippySingletonInstance> = new Map();
   private tippyInstances$ = new Subject<InstancesChanges>();
   private renderer!: Renderer2;
 
   constructor(
     rendererFactory: RendererFactory2,
     private devModeService: DevModeService,
-    private ngxViewService: NgxViewService
+    private ngxViewService: NgxViewService,
+    @Inject(LIB_MESSAGES_TOKEN) private libMessagesDict: NgxTippyMessagesDict
   ) {
     this.createRenderer(rendererFactory);
   }
@@ -46,7 +51,7 @@ export class NgxTippyService {
     const instance = this.tippyInstances.get(name);
 
     if (instance) {
-      this.throwError(`Instance with name '${name}' already exist, please pick unique [tippyName]`);
+      this.throwError(this.getMessage('instanceAlreadyExist', NgxTippyNamesEnum.TippyName, name));
     } else {
       this.tippyInstances.set(name, state);
       this.emitInstancesChange({
@@ -83,10 +88,10 @@ export class NgxTippyService {
    * @param state { NgxTippyInstance } tippy instance
    */
   setSingletonInstance(name: string, state: NgxTippySingletonInstance) {
-    if (this.tippySingletonInstances.has(name)) {
-      this.throwError(`Singleton instance with name '${name}' already exist, please pick unique [singletonName]`);
+    if (this.tippySingletonEntryInstances.has(name)) {
+      this.throwError(this.getMessage('singletonInstanceAlreadyExist', NgxTippyNamesEnum.SingletonName, name));
     } else {
-      this.tippySingletonInstances.set(name, state);
+      this.tippySingletonEntryInstances.set(name, state);
     }
   }
 
@@ -97,7 +102,7 @@ export class NgxTippyService {
    * @returns { NgxTippySingletonInstance | undefined } specific singleton tippy instance or undefined
    */
   getSingletonInstance(name: string): NgxTippySingletonInstance | undefined {
-    return this.tippySingletonInstances.get(name);
+    return this.tippySingletonEntryInstances.get(name);
   }
 
   /**
@@ -106,7 +111,7 @@ export class NgxTippyService {
    * @returns { Map<string, NgxTippyInstance> | null } all singleton tippy instances or null
    */
   getSingletonInstances(): Map<string, NgxTippySingletonInstance> | null {
-    return this.tippySingletonInstances.size ? this.tippySingletonInstances : null;
+    return this.tippySingletonEntryInstances.size ? this.tippySingletonEntryInstances : null;
   }
 
   /**
@@ -180,7 +185,7 @@ export class NgxTippyService {
     const instance = this.getInstance(name);
 
     if (!instance) {
-      this.throwErrorInstanceExist(name);
+      this.throwErrorInstanceNotExist(name);
       return;
     }
 
@@ -226,6 +231,7 @@ export class NgxTippyService {
    */
   destroy(name: string) {
     this.callNativeTippyMethod(name, InstanceChangeReasonEnum.Destroy);
+    this.tippyInstances.delete(name);
   }
 
   /** Working with tippy static methods */
@@ -291,7 +297,7 @@ export class NgxTippyService {
         instance,
       });
     } else {
-      this.throwErrorInstanceExist(name);
+      this.throwErrorInstanceNotExist(name);
     }
   }
 
@@ -311,10 +317,15 @@ export class NgxTippyService {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 
-  private throwErrorInstanceExist(name: string) {
-    this.throwError(`Instance with name '${name}' does not exist`);
+  private throwErrorInstanceNotExist(name: string) {
+    this.throwError(this.getMessage('instanceNotExist', NgxTippyNamesEnum.TippyName, name));
   }
+
   private throwError(message: string, errorConstrictor: ErrorConstructor = Error) {
     if (this.devModeService.isDevMode()) throw new errorConstrictor(message);
+  }
+
+  private getMessage(reason: NgxTippyMessagesTypes, messageFor: string, nameValue: string): string {
+    return this.libMessagesDict[reason].replace(`#${messageFor}`, `'${nameValue}'`);
   }
 }

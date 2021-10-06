@@ -1,9 +1,9 @@
 import { isPlatformServer } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 import tippy from 'tippy.js';
-import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from './interfaces';
-import { NgxTippyService, NgxViewService } from './services';
-import { setTemplateVisible } from './utils';
+import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from '../interfaces';
+import { NgxTippyService, NgxViewService } from '../services';
+import { setTemplateVisible } from '../utils';
 
 // Increasing integer for generating unique ids
 let nextUniqueID: number = 0;

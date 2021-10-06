@@ -2,17 +2,19 @@ import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgxTippySingletonComponent } from '../lib/components';
+import { NgxTippyDirective } from '../lib/directives';
+import { libMessagesDict } from '../lib/fixtures';
 import { NgxSingletonProps, NgxTippyProps } from '../lib/interfaces';
-import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
-import { NgxTippyService } from '../lib/services/ngx-tippy.service';
+import { NgxTippyService } from '../lib/services';
+import { LIB_MESSAGES_TOKEN } from '../lib/tokens';
 
 const template = `
   <div class="singleton">
     <ngx-tippy-singleton [singletonProps]="singletonProps">
       <div class="singleton__items">
-        <button class="singleton__item" ngxSingleton ngxTippy="First tooltip content">Singleton</button>
-        <button class="singleton__item" ngxSingleton ngxTippy="Second tooltip content">Singleton</button>
-        <button class="singleton__item" ngxSingleton ngxTippy="Third tooltip content">Singleton</button>
+        <button class="singleton__item" data-tippy-singleton ngxTippy="First tooltip content">Singleton</button>
+        <button class="singleton__item" data-tippy-singleton ngxTippy="Second tooltip content">Singleton</button>
+        <button class="singleton__item" data-tippy-singleton ngxTippy="Third tooltip content">Singleton</button>
       </div>
     </ngx-tippy-singleton>
   </div>
@@ -25,7 +27,7 @@ const templateOverridden = `
         <button
           class="singleton__item"
           ngxTippy="First tooltip content"
-          ngxSingleton
+          data-tippy-singleton
           [tippyProps]="overriddenProps"
         >
           Singleton
@@ -33,7 +35,7 @@ const templateOverridden = `
         <button
           class="singleton__item"
           ngxTippy="Second tooltip content"
-          ngxSingleton
+          data-tippy-singleton
           [tippyProps]="overriddenProps"
         >
           Singleton
@@ -41,7 +43,7 @@ const templateOverridden = `
         <button
           class="singleton__item"
           ngxTippy="Third tooltip content"
-          ngxSingleton
+          data-tippy-singleton
           [tippyProps]="overriddenProps"
         >
           Singleton
@@ -123,7 +125,13 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [NgxTippyDirective, NgxTippySingletonComponent, TestWrapperComponent],
-      providers: [NgxTippyService],
+      providers: [
+        NgxTippyService,
+        {
+          provide: LIB_MESSAGES_TOKEN,
+          useValue: libMessagesDict,
+        },
+      ],
     })
       .compileComponents()
       .then(() => {
@@ -140,14 +148,14 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
   });
 
   it('Should render all grouped elements', () => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
+    const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
 
     expect(singletonItems).toBeTruthy('Group items does not created');
     expect(singletonItems.length).toBe(3, 'Unexpected number of elements');
   });
 
   it('Should show tooltips on hover', () => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
+    const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     });
@@ -159,7 +167,7 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
   });
 
   it('Should apply props', fakeAsync(() => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
+    const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     });
@@ -191,7 +199,13 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [NgxTippyDirective, NgxTippySingletonComponent, TestWrapperOverriddenComponent],
-      providers: [NgxTippyService],
+      providers: [
+        NgxTippyService,
+        {
+          provide: LIB_MESSAGES_TOKEN,
+          useValue: libMessagesDict,
+        },
+      ],
     })
       .compileComponents()
       .then(() => {
@@ -208,14 +222,14 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
   });
 
   it('Should render all grouped elements', () => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
+    const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
 
     expect(singletonItems).toBeTruthy('Group items does not created');
     expect(singletonItems.length).toBe(3, 'Unexpected number of elements');
   });
 
   it('Should show tooltips on hover', () => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
+    const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     });
@@ -227,7 +241,7 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
   });
 
   it('Should apply props', fakeAsync(() => {
-    const singletonItems = debugEl.queryAll(By.css('button[ngxSingleton]'));
+    const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     });
@@ -260,7 +274,13 @@ describe('Component: NgxTippySingletonComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [NgxTippySingletonComponent],
-      providers: [{ provide: PLATFORM_ID, useValue: 'server' }],
+      providers: [
+        { provide: PLATFORM_ID, useValue: 'server' },
+        {
+          provide: LIB_MESSAGES_TOKEN,
+          useValue: libMessagesDict,
+        },
+      ],
     })
       .compileComponents()
       .then(() => {
@@ -302,7 +322,7 @@ describe('Component: NgxTippySingletonComponent', () => {
 
   it('Should init tooltips only if platform browser', () => {
     spyOn<any>(component, 'setSingleton');
-    spyOn<any>(component, 'initTippySingleton');
+    spyOn<any>(component, 'initTippySingletonEntry');
     component.ngAfterViewInit();
     expect(component['setSingleton']).toHaveBeenCalledTimes(0);
     expect(component['setSingleton']).toHaveBeenCalledTimes(0);

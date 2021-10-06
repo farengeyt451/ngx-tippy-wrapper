@@ -103,7 +103,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     setTimeout(() => {
       this.data = { b: 14 };
-      console.log('log ~ setTimeout ~ this.data', this.data);
     }, 5000);
     this.setContentForTooltipBindedProp();
     this.subToInstancesChanges();

@@ -62,7 +62,6 @@ export class CompRef<T> implements ViewRef {
   }
 
   destroy() {
-    console.log('ComponentRef destroy');
     this.compRef?.destroy();
     this.compRef = null;
   }
