@@ -2,9 +2,9 @@ import { Compiler, Component, DebugElement, NgModule, PLATFORM_ID, ViewChild, Vi
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgxTippyDirective } from '../lib/directives';
-import { libMessagesDict, tippyFakeInstance } from '../lib/fixtures';
+import { messagesDict, tippyFakeInstance } from '../lib/fixtures';
 import { NgxTippyService } from '../lib/services';
-import { FAKE_INSTANCE_TOKEN, LIB_MESSAGES_TOKEN } from '../lib/tokens';
+import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/tokens';
 
 const styles = [
   `
@@ -94,12 +94,12 @@ describe('Directive: NgxTippyDirective', () => {
         { provide: NgxTippyService, useValue: tippyServiceSpy },
         { provide: PLATFORM_ID, useValue: 'browser' },
         {
-          provide: FAKE_INSTANCE_TOKEN,
+          provide: TIPPY_FAKE_INSTANCE,
           useValue: tippyFakeInstance,
         },
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     })
@@ -645,12 +645,12 @@ describe('Directive: NgxTippyDirective - Platform test', () => {
       providers: [
         { provide: PLATFORM_ID, useValue: 'server' },
         {
-          provide: FAKE_INSTANCE_TOKEN,
+          provide: TIPPY_FAKE_INSTANCE,
           useValue: tippyFakeInstance,
         },
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     })

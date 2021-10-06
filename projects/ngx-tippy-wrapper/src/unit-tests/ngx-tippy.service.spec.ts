@@ -1,8 +1,8 @@
 import { fakeAsync, getTestBed, TestBed } from '@angular/core/testing';
-import { libMessagesDict, tippyFakeInstance } from '../lib/fixtures';
+import { messagesDict, tippyFakeInstance } from '../lib/fixtures';
 import { NgxTippyProps } from '../lib/interfaces';
 import { DevModeService, NgxTippyService } from '../lib/services';
-import { FAKE_INSTANCE_TOKEN, LIB_MESSAGES_TOKEN } from '../lib/tokens';
+import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/tokens';
 
 describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   let injector: TestBed;
@@ -18,12 +18,12 @@ describe('Service: NgxTippyWrapperService - Instance exist ', () => {
       providers: [
         NgxTippyService,
         {
-          provide: FAKE_INSTANCE_TOKEN,
+          provide: TIPPY_FAKE_INSTANCE,
           useValue: tippyFakeInstance,
         },
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     });
@@ -334,12 +334,12 @@ describe('Service: NgxTippyWrapperService - No instances exist', () => {
       providers: [
         NgxTippyService,
         {
-          provide: FAKE_INSTANCE_TOKEN,
+          provide: TIPPY_FAKE_INSTANCE,
           useValue: tippyFakeInstance,
         },
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     });
@@ -350,21 +350,21 @@ describe('Service: NgxTippyWrapperService - No instances exist', () => {
     NgxTippySingletonInstance = tippyService.getSingletonInstance(tippySingletonEntryName);
   });
 
-  it('Should return undefined if wrong tippy name passed', () => {
+  it('Should return null if wrong tippy name passed', () => {
     expect(tippyInstance).toBeNull('Instance should not be found');
   });
 
-  it('Should return undefined if wrong singleton name passed', () => {
-    expect(NgxTippySingletonInstance).toBeUndefined('Singleton instance should not be found');
+  it('Should return null if wrong singleton name passed', () => {
+    expect(NgxTippySingletonInstance).toBeNull('Singleton instance should not be found');
   });
 
-  it('Should return undefined if no instances set', () => {
+  it('Should return null if no instances set', () => {
     const instances = tippyService.getInstances();
 
     expect(instances).toBeNull('Instances should not be found');
   });
 
-  it('Should return undefined if no singleton instances set', () => {
+  it('Should return null if no singleton instances set', () => {
     const instances = tippyService.getSingletonInstances();
 
     expect(instances).toBeNull('Singleton instances should not be found');

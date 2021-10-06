@@ -2,7 +2,7 @@ import { isPlatformServer } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewChild } from '@angular/core';
 import tippy from 'tippy.js';
 import { NgxTippyMessagesDict, NgxTippyProps } from '../interfaces';
-import { LIB_MESSAGES_TOKEN } from '../tokens';
+import { NGX_TIPPY_MESSAGES } from '../tokens';
 
 /**
  * Different tooltip content to many different elements, but only one tippy instance
@@ -21,7 +21,7 @@ export class NgxTippyGroupComponent implements AfterViewInit {
 
   constructor(
     @Inject(PLATFORM_ID) private platform: Object,
-    @Inject(LIB_MESSAGES_TOKEN) private libMessagesDict: NgxTippyMessagesDict
+    @Inject(NGX_TIPPY_MESSAGES) private messagesDict: NgxTippyMessagesDict
   ) {}
 
   ngAfterViewInit() {
@@ -36,7 +36,7 @@ export class NgxTippyGroupComponent implements AfterViewInit {
     if (tooltips?.length) {
       this.initTippy(tooltips);
     } else {
-      throw new Error(this.libMessagesDict.childrenInstancesNotFoundGrouped);
+      throw new Error(this.messagesDict.childrenInstancesNotFoundGrouped);
     }
   }
 

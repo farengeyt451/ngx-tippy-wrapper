@@ -135,7 +135,3 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     this.tippyInstance = null;
   }
 }
-
-// TODO:
-// 1. Dictionary
-// 2. https://github.com/farengeyt451/ngx-tippy-wrapper/issues/23

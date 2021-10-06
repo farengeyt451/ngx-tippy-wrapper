@@ -3,10 +3,10 @@ import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular
 import { By } from '@angular/platform-browser';
 import { NgxTippySingletonComponent } from '../lib/components';
 import { NgxTippyDirective } from '../lib/directives';
-import { libMessagesDict } from '../lib/fixtures';
+import { messagesDict } from '../lib/fixtures';
 import { NgxSingletonProps, NgxTippyProps } from '../lib/interfaces';
 import { NgxTippyService } from '../lib/services';
-import { LIB_MESSAGES_TOKEN } from '../lib/tokens';
+import { NGX_TIPPY_MESSAGES } from '../lib/tokens';
 
 const template = `
   <div class="singleton">
@@ -128,8 +128,8 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
       providers: [
         NgxTippyService,
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     })
@@ -202,8 +202,8 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
       providers: [
         NgxTippyService,
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     })
@@ -277,8 +277,8 @@ describe('Component: NgxTippySingletonComponent', () => {
       providers: [
         { provide: PLATFORM_ID, useValue: 'server' },
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     })
@@ -297,9 +297,9 @@ describe('Component: NgxTippySingletonComponent', () => {
     expect(component).toBeTruthy('Component does not created');
   });
 
-  it('Should throw error when children instances not founded', () => {
+  it('Should throw error when children instances not found', () => {
     expect(() => component['setSingleton']()).toThrowError(
-      `No children tippy instances founded within singleton component`
+      `No children tippy instances found within 'ngx-tippy-singleton' component`
     );
   });
 

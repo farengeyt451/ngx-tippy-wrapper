@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxTippyGroupComponent, NgxTippySingletonComponent } from './components';
 import { NgxTippyDirective } from './directives';
-import { libMessagesDict, tippyFakeInstance } from './fixtures';
-import { FAKE_INSTANCE_TOKEN, LIB_MESSAGES_TOKEN } from './tokens';
+import { messagesDict, tippyFakeInstance } from './fixtures';
+import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from './tokens';
 
 @NgModule({
   imports: [CommonModule],
@@ -11,12 +11,12 @@ import { FAKE_INSTANCE_TOKEN, LIB_MESSAGES_TOKEN } from './tokens';
   exports: [NgxTippyDirective, NgxTippyGroupComponent, NgxTippySingletonComponent],
   providers: [
     {
-      provide: FAKE_INSTANCE_TOKEN,
+      provide: TIPPY_FAKE_INSTANCE,
       useValue: tippyFakeInstance,
     },
     {
-      provide: LIB_MESSAGES_TOKEN,
-      useValue: libMessagesDict,
+      provide: NGX_TIPPY_MESSAGES,
+      useValue: messagesDict,
     },
   ],
 })

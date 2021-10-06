@@ -15,7 +15,7 @@ import {
   NgxTippyProps,
   NgxTippySingletonInstance,
 } from '../interfaces';
-import { LIB_MESSAGES_TOKEN } from '../tokens';
+import { NGX_TIPPY_MESSAGES } from '../tokens';
 import { setTemplateVisible } from '../utils';
 import { DevModeService } from './dev-mode.service';
 import { NgxViewService } from './ngx-view.service';
@@ -33,7 +33,7 @@ export class NgxTippyService {
     rendererFactory: RendererFactory2,
     private devModeService: DevModeService,
     private ngxViewService: NgxViewService,
-    @Inject(LIB_MESSAGES_TOKEN) private libMessagesDict: NgxTippyMessagesDict
+    @Inject(NGX_TIPPY_MESSAGES) private messagesDict: NgxTippyMessagesDict
   ) {
     this.createRenderer(rendererFactory);
   }
@@ -51,7 +51,12 @@ export class NgxTippyService {
     const instance = this.tippyInstances.get(name);
 
     if (instance) {
-      this.throwError(this.getMessage('instanceAlreadyExist', NgxTippyNamesEnum.TippyName, name));
+      const errMessage = this.getMessage({
+        reason: 'instanceAlreadyExist',
+        messageFor: NgxTippyNamesEnum.TippyName,
+        name,
+      });
+      this.throwError(errMessage);
     } else {
       this.tippyInstances.set(name, state);
       this.emitInstancesChange({
@@ -66,7 +71,7 @@ export class NgxTippyService {
    * Get specific tippy instance
    *
    * @param name { string } name of tippy instance
-   * @returns { NgxTippyInstance | undefined } specific tippy instance or undefined
+   * @returns { NgxTippyInstance | null } specific tippy instance or null
    */
   getInstance(name: string): NgxTippyInstance | null {
     return this.tippyInstances.has(name) ? this.tippyInstances.get(name)! : null;
@@ -75,7 +80,7 @@ export class NgxTippyService {
   /**
    * Get all tippy instances from storage
    *
-   * @returns { Map<string, NgxTippyInstance> | undefined } all tippy instances or undefined
+   * @returns { Map<string, NgxTippyInstance> | null } all tippy instances or null
    */
   getInstances(): Map<string, NgxTippyInstance> | null {
     return this.tippyInstances.size ? this.tippyInstances : null;
@@ -89,7 +94,12 @@ export class NgxTippyService {
    */
   setSingletonInstance(name: string, state: NgxTippySingletonInstance) {
     if (this.tippySingletonEntryInstances.has(name)) {
-      this.throwError(this.getMessage('singletonInstanceAlreadyExist', NgxTippyNamesEnum.SingletonName, name));
+      const errMessage = this.getMessage({
+        reason: 'singletonInstanceAlreadyExist',
+        messageFor: NgxTippyNamesEnum.SingletonName,
+        name,
+      });
+      this.throwError(errMessage);
     } else {
       this.tippySingletonEntryInstances.set(name, state);
     }
@@ -99,10 +109,10 @@ export class NgxTippyService {
    * Get specific singleton tippy instance
    *
    * @param name { string } name of singleton tippy instance
-   * @returns { NgxTippySingletonInstance | undefined } specific singleton tippy instance or undefined
+   * @returns { NgxTippySingletonInstance | null } specific singleton tippy instance or null
    */
-  getSingletonInstance(name: string): NgxTippySingletonInstance | undefined {
-    return this.tippySingletonEntryInstances.get(name);
+  getSingletonInstance(name: string): NgxTippySingletonInstance | null {
+    return this.tippySingletonEntryInstances.has(name) ? this.tippySingletonEntryInstances.get(name)! : null;
   }
 
   /**
@@ -318,14 +328,27 @@ export class NgxTippyService {
   }
 
   private throwErrorInstanceNotExist(name: string) {
-    this.throwError(this.getMessage('instanceNotExist', NgxTippyNamesEnum.TippyName, name));
+    const errMessage = this.getMessage({
+      reason: 'instanceNotExist',
+      messageFor: NgxTippyNamesEnum.TippyName,
+      name,
+    });
+    this.throwError(errMessage);
   }
 
   private throwError(message: string, errorConstrictor: ErrorConstructor = Error) {
     if (this.devModeService.isDevMode()) throw new errorConstrictor(message);
   }
 
-  private getMessage(reason: NgxTippyMessagesTypes, messageFor: string, nameValue: string): string {
-    return this.libMessagesDict[reason].replace(`#${messageFor}`, `'${nameValue}'`);
+  private getMessage({
+    reason,
+    messageFor,
+    name,
+  }: {
+    reason: NgxTippyMessagesTypes;
+    messageFor: string;
+    name: string;
+  }): string {
+    return this.messagesDict[reason].replace(`#${messageFor}`, `'${name}'`);
   }
 }

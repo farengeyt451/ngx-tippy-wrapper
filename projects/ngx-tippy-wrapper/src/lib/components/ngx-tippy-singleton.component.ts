@@ -1,8 +1,15 @@
 import { isPlatformServer } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, Input, OnDestroy, PLATFORM_ID, ViewChild } from '@angular/core';
 import { createSingleton } from 'tippy.js';
-import { NgxSingletonProps, NgxTippyInstance, NgxTippySingletonInstance, TippyHTMLElement } from '../interfaces';
+import {
+  NgxSingletonProps,
+  NgxTippyInstance,
+  NgxTippyMessagesDict,
+  NgxTippySingletonInstance,
+  TippyHTMLElement,
+} from '../interfaces';
 import { NgxTippyService } from '../services';
+import { NGX_TIPPY_MESSAGES } from '../tokens';
 
 /**
  * Tippy singleton - single tippy element that takes the place of an array of regular tippy instances
@@ -23,7 +30,11 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
   private singletonInstance!: NgxTippySingletonInstance;
   private currentSingletonChildrenTippyInstances!: NgxTippyInstance[] | null;
 
-  constructor(@Inject(PLATFORM_ID) private platform: Object, private ngxTippyService: NgxTippyService) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platform: Object,
+    private ngxTippyService: NgxTippyService,
+    @Inject(NGX_TIPPY_MESSAGES) private messagesDict: NgxTippyMessagesDict
+  ) {}
 
   ngAfterViewInit() {
     if (isPlatformServer(this.platform)) return;
@@ -56,11 +67,11 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
     if (this.currentSingletonChildrenTippyInstances?.length) {
       this.initTippySingletonEntry(this.currentSingletonChildrenTippyInstances);
     } else {
-      throw new Error(`No children tippy instances founded within singleton component`);
+      throw new Error(this.messagesDict.childrenInstancesNotFoundSingleton);
     }
   }
 
-  private initTippySingletonEntry(childrenSingletonInstances: any[]) {
+  private initTippySingletonEntry(childrenSingletonInstances: NgxTippyInstance[]) {
     this.singletonInstance = createSingleton(childrenSingletonInstances, this.singletonProps);
     this.writeSingletonInstanceToStorage(this.singletonInstance);
   }

@@ -1,14 +1,10 @@
 import { TemplateRef, Type, ViewContainerRef } from '@angular/core';
 import { Content, DefaultProps, Instance, Props } from 'tippy.js';
-import { libMessagesDict } from '../fixtures';
+import { messagesDict } from '../fixtures';
 
 type ExcludeFunctionPropertyNames<T> = {
   [Key in keyof T]: T[Key] extends Function ? never : Key;
 }[keyof T];
-
-interface _ViewOptions {
-  vcr?: ViewContainerRef | undefined;
-}
 
 export interface NgxTippyProps extends Partial<Props> {}
 
@@ -73,12 +69,14 @@ export interface ViewRef {
 
 export type ExcludeFunctions<T> = Pick<T, ExcludeFunctionPropertyNames<T>>;
 
-export interface TemplateViewOptions extends _ViewOptions {
+export interface TemplateViewOptions {
+  vcr?: ViewContainerRef | undefined;
   context?: Record<string, any> | undefined;
 }
 
-export type NgxTippyMessagesDict = typeof libMessagesDict;
-export type NgxTippyMessagesTypes = keyof typeof libMessagesDict;
+export type NgxTippyMessagesDict = typeof messagesDict;
+
+export type NgxTippyMessagesTypes = keyof typeof messagesDict;
 
 export enum NgxTippyNamesEnum {
   TippyName = 'tippyName',

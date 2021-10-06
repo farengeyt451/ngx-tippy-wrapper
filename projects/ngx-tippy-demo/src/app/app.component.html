@@ -388,10 +388,10 @@
     <!-- Example block -->
     <ngx-tippy-singleton [singletonProps]="singletonProps">
       <div class="t-demo__grouped">
-        <button class="t-demo__btn" ngxTippy data-tippy-singleton data-tippy-content="First tooltip content">
+        <button class="t-demo__btn" [ngxTippy]="'First tooltip content'" data-tippy-singleton>
           Singleton
         </button>
-        <button class="t-demo__btn" ngxTippy data-tippy-singleton data-tippy-content="Second tooltip content">
+        <button class="t-demo__btn" ngxTippy data-tippy-singleton>
           Singleton
         </button>
         <button class="t-demo__btn" ngxTippy data-tippy-singleton data-tippy-content="Third tooltip content">
@@ -399,6 +399,10 @@
         </button>
       </div>
     </ngx-tippy-singleton>
+
+    <ng-template #singletonEntryTemplate>
+      Second tooltip content
+    </ng-template>
 
     <p class="t-demo__text">Overridden props</p>
 

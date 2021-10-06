@@ -2,9 +2,9 @@ import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgxTippyGroupComponent } from '../lib/components';
-import { libMessagesDict } from '../lib/fixtures';
+import { messagesDict } from '../lib/fixtures';
 import { NgxTippyProps } from '../lib/interfaces';
-import { LIB_MESSAGES_TOKEN } from '../lib/tokens';
+import { NGX_TIPPY_MESSAGES } from '../lib/tokens';
 
 @Component({
   template: `
@@ -69,8 +69,8 @@ describe('Component: NgxTippyGroupComponent (wrapped)', () => {
       declarations: [NgxTippyGroupComponent, TestWrapperComponent],
       providers: [
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     })
@@ -144,8 +144,8 @@ describe('Component: NgxTippyGroupComponent', () => {
       providers: [
         { provide: PLATFORM_ID, useValue: 'server' },
         {
-          provide: LIB_MESSAGES_TOKEN,
-          useValue: libMessagesDict,
+          provide: NGX_TIPPY_MESSAGES,
+          useValue: messagesDict,
         },
       ],
     })
