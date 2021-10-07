@@ -1,5 +1,16 @@
 import { isPlatformServer } from '@angular/common';
-import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  Renderer2,
+  SimpleChanges,
+} from '@angular/core';
 import tippy from 'tippy.js';
 import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from '../interfaces';
 import { NgxTippyService, NgxViewService } from '../services';
@@ -11,7 +22,7 @@ let nextUniqueID: number = 0;
 @Directive({
   selector: '[ngxTippy]',
 })
-export class NgxTippyDirective implements OnInit, OnDestroy {
+export class NgxTippyDirective implements OnInit, OnChanges, OnDestroy {
   @Input() ngxTippy?: NgxTippyContent;
   @Input() tippyProps?: NgxTippyProps;
   @Input() tippyName?: string;
@@ -31,6 +42,12 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   ngOnInit() {
     if (isPlatformServer(this.platform)) return;
     this.initTippy();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('log ~ ngOnChanges ~ changes', changes);
+    if (changes.ngxTippy.firstChange) return;
+    this.ngxTippyService.setContent(this.tippyName || this.uniqueID, changes.ngxTippy.currentValue as any);
   }
 
   ngOnDestroy() {
