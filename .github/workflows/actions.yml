@@ -2,7 +2,7 @@ name: 'farengeyt451/ngx-tippy-wrapper'
 
 on:
   push:
-    branches: [v4.0]
+    branches: [**]
 
 jobs:
   build-test-deploy:
