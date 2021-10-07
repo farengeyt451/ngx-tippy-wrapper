@@ -1,13 +1,13 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/farengeyt451/ngx-tippy-wrapper/v4.0/images/logo.svg" alt="library logo" height="180">
+  <img src="https://raw.githubusercontent.com/farengeyt451/ngx-tippy-wrapper/master/images/logo.svg" alt="library logo" height="180">
 </div>
 
 <div align="center">
   <h1>Angular wrapper for <a href="https://atomiks.github.io/tippyjs/">Tippy.js</a></h1>
 
-[![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/v4.0?color=%2300ba00&label=unit-tests&logo=jasmine&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
-[![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/v4.0?color=%2300ba00&label=build&logo=github&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
-[![Codecov branch](https://img.shields.io/codecov/c/gh/farengeyt451/ngx-tippy-wrapper/branch/v4.0?color=%2300ba00&logo=codecov&style=flat-square&token=DXO20XP4F6)](https://app.codecov.io/gh/farengeyt451/ngx-tippy-wrapper/)
+[![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/master?color=%2300ba00&label=unit-tests&logo=jasmine&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
+[![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/master?color=%2300ba00&label=build&logo=github&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
+[![Codecov branch](https://img.shields.io/codecov/c/gh/farengeyt451/ngx-tippy-wrapper/branch/master?color=%2300ba00&logo=codecov&style=flat-square&token=DXO20XP4F6)](https://app.codecov.io/gh/farengeyt451/ngx-tippy-wrapper/)
 [![npm](https://img.shields.io/npm/dw/ngx-tippy-wrapper?color=%230879b9&logo=npm&style=flat-square)](https://www.npmjs.com/package/ngx-tippy-wrapper)
 [![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper?color=%230879b9&logo=MicroStrategy&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/blob/master/LICENSE)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/ngx-tippy-wrapper?color=%230879b9&logo=Webpack&style=flat-square)](https://bundlephobia.com/package/ngx-tippy-wrapper)
