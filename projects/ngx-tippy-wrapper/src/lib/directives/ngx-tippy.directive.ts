@@ -4,7 +4,6 @@ import {
   ElementRef,
   Inject,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
@@ -22,13 +21,13 @@ let nextUniqueID: number = 0;
 @Directive({
   selector: '[ngxTippy]',
 })
-export class NgxTippyDirective implements OnInit, OnChanges, OnDestroy {
+export class NgxTippyDirective implements OnInit, OnDestroy {
   @Input() ngxTippy?: NgxTippyContent;
   @Input() tippyProps?: NgxTippyProps;
   @Input() tippyName?: string;
   @Input() tippyClassName?: string;
 
-  private tippyInstance: NgxTippyInstance | null = null;
+  private tippyInstance!: NgxTippyInstance;
   private uniqueID: string = `tippy-${++nextUniqueID}`;
 
   constructor(
@@ -45,9 +44,8 @@ export class NgxTippyDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('log ~ ngOnChanges ~ changes', changes);
     if (changes.ngxTippy.firstChange) return;
-    this.ngxTippyService.setContent(this.tippyName || this.uniqueID, changes.ngxTippy.currentValue as any);
+    this.ngxTippyService.setContent(this.tippyName || this.uniqueID, changes.ngxTippy.currentValue);
   }
 
   ngOnDestroy() {
@@ -129,7 +127,6 @@ export class NgxTippyDirective implements OnInit, OnChanges, OnDestroy {
     this.clearViewRef(tippyInstance);
     this.destroyTippyInstance(tippyName);
     this.deleteEntryInStorage(tippyInstances, tippyName);
-    this.resetLocalInstance();
   }
 
   private resetIDCounter() {
@@ -146,9 +143,5 @@ export class NgxTippyDirective implements OnInit, OnChanges, OnDestroy {
 
   private deleteEntryInStorage(tippyInstances: Map<string, NgxTippyInstance>, tippyName: string) {
     tippyInstances.delete(tippyName);
-  }
-
-  private resetLocalInstance() {
-    this.tippyInstance = null;
   }
 }
