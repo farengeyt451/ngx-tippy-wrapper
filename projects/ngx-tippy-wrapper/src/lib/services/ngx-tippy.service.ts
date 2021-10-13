@@ -338,8 +338,8 @@ export class NgxTippyService {
     this.throwError(errMessage);
   }
 
-  private throwError(message: string, errorConstrictor: ErrorConstructor = Error) {
-    if (this.devModeService.isDevMode()) throw new errorConstrictor(message);
+  private throwError(message: string, errorConstructor: ErrorConstructor = Error) {
+    if (this.devModeService.isDevMode()) throw new errorConstructor(message);
   }
 
   private getMessage({

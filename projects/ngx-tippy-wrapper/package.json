@@ -1,7 +1,7 @@
 {
   "name": "ngx-tippy-wrapper",
   "version": "4.0.0",
-  "description": "Angular 8+ wrapper for Tippy.js",
+  "description": "Angular wrapper for Tippy.js",
   "keywords": [
     "angular tooltip",
     "angular popover",
@@ -23,6 +23,7 @@
       "url": "https://github.com/farengeyt451"
     }
   ],
+  "homepage": "https://farengeyt451.github.io/ngx-tippy-wrapper/",
   "repository": {
     "type": "git",
     "url": "https://github.com/farengeyt451/ngx-tippy-wrapper"

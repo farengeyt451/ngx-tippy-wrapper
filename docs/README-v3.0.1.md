@@ -20,11 +20,12 @@
 
 [Code playground](https://codesandbox.io/s/ngx-tippy-wrapper-s8q4n)
 
+[Run demo locally](./projects/demo/README.md)
+
 ## Recommended versions to use
 
-- **Angular 8**: 2.x.x
-- **Angular 9, 10, 11** 3.x.x
-- **Angular 12**: 4.x.x
+- **Angular 8**: ~2.0.4
+- **Angular 9+**: @latest
 
 ## Installation
 
