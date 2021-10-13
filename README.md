@@ -145,7 +145,7 @@ export class DemoComponent implements OnInit {
 
 ### Initializing on condition
 
-In some cases tooltip should be initialized conditionally. For example in case optional `@Input` property passed or not. So, if tooltip should not initialize - you can explicitly pass `null` through ngxTippy directive or bind possible `undefined` property:
+In some cases tooltip should be initialized conditionally. For example in case optional `@Input` property passed or not. So, if tooltip should not initialize - you can explicitly pass `null` through `ngxTippy` directive.
 
 ```ts
 ...
@@ -189,11 +189,33 @@ or
 </button>
 ```
 
-3. **passing `string` directly:**
+3. **passing content directly:**
 
 ```html
-<button ngxTippy="Directly passed content">Element with tooltip</button>
+<button ngxTippy="'Directly passed content'">Element with tooltip</button>
 ```
+
+&nbsp;&nbsp;&nbsp; 3.1 **passing some variable directly\*:**
+
+```html
+<button ngxTippy="content">Element with tooltip</button>
+```
+
+```ts
+...
+import { NgxTippyService } from 'ngx-tippy-wrapper';
+
+@Component({ ... })
+export class DemoComponent implements OnInit, AfterViewInit {
+  content: string = 'Tooltip content';
+
+  setNewContentForTooltip() {
+    this.content = 'Tooltip content'
+  }
+}
+```
+
+_\*Tooltip content updates automatically_
 
 4. **`setContent()*` method** :
 
@@ -209,7 +231,7 @@ import { NgxTippyService } from 'ngx-tippy-wrapper';
 
 @Component({ ... })
 export class DemoComponent implements OnInit, AfterViewInit {
-  bindedContent: string = 'Binded tooltip content';
+  boundContent: string = 'Bound tooltip content';
 
   constructor(private tippyService: NgxTippyService) {}
 
@@ -220,7 +242,7 @@ export class DemoComponent implements OnInit, AfterViewInit {
   }
 
   setContentForTooltip() {
-    this.tippyService.setContent('content', this.bindedContent);
+    this.tippyService.setContent('content', this.boundContent);
   }
 }
 ```
@@ -255,9 +277,32 @@ export class DemoComponent implements OnInit {
 }
 ```
 
-6. **`template`**:
+6. **`ng-template`**:
 
-- Pass `template reference` directly
+```html
+<button [ngxTippy]="tooltipTemplate">Element with tooltip</button>
+
+<ng-template #tooltipTemplate let-name>
+  {{ name | json }}
+  <h2>Content via ng-template</h2>
+</ng-template>
+```
+
+_\*You can get `tippyName` using outlet context_
+
+7. **`HTML template`**
+
+```html
+<button [ngxTippy]="template">Element with tooltip</button>
+
+<template #template>
+  <h2>HTML template</h2>
+</template>
+```
+
+8. **`element reference`**:
+
+- Pass `element reference` directly
 
 <!-- prettier-ignore-start -->
 ```html
@@ -278,7 +323,7 @@ export class DemoComponent implements OnInit {
 ```
 <!-- prettier-ignore-end -->
 
-- Pass `element`, `element.innerHTML`
+- Pass `element`, `element.innerHTML` using `service`
 
 <!-- prettier-ignore-start -->
 ```html
@@ -373,19 +418,18 @@ Through service you can use all methods described [here](https://atomiks.github.
 
 **Instance methods**
 
-| Method name             | Method parameter/parameters                           | Method short description                                                            |
-| ----------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| show()                  | `name`: string                                        | Programmatically show the tippy                                                     |
-| hide()                  | `name`: string                                        | Programmatically hide the tippy                                                     |
-| hideWithInteractivity() | `name`: string, `mouseEvent`: MouseEvent              | Will hide the tippy only if the cursor is outside of the tippy's interactive region |
-| disable()               | `name`: string                                        | Temporarily prevent a tippy from showing or hiding                                  |
-| enable()                | `name`: string                                        | Re-enable a tippy                                                                   |
-| setProps()              | `name`: string, `tippyProps`: NgxTippyProps           | Set/update any tippy props                                                          |
-| setContent()            | `name`: string, `tippyContent`: NgxTippyContent       | Set/update the content                                                              |
-| setTriggerTarget()      | `name`: string, `triggerTarget`: Element \| Element[] | Set/update the trigger source                                                       |
-| unmount()               | `name`: string                                        | Unmount the tippy from the DOM                                                      |
-| clearDelayTimeouts()    | `name`: string                                        | Clears the instances delay timeouts                                                 |
-| destroy()               | `name`: string                                        | Permanently destroy and clean up the tippy instance                                 |
+| Method name             | Method parameter/parameters                     | Method short description                                                            |
+| ----------------------- | ----------------------------------------------- | ----------------------------------------------------------------------------------- |
+| show()                  | `name`: string                                  | Programmatically show the tippy                                                     |
+| hide()                  | `name`: string                                  | Programmatically hide the tippy                                                     |
+| hideWithInteractivity() | `name`: string, `mouseEvent`: MouseEvent        | Will hide the tippy only if the cursor is outside of the tippy's interactive region |
+| disable()               | `name`: string                                  | Temporarily prevent a tippy from showing or hiding                                  |
+| enable()                | `name`: string                                  | Re-enable a tippy                                                                   |
+| setProps()              | `name`: string, `tippyProps`: NgxTippyProps     | Set/update any tippy props                                                          |
+| setContent()            | `name`: string, `tippyContent`: NgxTippyContent | Set/update the content                                                              |
+| unmount()               | `name`: string                                  | Unmount the tippy from the DOM                                                      |
+| clearDelayTimeouts()    | `name`: string                                  | Clears the instances delay timeouts                                                 |
+| destroy()               | `name`: string                                  | Permanently destroy and clean up the tippy instance                                 |
 
 ---
 
@@ -445,7 +489,6 @@ type InstanceChangeReason =
   | 'enable'
   | 'setProps'
   | 'setContent'
-  | 'setTriggerTarget'
   | 'unmount'
   | 'clearDelayTimeouts'
   | 'destroy';
@@ -552,19 +595,22 @@ For [singleton](https://atomiks.github.io/tippyjs/v6/addons/#singleton) - provid
   singletonName="main-page"
 >
 
-  <button ngxTippy="Tooltip content">Singleton</button>
+  <button ngxTippy="Tooltip content" data-tippy-singleton>Singleton</button>
 
-  <button ngxTippy="Tooltip content">Singleton</button>
+  <button ngxTippy="Tooltip content" data-tippy-singleton>Singleton</button>
 
-  <button ngxTippy="Tooltip content">Singleton</button>
+  <button ngxTippy="Tooltip content" data-tippy-singleton>Singleton</button>
 
 </ngx-tippy-singleton>
 ```
 <!-- prettier-ignore-end-->
 
+_For each tooltip within component you should pass `data-tippy-singleton` attribute_
+
 Use _optional_ `singletonProps` for pass common props
 
-Use _optional_ `singletonName` for pass unique singleton name, need to control singletons
+Use _optional_ `singletonName` for pass unique singleton name, need to manual control specific singleton instance
+
 **programmatically**
 
 ### Overrides props
@@ -577,15 +623,17 @@ To overrides common `singletonProps` by the individual tippy `props`:
   <button
     ngxTippy="Tooltip content"
     data-tippy-placement="bottom"
+    data-tippy-singleton
   >
     Singleton
   </button>
 
-  <button ngxTippy="Tooltip content">Singleton</button>
+  <button ngxTippy="Tooltip content" data-tippy-singleton>Singleton</button>
 
   <button
     ngxTippy="Tooltip content"
     data-tippy-arrow="false"
+    data-tippy-singleton
   >
     Singleton
   </button>
@@ -650,13 +698,14 @@ In addition for `show()` method is possible to pass child `[tippyName]` prop
   [singletonProps]="..."
   singletonName="main-page"
 >
-  <button ngxTippy="Tooltip content">Singleton</button>
+  <button ngxTippy="Tooltip content" data-tippy-singleton>Singleton</button>
 
-  <button ngxTippy="Tooltip content">Singleton</button>
+  <button ngxTippy="Tooltip content" data-tippy-singleton>Singleton</button>
 
   <button
     ngxTippy="Tooltip content"
     [tippyName]="'custom'"
+    data-tippy-singleton
   >
     Singleton
   </button>
@@ -701,3 +750,5 @@ export class DemoComponent implements OnInit {
 [Documentation for v1.0.1](./docs/README-v1.01.md)
 
 [Documentation for v2.1.0](./docs/README-v2.1.0.md)
+
+[Documentation for v3.0.1](./docs/README-v3.0.1.md)
