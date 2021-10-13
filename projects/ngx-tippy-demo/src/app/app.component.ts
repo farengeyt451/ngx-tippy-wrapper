@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   data: any = { a: 24 };
   public readonly title = 'ngx-tippy-demo';
-  public readonly bindedContent: string = 'Binded tooltip content';
+  public readonly boundContent: string = 'Bound tooltip content';
 
   private instancesChanges$!: Subscription;
 
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public fromComponent: NgxTippyProps = { ...this.baseProps, arrow: false, placement: 'bottom' };
 
-  public binding: NgxTippyProps = { ...this.baseProps, content: this.bindedContent };
+  public binding: NgxTippyProps = { ...this.baseProps, content: this.boundContent };
 
   public bindedProp: NgxTippyProps = { ...this.baseProps, placement: 'bottom' };
 
@@ -121,7 +121,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setContentForTooltip() {
-    this.tippyService.setContent('set-content', this.bindedContent);
+    this.tippyService.setContent('set-content', this.boundContent);
   }
 
   setContentForTooltipBindedProp() {
