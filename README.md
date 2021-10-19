@@ -300,7 +300,23 @@ _\*You can get `tippyName` using outlet context_
 </template>
 ```
 
-8. **`element reference`**:
+8. **`component`**:
+```html
+<button [ngxTippy]="component">Element with tooltip</button>
+```
+
+---
+
+```ts
+...
+import { TippyTemplateComponent } from "...";
+@Component({ ... })
+export class DemoComponent implements OnInit {
+  public component = TippyTemplateComponent;
+}
+```
+
+9. **`element reference`**:
 
 - Pass `element reference` directly
 
