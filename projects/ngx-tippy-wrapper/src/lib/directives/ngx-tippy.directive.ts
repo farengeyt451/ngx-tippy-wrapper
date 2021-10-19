@@ -8,7 +8,8 @@ import {
   OnInit,
   PLATFORM_ID,
   Renderer2,
-  SimpleChanges,
+  SimpleChange,
+  SimpleChanges
 } from '@angular/core';
 import tippy from 'tippy.js';
 import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from '../interfaces';
@@ -29,6 +30,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
 
   private tippyInstance: NgxTippyInstance | undefined;
   private uniqueID: string = `tippy-${++nextUniqueID}`;
+  private cachedInstances = new Map();
 
   constructor(
     private tippyEl: ElementRef,
@@ -60,16 +62,14 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
 
     if (this.ngxTippy === null || this.ngxTippy === undefined) return;
 
-    const tippyName = this.tippyName || this.uniqueID;
+    const tippyName = this.tippyUniqueIdentifier;
     const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy, tippyName);
     const tippyElement = viewRef.getElement();
 
     tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyElement && { content: tippyElement }) });
 
     setTemplateVisible(tippyElement, this.renderer);
-
     this.setTippyInstance({ tippyTarget, tippyName, viewRef });
-
     this.setClassName(this.tippyInstance, this.tippyClassName);
     this.writeInstancesToStorage(this.tippyInstance, tippyName);
   }
@@ -107,6 +107,71 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     tippyInstance && this.ngxTippyService.setInstance(tippyName, tippyInstance);
   }
 
+  private handleChanges({ tippyName, ngxTippy, tippyProps, tippyClassName }: SimpleChanges) {
+    tippyName && !tippyName.firstChange && this.handleNameChanges(tippyName);
+    ngxTippy && !ngxTippy.firstChange && this.handleContentChanges(ngxTippy);
+    tippyProps && !tippyProps.firstChange && this.handlePropsChanges(tippyProps);
+    tippyClassName && !tippyClassName.firstChange && this.handleClassChanges(tippyClassName);
+  }
+
+  private handleNameChanges({ previousValue, currentValue }: SimpleChange) {
+    const tippyInstances = this.cachedTippyInstances();
+    if (!tippyInstances || !this.tippyInstance) return;
+
+    this.deleteEntryInStorage(tippyInstances, previousValue);
+    tippyInstances.set(currentValue, this.tippyInstance);
+  }
+
+  private handleContentChanges({ currentValue }: SimpleChange) {
+    const tippyInstances = this.cachedTippyInstances();
+
+    if (this.tippyInstance) {
+      this.ngxTippyService.setContent(this.tippyUniqueIdentifier, currentValue);
+    } else {
+      this.initTippy();
+    }
+
+    if (tippyInstances && this.tippyInstance && currentValue === null) {
+      this.clearInstance({ tippyInstance: this.tippyInstance, tippyInstances });
+      this.resetIDCounter();
+    }
+  }
+
+  private handlePropsChanges({ currentValue }: SimpleChange) {
+    this.ngxTippyService.setProps(this.tippyUniqueIdentifier, currentValue);
+  }
+
+  private handleClassChanges({ currentValue }: SimpleChange) {
+    this.setClassName(this.tippyInstance, currentValue);
+  }
+
+  private get tippyUniqueIdentifier(): string {
+    return this.tippyName || this.uniqueID;
+  }
+
+  private cachedTippyInstances(): Map<string, NgxTippyInstance> | null {
+    const tippyInstances = this.ngxTippyService.getInstances();
+
+    if (this.cachedInstances.has(tippyInstances)) {
+      return this.cachedInstances.get(tippyInstances);
+    } else {
+      this.cachedInstances.set(tippyInstances, tippyInstances);
+      return tippyInstances;
+    }
+  }
+
+  private destroyTippy() {
+    const tippyInstances = this.cachedTippyInstances();
+    const tippyInstance = this.tippyInstance;
+
+    if (!tippyInstance || !tippyInstances) return;
+
+    this.clearInstance({ tippyInstance, tippyInstances });
+    this.resetIDCounter();
+    this.resetLocalInstance();
+    this.clearCachedInstances();
+  }
+
   private clearInstance({
     tippyInstance,
     tippyInstances,
@@ -118,7 +183,6 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     this.clearViewRef(tippyInstance);
     this.destroyTippyInstance(tippyInstance);
     this.deleteEntryInStorage(tippyInstances, tippyName);
-    this.resetLocalInstance();
   }
 
   private resetIDCounter() {
@@ -141,59 +205,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     this.tippyInstance = undefined;
   }
 
-  private handleChanges(changes: SimpleChanges) {
-    const tippyNameChanges = changes.tippyName;
-    const ngxTippyChanges = changes.ngxTippy;
-    const tippyPropsChanges = changes.tippyProps;
-    const tippyClassChanges = changes.tippyClassName;
-
-    tippyNameChanges && !tippyNameChanges.firstChange && this.handleNameChanges(changes);
-    ngxTippyChanges && !ngxTippyChanges.firstChange && this.handleContentChanges(changes);
-    tippyPropsChanges && !tippyPropsChanges.firstChange && this.handlePropsChanges(changes);
-    tippyClassChanges && !tippyClassChanges.firstChange && this.handleClassChanges(changes);
-  }
-
-  private handleNameChanges({ tippyName: { previousValue, currentValue } }: SimpleChanges) {
-    const tippyInstances = this.ngxTippyService.getInstances();
-    const tippyInstance = this.tippyInstance;
-
-    if (!tippyInstances || !tippyInstance) return;
-
-    this.deleteEntryInStorage(tippyInstances, previousValue);
-    tippyInstances.set(currentValue, tippyInstance);
-  }
-
-  private handleContentChanges({ ngxTippy: { currentValue } }: SimpleChanges) {
-    const tippyInstances = this.ngxTippyService.getInstances();
-    const tippyInstance = this.tippyInstance;
-
-    if (tippyInstance) {
-      this.ngxTippyService.setContent(this.tippyName || this.uniqueID, currentValue);
-    } else {
-      this.initTippy();
-    }
-
-    if (tippyInstances && tippyInstance && currentValue === null) {
-      this.clearInstance({ tippyInstance, tippyInstances });
-      this.resetIDCounter();
-    }
-  }
-
-  private handlePropsChanges({ tippyProps: { currentValue } }: SimpleChanges) {
-    this.ngxTippyService.setProps(this.tippyName || this.uniqueID, currentValue);
-  }
-
-  private handleClassChanges({ tippyClassName: { currentValue } }: SimpleChanges) {
-    this.setClassName(this.tippyInstance, currentValue);
-  }
-
-  private destroyTippy() {
-    const tippyInstances = this.ngxTippyService.getInstances();
-    const tippyInstance = this.tippyInstance;
-
-    if (!tippyInstance || !tippyInstances) return;
-
-    this.clearInstance({ tippyInstance, tippyInstances });
-    this.resetIDCounter();
+  private clearCachedInstances() {
+    this.cachedInstances.clear();
   }
 }
