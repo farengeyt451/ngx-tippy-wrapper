@@ -143,18 +143,18 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
       });
   });
 
-  it('Should create wrapper test component', () => {
-    expect(component).toBeTruthy('Component does not created');
+  it('should create wrapper test component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('Should render all grouped elements', () => {
+  it('should render all grouped elements', () => {
     const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
 
-    expect(singletonItems).toBeTruthy('Group items does not created');
-    expect(singletonItems.length).toBe(3, 'Unexpected number of elements');
+    expect(singletonItems).toBeTruthy();
+    expect(singletonItems.length).toBe(3);
   });
 
-  it('Should show tooltips on hover', () => {
+  it('should show tooltips on hover', () => {
     const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
@@ -162,11 +162,11 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
     fixture.detectChanges();
     const tooltips = fixture.debugElement.queryAll(By.css('div[data-tippy-root]'));
 
-    expect(tooltips).toBeTruthy('Tooltip items does not created');
-    expect(tooltips.length).toBe(1, 'Unexpected number of tooltips');
+    expect(tooltips).toBeTruthy();
+    expect(tooltips.length).toBe(1);
   });
 
-  it('Should apply props', fakeAsync(() => {
+  it('should apply properties', fakeAsync(() => {
     const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
@@ -177,16 +177,17 @@ describe('Component: NgxTippySingletonComponent (wrapped)', () => {
     const tippyBox = fixture.debugElement.query(By.css('.tippy-box'));
     const tooltipBgColor = getComputedStyle(tippyBox.nativeElement).backgroundColor;
 
-    expect(tooltipArrow).toBeNull('Tooltip rendered with arrows');
-    expect(tooltipBgColor).toBe('rgb(255, 255, 255)', 'Background color must be white');
+    expect(tooltipArrow).toBeNull();
+    expect(tooltipBgColor).toBe('rgb(255, 255, 255)');
 
     let dataPlacement!: string;
+
     setTimeout(() => {
       dataPlacement = tippyBox.nativeElement.dataset.placement;
     }, 0);
     tick(0);
 
-    expect(dataPlacement).toBe('top', 'Tooltip does not placed top');
+    expect(dataPlacement).toBe('top');
   }));
 });
 
@@ -217,18 +218,18 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
       });
   });
 
-  it('Should create wrapper test component', () => {
-    expect(component).toBeTruthy('Component does not created');
+  it('should create wrapper test component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('Should render all grouped elements', () => {
+  it('should render all grouped elements', () => {
     const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
 
-    expect(singletonItems).toBeTruthy('Group items does not created');
-    expect(singletonItems.length).toBe(3, 'Unexpected number of elements');
+    expect(singletonItems).toBeTruthy();
+    expect(singletonItems.length).toBe(3);
   });
 
-  it('Should show tooltips on hover', () => {
+  it('should show tooltips on hover', () => {
     const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
@@ -236,11 +237,11 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
     fixture.detectChanges();
     const tooltips = fixture.debugElement.queryAll(By.css('div[data-tippy-root]'));
 
-    expect(tooltips).toBeTruthy('Tooltip items does not created');
-    expect(tooltips.length).toBe(1, 'Unexpected number of tooltips');
+    expect(tooltips).toBeTruthy();
+    expect(tooltips.length).toBe(1);
   });
 
-  it('Should apply props', fakeAsync(() => {
+  it('should apply props', fakeAsync(() => {
     const singletonItems = debugEl.queryAll(By.css('button[data-tippy-singleton]'));
     singletonItems.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
@@ -251,8 +252,8 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
     const tippyBox = fixture.debugElement.query(By.css('.tippy-box'));
     const tooltipBgColor = getComputedStyle(tippyBox.nativeElement).backgroundColor;
 
-    expect(tooltipArrow).toBeTruthy('Tooltip rendered without arrows');
-    expect(tooltipBgColor).toBe('rgb(51, 51, 51)', 'Background color must be dark');
+    expect(tooltipArrow).toBeTruthy();
+    expect(tooltipBgColor).toBe('rgb(51, 51, 51)');
 
     let dataPlacement!: string;
     setTimeout(() => {
@@ -260,7 +261,7 @@ describe('Component: NgxTippySingletonComponent (overridden)', () => {
     }, 0);
     tick(0);
 
-    expect(dataPlacement).toBe('bottom', 'Tooltip does not placed top');
+    expect(dataPlacement).toBe('bottom');
   }));
 });
 
@@ -293,17 +294,17 @@ describe('Component: NgxTippySingletonComponent', () => {
       });
   });
 
-  it('Should create NgxTippySingletonComponent component', () => {
-    expect(component).toBeTruthy('Component does not created');
+  it('should create NgxTippySingletonComponent component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('Should throw error when children instances not found', () => {
+  it('should throw error when children instances not found', () => {
     expect(() => component['setSingleton']()).toThrowError(
       `No children tippy instances found within 'ngx-tippy-singleton' component`
     );
   });
 
-  it('Should not call originalShowFn with tippy name', () => {
+  it('should not call originalShowFn with tippy name', () => {
     const showSpyFn = jasmine.createSpy('show', () => {});
     const singletonInstance = component['extendShowFn']({ show: showSpyFn } as any);
     singletonInstance.show('test');
@@ -311,7 +312,7 @@ describe('Component: NgxTippySingletonComponent', () => {
     expect(showSpyFn).toHaveBeenCalledTimes(0);
   });
 
-  it('Should call originalShowFn without tippy name', () => {
+  it('should call originalShowFn without tippy name', () => {
     const showSpyFn = jasmine.createSpy('show', () => {});
     const singletonInstance = component['extendShowFn']({ show: showSpyFn } as any);
     singletonInstance.show();
@@ -320,7 +321,7 @@ describe('Component: NgxTippySingletonComponent', () => {
     expect(showSpyFn).toHaveBeenCalledTimes(1);
   });
 
-  it('Should init tooltips only if platform browser', () => {
+  it('should init tooltips only if platform browser', () => {
     spyOn<any>(component, 'setSingleton');
     spyOn<any>(component, 'initTippySingletonEntry');
     component.ngAfterViewInit();

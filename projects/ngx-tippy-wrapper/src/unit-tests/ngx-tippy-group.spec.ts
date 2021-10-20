@@ -84,18 +84,18 @@ describe('Component: NgxTippyGroupComponent (wrapped)', () => {
       });
   });
 
-  it('Should create wrapper test component', () => {
-    expect(component).toBeTruthy('Component does not created');
+  it('should create wrapper test component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('Should render all grouped elements', () => {
+  it('should render all grouped elements', () => {
     const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
 
-    expect(groupEls).toBeTruthy('Group items does not created');
-    expect(groupEls.length).toBe(3, 'Unexpected number of elements');
+    expect(groupEls).toBeTruthy();
+    expect(groupEls.length).toBe(3);
   });
 
-  it('Should show tooltips on click', () => {
+  it('should show tooltips on click', () => {
     const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
     groupEls.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('click'));
@@ -103,11 +103,11 @@ describe('Component: NgxTippyGroupComponent (wrapped)', () => {
     fixture.detectChanges();
     const tooltips = fixture.debugElement.queryAll(By.css('div[data-tippy-root]'));
 
-    expect(tooltips).toBeTruthy('Tooltip items does not created');
-    expect(tooltips.length).toBe(3, 'Unexpected number of tooltips');
+    expect(tooltips).toBeTruthy();
+    expect(tooltips.length).toBe(3);
   });
 
-  it('Should apply props', fakeAsync(() => {
+  it('should apply properties', fakeAsync(() => {
     const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
     groupEls.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('click'));
@@ -118,16 +118,17 @@ describe('Component: NgxTippyGroupComponent (wrapped)', () => {
     const tippyBox = fixture.debugElement.queryAll(By.css('.tippy-box'));
     const tooltipBgColor = getComputedStyle(tippyBox[1].nativeElement).backgroundColor;
 
-    expect(tooltipArrow[0]).toBeUndefined('Tooltip rendered with arrows');
-    expect(tooltipBgColor).toBe('rgb(255, 255, 255)', 'Background color must be white');
+    expect(tooltipArrow[0]).toBeUndefined();
+    expect(tooltipBgColor).toBe('rgb(255, 255, 255)');
 
     let dataPlacement!: string;
     setTimeout(() => {
       dataPlacement = tippyBox[2].nativeElement.dataset.placement;
     }, 0);
+
     tick(0);
 
-    expect(dataPlacement).toBe('bottom', 'Tooltip does not placed bottom');
+    expect(dataPlacement).toBe('bottom');
   }));
 });
 
@@ -160,11 +161,11 @@ describe('Component: NgxTippyGroupComponent', () => {
       });
   });
 
-  it('Should create NgxTippyGroupComponent component', () => {
-    expect(component).toBeTruthy('Component does not created');
+  it('should create NgxTippyGroupComponent', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('Should init tooltips only if platform browser', () => {
+  it('should init tooltips only if platform browser', () => {
     spyOn(component, 'setTooltips');
     spyOn(component, 'initTippy');
     component.ngAfterViewInit();
