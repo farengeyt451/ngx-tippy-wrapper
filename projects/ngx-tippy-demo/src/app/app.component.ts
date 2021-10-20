@@ -98,6 +98,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     moveTransition: 'transform 0.4s ease',
   };
 
+  public singletonManual: NgxSingletonProps = {
+    ...this.singletonTransitions,
+    theme: 'dark',
+    moveTransition: 'transform 0.4s ease',
+    trigger: 'manual',
+  };
+
   constructor(public tippyService: NgxTippyService) {}
 
   ngOnInit() {
