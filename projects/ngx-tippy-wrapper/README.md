@@ -11,6 +11,7 @@
 [![npm](https://img.shields.io/npm/dw/ngx-tippy-wrapper?color=%230879b9&logo=npm&style=flat-square)](https://www.npmjs.com/package/ngx-tippy-wrapper)
 [![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper?color=%230879b9&logo=MicroStrategy&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/blob/master/LICENSE)
 [![npm bundle size](https://img.shields.io/bundlephobia/min/ngx-tippy-wrapper?color=%230879b9&logo=Webpack&style=flat-square)](https://bundlephobia.com/package/ngx-tippy-wrapper)
+[![Tippy.js](https://img.shields.io/badge/tippy.js-v.6.3.7-%230879b9?style=flat-square&logo=Linux%20Foundation)](https://github.com/atomiks/tippyjs/releases)
 
 </div>
 
