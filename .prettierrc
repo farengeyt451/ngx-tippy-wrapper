@@ -7,8 +7,9 @@
   "quoteProps": "consistent",
   "trailingComma": "es5",
   "bracketSpacing": true,
+  "bracketSameLine": false,
   "arrowParens": "avoid",
-  "disableLanguages": ["html"],
-  "jsxBracketSameLine": false,
-  "htmlWhitespaceSensitivity": "css"
+  "htmlWhitespaceSensitivity": "css",
+  "singleAttributePerLine": true,
+  "endOfLine": "lf"
 }
