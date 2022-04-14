@@ -38,7 +38,13 @@
     <!-- Example block -->
     <p class="t-demo__text">Basic tooltip</p>
 
-    <button class="t-demo__btn" ngxTippy data-tippy-content="Tooltip content">Element with tooltip</button>
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      data-tippy-content="Tooltip content"
+    >
+      Element with tooltip
+    </button>
 
     <!-- Example block -->
     <p class="t-demo__text">Applying props from template</p>
@@ -103,12 +109,22 @@
     <!-- Example block -->
     <p class="t-demo__text">Initialize tooltip <span class="t-demo__highlighted">on condition (false)</span></p>
 
-    <button class="t-demo__btn" [ngxTippy]="inputContent">Element with tooltip</button>
+    <button
+      class="t-demo__btn"
+      [ngxTippy]="inputContent"
+    >
+      Element with tooltip
+    </button>
 
     <!-- Example block -->
     <p class="t-demo__text">Initialize tooltip <span class="t-demo__highlighted">on condition (true)</span></p>
 
-    <button class="t-demo__btn" [ngxTippy]="boundContent && 'Tooltip content'">Element with tooltip</button>
+    <button
+      class="t-demo__btn"
+      [ngxTippy]="boundContent && 'Tooltip content'"
+    >
+      Element with tooltip
+    </button>
   </div>
 
   <div class="t-demo__block">
@@ -123,7 +139,12 @@
       directly
     </p>
 
-    <button class="t-demo__btn" ngxTippy="Directly passed content">Element with tooltip</button>
+    <button
+      class="t-demo__btn"
+      ngxTippy="Directly passed content"
+    >
+      Element with tooltip
+    </button>
 
     <!-- Example block -->
     <p class="t-demo__text">
@@ -131,7 +152,13 @@
       <span class="t-demo__highlighted">data</span> attribute
     </p>
 
-    <button class="t-demo__btn" ngxTippy data-tippy-content="Tooltip content">Element with tooltip</button>
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      data-tippy-content="Tooltip content"
+    >
+      Element with tooltip
+    </button>
 
     <!-- Example block -->
     <p class="t-demo__text">
@@ -156,7 +183,13 @@
       <span class="t-demo__highlighted">content</span> prop
     </p>
 
-    <button class="t-demo__btn" ngxTippy [tippyProps]="bindedProp">Element with tooltip</button>
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      [tippyProps]="bindedProp"
+    >
+      Element with tooltip
+    </button>
 
     <!-- Example block -->
     <p class="t-demo__text">
@@ -164,24 +197,47 @@
       <span class="t-demo__highlighted">setContent()</span> method
     </p>
 
-    <button class="t-demo__btn" ngxTippy tippyName="set-content">Element with tooltip</button>
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      tippyName="set-content"
+    >
+      Element with tooltip
+    </button>
 
     <!-- Example block -->
     <p class="t-demo__text">Applying content using <span class="t-demo__highlighted">tippyProps</span></p>
 
-    <button class="t-demo__btn" ngxTippy [tippyProps]="binding">Element with tooltip</button>
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      [tippyProps]="binding"
+    >
+      Element with tooltip
+    </button>
 
     <!-- Example block -->
     <p class="t-demo__text">Applying content passing <span class="t-demo__highlighted">HTML template</span></p>
 
     <div>
-      <button class="t-demo__btn" [ngxTippy]="htmlTemplate" [tippyProps]="templateRef">Element with tooltip</button>
+      <button
+        class="t-demo__btn"
+        [ngxTippy]="htmlTemplate"
+        [tippyProps]="templateRef"
+      >
+        Element with tooltip
+      </button>
 
       <template #htmlTemplate>
         <div class="t-template">
           <h4 class="t-template__caption">Caption</h4>
           <p class="t-template__info">Some content</p>
-          <button class="t-template__action" (click)="onTemplateClick($event)">Action</button>
+          <button
+            class="t-template__action"
+            (click)="onTemplateClick($event)"
+          >
+            Action
+          </button>
         </div>
       </template>
     </div>
@@ -193,28 +249,54 @@
     </p>
 
     <div>
-      <button class="t-demo__btn" [ngxTippy]="defaultTemplate" tippyName="template-ref" [tippyProps]="templateRef">
+      <button
+        class="t-demo__btn"
+        [ngxTippy]="defaultTemplate"
+        tippyName="template-ref"
+        [tippyProps]="templateRef"
+      >
         Element with tooltip
       </button>
 
-      <div class="t-template" #defaultTemplate>
+      <div
+        class="t-template"
+        #defaultTemplate
+      >
         <h4 class="t-template__caption">Caption</h4>
         <p class="t-template__info">Some content</p>
-        <button class="t-template__action" (click)="onTemplateClick($event)">Action</button>
+        <button
+          class="t-template__action"
+          (click)="onTemplateClick($event)"
+        >
+          Action
+        </button>
       </div>
     </div>
 
     <!-- Example block -->
     <p class="t-demo__text">Applying content passing <span class="t-demo__highlighted">element</span></p>
 
-    <button class="t-demo__btn" ngxTippy tippyName="pass-element" [tippyProps]="passElement">
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      tippyName="pass-element"
+      [tippyProps]="passElement"
+    >
       Element with tooltip
     </button>
 
-    <div class="t-template" #tippyTemplatePassElement>
+    <div
+      class="t-template"
+      #tippyTemplatePassElement
+    >
       <h4 class="t-template__caption">Caption</h4>
       <p class="t-template__info">Some content</p>
-      <button class="t-template__action" (click)="onTemplateClick($event)">Action</button>
+      <button
+        class="t-template__action"
+        (click)="onTemplateClick($event)"
+      >
+        Action
+      </button>
     </div>
 
     <!-- Example block -->
@@ -223,11 +305,19 @@
       <span class="t-demo__highlighted">element.innerHTML</span>
     </p>
 
-    <button class="t-demo__btn" ngxTippy tippyName="inner-html" [tippyProps]="passInnerHTML">
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      tippyName="inner-html"
+      [tippyProps]="passInnerHTML"
+    >
       Element with tooltip
     </button>
 
-    <div #templatePassInnerHTML style="display: none">
+    <div
+      #templatePassInnerHTML
+      style="display: none"
+    >
       <div class="t-template">
         <h4 class="t-template__caption">Caption</h4>
         <p class="t-template__info">Some content</p>
@@ -240,16 +330,30 @@
       <span class="t-demo__highlighted">ng-template ref</span>
     </p>
 
-    <button class="t-demo__btn" ngxTippy tippyName="ng-template-ref" [ngxTippy]="tpl" [tippyProps]="ngTemplateRef">
+    <button
+      class="t-demo__btn"
+      ngxTippy
+      tippyName="ng-template-ref"
+      [ngxTippy]="tpl"
+      [tippyProps]="ngTemplateRef"
+    >
       Element with tooltip
     </button>
 
-    <ng-template #tpl let-name>
+    <ng-template
+      #tpl
+      let-name
+    >
       <div class="t-template">
         <h4 class="t-template__caption">Caption</h4>
         <p class="t-template__info">Some content</p>
         <span class="t-template__name">Passed tippyName {{ name }}</span>
-        <button class="t-demo__btn" (focus)="tippyService.hide(name)">Close (focus)</button>
+        <button
+          class="t-demo__btn"
+          (focus)="tippyService.hide(name)"
+        >
+          Close (focus)
+        </button>
       </div>
     </ng-template>
   </div>
@@ -263,14 +367,26 @@
     <p class="t-demo__text">Follow cursor</p>
 
     <div>
-      <button class="t-demo__btn" ngxTippy="Tooltip content" [tippyProps]="plugin">Element with tooltip</button>
+      <button
+        class="t-demo__btn"
+        ngxTippy="Tooltip content"
+        [tippyProps]="plugin"
+      >
+        Element with tooltip
+      </button>
     </div>
 
     <!-- Example block -->
     <p class="t-demo__text">Animate fill</p>
 
     <div>
-      <button class="t-demo__btn" ngxTippy="Tooltip content" [tippyProps]="animateFill">Element with tooltip</button>
+      <button
+        class="t-demo__btn"
+        ngxTippy="Tooltip content"
+        [tippyProps]="animateFill"
+      >
+        Element with tooltip
+      </button>
     </div>
 
     <!-- Control specific tippy instance section -->
@@ -281,7 +397,12 @@
     <p class="t-demo__text">Manual control and event subscribe (look to browser console)</p>
 
     <div>
-      <button class="t-demo__btn" ngxTippy tippyName="manual-control" [tippyProps]="manualControl">
+      <button
+        class="t-demo__btn"
+        ngxTippy
+        tippyName="manual-control"
+        [tippyProps]="manualControl"
+      >
         Element with tooltip
       </button>
     </div>
@@ -293,9 +414,27 @@
     <!-- Example block -->
     <ngx-tippy-group [groupedProps]="grouped">
       <div class="t-demo__grouped">
-        <button class="t-demo__btn" data-tippy-grouped data-tippy-content="Tooltip content">Grouped</button>
-        <button class="t-demo__btn" data-tippy-grouped data-tippy-content="Tooltip content">Grouped</button>
-        <button class="t-demo__btn" data-tippy-grouped data-tippy-content="Tooltip content">Grouped</button>
+        <button
+          class="t-demo__btn"
+          data-tippy-grouped
+          data-tippy-content="Tooltip content"
+        >
+          Grouped
+        </button>
+        <button
+          class="t-demo__btn"
+          data-tippy-grouped
+          data-tippy-content="Tooltip content"
+        >
+          Grouped
+        </button>
+        <button
+          class="t-demo__btn"
+          data-tippy-grouped
+          data-tippy-content="Tooltip content"
+        >
+          Grouped
+        </button>
       </div>
     </ngx-tippy-group>
 
@@ -349,9 +488,26 @@
     <!-- Example block -->
     <ngx-tippy-singleton [singletonProps]="singletonProps">
       <div class="t-demo__grouped">
-        <button class="t-demo__btn" [ngxTippy]="'First tooltip content'" data-tippy-singleton>Singleton</button>
-        <button class="t-demo__btn" [ngxTippy]="singletonEntryTemplate" data-tippy-singleton>Singleton</button>
-        <button class="t-demo__btn" ngxTippy data-tippy-singleton data-tippy-content="Third tooltip content">
+        <button
+          class="t-demo__btn"
+          [ngxTippy]="'First tooltip content'"
+          data-tippy-singleton
+        >
+          Singleton
+        </button>
+        <button
+          class="t-demo__btn"
+          [ngxTippy]="singletonEntryTemplate"
+          data-tippy-singleton
+        >
+          Singleton
+        </button>
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-singleton
+          data-tippy-content="Third tooltip content"
+        >
           Singleton
         </button>
       </div>
@@ -384,7 +540,12 @@
           Singleton
         </button>
 
-        <button class="t-demo__btn" ngxTippy data-tippy-content="Third tooltip content" data-tippy-singleton>
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="Third tooltip content"
+          data-tippy-singleton
+        >
           Singleton
         </button>
       </div>
@@ -415,7 +576,12 @@
           Singleton
         </button>
 
-        <button class="t-demo__btn" ngxTippy data-tippy-content="Third tooltip content" data-tippy-singleton>
+        <button
+          class="t-demo__btn"
+          ngxTippy
+          data-tippy-content="Third tooltip content"
+          data-tippy-singleton
+        >
           Singleton
         </button>
       </div>
@@ -424,13 +590,33 @@
     <p class="t-demo__text">Programmatically control singleton instance</p>
 
     <!-- Example block -->
-    <ngx-tippy-singleton [singletonProps]="singletonManual" singletonName="main-page">
+    <ngx-tippy-singleton
+      [singletonProps]="singletonManual"
+      singletonName="main-page"
+    >
       <div class="t-demo__grouped">
-        <button class="t-demo__btn" ngxTippy="First tooltip content" data-tippy-singleton>Singleton</button>
-        <button class="t-demo__btn" ngxTippy="Second tooltip content" tippyName="s-child" data-tippy-singleton>
+        <button
+          class="t-demo__btn"
+          ngxTippy="First tooltip content"
+          data-tippy-singleton
+        >
           Singleton
         </button>
-        <button class="t-demo__btn" ngxTippy="Third tooltip content" data-tippy-singleton>Singleton</button>
+        <button
+          class="t-demo__btn"
+          ngxTippy="Second tooltip content"
+          tippyName="s-child"
+          data-tippy-singleton
+        >
+          Singleton
+        </button>
+        <button
+          class="t-demo__btn"
+          ngxTippy="Third tooltip content"
+          data-tippy-singleton
+        >
+          Singleton
+        </button>
       </div>
     </ngx-tippy-singleton>
   </div>

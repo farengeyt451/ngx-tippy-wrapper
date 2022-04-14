@@ -11,9 +11,27 @@ import { NGX_TIPPY_MESSAGES } from '../lib/tokens';
     <div class="tippy-group">
       <ngx-tippy-group [groupedProps]="props">
         <div class="tippy-group__items">
-          <button class="tippy-group__item" data-tippy-grouped data-tippy-content="Tooltip content">Group</button>
-          <button class="tippy-group__item" data-tippy-grouped data-tippy-content="Tooltip content">Group</button>
-          <button class="tippy-group__item" data-tippy-grouped data-tippy-content="Tooltip content">Group</button>
+          <button
+            class="tippy-group__item"
+            data-tippy-grouped
+            data-tippy-content="Tooltip content"
+          >
+            Group
+          </button>
+          <button
+            class="tippy-group__item"
+            data-tippy-grouped
+            data-tippy-content="Tooltip content"
+          >
+            Group
+          </button>
+          <button
+            class="tippy-group__item"
+            data-tippy-grouped
+            data-tippy-content="Tooltip content"
+          >
+            Group
+          </button>
         </div>
       </ngx-tippy-group>
     </div>

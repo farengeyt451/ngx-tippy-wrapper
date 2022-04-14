@@ -9,7 +9,7 @@ import {
   PLATFORM_ID,
   Renderer2,
   SimpleChange,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import tippy from 'tippy.js';
 import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from '../interfaces';

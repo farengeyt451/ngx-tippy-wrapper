@@ -73,7 +73,12 @@ or angular.json:
 Apply `ngxTippy` directive for element and pass content through `data-tippy-content` attribute:
 
 ```html
-<button ngxTippy data-tippy-content="Tooltip content">Element with tooltip</button>
+<button
+  ngxTippy
+  data-tippy-content="Tooltip content"
+>
+  Element with tooltip
+</button>
 ```
 
 ### Applying props
@@ -100,7 +105,13 @@ In template:
 Or pass `props` from component:
 
 ```html
-<span ngxTippy data-tippy-content="Tooltip content" [tippyProps]="tippyProps"> Element with tooltip </span>
+<span
+  ngxTippy
+  data-tippy-content="Tooltip content"
+  [tippyProps]="tippyProps"
+>
+  Element with tooltip
+</span>
 ```
 
 ---
@@ -148,11 +159,21 @@ export class DemoComponent implements OnInit, AfterViewInit {
 ```
 
 ```html
-<button class="t-demo__btn" [ngxTippy]="someCondition ? 'Content' : null">Element with tooltip</button>
+<button
+  class="t-demo__btn"
+  [ngxTippy]="someCondition ? 'Content' : null"
+>
+  Element with tooltip
+</button>
 
 or
 
-<button class="t-demo__btn" [ngxTippy]="inputContent">Element with tooltip</button>
+<button
+  class="t-demo__btn"
+  [ngxTippy]="inputContent"
+>
+  Element with tooltip
+</button>
 ```
 
 ### Applying content
@@ -162,7 +183,12 @@ or
 1. **`data` attribute**:
 
 ```html
-<button ngxTippy data-tippy-content="Tooltip content">Element with tooltip</button>
+<button
+  ngxTippy
+  data-tippy-content="Tooltip content"
+>
+  Element with tooltip
+</button>
 ```
 
 2. **`content` prop** :
@@ -188,7 +214,12 @@ or
 4. **`setContent()*` method** :
 
 ```html
-<button ngxTippy tippyName="content">Element with tooltip</button>
+<button
+  ngxTippy
+  tippyName="content"
+>
+  Element with tooltip
+</button>
 ```
 
 ---
@@ -222,7 +253,12 @@ export class DemoComponent implements OnInit, AfterViewInit {
 5. **`tippyProps`**:
 
 ```html
-<button ngxTippy [tippyProps]="tippyProps">Element with tooltip</button>
+<button
+  ngxTippy
+  [tippyProps]="tippyProps"
+>
+  Element with tooltip
+</button>
 ```
 
 ---

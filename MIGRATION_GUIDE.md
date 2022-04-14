@@ -24,6 +24,7 @@ Migration steps:
 - From version 3.x.x to version 4.x.x
 
 What's new:
+
 1. Pass content via ng-template
 2. Pass component as tooltip template
 3. Auto update tooltip content, properties, name and class names (passed through `ngxTippy` directive)
@@ -31,5 +32,6 @@ What's new:
 5. Fix `singleton` initialization condition
 
 Migration steps:
+
 1. Instead `setTriggerTarget` method from service, set `triggerTarget` via properties
 2. Pass `data-tippy-singleton` attribute for each child tooltip within `ngx-tippy-singleton` component

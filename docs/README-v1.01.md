@@ -67,7 +67,12 @@ or angular.json:
 Apply directive for element and pass content through attribute:
 
 ```html
-<span ngxTippy data-tippy-content="Tooltip"> Tippy </span>
+<span
+  ngxTippy
+  data-tippy-content="Tooltip"
+>
+  Tippy
+</span>
 ```
 
 ### Applying props
@@ -92,7 +97,13 @@ In template:
 Or pass props from component:
 
 ```html
-<span ngxTippy data-tippy-content="Tooltip with props" [tippyProps]="tippyProps"> Tippy </span>
+<span
+  ngxTippy
+  data-tippy-content="Tooltip with props"
+  [tippyProps]="tippyProps"
+>
+  Tippy
+</span>
 ```
 
 ---
@@ -130,7 +141,12 @@ export class DemoComponent implements OnInit {
 - **String**
 
 ```html
-<span ngxTippy [tippyProps]="tippyPropsWithString"> Tippy with string content </span>
+<span
+  ngxTippy
+  [tippyProps]="tippyPropsWithString"
+>
+  Tippy with string content
+</span>
 ```
 
 ---
@@ -152,7 +168,12 @@ export class DemoComponent implements OnInit {
 
 ```html
 <div>
-  <span ngxTippy [tippyProps]="tippyContent"> Tippy with HTML content </span>
+  <span
+    ngxTippy
+    [tippyProps]="tippyContent"
+  >
+    Tippy with HTML content
+  </span>
 
   <!-- If passing element itself -->
   <div #tippyTemplate>
@@ -163,7 +184,10 @@ export class DemoComponent implements OnInit {
   </div>
 
   <!-- If passing element innerHTML -->
-  <div #tippyTemplate style="display: none;">
+  <div
+    #tippyTemplate
+    style="display: none;"
+  >
     <span>Some content</span>
     <h2>Caption</h2>
     <button>Action</button>
@@ -291,7 +315,17 @@ For singleton using - put in tippys inside ngx-tippy-singleton component:
 
 ```html
 <ngx-tippy-singleton [tippyProps]="{...}">
-  <button ngxTippy data-tippy-content="First tooltip">Button</button>
-  <button ngxTippy data-tippy-content="Second tooltip">Button</button>
+  <button
+    ngxTippy
+    data-tippy-content="First tooltip"
+  >
+    Button
+  </button>
+  <button
+    ngxTippy
+    data-tippy-content="Second tooltip"
+  >
+    Button
+  </button>
 </ngx-tippy-singleton>
 ```

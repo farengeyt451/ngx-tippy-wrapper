@@ -78,7 +78,12 @@ or angular.json:
 Apply `ngxTippy` directive for element and pass content through `data-tippy-content` attribute:
 
 ```html
-<button ngxTippy data-tippy-content="Tooltip content">Element with tooltip</button>
+<button
+  ngxTippy
+  data-tippy-content="Tooltip content"
+>
+  Element with tooltip
+</button>
 ```
 
 ### Applying props
