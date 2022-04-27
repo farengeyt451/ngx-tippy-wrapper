@@ -2,7 +2,7 @@ name: 'farengeyt451/ngx-tippy-wrapper'
 
 on:
   push:
-    branches: [master]
+    branches: ['*']
 
 jobs:
   build-test-deploy:
@@ -42,6 +42,7 @@ jobs:
         run: npm run build:demo
 
       - name: Deploy demo app to gh-pages
+        if: { { github.ref == 'ref/head/master' } }
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
