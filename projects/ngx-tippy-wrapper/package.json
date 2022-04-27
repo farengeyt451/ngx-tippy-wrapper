@@ -1,6 +1,6 @@
 {
   "name": "ngx-tippy-wrapper",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "Angular wrapper for Tippy.js",
   "keywords": [
     "angular tooltip",
@@ -30,7 +30,7 @@
   },
   "bugs": "https://github.com/farengeyt451/ngx-tippy-wrapper/issues",
   "dependencies": {
-    "tslib": "^2.3.1",
+    "tslib": "^2.4.0",
     "tippy.js": "^6.3.7"
   }
 }
