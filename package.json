@@ -36,7 +36,6 @@
     "@taiga-ui/kit": "2.43.0",
     "@tinkoff/ng-dompurify": "3.0.0",
     "dompurify": "2.3.6",
-    "ngx-tippy-wrapper": "file:dist/ngx-tippy-wrapper/ngx-tippy-wrapper-5.0.0.tgz",
     "rxjs": "~7.5.5",
     "tslib": "^2.4.0",
     "zone.js": "~0.11.5"
