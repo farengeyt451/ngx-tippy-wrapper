@@ -200,7 +200,7 @@ export class NgxTippyService {
     }
 
     if (tippyContent) {
-      const viewRef = this.ngxViewService.getViewRefInstance(tippyContent, instance.tippyName);
+      const viewRef = this.ngxViewService.getViewRefInstance(tippyContent);
       const content = viewRef.getElement();
 
       if (content) {

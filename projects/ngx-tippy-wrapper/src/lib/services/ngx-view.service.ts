@@ -1,10 +1,12 @@
-import { ApplicationRef, ComponentFactoryResolver, Injectable, Injector, TemplateRef, Type } from '@angular/core';
+import { ApplicationRef, Injectable, TemplateRef, Type, ViewContainerRef } from '@angular/core';
 import { NgxTippyTemplate, TemplateViewOptions, ViewRef } from '../interfaces';
 import { CompRef, isComponent, isTemplateRef, TplRef } from '../utils';
 
 @Injectable({ providedIn: 'root' })
 export class NgxViewService {
-  constructor(private resolver: ComponentFactoryResolver, private injector: Injector, private appRef: ApplicationRef) {}
+  public viewContainerRef!: ViewContainerRef;
+
+  constructor(private appRef: ApplicationRef) {}
 
   createTemplate<C>(tpl: TemplateRef<C>, options: TemplateViewOptions = {}) {
     return new TplRef({
@@ -17,19 +19,17 @@ export class NgxViewService {
   createComponent<C>(component: Type<C>) {
     return new CompRef<C>({
       component,
-      injector: this.injector,
-      appRef: this.appRef,
-      resolver: this.resolver,
+      viewContainerRef: this.viewContainerRef,
     });
   }
 
-  getViewRefInstance(content: NgxTippyTemplate, tippyName: string): ViewRef {
+  getViewRefInstance(content: NgxTippyTemplate): ViewRef {
     let viewRef!: ViewRef;
 
     if (isTemplateRef(content)) {
       viewRef = this.createTemplate(content, {
         context: {
-          $implicit: tippyName,
+          $implicit: 'placeholder',
         },
       });
     } else if (isComponent(content)) {
