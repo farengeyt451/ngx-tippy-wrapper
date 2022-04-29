@@ -3,8 +3,8 @@ import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular
 import { By } from '@angular/platform-browser';
 import { NgxTippyGroupComponent } from '../lib/components';
 import { messagesDict } from '../lib/fixtures';
-import { NgxTippyProps } from '../lib/interfaces';
-import { NGX_TIPPY_MESSAGES } from '../lib/tokens';
+import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
+import { NGX_TIPPY_MESSAGES } from '../lib/ngx-tippy.tokens';
 
 @Component({
   template: `

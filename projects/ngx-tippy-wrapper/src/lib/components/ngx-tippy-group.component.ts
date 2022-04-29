@@ -1,8 +1,8 @@
 import { isPlatformServer } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewChild } from '@angular/core';
 import tippy from 'tippy.js';
-import { NgxTippyMessagesDict, NgxTippyProps } from '../interfaces';
-import { NGX_TIPPY_MESSAGES } from '../tokens';
+import { NgxTippyMessagesDict, NgxTippyProps } from '../ngx-tippy.interfaces';
+import { NGX_TIPPY_MESSAGES } from '../ngx-tippy.tokens';
 
 /**
  * Different tooltip content to many different elements, but only one tippy instance

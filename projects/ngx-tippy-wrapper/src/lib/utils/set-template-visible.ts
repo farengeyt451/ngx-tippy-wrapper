@@ -1,5 +1,5 @@
 import { Renderer2 } from '@angular/core';
-import { NgxTippyContent } from '../interfaces';
+import { NgxTippyContent } from '../ngx-tippy.interfaces';
 
 /**
  * Set display: "block" for content wrapper element

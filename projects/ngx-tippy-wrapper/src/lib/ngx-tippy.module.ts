@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxTippyGroupComponent, NgxTippySingletonComponent } from './components';
-import { NgxTippyDirective } from './directives';
 import { messagesDict, tippyFakeInstance } from './fixtures';
-import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from './tokens';
+import { NgxTippyDirective } from './ngx-tippy.directive';
+import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from './ngx-tippy.tokens';
 
 @NgModule({
   imports: [CommonModule],

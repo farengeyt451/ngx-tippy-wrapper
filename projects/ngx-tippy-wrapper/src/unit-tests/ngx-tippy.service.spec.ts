@@ -1,8 +1,8 @@
 import { fakeAsync, getTestBed, TestBed } from '@angular/core/testing';
 import { messagesDict, tippyFakeInstance } from '../lib/fixtures';
-import { NgxTippyProps } from '../lib/interfaces';
+import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
+import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
 import { DevModeService, NgxTippyService } from '../lib/services';
-import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/tokens';
 
 describe('Service: NgxTippyWrapperService - Instance exist ', () => {
   let injector: TestBed;

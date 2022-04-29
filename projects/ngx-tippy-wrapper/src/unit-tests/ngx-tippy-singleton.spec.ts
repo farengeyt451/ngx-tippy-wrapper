@@ -2,11 +2,11 @@ import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgxTippySingletonComponent } from '../lib/components';
-import { NgxTippyDirective } from '../lib/directives';
 import { messagesDict } from '../lib/fixtures';
-import { NgxSingletonProps, NgxTippyProps } from '../lib/interfaces';
+import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
+import { NgxSingletonProps, NgxTippyProps } from '../lib/ngx-tippy.interfaces';
+import { NGX_TIPPY_MESSAGES } from '../lib/ngx-tippy.tokens';
 import { NgxTippyService } from '../lib/services';
-import { NGX_TIPPY_MESSAGES } from '../lib/tokens';
 
 const template = `
   <div class="singleton">

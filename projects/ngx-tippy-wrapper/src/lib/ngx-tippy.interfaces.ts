@@ -1,10 +1,6 @@
-import { TemplateRef, Type, ViewContainerRef } from '@angular/core';
+import { TemplateRef, Type } from '@angular/core';
 import { Content, DefaultProps, Instance, Props } from 'tippy.js';
-import { messagesDict } from '../fixtures';
-
-type ExcludeFunctionPropertyNames<T> = {
-  [Key in keyof T]: T[Key] extends Function ? never : Key;
-}[keyof T];
+import { messagesDict } from './fixtures';
 
 export interface NgxTippyProps extends Partial<Props> {}
 
@@ -30,7 +26,7 @@ export type NgxTippyContent = NgxTippyTemplate | null | undefined;
 
 export type NgxTippyTemplate = Content | TemplateRef<any> | Type<any>;
 
-export interface NgxHideAllOptions {
+export interface NgxTippyHideAllOptions {
   duration?: number;
   excludeName?: string;
 }
@@ -63,15 +59,8 @@ export interface TippyHTMLElement extends HTMLElement {
 
 export interface ViewRef {
   getElement(): Content | null;
-  detectChanges(): void;
-  destroy(): void;
-}
-
-export type ExcludeFunctions<T> = Pick<T, ExcludeFunctionPropertyNames<T>>;
-
-export interface TemplateViewOptions {
-  vcr?: ViewContainerRef | undefined;
-  context?: Record<string, any> | undefined;
+  detectChanges?(): void;
+  destroy?(): void;
 }
 
 export type NgxTippyMessagesDict = typeof messagesDict;

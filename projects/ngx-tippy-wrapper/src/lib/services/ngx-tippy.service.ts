@@ -5,17 +5,17 @@ import {
   InstanceChangeReason,
   InstanceChangeReasonEnum,
   InstancesChanges,
-  NgxHideAllOptions,
   NgxTippyContent,
   NgxTippyDefaultProps,
+  NgxTippyHideAllOptions,
   NgxTippyInstance,
   NgxTippyMessagesDict,
   NgxTippyMessagesTypes,
   NgxTippyNamesEnum,
   NgxTippyProps,
   NgxTippySingletonInstance,
-} from '../interfaces';
-import { NGX_TIPPY_MESSAGES } from '../tokens';
+} from '../ngx-tippy.interfaces';
+import { NGX_TIPPY_MESSAGES } from '../ngx-tippy.tokens';
 import { setTemplateVisible } from '../utils';
 import { DevModeService } from './dev-mode.service';
 import { NgxViewService } from './ngx-view.service';
@@ -200,7 +200,7 @@ export class NgxTippyService {
     }
 
     if (tippyContent) {
-      const viewRef = this.ngxViewService.getViewRefInstance(tippyContent);
+      const viewRef = this.ngxViewService.getViewRefInstance(tippyContent, instance.tippyName);
       const content = viewRef.getElement();
 
       if (content) {
@@ -275,9 +275,9 @@ export class NgxTippyService {
    * Hide all tippies or hide all except a particular one
    * Additional hide them with duration
    *
-   * @param { NgxHideAllOptions } [options] - additional hiding options
+   * @param { NgxTippyHideAllOptions } [options] - additional hiding options
    */
-  hideAll(options?: NgxHideAllOptions) {
+  hideAll(options?: NgxTippyHideAllOptions) {
     const exclude = this.getInstance(options?.excludeName || '');
     const duration = options?.duration;
 

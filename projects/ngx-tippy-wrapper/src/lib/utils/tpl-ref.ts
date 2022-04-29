@@ -1,5 +1,5 @@
 import { ApplicationRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
-import { ViewRef } from '../interfaces';
+import { ViewRef } from '../ngx-tippy.interfaces';
 
 interface CustomTmlRefArgs<C> {
   tpl: TemplateRef<C>;

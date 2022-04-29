@@ -13,9 +13,9 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import tippy from 'tippy.js';
-import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from '../interfaces';
-import { NgxTippyService, NgxViewService } from '../services';
-import { setTemplateVisible } from '../utils';
+import { NgxTippyContent, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from './ngx-tippy.interfaces';
+import { NgxTippyService, NgxViewService } from './services';
+import { setTemplateVisible } from './utils';
 
 @Directive({
   selector: '[ngxTippy]',
@@ -63,7 +63,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
 
     if (this.ngxTippy === null || this.ngxTippy === undefined) return;
 
-    const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy);
+    const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy, this.tippyName);
     const tippyElement = viewRef.getElement();
 
     const ti = tippy(tippyTarget, { ...(this.tippyProps || {}), ...(tippyElement && { content: tippyElement }) });
@@ -185,7 +185,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   }
 
   private clearViewRef(tippyInstance: NgxTippyInstance) {
-    tippyInstance.viewRef?.destroy();
+    tippyInstance.viewRef?.destroy && tippyInstance.viewRef.destroy();
   }
 
   private destroyTippyInstance(tippyInstance: NgxTippyInstance) {

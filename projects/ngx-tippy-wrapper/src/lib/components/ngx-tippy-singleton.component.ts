@@ -7,9 +7,9 @@ import {
   NgxTippyMessagesDict,
   NgxTippySingletonInstance,
   TippyHTMLElement,
-} from '../interfaces';
+} from '../ngx-tippy.interfaces';
+import { NGX_TIPPY_MESSAGES } from '../ngx-tippy.tokens';
 import { NgxTippyService } from '../services';
-import { NGX_TIPPY_MESSAGES } from '../tokens';
 
 /**
  * Tippy singleton - single tippy element that takes the place of an array of regular tippy instances

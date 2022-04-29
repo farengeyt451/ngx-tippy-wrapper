@@ -1,5 +1,5 @@
 import { ComponentRef, Type, ViewContainerRef } from '@angular/core';
-import { ViewRef } from '../interfaces';
+import { ViewRef } from '../ngx-tippy.interfaces';
 
 interface Args<C> {
   component: Type<C>;

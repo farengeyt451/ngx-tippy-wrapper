@@ -2,8 +2,19 @@
  * Public API Surface of ngx-tippy-wrapper
  */
 
-export * from './lib/components';
-export * from './lib/directives';
-export * from './lib/interfaces';
-export * from './lib/ngx-tippy.module';
+export { NgxTippyGroupComponent, NgxTippySingletonComponent } from './lib/components';
+export { NgxTippyDirective } from './lib/ngx-tippy.directive';
+export {
+  InstanceChangeReason,
+  InstancesChanges,
+  NgxSingletonProps,
+  NgxTippyContent,
+  NgxTippyDefaultProps,
+  NgxTippyHideAllOptions,
+  NgxTippyInstance,
+  NgxTippyProps,
+  NgxTippySingletonInstance,
+  NgxTippyTemplate,
+} from './lib/ngx-tippy.interfaces';
+export { NgxTippyModule } from './lib/ngx-tippy.module';
 export { NgxTippyService } from './lib/services';
