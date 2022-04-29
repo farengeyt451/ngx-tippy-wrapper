@@ -41,7 +41,6 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (isPlatformServer(this.platform)) return;
-    console.log(this.viewContainerRef);
     this.ngxViewService.viewContainerRef = this.viewContainerRef;
     this.initTippy();
   }
