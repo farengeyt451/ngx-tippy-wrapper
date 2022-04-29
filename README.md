@@ -9,7 +9,7 @@
 <div align="center">
   <h1>Angular wrapper for tippy.js</h1>
 
-[![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/master?style=for-the-badge)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
+[![GitHub branch checks state](https://img.shields.io/github/workflow/status/farengeyt451/ngx-tippy-wrapper/lib-workflow?style=for-the-badge)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions/workflows/actions.yml)
 [![Codecov branch](https://img.shields.io/codecov/c/github/farengeyt451/ngx-tippy-wrapper/master?style=for-the-badge)](https://app.codecov.io/gh/farengeyt451/ngx-tippy-wrapper/)
 [![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper?color=%235599ff&style=for-the-badge)](https://github.com/farengeyt451/ngx-tippy-wrapper/blob/master/LICENSE)
 
