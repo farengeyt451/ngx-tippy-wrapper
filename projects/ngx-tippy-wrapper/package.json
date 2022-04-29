@@ -1,7 +1,7 @@
 {
   "name": "ngx-tippy-wrapper",
   "version": "5.0.0",
-  "description": "Angular wrapper for Tippy.js",
+  "description": "Angular wrapper for tippy.js",
   "keywords": [
     "angular tooltip",
     "angular popover",
@@ -9,9 +9,7 @@
     "tooltip",
     "popover",
     "tippyjs",
-    "popperjs",
     "library",
-    "wrapper",
     "tooltip library",
     "popover library"
   ],
