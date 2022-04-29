@@ -1,13 +1,13 @@
 ## Migration Guide
 
-- From version 2.x.x to version 3.x.x
+### - From version 2.x.x to version 3.x.x
 
-### Grouped tooltips
+#### Grouped tooltips
 
 1. In order to pass common props use `[groupedProps]` instead of `[tippyProps]`
 2. For each tooltip within `ngx-tippy-group` component you should pass `data-tippy-grouped` attribute instead of `data-tippy`
 
-### Singleton
+#### Singleton
 
 What's new:
 
@@ -35,3 +35,9 @@ Migration steps:
 
 1. Instead `setTriggerTarget` method from service, set `triggerTarget` via properties
 2. Pass `data-tippy-singleton` attribute for each child tooltip within `ngx-tippy-singleton` component
+
+### - From version 4.x.x to version 5.x.x
+
+Migration steps:
+
+1. Rename interface `NgxHideAllOptions` to `NgxTippyHideAllOptions`

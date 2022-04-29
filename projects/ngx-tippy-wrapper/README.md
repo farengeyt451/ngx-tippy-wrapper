@@ -1,17 +1,17 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/farengeyt451/ngx-tippy-wrapper/master/images/logo.svg" alt="library logo" height="180">
+  <img
+    src="https://raw.githubusercontent.com/farengeyt451/ngx-tippy-wrapper/master/images/logo.svg"
+    alt="library logo"
+    height="180"
+  >
 </div>
 
 <div align="center">
-  <h1>Angular wrapper for <a href="https://atomiks.github.io/tippyjs/">Tippy.js</a></h1>
+  <h1>Angular wrapper for tippy.js</h1>
 
-[![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/master?color=%2300ba00&label=unit-tests&logo=jasmine&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
-[![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/master?color=%2300ba00&label=build&logo=github&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
-[![Codecov branch](https://img.shields.io/codecov/c/gh/farengeyt451/ngx-tippy-wrapper/branch/master?color=%2300ba00&logo=codecov&style=flat-square&token=DXO20XP4F6)](https://app.codecov.io/gh/farengeyt451/ngx-tippy-wrapper/)
-[![npm](https://img.shields.io/npm/dw/ngx-tippy-wrapper?color=%230879b9&logo=npm&style=flat-square)](https://www.npmjs.com/package/ngx-tippy-wrapper)
-[![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper?color=%230879b9&logo=MicroStrategy&style=flat-square)](https://github.com/farengeyt451/ngx-tippy-wrapper/blob/master/LICENSE)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/ngx-tippy-wrapper?color=%230879b9&logo=Webpack&style=flat-square)](https://bundlephobia.com/package/ngx-tippy-wrapper)
-[![Tippy.js](https://img.shields.io/badge/tippy.js-v.6.3.7-%230879b9?style=flat-square&logo=Linux%20Foundation)](https://github.com/atomiks/tippyjs/releases)
+[![GitHub branch checks state](https://img.shields.io/github/checks-status/farengeyt451/ngx-tippy-wrapper/master?style=for-the-badge)](https://github.com/farengeyt451/ngx-tippy-wrapper/actions)
+[![Codecov branch](https://img.shields.io/codecov/c/github/farengeyt451/ngx-tippy-wrapper/master?style=for-the-badge)](https://app.codecov.io/gh/farengeyt451/ngx-tippy-wrapper/)
+[![GitHub](https://img.shields.io/github/license/farengeyt451/ngx-tippy-wrapper?color=%235599ff&style=for-the-badge)](https://github.com/farengeyt451/ngx-tippy-wrapper/blob/master/LICENSE)
 
 </div>
 
@@ -70,63 +70,3 @@ or angular.json:
     "styles": [..., "./node_modules/tippy.js/dist/tippy.css"]
   }
 ```
-
-## Using
-
-### Basic usage
-
-Apply `ngxTippy` directive for element and pass content through `data-tippy-content` attribute:
-
-```html
-<button
-  ngxTippy
-  data-tippy-content="Tooltip content"
->
-  Element with tooltip
-</button>
-```
-
-### Applying props
-
-You can apply props with `tippyProps` binding
-
-In template:
-
-<!-- prettier-ignore-start -->
-```html
-<button
-  ngxTippy
-  data-tippy-content="Tooltip content"
-  [tippyProps]="{
-    arrow: false,
-    placement: 'bottom'
-  }"
->
-  Element with tooltip
-</button>
-```
-
-Or pass `props` from component:
-
-```html
-<span ngxTippy data-tippy-content="Tooltip content" [tippyProps]="tippyProps">
-  Element with tooltip
-</span>
-```
-
----
-
-```ts
-...
-import { NgxTippyProps } from 'ngx-tippy-wrapper';
-
-@Component({ ... })
-export class DemoComponent implements OnInit {
-  tippyProps: NgxTippyProps = {
-    trigger: 'click',
-    allowHTML: true,
-  };
-  ...
-}
-```
-<!-- prettier-ignore-end -->
