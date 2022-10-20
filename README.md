@@ -48,7 +48,7 @@ Import `NgxTippyModule`:
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 ```
 
-Then in your main module:
+Then in your main or feature module:
 
 ```ts
 @NgModule({
