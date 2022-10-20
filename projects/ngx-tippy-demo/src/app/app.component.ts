@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   data: any = { a: 24 };
   public readonly title = 'ngx-tippy-demo';
+  public isHidden: boolean = false;
   public readonly boundContent: string = 'Bound tooltip content';
 
   private instancesChanges$!: Subscription;
@@ -174,7 +175,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   subToInstancesChanges() {
     this.instancesChanges$ = this.tippyService.instancesChanges.subscribe((changes: InstancesChanges) => {
       if (changes.name === 'manual-control') {
-        console.warn('subToInstancesChanges -> changes', changes);
+        console.info('🚀 subToInstancesChanges -> changes', changes);
       }
     });
   }

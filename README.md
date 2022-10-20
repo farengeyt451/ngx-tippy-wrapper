@@ -23,6 +23,7 @@
 
 ## Recommended versions to use
 
+- **Angular 14**: 6.x.x
 - **Angular 13**: 5.x.x
 - **Angular 12**: 4.x.x
 - **Angular 9, 10, 11** 3.x.x
