@@ -166,10 +166,10 @@ describe('Directive: NgxTippyDirective', () => {
     fixture.destroy();
     fixture.detectChanges();
     tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-    tooltipDebugEl.nativeElement.dispatchEvent(new MouseEvent('click'));
     const tooltip = fixture.debugElement.query(By.css('.tippy-content'));
     expect(tooltip).toBeNull();
   });
+  console.log(`🚀 ~ it ~ it`, it);
 
   it('should show tooltip on hover', () => {
     component.addComponent(
