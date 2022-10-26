@@ -1,63 +1,12 @@
-import { Compiler, Component, DebugElement, NgModule, PLATFORM_ID, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
+import { TestInlineComponent } from '../fixtures/components';
+import { styles } from '../fixtures/styles';
 import { messagesDict, tippyFakeInstance } from '../lib/fixtures';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
 import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
 import { NgxTippyService } from '../lib/services';
-
-const styles = [
-  `
-    .test {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 120px;
-      padding: 40px;
-      background-color: #f9f8f5;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .test__btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      background-image: linear-gradient(120deg, #54d182 0%, #3db9f5 100%);
-      color: #fff;
-      font-weight: 600;
-      font-size: 14px;
-      font-family: 'Open Sans', sans-serif;
-      cursor: pointer;
-    }
-  `,
-];
-
-/** Wrapper component */
-@Component({
-  selector: 'tippy-test',
-  template: `<div #container></div>`,
-})
-class TestInlineComponent {
-  @ViewChild('container', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
-
-  constructor(private compiler: Compiler) {}
-
-  public addComponent(template: string, styles: string[], properties: any = {}) {
-    @Component({ template, styles })
-    class TemplateComponent {}
-
-    @NgModule({ declarations: [TemplateComponent, NgxTippyDirective] })
-    class TemplateModule {}
-
-    const moduleComponentFactories = this.compiler.compileModuleAndAllComponentsSync(TemplateModule);
-    const factory = moduleComponentFactories.componentFactories.find(
-      component => component.componentType === TemplateComponent
-    );
-    const component = factory && this.container.createComponent(factory);
-    Object.assign(component?.instance, properties);
-  }
-}
 
 describe('Directive: NgxTippyDirective', () => {
   let injector: TestBed;
@@ -169,7 +118,6 @@ describe('Directive: NgxTippyDirective', () => {
     const tooltip = fixture.debugElement.query(By.css('.tippy-content'));
     expect(tooltip).toBeNull();
   });
-  console.log(`🚀 ~ it ~ it`, it);
 
   it('should show tooltip on hover', () => {
     component.addComponent(
@@ -441,8 +389,7 @@ describe('Directive: NgxTippyDirective', () => {
           </button>
         </div>
       `,
-      styles,
-      null
+      styles
     );
 
     fixture.detectChanges();
