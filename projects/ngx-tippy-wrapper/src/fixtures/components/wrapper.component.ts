@@ -20,7 +20,7 @@ export class TestInlineComponent {
 
   public addComponent(template: string, styles: string[], properties: TemplateTooltipComponent = {}) {
     @Component({ template, styles })
-    class TemplateComponent {}
+    class TemplateComponent implements TemplateTooltipComponent {}
 
     @NgModule({ declarations: [TemplateComponent, NgxTippyDirective] })
     class TemplateModule {}
@@ -32,18 +32,17 @@ export class TestInlineComponent {
       component: TemplateComponent,
     });
 
-    Object.assign(component.instance, properties);
-    // this.setComponentProps({ component, properties });
+    this.setComponentProps<TemplateComponent>({ component, properties });
   }
 
-  private setComponentProps<T>({
+  private setComponentProps<T extends TemplateTooltipComponent>({
     component,
     properties,
   }: {
-    component: ComponentRef<any>;
+    component: ComponentRef<T>;
     properties: TemplateTooltipComponent;
   }) {
-    Object.assign(component.instance, {});
+    Object.assign(component.instance, properties);
   }
 
   private createComponent<T>({ vcRef, component }: { vcRef: ViewContainerRef; component: Type<T> }): ComponentRef<T> {
