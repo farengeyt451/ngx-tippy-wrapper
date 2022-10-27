@@ -1,1 +1,1 @@
-export { TestInlineComponent } from './wrapper.component';
+export { WrapperComponent } from './wrapper.component';

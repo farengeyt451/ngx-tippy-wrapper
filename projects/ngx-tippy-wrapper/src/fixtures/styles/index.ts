@@ -1,1 +1,1 @@
-export { styles } from './generic-styles';
+export { genericStyles } from './generic-styles';

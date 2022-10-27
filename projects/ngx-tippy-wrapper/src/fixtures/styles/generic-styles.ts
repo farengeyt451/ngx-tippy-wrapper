@@ -1,4 +1,4 @@
-export const styles = [
+export const genericStyles = [
   ` .test {
   position: relative;
   display: flex;

@@ -1,6 +1,7 @@
-import { Component, ComponentRef, NgModule, Type, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, NgModule, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgxTippyDirective } from '../../lib/ngx-tippy.directive';
 import { NgxTippyProps } from '../../lib/ngx-tippy.interfaces';
+import { genericStyles } from '../styles/generic-styles';
 
 interface TemplateTooltipComponent {
   props?: NgxTippyProps;
@@ -13,12 +14,16 @@ interface TemplateTooltipComponent {
   selector: 'wrapper',
   template: `<div #container></div>`,
 })
-export class TestInlineComponent {
+export class WrapperComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
 
   constructor(public viewContainerRef: ViewContainerRef) {}
 
-  public addComponent(template: string, styles: string[], properties: TemplateTooltipComponent = {}) {
+  public createInnerComponent(
+    template: string,
+    properties: TemplateTooltipComponent = {},
+    styles: string[] = genericStyles
+  ) {
     @Component({ template, styles })
     class TemplateComponent implements TemplateTooltipComponent {}
 
@@ -26,27 +31,23 @@ export class TestInlineComponent {
     class TemplateModule {}
 
     this.clearContainerRef(this.viewContainerRef);
-
-    const component = this.createComponent<TemplateComponent>({
+    this.createComponent<TemplateComponent>({
       vcRef: this.viewContainerRef,
       component: TemplateComponent,
+      properties,
     });
-
-    this.setComponentProps<TemplateComponent>({ component, properties });
   }
 
-  private setComponentProps<T extends TemplateTooltipComponent>({
+  private createComponent<T extends TemplateTooltipComponent>({
+    vcRef,
     component,
     properties,
   }: {
-    component: ComponentRef<T>;
+    vcRef: ViewContainerRef;
+    component: Type<T>;
     properties: TemplateTooltipComponent;
-  }) {
-    Object.assign(component.instance, properties);
-  }
-
-  private createComponent<T>({ vcRef, component }: { vcRef: ViewContainerRef; component: Type<T> }): ComponentRef<T> {
-    return vcRef.createComponent(component);
+  }): T {
+    return Object.assign(vcRef.createComponent(component).instance, properties);
   }
 
   private clearContainerRef(vcRef: ViewContainerRef) {
