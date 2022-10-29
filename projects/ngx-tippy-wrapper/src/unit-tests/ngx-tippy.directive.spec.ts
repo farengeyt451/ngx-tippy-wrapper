@@ -472,7 +472,7 @@ describe('Directive: NgxTippyDirective', () => {
       expect(tooltipContent.lastChild.nodeName).toBe('BUTTON');
     });
 
-    fit('should set template passed through directive reference', () => {
+    it('should set template passed through directive reference', () => {
       // Arrange
       component.createInnerComponent(
         `
@@ -484,10 +484,8 @@ describe('Directive: NgxTippyDirective', () => {
             [tippyProps]="{
               allowHTML: true,
               appendTo: 'parent',
-              interactive: true,
-              trigger: 'click'
+              interactive: true
             }"
-            [tippyClassName]="content"
           >
             Element with tooltip
           </button>
@@ -500,7 +498,6 @@ describe('Directive: NgxTippyDirective', () => {
         </div>
       `,
         {
-          content: 'abdc',
           onTemplateClick(event: MouseEvent) {
             console.log(event);
           },
@@ -509,8 +506,6 @@ describe('Directive: NgxTippyDirective', () => {
 
       // Act
       fixture.detectChanges();
-
-      component.updateStyles('new-style');
 
       tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
       tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
@@ -571,7 +566,55 @@ describe('Directive: NgxTippyDirective', () => {
     });
 
     // TODO:
-    it('should remove class names', () => {});
+    it('should remove class names', () => {
+      // Arrange
+      const className = 'awesome-class';
+      const classNameUpd = 'updated-class';
+      component.createInnerComponent(
+        `
+        <div class="test">
+          <button
+            class="test__btn"
+            ngxTippy
+            data-tippy-content="Tooltip content"
+            [tippyProps]="{
+              appendTo: 'parent',
+              trigger: 'click'
+            }"
+            [tippyClassName]="className"
+          >
+            Element with tooltip
+          </button>
+        </div>
+      `,
+        {
+          className,
+        }
+      );
+
+      // Act
+      let tippyBoxWithClasses!: DebugElement;
+
+      fixture.detectChanges();
+
+      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('click'));
+
+      fixture.detectChanges();
+
+      // Assert
+      tippyBoxWithClasses = fixture.debugElement.query(By.css(`.${className}`));
+      expect(tippyBoxWithClasses).toBeTruthy();
+
+      // Act
+      component.updateClasses(classNameUpd);
+
+      fixture.detectChanges();
+
+      // Assert
+      tippyBoxWithClasses = fixture.debugElement.query(By.css(`.${classNameUpd}`));
+      expect(tippyBoxWithClasses).toBeTruthy();
+    });
   });
 
   describe('Platform SERVER', () => {
