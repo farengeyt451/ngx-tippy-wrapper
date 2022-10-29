@@ -7,6 +7,7 @@ interface TemplateTooltipComponent {
   props?: NgxTippyProps;
   content?: string;
   className?: string;
+  tippyName?: string;
   onTemplateClick?: (event: MouseEvent) => void;
 }
 
@@ -25,6 +26,10 @@ export class WrapperComponent {
     this.tComponent.updateClasses(styles);
   }
 
+  public updateName(name: string) {
+    this.tComponent.updateName(name);
+  }
+
   public createInnerComponent(
     template: string,
     properties: TemplateTooltipComponent = {},
@@ -33,9 +38,14 @@ export class WrapperComponent {
     @Component({ template, styles })
     class TemplateComponent {
       public className!: string;
+      public tippyName!: string;
 
       public updateClasses(className: string) {
         this.className = className;
+      }
+
+      public updateName(tippyName: string) {
+        this.tippyName = tippyName;
       }
     }
 

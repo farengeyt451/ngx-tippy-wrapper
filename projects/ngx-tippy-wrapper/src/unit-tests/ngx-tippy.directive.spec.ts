@@ -565,7 +565,7 @@ describe('Directive: NgxTippyDirective', () => {
       expect(tippyBoxWithClasses.nativeElement).toHaveClass('another-class');
     });
 
-    it('should remove class names', () => {
+    it('should reassign class names', () => {
       // Arrange
       const className = 'awesome-class';
       const classNameUpd = 'updated-class';
@@ -607,12 +607,59 @@ describe('Directive: NgxTippyDirective', () => {
 
       // Act
       component.updateClasses(classNameUpd);
-
       fixture.detectChanges();
 
       // Assert
       tippyBoxWithClasses = fixture.debugElement.query(By.css(`.${classNameUpd}`));
       expect(tippyBoxWithClasses).toBeTruthy();
+    });
+
+    it('should reassign tippy name', () => {
+      // Arrange
+      let tName!: string | null;
+      const initName = 'awesome-name';
+      const updatedName = 'updated-name';
+      const getName = () => tooltipDebugEl.attributes['ng-reflect-tippy-name'];
+
+      component.createInnerComponent(
+        `
+        <div class="test">
+          <button
+            class="test__btn"
+            ngxTippy
+            [tippyName]="tippyName"
+            data-tippy-content="Tooltip content"
+            [tippyProps]="{
+              appendTo: 'parent',
+              trigger: 'click'
+            }"
+          >
+            Element with tooltip
+          </button>
+        </div>
+      `,
+        {
+          tippyName: initName,
+        }
+      );
+
+      // Act
+      fixture.detectChanges();
+
+      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
+      fixture.detectChanges();
+
+      // Assert
+      expect(getName()).toBe(initName);
+
+      // Act
+      component.updateName(updatedName);
+      fixture.detectChanges();
+
+      // Assert
+      expect(getName()).toBe(updatedName);
     });
   });
 
