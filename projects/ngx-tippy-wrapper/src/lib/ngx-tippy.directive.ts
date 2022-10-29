@@ -68,6 +68,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
       ...(this.tippyProps || {}),
       ...(tippyElement && { content: tippyElement }),
     });
+
     this.tippyName = this.tippyName || `tippy-${tInstance.id}`;
 
     setTemplateVisible(tippyElement, this.renderer);

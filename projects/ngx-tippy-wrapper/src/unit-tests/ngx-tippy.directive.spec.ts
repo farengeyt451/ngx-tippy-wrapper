@@ -74,72 +74,12 @@ describe('Directive: NgxTippyDirective', () => {
       tippyService = injector.inject(NgxTippyService);
     });
 
-    it('should create wrapper component', () => {
+    it('should create WrapperComponent', () => {
       // Act
       fixture.detectChanges();
 
       // Assert
       expect(component).toBeTruthy();
-    });
-
-    it('should NOT init tooltip', () => {
-      // Arrange
-      component.createInnerComponent(
-        `
-        <div class="test">
-          <button
-            class="test__btn"
-            [ngxTippy]="null"
-            [tippyProps]="{
-              appendTo: 'parent',
-              trigger: 'click'
-            }"
-          >
-            Element with tooltip
-          </button>
-        </div>
-      `
-      );
-
-      // Act
-      fixture.detectChanges();
-
-      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('click'));
-
-      fixture.detectChanges();
-
-      // Assert
-      const tooltip = fixture.debugElement.query(By.css(TOOLTIP_ROOT_DIV));
-      expect(tooltip).toBeNull();
-    });
-
-    it('should destroy tooltip in case component destruction', () => {
-      // Arrange
-      component.createInnerComponent(
-        `
-        <div class="test">
-          <button
-            class="test__btn"
-            ngxTippy="Tooltip value"
-            [tippyProps]="{
-              appendTo: 'parent',
-              trigger: 'click'
-            }"
-          >
-            Element with tooltip
-          </button>
-        </div>
-      `
-      );
-
-      // Act
-      fixture.destroy();
-      fixture.detectChanges();
-
-      // Assert
-      const tooltip = fixture.debugElement.query(By.css(TOOLTIP_ROOT_DIV));
-      expect(tooltip).toBeNull();
     });
 
     it('should NOT init tooltip', () => {
@@ -234,7 +174,7 @@ describe('Directive: NgxTippyDirective', () => {
       expect(tooltip).toBeTruthy();
     });
 
-    it('should show tooltip on click ', () => {
+    it('should show tooltip on click', () => {
       // Arrange
       component.createInnerComponent(
         `
@@ -360,7 +300,7 @@ describe('Directive: NgxTippyDirective', () => {
           <button
             class="test__btn"
             ngxTippy
-            [attr.data-tippy-content]="content"
+            [attr.data-tippy-content]="'${content}'"
             [tippyProps]="{
               appendTo: 'parent'
             }"
@@ -368,10 +308,7 @@ describe('Directive: NgxTippyDirective', () => {
             Element with tooltip
           </button>
         </div>
-      `,
-        {
-          content,
-        }
+      `
       );
 
       // Act
@@ -399,16 +336,13 @@ describe('Directive: NgxTippyDirective', () => {
             [tippyProps]="{
               appendTo: 'parent',
               allowHTML: true,
-              content: content
+              content: '${content}'
             }"
           >
             Element with tooltip
           </button>
         </div>
-      `,
-        {
-          content,
-        }
+      `
       );
 
       // Act
@@ -444,7 +378,7 @@ describe('Directive: NgxTippyDirective', () => {
         {
           props: {
             appendTo: 'parent',
-            content: content,
+            content,
           },
         }
       );
@@ -470,7 +404,7 @@ describe('Directive: NgxTippyDirective', () => {
         <div class="test">
           <button
             class="test__btn"
-            [ngxTippy]="content"
+            [ngxTippy]="'${content}'"
             [tippyProps]="{
               appendTo: 'parent'
             }"
@@ -478,10 +412,7 @@ describe('Directive: NgxTippyDirective', () => {
             Element with tooltip
           </button>
         </div>
-      `,
-        {
-          content,
-        }
+      `
       );
 
       // Act
@@ -539,77 +470,6 @@ describe('Directive: NgxTippyDirective', () => {
       expect(tooltipContent.firstChild.nodeName).toBe('P');
       expect(tooltipContent.lastChild).toBeInstanceOf(HTMLElement);
       expect(tooltipContent.lastChild.nodeName).toBe('BUTTON');
-    });
-
-    it('should get tooltip instance', () => {
-      // Arrange
-      const id = 'tippy-content';
-      component.createInnerComponent(
-        `
-        <div class="test">
-          <button
-            class="test__btn"
-            ngxTippy
-            data-tippy-content="Tooltip content"
-            [tippyProps]="{
-              appendTo: 'parent'
-            }"
-          >
-            Element with tooltip
-          </button>
-        </div>
-      `
-      );
-
-      // Act
-      fixture.detectChanges();
-
-      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
-
-      fixture.detectChanges();
-
-      tippyService.getInstance.and.returnValue(tippyFakeInstance);
-      const instance = tippyService.getInstance(id);
-
-      // Assert
-      expect(tippyService.getInstance).toHaveBeenCalledTimes(1);
-      expect(tippyService.getInstance).toHaveBeenCalledWith(id);
-      expect(instance).toBe(tippyFakeInstance);
-    });
-
-    it('should set properties via service', () => {
-      // Arrange
-      component.createInnerComponent(
-        `
-        <div class="test">
-          <button
-            class="test__btn"
-            ngxTippy
-            data-tippy-content="Tooltip content"
-            [tippyProps]="{
-              appendTo: 'parent'
-            }"
-          >
-            Element with tooltip
-          </button>
-        </div>
-      `
-      );
-
-      // Act
-      fixture.detectChanges();
-
-      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
-
-      fixture.detectChanges();
-
-      tippyService.setProps('tippy-content', 'New props');
-
-      // Assert
-      expect(tippyService.setProps).toHaveBeenCalledTimes(1);
-      expect(tippyService.setProps).toHaveBeenCalledWith('tippy-content', 'New props');
     });
 
     it('should set template passed through directive reference', () => {
