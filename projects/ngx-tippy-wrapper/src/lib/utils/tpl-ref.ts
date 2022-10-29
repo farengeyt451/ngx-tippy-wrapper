@@ -8,7 +8,7 @@ interface CustomTmlRefArgs<C> {
 }
 
 export class TplRef<C> implements ViewRef {
-  private viewRef: EmbeddedViewRef<{}> | null;
+  private viewRef: EmbeddedViewRef<C> | null;
   private element!: Element | null;
 
   constructor(private args: CustomTmlRefArgs<C>) {

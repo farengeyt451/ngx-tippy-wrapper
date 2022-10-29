@@ -472,7 +472,7 @@ describe('Directive: NgxTippyDirective', () => {
       expect(tooltipContent.lastChild.nodeName).toBe('BUTTON');
     });
 
-    it('should set template passed through directive reference', () => {
+    fit('should set template passed through directive reference', () => {
       // Arrange
       component.createInnerComponent(
         `
@@ -484,8 +484,10 @@ describe('Directive: NgxTippyDirective', () => {
             [tippyProps]="{
               allowHTML: true,
               appendTo: 'parent',
-              interactive: true
+              interactive: true,
+              trigger: 'click'
             }"
+            [tippyClassName]="content"
           >
             Element with tooltip
           </button>
@@ -498,6 +500,7 @@ describe('Directive: NgxTippyDirective', () => {
         </div>
       `,
         {
+          content: 'abdc',
           onTemplateClick(event: MouseEvent) {
             console.log(event);
           },
@@ -506,6 +509,8 @@ describe('Directive: NgxTippyDirective', () => {
 
       // Act
       fixture.detectChanges();
+
+      component.updateStyles('new-style');
 
       tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
       tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
@@ -564,6 +569,9 @@ describe('Directive: NgxTippyDirective', () => {
       expect(tippyBoxWithClasses.nativeElement).toHaveClass('custom');
       expect(tippyBoxWithClasses.nativeElement).toHaveClass('another-class');
     });
+
+    // TODO:
+    it('should remove class names', () => {});
   });
 
   describe('Platform SERVER', () => {

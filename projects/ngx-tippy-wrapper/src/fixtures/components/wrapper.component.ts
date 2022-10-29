@@ -3,9 +3,14 @@ import { NgxTippyDirective } from '../../lib/ngx-tippy.directive';
 import { NgxTippyProps } from '../../lib/ngx-tippy.interfaces';
 import { genericStyles } from '../styles/generic-styles';
 
+interface TooltipComponentUtils extends TemplateTooltipComponent {
+  updateClasses: (className: string) => void;
+}
+
 interface TemplateTooltipComponent {
   props?: NgxTippyProps;
   content?: string;
+  className?: string;
   onTemplateClick?: (event: MouseEvent) => void;
 }
 
@@ -18,6 +23,11 @@ export class WrapperComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
 
   constructor(public viewContainerRef: ViewContainerRef) {}
+  tComponent!: any;
+
+  public updateStyles(styles: string) {
+    this.tComponent.updateClasses(styles);
+  }
 
   public createInnerComponent(
     template: string,
@@ -31,7 +41,7 @@ export class WrapperComponent {
     class TemplateModule {}
 
     this.clearContainerRef(this.viewContainerRef);
-    this.createComponent<TemplateComponent>({
+    this.tComponent = this.createComponent<TemplateComponent>({
       vcRef: this.viewContainerRef,
       component: TemplateComponent,
       properties,
@@ -47,7 +57,13 @@ export class WrapperComponent {
     component: Type<T>;
     properties: TemplateTooltipComponent;
   }): T {
-    return Object.assign(vcRef.createComponent(component).instance, properties);
+    return Object.assign(vcRef.createComponent(component).instance, properties, {
+      updateClasses: (styles: string) => {
+        console.log(styles);
+        this.tComponent['content'] = styles;
+        console.log(this.tComponent['content']);
+      },
+    });
   }
 
   private clearContainerRef(vcRef: ViewContainerRef) {

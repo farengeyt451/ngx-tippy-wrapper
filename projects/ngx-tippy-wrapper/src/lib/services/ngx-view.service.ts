@@ -2,11 +2,6 @@ import { ApplicationRef, Injectable, TemplateRef, Type, ViewContainerRef } from 
 import { NgxTippyTemplate, ViewRef } from '../ngx-tippy.interfaces';
 import { CompRef, isComponent, isTemplateRef, TplRef } from '../utils';
 
-interface TemplateViewOptions {
-  vcr?: ViewContainerRef | undefined;
-  context?: Record<string, any> | undefined;
-}
-
 @Injectable({ providedIn: 'root' })
 export class NgxViewService {
   public viewContainerRef!: ViewContainerRef;
@@ -33,10 +28,10 @@ export class NgxViewService {
     return viewRef;
   }
 
-  private createTemplate<C>(tpl: TemplateRef<C>, options: TemplateViewOptions = {}) {
-    return new TplRef({
+  private createTemplate<C>(tpl: TemplateRef<any>, context: C) {
+    return new TplRef<C>({
       tpl,
-      context: options.context,
+      context,
       appRef: this.appRef,
     });
   }
