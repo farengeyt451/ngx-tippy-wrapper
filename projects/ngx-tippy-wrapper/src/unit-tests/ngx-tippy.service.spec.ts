@@ -1,5 +1,5 @@
 import { fakeAsync, getTestBed, TestBed } from '@angular/core/testing';
-import { messagesDict, tippyFakeInstance } from '../lib/fixtures';
+import { messagesDict, tippyFakeInstance } from '../lib/consts';
 import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
 import { DevModeService, NgxTippyService } from '../lib/services';

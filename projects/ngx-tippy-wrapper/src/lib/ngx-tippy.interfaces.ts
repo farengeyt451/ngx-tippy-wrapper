@@ -1,6 +1,6 @@
 import { TemplateRef, Type } from '@angular/core';
 import { Content, DefaultProps, Instance, Props } from 'tippy.js';
-import { messagesDict } from './fixtures';
+import { messagesDict } from './consts';
 
 export interface NgxTippyProps extends Partial<Props> {}
 

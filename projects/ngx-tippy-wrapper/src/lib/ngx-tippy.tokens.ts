@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { messagesDict, tippyFakeInstance } from './fixtures';
+import { messagesDict, tippyFakeInstance } from './consts';
 
 export const NGX_TIPPY_MESSAGES = new InjectionToken<{ [key: string]: string }>('NGX_TIPPY_MESSAGES', {
   providedIn: 'root',

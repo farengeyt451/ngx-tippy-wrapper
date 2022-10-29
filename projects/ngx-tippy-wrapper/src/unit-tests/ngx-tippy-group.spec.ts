@@ -2,7 +2,7 @@ import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgxTippyGroupComponent } from '../lib/components';
-import { messagesDict } from '../lib/fixtures';
+import { messagesDict } from '../lib/consts';
 import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 import { NGX_TIPPY_MESSAGES } from '../lib/ngx-tippy.tokens';
 

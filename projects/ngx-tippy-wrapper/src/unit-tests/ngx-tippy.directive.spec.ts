@@ -1,22 +1,24 @@
-import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
+import { DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { WrapperComponent } from '../fixtures/components';
-import { messagesDict, tippyFakeInstance } from '../lib/fixtures';
+import {
+  COLOR_WHITE,
+  serviceSpy,
+  TOOLTIP_ARROW_DIV,
+  TOOLTIP_BOX_DIV,
+  TOOLTIP_CONTENT_DIV,
+  TOOLTIP_ROOT_DIV,
+} from '../fixtures/consts';
+import { messagesDict, tippyFakeInstance } from '../lib/consts';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
 import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
 import { NgxTippyService } from '../lib/services';
 
-enum ENVS {
+enum PLATFORMS {
   Browser = 'browser',
   Server = 'server',
 }
-
-const TOOLTIP_CONTENT_DIV = '.tippy-content';
-const TOOLTIP_ROOT_DIV = 'div[data-tippy-root]';
-const TOOLTIP_BOX_DIV = '.tippy-box';
-const TOOLTIP_ARROW_DIV = '.tippy-arrow';
-const COLOR_WHITE = 'rgb(255, 255, 255)';
 
 type MEvents =
   | 'click'
@@ -43,32 +45,14 @@ describe('Directive: NgxTippyDirective', () => {
   let tippyService: any;
 
   beforeEach(async () => {
-    const tippyServiceSpy = jasmine.createSpyObj('NgxTippyService', [
-      'setInstance',
-      'getInstance',
-      'getInstances',
-      'show',
-      'hide',
-      'hideWithInteractivity',
-      'disable',
-      'enable',
-      'setProps',
-      'setContent',
-      'setTriggerTarget',
-      'unmount',
-      'clearDelayTimeouts',
-      'destroy',
-      'setDefaultProps',
-      'showAll',
-      'hideAll',
-    ]);
+    const tippyServiceSpy = serviceSpy;
 
     TestBed.configureTestingModule({
       imports: [BrowserModule],
       declarations: [WrapperComponent],
       providers: [
         { provide: NgxTippyService, useValue: tippyServiceSpy },
-        { provide: PLATFORM_ID, useValue: ENVS.Browser },
+        { provide: PLATFORM_ID, useValue: PLATFORMS.Browser },
         {
           provide: TIPPY_FAKE_INSTANCE,
           useValue: tippyFakeInstance,
@@ -342,6 +326,7 @@ describe('Directive: NgxTippyDirective', () => {
   });
 
   it('should set content passed through inline properties', () => {
+    // Arrange
     const content = '<p>Tooltip <strong>HTML</strong> content</p>';
     component.createInnerComponent(
       `
@@ -414,9 +399,10 @@ describe('Directive: NgxTippyDirective', () => {
     const tooltipContent = fixture.debugElement.query(By.css(TOOLTIP_CONTENT_DIV));
     expect(tooltipContent.nativeElement.innerText).toBe(content);
   });
-  it('should set content passed through ngxTippy directive', () => {
-    const content = 'Directly passed string';
 
+  it('should set content passed through directive', () => {
+    // Arrange
+    const content = 'Directly passed string';
     component.createInnerComponent(
       `
         <div class="test">
@@ -436,15 +422,21 @@ describe('Directive: NgxTippyDirective', () => {
       }
     );
 
+    // Act
     fixture.detectChanges();
+
     tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
     tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
     fixture.detectChanges();
+
+    // Assert
     const tooltipContent = fixture.debugElement.query(By.css(TOOLTIP_CONTENT_DIV));
     expect(tooltipContent.nativeElement.innerText).toBe(content);
   });
 
-  it('should set template passed through ngxTippy directive', () => {
+  it('should set content as template passed through directive', () => {
+    // Arrange
     component.createInnerComponent(
       `
         <div #tooltipTemplate>
@@ -467,11 +459,19 @@ describe('Directive: NgxTippyDirective', () => {
       `
     );
 
+    // Act
     fixture.detectChanges();
+
     tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
     tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
     fixture.detectChanges();
-    const tooltipContent = fixture.debugElement.query(By.css(TOOLTIP_CONTENT_DIV)).nativeElement.firstChild;
+
+    // Assert
+    const {
+      nativeElement: { firstChild: tooltipContent },
+    } = fixture.debugElement.query(By.css(TOOLTIP_CONTENT_DIV));
+
     expect(tooltipContent.children.length).toBeGreaterThan(0);
     expect(tooltipContent.firstChild).toBeInstanceOf(HTMLElement);
     expect(tooltipContent.firstChild.nodeName).toBe('P');
@@ -479,14 +479,15 @@ describe('Directive: NgxTippyDirective', () => {
     expect(tooltipContent.lastChild.nodeName).toBe('BUTTON');
   });
 
-  it('should call getInstance method', () => {
+  it('should get tooltip instance', () => {
+    // Arrange
+    const id = 'tippy-content';
     component.createInnerComponent(
       `
         <div class="test">
           <button
             class="test__btn"
             ngxTippy
-            tippyName="tippy-content"
             data-tippy-content="Tooltip content"
             [tippyProps]="{
               appendTo: 'parent'
@@ -498,20 +499,25 @@ describe('Directive: NgxTippyDirective', () => {
       `
     );
 
+    // Act
     fixture.detectChanges();
+
     tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
     tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
     fixture.detectChanges();
 
     tippyService.getInstance.and.returnValue(tippyFakeInstance);
-    const instance = tippyService.getInstance('tippy-content');
+    const instance = tippyService.getInstance(id);
 
+    // Assert
     expect(tippyService.getInstance).toHaveBeenCalledTimes(1);
-    expect(tippyService.getInstance).toHaveBeenCalledWith('tippy-content');
+    expect(tippyService.getInstance).toHaveBeenCalledWith(id);
     expect(instance).toBe(tippyFakeInstance);
   });
 
-  it('should call setProps method', () => {
+  it('should set properties via service', () => {
+    // Arrange
     component.createInnerComponent(
       `
         <div class="test">
@@ -529,17 +535,23 @@ describe('Directive: NgxTippyDirective', () => {
       `
     );
 
+    // Act
     fixture.detectChanges();
+
     tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
     tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
     fixture.detectChanges();
 
     tippyService.setProps('tippy-content', 'New props');
+
+    // Assert
     expect(tippyService.setProps).toHaveBeenCalledTimes(1);
     expect(tippyService.setProps).toHaveBeenCalledWith('tippy-content', 'New props');
   });
 
   it('should set template passed through directive reference', () => {
+    // Arrange
     component.createInnerComponent(
       `
         <div class="test">
@@ -570,10 +582,15 @@ describe('Directive: NgxTippyDirective', () => {
       }
     );
 
+    // Act
     fixture.detectChanges();
+
     tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
     tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
     fixture.detectChanges();
+
+    // Assert
     const tooltipContent = fixture.debugElement.query(By.css(TOOLTIP_CONTENT_DIV));
     const templateWrapper = tooltipContent.query(By.css('div'));
     const templateAction = tooltipContent.query(By.css('button'));
@@ -587,11 +604,12 @@ describe('Directive: NgxTippyDirective', () => {
     spyOn(console, 'log');
     templateAction.nativeElement.dispatchEvent(createMouseEvent('click'));
 
-    // Assert
     expect(console.log).toHaveBeenCalled();
     expect(console.log).toHaveBeenCalledTimes(1);
   });
+
   it('should set class names', () => {
+    // Arrange
     component.createInnerComponent(
       `
         <div class="test">
@@ -610,11 +628,15 @@ describe('Directive: NgxTippyDirective', () => {
       `
     );
 
-    fixture.detectChanges();
-    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-    tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+    // Act
     fixture.detectChanges();
 
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
+    fixture.detectChanges();
+
+    // Assert
     const tippyBoxWithClasses = fixture.debugElement.query(By.css('.tippy-box.custom.another-class'));
     expect(tippyBoxWithClasses).toBeTruthy();
     expect(tippyBoxWithClasses.nativeElement).toHaveClass('custom');
@@ -622,38 +644,20 @@ describe('Directive: NgxTippyDirective', () => {
   });
 });
 
-/** Wrapper component */
-@Component({
-  selector: 'tippy-test',
-  template: `
-    <div class="test">
-      <button
-        class="test__btn"
-        ngxTippy
-        data-tippy-content="Tooltip content"
-        [tippyProps]="{
-          appendTo: 'parent'
-        }"
-      >
-        Element with tooltip
-      </button>
-    </div>
-  `,
-})
-class TestPlatformComponent {}
-
 describe('Directive: NgxTippyDirective - Platform test', () => {
   let injector: TestBed;
-  let fixture: ComponentFixture<TestPlatformComponent>;
-  let component: TestPlatformComponent;
+  let fixture: ComponentFixture<WrapperComponent>;
+  let component: WrapperComponent;
   let debugEl: DebugElement;
+  let tooltipDebugEl: DebugElement;
   let platform: Object;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [TestPlatformComponent, NgxTippyDirective],
+      imports: [BrowserModule],
+      declarations: [WrapperComponent],
       providers: [
-        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: PLATFORM_ID, useValue: PLATFORMS.Server },
         {
           provide: TIPPY_FAKE_INSTANCE,
           useValue: tippyFakeInstance,
@@ -667,7 +671,7 @@ describe('Directive: NgxTippyDirective - Platform test', () => {
       .compileComponents()
       .then(() => {
         injector = getTestBed();
-        fixture = injector.createComponent(TestPlatformComponent);
+        fixture = injector.createComponent(WrapperComponent);
         platform = fixture.debugElement.injector.get(PLATFORM_ID);
         component = fixture.componentInstance;
         debugEl = fixture.debugElement;
@@ -675,15 +679,40 @@ describe('Directive: NgxTippyDirective - Platform test', () => {
       });
   });
 
-  it('should create TestPlatformComponent', () => {
+  it('should create WrapperComponent', () => {
+    // Assert
     expect(component).toBeTruthy();
   });
 
-  it('should init tooltips only if platform browser', () => {
-    const tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-    tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+  it('should NOT init tooltips if platform server', () => {
+    // Arrange
+    component.createInnerComponent(
+      `
+        <div class="test">
+          <button
+            class="test__btn"
+            ngxTippy
+            data-tippy-content="Tooltip content"
+            [tippyProps]="{
+              appendTo: 'parent'
+            }"
+          >
+            Element with tooltip
+          </button>
+        </div>
+      `
+    );
+
+    // Act
     fixture.detectChanges();
-    const tooltip = fixture.debugElement.query(By.css(TOOLTIP_ROOT_DIV));
-    expect(tooltip).toBeNull();
+
+    tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+    tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
+    fixture.detectChanges();
+
+    // Assert
+    const { nativeElement } = fixture.debugElement.query(By.css(TOOLTIP_ROOT_DIV)) || {};
+    expect(nativeElement).toBeFalsy();
   });
 });
