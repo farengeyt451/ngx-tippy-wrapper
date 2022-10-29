@@ -565,7 +565,6 @@ describe('Directive: NgxTippyDirective', () => {
       expect(tippyBoxWithClasses.nativeElement).toHaveClass('another-class');
     });
 
-    // TODO:
     it('should remove class names', () => {
       // Arrange
       const className = 'awesome-class';

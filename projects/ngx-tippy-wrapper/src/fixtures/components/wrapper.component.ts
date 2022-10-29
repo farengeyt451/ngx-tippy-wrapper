@@ -32,8 +32,10 @@ export class WrapperComponent {
   ) {
     @Component({ template, styles })
     class TemplateComponent {
-      updateClasses(className: string) {
-        (this as any).className = className;
+      public className!: string;
+
+      public updateClasses(className: string) {
+        this.className = className;
       }
     }
 
