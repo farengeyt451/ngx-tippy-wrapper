@@ -4,11 +4,11 @@ import { NgxTippyContent, NgxTippyProps } from '../../lib/ngx-tippy.interfaces';
 import { genericStyles } from '../styles/generic-styles';
 
 interface TemplateTooltipComponent {
+  ngxTippy?: NgxTippyContent;
+  tippyName?: string;
   props?: NgxTippyProps;
   content?: string;
   className?: string;
-  tippyName?: string;
-  ngxTippy?: NgxTippyContent;
   onTemplateClick?: (event: MouseEvent) => void;
 }
 
@@ -35,6 +35,10 @@ export class WrapperComponent {
     this.tComponent.updateContent(content);
   }
 
+  public updateProps(props: NgxTippyProps) {
+    this.tComponent.updateProps(props);
+  }
+
   public createInnerComponent(
     template: string,
     properties: TemplateTooltipComponent = {},
@@ -45,6 +49,7 @@ export class WrapperComponent {
       public className!: string;
       public tippyName!: string;
       public ngxTippy!: NgxTippyContent;
+      public props!: NgxTippyProps;
 
       public updateClasses(className: string) {
         this.className = className;
@@ -57,6 +62,10 @@ export class WrapperComponent {
       public updateContent(content: NgxTippyContent) {
         this.ngxTippy = content;
       }
+
+      public updateProps(props: NgxTippyProps) {
+        this.props = props;
+      }
     }
 
     @NgModule({ declarations: [TemplateComponent, NgxTippyDirective] })
@@ -64,7 +73,7 @@ export class WrapperComponent {
 
     this.clearContainerRef(this.viewContainerRef);
 
-    this.tComponent = this.createComponent<any>({
+    this.tComponent = this.createComponent<TemplateComponent>({
       vcRef: this.viewContainerRef,
       component: TemplateComponent,
       properties,

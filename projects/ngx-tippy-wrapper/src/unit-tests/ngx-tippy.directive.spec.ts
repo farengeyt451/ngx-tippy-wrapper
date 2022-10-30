@@ -12,6 +12,7 @@ import {
 } from '../fixtures/consts';
 import { messagesDict, tippyFakeInstance } from '../lib/consts';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
+import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
 import { NgxTippyService } from '../lib/services';
 
@@ -49,7 +50,7 @@ describe('Directive: NgxTippyDirective', () => {
 
     TestBed.configureTestingModule({
       imports: [BrowserModule],
-      declarations: [WrapperComponent],
+      declarations: [WrapperComponent, NgxTippyDirective],
       providers: [
         { provide: NgxTippyService, useValue: tippyServiceSpy },
         {
@@ -696,10 +697,10 @@ describe('Directive: NgxTippyDirective', () => {
 
       fixture.detectChanges();
 
-      let textContent: string;
-
       // Assert
-      textContent = fixture.debugElement.query(By.css(TOOLTIP_CONTENT_DIV)).nativeElement.textContent;
+      const {
+        nativeElement: { textContent },
+      } = fixture.debugElement.query(By.css(TOOLTIP_CONTENT_DIV));
       expect(textContent).toBe(initContent);
 
       // Act
@@ -707,7 +708,106 @@ describe('Directive: NgxTippyDirective', () => {
       fixture.detectChanges();
 
       // Assert
-      expect(tippyService.setContent).toHaveBeenCalledOnceWith(name, updatedContent);
+      expect(tippyService.setContent).toHaveBeenCalledWith(name, updatedContent);
+    });
+
+    it('should disable and clear instance', () => {
+      // Arrange
+      const initContent = 'Initial tooltip';
+      const name = 't-clear';
+
+      component.createInnerComponent(
+        `
+        <div class="test">
+          <button
+            class="test__btn"
+            [ngxTippy]="ngxTippy"
+            tippyName="${name}"
+            [tippyProps]="{
+              appendTo: 'parent',
+              trigger: 'click'
+            }"
+          >
+            Element with tooltip
+          </button>
+        </div>
+      `,
+        {
+          ngxTippy: initContent,
+        }
+      );
+
+      tippyService.getInstances.and.returnValue(new Map().set(name, tippyFakeInstance));
+
+      // Act
+      fixture.detectChanges();
+
+      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('click'));
+
+      fixture.detectChanges();
+
+      component.updateContent(null);
+
+      fixture.detectChanges();
+
+      // Assert
+      const tooltip = fixture.debugElement.query(By.css(TOOLTIP_ROOT_DIV));
+      expect(tooltip).toBeNull();
+    });
+
+    it('should reassign props', () => {
+      // Arrange
+      const common: NgxTippyProps = {
+        appendTo: 'parent',
+        trigger: 'click',
+      };
+
+      const initProps: NgxTippyProps = {
+        ...common,
+        arrow: false,
+        theme: 'light',
+      };
+      const updatedProps: NgxTippyProps = {
+        ...common,
+        arrow: true,
+        theme: 'dark',
+      };
+      const name = 't-props';
+
+      component.createInnerComponent(
+        `
+        <div class="test">
+          <button
+            class="test__btn"
+            ngxTippy="Tooltip content"
+            tippyName="${name}"
+            [tippyProps]="props"
+          >
+            Element with tooltip
+          </button>
+        </div>
+      `,
+        {
+          props: initProps,
+        }
+      );
+
+      // Act
+      fixture.detectChanges();
+
+      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('click'));
+
+      fixture.detectChanges();
+
+      component.updateProps(updatedProps);
+
+      fixture.detectChanges();
+
+      // Assert
+      expect(tippyService.setProps).toHaveBeenCalled();
+      expect(tippyService.setProps).toHaveBeenCalledWith(name, updatedProps);
     });
   });
 
