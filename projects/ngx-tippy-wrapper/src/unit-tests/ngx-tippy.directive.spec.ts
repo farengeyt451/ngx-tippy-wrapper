@@ -567,8 +567,8 @@ describe('Directive: NgxTippyDirective', () => {
 
     it('should reassign class names', () => {
       // Arrange
-      const className = 'awesome-class';
-      const classNameUpd = 'updated-class';
+      const className = 'awesome-class secondary';
+      const classNameUpd = 'updated-class primary';
       component.createInnerComponent(
         `
         <div class="test">
@@ -602,7 +602,7 @@ describe('Directive: NgxTippyDirective', () => {
       fixture.detectChanges();
 
       // Assert
-      tippyBoxWithClasses = fixture.debugElement.query(By.css(`.${className}`));
+      tippyBoxWithClasses = fixture.debugElement.query(By.css('.awesome-class.secondary'));
       expect(tippyBoxWithClasses).toBeTruthy();
 
       // Act
@@ -610,13 +610,12 @@ describe('Directive: NgxTippyDirective', () => {
       fixture.detectChanges();
 
       // Assert
-      tippyBoxWithClasses = fixture.debugElement.query(By.css(`.${classNameUpd}`));
+      tippyBoxWithClasses = fixture.debugElement.query(By.css('.updated-class.primary'));
       expect(tippyBoxWithClasses).toBeTruthy();
     });
 
     it('should reassign tippy name', () => {
       // Arrange
-      let tName!: string | null;
       const initName = 'awesome-name';
       const updatedName = 'updated-name';
       const getName = () => tooltipDebugEl.attributes['ng-reflect-tippy-name'];
@@ -647,7 +646,7 @@ describe('Directive: NgxTippyDirective', () => {
       fixture.detectChanges();
 
       tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
-      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('click'));
 
       fixture.detectChanges();
 
@@ -660,6 +659,55 @@ describe('Directive: NgxTippyDirective', () => {
 
       // Assert
       expect(getName()).toBe(updatedName);
+    });
+
+    it('should reassign content', () => {
+      // Arrange
+      const initContent = 'Initial tooltip';
+      const updatedContent = 'Updated tooltip';
+      const name = 't-set-content';
+
+      component.createInnerComponent(
+        `
+        <div class="test">
+          <button
+            class="test__btn"
+            [ngxTippy]="ngxTippy"
+            tippyName="${name}"
+            [tippyProps]="{
+              appendTo: 'parent',
+              trigger: 'click'
+            }"
+          >
+            Element with tooltip
+          </button>
+        </div>
+      `,
+        {
+          ngxTippy: initContent,
+        }
+      );
+
+      // Act
+      fixture.detectChanges();
+
+      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('click'));
+
+      fixture.detectChanges();
+
+      let textContent: string;
+
+      // Assert
+      textContent = fixture.debugElement.query(By.css(TOOLTIP_CONTENT_DIV)).nativeElement.textContent;
+      expect(textContent).toBe(initContent);
+
+      // Act
+      component.updateContent(updatedContent);
+      fixture.detectChanges();
+
+      // Assert
+      expect(tippyService.setContent).toHaveBeenCalledOnceWith(name, updatedContent);
     });
   });
 
