@@ -33,7 +33,7 @@ export class NgxTippyGroupComponent implements AfterViewInit {
     const contentWrapperNativeEl: HTMLElement = this.contentWrapper.nativeElement;
     const tooltips: HTMLElement[] = Array.from(contentWrapperNativeEl.querySelectorAll('[data-tippy-grouped]'));
 
-    if (tooltips?.length) {
+    if (tooltips.length) {
       this.initTippy(tooltips);
     } else {
       throw new Error(this.messagesDict.childrenInstancesNotFoundGrouped);

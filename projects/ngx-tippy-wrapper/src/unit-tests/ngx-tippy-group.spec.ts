@@ -1,70 +1,24 @@
 import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
 import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  COLOR_WHITE,
+  groupStyles,
+  groupTemplate,
+  PLATFORMS,
+  TOOLTIP_ARROW_DIV,
+  TOOLTIP_BOX_DIV,
+  TOOLTIP_GROUP,
+  TOOLTIP_ROOT_DIV,
+} from '../fixtures/consts';
 import { NgxTippyGroupComponent } from '../lib/components';
 import { messagesDict } from '../lib/consts';
 import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 import { NGX_TIPPY_MESSAGES } from '../lib/ngx-tippy.tokens';
 
 @Component({
-  template: `
-    <div class="tippy-group">
-      <ngx-tippy-group [groupedProps]="props">
-        <div class="tippy-group__items">
-          <button
-            class="tippy-group__item"
-            data-tippy-grouped
-            data-tippy-content="Tooltip content"
-          >
-            Group
-          </button>
-          <button
-            class="tippy-group__item"
-            data-tippy-grouped
-            data-tippy-content="Tooltip content"
-          >
-            Group
-          </button>
-          <button
-            class="tippy-group__item"
-            data-tippy-grouped
-            data-tippy-content="Tooltip content"
-          >
-            Group
-          </button>
-        </div>
-      </ngx-tippy-group>
-    </div>
-  `,
-  styles: [
-    `
-      .tippy-group {
-        position: relative;
-        align-items: center;
-        justify-content: center;
-        min-height: 120px;
-        padding: 40px;
-        background-color: #f9f8f5;
-        font-family: 'Open Sans', sans-serif;
-      }
-
-      .tippy-group__item {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        background-image: linear-gradient(120deg, #54d182 0%, #3db9f5 100%);
-        color: #fff;
-        font-weight: 600;
-        font-size: 14px;
-        font-family: 'Open Sans', sans-serif;
-        cursor: pointer;
-      }
-
-      .tippy-group__items .tippy-group__item:not(:first-child) {
-        margin-left: 10px;
-      }
-    `,
-  ],
+  template: groupTemplate,
+  styles: [groupStyles],
 })
 class TestWrapperComponent {
   props: NgxTippyProps = {
@@ -84,12 +38,13 @@ describe('Component: NgxTippyGroupComponent (wrapped)', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [NgxTippyGroupComponent, TestWrapperComponent],
+      declarations: [TestWrapperComponent, NgxTippyGroupComponent],
       providers: [
         {
           provide: NGX_TIPPY_MESSAGES,
           useValue: messagesDict,
         },
+        { provide: PLATFORM_ID, useValue: PLATFORMS.Browser },
       ],
     })
       .compileComponents()
@@ -102,44 +57,58 @@ describe('Component: NgxTippyGroupComponent (wrapped)', () => {
       });
   });
 
-  it('should create wrapper test component', () => {
+  it('should create wrapper component', () => {
+    // Assert
     expect(component).toBeTruthy();
   });
 
   it('should render all grouped elements', () => {
-    const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
+    // Arrange
+    const groupEls = debugEl.queryAll(By.css(TOOLTIP_GROUP));
 
+    // Assert
     expect(groupEls).toBeTruthy();
     expect(groupEls.length).toBe(3);
   });
 
   it('should show tooltips on click', () => {
-    const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
+    // Arrange
+    const groupEls = debugEl.queryAll(By.css(TOOLTIP_GROUP));
+
+    // Act
     groupEls.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('click'));
     });
+
     fixture.detectChanges();
-    const tooltips = fixture.debugElement.queryAll(By.css('div[data-tippy-root]'));
+
+    // Assert
+    const tooltips = fixture.debugElement.queryAll(By.css(TOOLTIP_ROOT_DIV));
 
     expect(tooltips).toBeTruthy();
     expect(tooltips.length).toBe(3);
   });
 
   it('should apply properties', fakeAsync(() => {
-    const groupEls = debugEl.queryAll(By.css('button[data-tippy-grouped]'));
+    // Arrange
+    const groupEls = debugEl.queryAll(By.css(TOOLTIP_GROUP));
+    let dataPlacement!: string;
+
+    // Act
     groupEls.forEach(el => {
       el.nativeElement.dispatchEvent(new MouseEvent('click'));
     });
+
     fixture.detectChanges();
 
-    const tooltipArrow = fixture.debugElement.queryAll(By.css('.tippy-arrow'));
-    const tippyBox = fixture.debugElement.queryAll(By.css('.tippy-box'));
-    const tooltipBgColor = getComputedStyle(tippyBox[1].nativeElement).backgroundColor;
+    // Assert
+    const tooltipArrow = fixture.debugElement.queryAll(By.css(TOOLTIP_ARROW_DIV));
+    const tippyBox = fixture.debugElement.queryAll(By.css(TOOLTIP_BOX_DIV));
+    const { backgroundColor } = getComputedStyle(tippyBox[1].nativeElement);
 
     expect(tooltipArrow[0]).toBeUndefined();
-    expect(tooltipBgColor).toBe('rgb(255, 255, 255)');
+    expect(backgroundColor).toBe(COLOR_WHITE);
 
-    let dataPlacement!: string;
     setTimeout(() => {
       dataPlacement = tippyBox[2].nativeElement.dataset.placement;
     }, 0);
@@ -161,7 +130,7 @@ describe('Component: NgxTippyGroupComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NgxTippyGroupComponent],
       providers: [
-        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: PLATFORM_ID, useValue: PLATFORMS.Server },
         {
           provide: NGX_TIPPY_MESSAGES,
           useValue: messagesDict,
@@ -180,14 +149,24 @@ describe('Component: NgxTippyGroupComponent', () => {
   });
 
   it('should create NgxTippyGroupComponent', () => {
+    // Assert
     expect(component).toBeTruthy();
   });
 
   it('should init tooltips only if platform browser', () => {
+    // Arrange
     spyOn(component, 'setTooltips');
     spyOn(component, 'initTippy');
+
+    // Act
     component.ngAfterViewInit();
+
+    // Assert
     expect(component.setTooltips).toHaveBeenCalledTimes(0);
-    expect(component.setTooltips).toHaveBeenCalledTimes(0);
+  });
+
+  it('should throw error when children instances not found', () => {
+    // Assert
+    expect(() => component['setTooltips']()).toThrowError(component['messagesDict'].childrenInstancesNotFoundGrouped);
   });
 });

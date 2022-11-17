@@ -4,6 +4,7 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { WrapperComponent } from '../fixtures/components';
 import {
   COLOR_WHITE,
+  PLATFORMS,
   serviceSpy,
   TOOLTIP_ARROW_DIV,
   TOOLTIP_BOX_DIV,
@@ -15,11 +16,6 @@ import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
 import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
 import { NgxTippyService } from '../lib/services';
-
-enum PLATFORMS {
-  Browser = 'browser',
-  Server = 'server',
-}
 
 type MEvents =
   | 'click'
