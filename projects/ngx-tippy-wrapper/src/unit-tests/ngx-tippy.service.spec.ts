@@ -4,7 +4,7 @@ import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
 import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
 import { DevModeService, NgxTippyService } from '../lib/services';
 
-describe('Service: NgxTippyWrapperService - Instance exist ', () => {
+describe('Service: NgxTippyWrapperService - Instance exist', () => {
   let injector: TestBed;
   let tippyService: NgxTippyService;
   let tippyInstance: any;

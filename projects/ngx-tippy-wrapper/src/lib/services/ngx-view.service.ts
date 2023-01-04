@@ -4,9 +4,7 @@ import { CompRef, isComponent, isTemplateRef, TplRef } from '../utils';
 
 @Injectable({ providedIn: 'root' })
 export class NgxViewService {
-  public viewContainerRef!: ViewContainerRef;
-
-  constructor(private appRef: ApplicationRef) {}
+  constructor(private appRef: ApplicationRef, private viewContainerRef: ViewContainerRef) {}
 
   getViewRefInstance(content: NgxTippyTemplate, tippyName?: string): ViewRef {
     let viewRef!: ViewRef;
