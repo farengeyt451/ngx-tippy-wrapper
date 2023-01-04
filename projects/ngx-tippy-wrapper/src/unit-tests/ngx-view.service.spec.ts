@@ -1,14 +1,14 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { messagesDict } from '../lib/consts';
 import { NGX_TIPPY_MESSAGES } from '../lib/ngx-tippy.tokens';
 import { NgxViewService } from '../lib/services';
-import { TplRef } from '../lib/utils';
+import { CompRef, TplRef } from '../lib/utils';
 
 @Component({
   template: ` <p>Content</p> `,
 })
-export class TippyTemplateComponent {}
+class TippyTemplateComponent {}
 
 @Component({
   selector: 'template-injector',
@@ -21,7 +21,7 @@ export class TippyTemplateComponent {}
   providers: [NgxViewService],
 })
 class TestWrapperComponent {
-  constructor() {}
+  constructor(public viewRef: ViewContainerRef) {}
 
   @ViewChild('ngTmplt') template!: TemplateRef<any>;
 
@@ -30,7 +30,7 @@ class TestWrapperComponent {
   }
 }
 
-fdescribe('Component: NgxTippySingletonComponent', () => {
+describe('Component: NgxTippySingletonComponent', () => {
   let fixture: ComponentFixture<TestWrapperComponent>;
   let injector: TestBed;
   let component: TestWrapperComponent;
@@ -67,19 +67,23 @@ fdescribe('Component: NgxTippySingletonComponent', () => {
   it('should return template ref [getViewRefInstance]', () => {
     // Arrange
     const ngTemplate = component.getNgTemplate();
+
+    // Act
     const vRef = viewService.getViewRefInstance(ngTemplate);
 
     // Assert
     expect(vRef).toBeInstanceOf(TplRef);
   });
 
-  // xit('should return component ref from [getViewRefInstance]', () => {
-  //   // Arrange
-  //   const component = TippyTemplateComponent;
+  it('should return component ref from [getViewRefInstance]', () => {
+    // Arrange
+    const tippyTemplateComponent = TippyTemplateComponent;
+    viewService.viewContainerRef = component.viewRef;
 
-  //   const vRef = viewService.getViewRefInstance(component);
+    // Act
+    const vRef = viewService.getViewRefInstance(tippyTemplateComponent);
 
-  //   // Assert
-  //   expect(vRef).toBeInstanceOf(TplRef);
-  // });
+    // Assert
+    expect(vRef).toBeInstanceOf(CompRef);
+  });
 });
