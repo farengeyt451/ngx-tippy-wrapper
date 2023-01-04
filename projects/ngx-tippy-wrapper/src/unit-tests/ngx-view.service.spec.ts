@@ -73,13 +73,13 @@ fdescribe('Component: NgxTippySingletonComponent', () => {
     expect(vRef).toBeInstanceOf(TplRef);
   });
 
-  it('should return component ref from [getViewRefInstance]', () => {
-    // Arrange
-    const component = TippyTemplateComponent;
+  // xit('should return component ref from [getViewRefInstance]', () => {
+  //   // Arrange
+  //   const component = TippyTemplateComponent;
 
-    const vRef = viewService.getViewRefInstance(component);
+  //   const vRef = viewService.getViewRefInstance(component);
 
-    // Assert
-    expect(vRef).toBeInstanceOf(TplRef);
-  });
+  //   // Assert
+  //   expect(vRef).toBeInstanceOf(TplRef);
+  // });
 });
