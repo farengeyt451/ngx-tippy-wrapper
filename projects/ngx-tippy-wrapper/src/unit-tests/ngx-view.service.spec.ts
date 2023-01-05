@@ -34,7 +34,7 @@ class TestWrapperComponent {
     return this.ngTemplate;
   }
 
-  geTemplate() {
+  getTemplate() {
     return this.template;
   }
 }
@@ -98,7 +98,7 @@ describe('Service: NgxViewService', () => {
 
   it('should return content from HTML template', () => {
     // Arrange
-    const { nativeElement: template } = component.geTemplate();
+    const { nativeElement: template } = component.getTemplate();
 
     // Act
     const content = viewService.getViewRefInstance(template);

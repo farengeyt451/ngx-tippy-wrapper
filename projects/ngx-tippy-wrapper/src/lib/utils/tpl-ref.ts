@@ -14,11 +14,12 @@ export class TplRef<C> implements ViewRef {
   constructor(private args: CustomTmlRefArgs<C>) {
     this.viewRef = this.args.tpl.createEmbeddedView(this.args.context || ({} as C));
     this.viewRef.detectChanges();
-    this.args.appRef?.attachView(this.viewRef);
+    this.args.appRef.attachView(this.viewRef);
   }
 
   detectChanges() {
     this.viewRef?.detectChanges();
+    return this;
   }
 
   getElement(): Element | null {
@@ -26,7 +27,7 @@ export class TplRef<C> implements ViewRef {
 
     const rootNodes = this.viewRef.rootNodes;
 
-    if (rootNodes.length === 1 && rootNodes[0] === Node.ELEMENT_NODE) {
+    if (rootNodes.length === 1 && rootNodes[0].nodeType === Node.ELEMENT_NODE) {
       this.element = rootNodes[0];
     } else {
       this.element = document.createElement('div');
