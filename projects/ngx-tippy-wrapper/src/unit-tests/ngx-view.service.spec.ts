@@ -6,7 +6,7 @@ import { NgxViewService } from '../lib/services';
 import { CompRef, TplRef } from '../lib/utils';
 
 @Component({
-  template: ` <p>Content</p> `,
+  template: ` <p>Tooltip SPEC</p> `,
 })
 class TippyTemplateComponent {}
 
@@ -14,8 +14,12 @@ class TippyTemplateComponent {}
   selector: 'template-injector',
   template: `
     <ng-template #ngTmplt>
-      <p>Tooltip content</p>
+      <p>Tooltip SPEC</p>
     </ng-template>
+
+    <template #tmplt>
+      <p>Tooltip SPEC</p>
+    </template>
   `,
   styleUrls: [],
   providers: [NgxViewService],
@@ -23,9 +27,14 @@ class TippyTemplateComponent {}
 class TestWrapperComponent {
   constructor(public viewRef: ViewContainerRef) {}
 
-  @ViewChild('ngTmplt') template!: TemplateRef<any>;
+  @ViewChild('ngTmplt') ngTemplate!: TemplateRef<any>;
+  @ViewChild('tmplt') template!: any;
 
   getNgTemplate() {
+    return this.ngTemplate;
+  }
+
+  geTemplate() {
     return this.template;
   }
 }
@@ -64,7 +73,7 @@ describe('Component: NgxTippySingletonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should return template ref [getViewRefInstance]', () => {
+  it('should return template ref', () => {
     // Arrange
     const ngTemplate = component.getNgTemplate();
 
@@ -75,7 +84,7 @@ describe('Component: NgxTippySingletonComponent', () => {
     expect(vRef).toBeInstanceOf(TplRef);
   });
 
-  it('should return component ref from [getViewRefInstance]', () => {
+  it('should return component ref', () => {
     // Arrange
     const tippyTemplateComponent = TippyTemplateComponent;
     viewService.viewContainerRef = component.viewRef;
@@ -85,5 +94,16 @@ describe('Component: NgxTippySingletonComponent', () => {
 
     // Assert
     expect(vRef).toBeInstanceOf(CompRef);
+  });
+
+  it('should return content from HTML template', () => {
+    // Arrange
+    const { nativeElement: template } = component.geTemplate();
+
+    // Act
+    const content = viewService.getViewRefInstance(template);
+
+    // Assert
+    expect(content.getElement()).toBeInstanceOf(DocumentFragment);
   });
 });
