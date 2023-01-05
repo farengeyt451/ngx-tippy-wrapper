@@ -21,6 +21,8 @@ describe('Utils: CompRef', () => {
   let injector: TestBed;
   let component: TestWrapperComponent;
   let debugEl: DebugElement;
+  let testComponent: any;
+  let compRefInstance: CompRef<any>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -33,6 +35,9 @@ describe('Utils: CompRef', () => {
         component = fixture.componentInstance;
         debugEl = fixture.debugElement;
 
+        testComponent = TestWrapperComponent;
+        compRefInstance = new CompRef<any>({ component: testComponent, viewContainerRef: component.viewRef });
+
         fixture.detectChanges();
       });
   });
@@ -44,12 +49,10 @@ describe('Utils: CompRef', () => {
 
   it('should detect changes AND return class instance', () => {
     // Arrange
-    const testComponent = TestWrapperComponent;
-    const compRef = new CompRef<any>({ component: testComponent, viewContainerRef: component.viewRef });
-    const detectChangesSpy = spyOn<any>(compRef['compRef']?.changeDetectorRef, 'detectChanges');
+    const detectChangesSpy = spyOn<any>(compRefInstance['compRef']?.changeDetectorRef, 'detectChanges');
 
     // Act
-    const ref = compRef.detectChanges();
+    const ref = compRefInstance.detectChanges();
 
     // Assert
     expect(ref).toBeInstanceOf(CompRef);
@@ -57,28 +60,40 @@ describe('Utils: CompRef', () => {
   });
 
   it('should return content', () => {
-    // Arrange
-    const testComponent = TestWrapperComponent;
-    const compRef = new CompRef<any>({ component: testComponent, viewContainerRef: component.viewRef });
-
     // Act
-    const el = compRef.getElement();
+    const el = compRefInstance.getElement();
 
+    // Assert
     expect(el).toBeInstanceOf(HTMLElement);
     expect(el.innerHTML).toBe(TEMPLATE);
   });
 
   it('should check destroy ref', () => {
     // Arrange
-    const testComponent = TestWrapperComponent;
-    const compRef = new CompRef<any>({ component: testComponent, viewContainerRef: component.viewRef });
-    const destroySpy = spyOn<any>(compRef['compRef'], 'destroy');
+    const destroySpy = spyOn<any>(compRefInstance['compRef'], 'destroy');
 
     // Act
-    compRef.destroy();
+    compRefInstance.destroy();
 
     // Assert
     expect(destroySpy).toHaveBeenCalled();
-    expect(compRef['compRef']).toBeNull();
+    expect(compRefInstance['compRef']).toBeNull();
+  });
+
+  it('should check NULL branch for compRef', () => {
+    // Arrange
+    const detectChangesSpy = spyOn<any>(compRefInstance['compRef']?.changeDetectorRef, 'detectChanges');
+    const destroySpy = spyOn<any>(compRefInstance['compRef'], 'destroy');
+
+    // Act
+    compRefInstance['compRef'] = null;
+    compRefInstance.destroy();
+    const el = compRefInstance.getElement();
+    const ref = compRefInstance.detectChanges();
+
+    // Assert
+    expect(el).toBeUndefined();
+    expect(destroySpy).not.toHaveBeenCalled();
+    expect(detectChangesSpy).not.toHaveBeenCalled();
   });
 });
