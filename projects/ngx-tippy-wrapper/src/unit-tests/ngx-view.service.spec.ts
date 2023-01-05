@@ -39,7 +39,7 @@ class TestWrapperComponent {
   }
 }
 
-describe('Component: NgxTippySingletonComponent', () => {
+describe('Service: NgxViewService', () => {
   let fixture: ComponentFixture<TestWrapperComponent>;
   let injector: TestBed;
   let component: TestWrapperComponent;
