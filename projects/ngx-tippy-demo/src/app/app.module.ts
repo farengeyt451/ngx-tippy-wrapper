@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TuiAlertModule, TuiButtonModule, TuiDialogModule, TuiRootModule, TUI_SANITIZER } from '@taiga-ui/core';
+import { TUI_SANITIZER, TuiAlertModule, TuiButtonModule, TuiDialogModule, TuiRootModule } from '@taiga-ui/core';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
+import { TDemoHeaderComponent } from '../components/t-demo-header';
+import { TDemoNavComponent } from '../components/t-demo-nav';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TDemoHeaderComponent, TDemoNavComponent],
   imports: [
     BrowserModule,
     NgxTippyModule,
