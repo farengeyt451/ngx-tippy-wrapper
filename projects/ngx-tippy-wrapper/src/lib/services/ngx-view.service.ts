@@ -8,14 +8,13 @@ export class NgxViewService {
 
   constructor(private appRef: ApplicationRef) {}
 
-  getViewRefInstance(content: NgxTippyTemplate, tippyName?: string): ViewRef {
+  getViewRefInstance(content: NgxTippyTemplate, tippyName?: string, tippyContext?: any): ViewRef {
     let viewRef!: ViewRef;
 
     if (isTemplateRef(content)) {
       viewRef = this.createTemplate(content, {
-        context: {
-          $implicit: tippyName,
-        },
+        ...tippyContext,
+        $implicit: tippyName,
       });
     } else if (isComponent(content)) {
       viewRef = this.createComponent(content);

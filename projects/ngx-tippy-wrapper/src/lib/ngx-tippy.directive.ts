@@ -25,6 +25,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   @Input() tippyProps?: NgxTippyProps;
   @Input() tippyName?: string;
   @Input() tippyClassName?: string;
+  @Input() tippyContext: any;
 
   private tippyInstance: NgxTippyInstance | undefined;
   private cachedInstances = new Map();
@@ -61,7 +62,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
 
     if (this.ngxTippy === null || this.ngxTippy === undefined) return;
 
-    const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy, this.tippyName);
+    const viewRef = this.ngxViewService.getViewRefInstance(this.ngxTippy, this.tippyName, this.tippyContext);
     const tippyElement = viewRef.getElement();
 
     const tInstance = tippy(tippyTarget, {

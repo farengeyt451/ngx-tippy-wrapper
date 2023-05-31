@@ -78,10 +78,12 @@ describe('Service: NgxViewService', () => {
     const ngTemplate = component.getNgTemplate();
 
     // Act
-    const vRef = viewService.getViewRefInstance(ngTemplate);
+    const vRef = viewService.getViewRefInstance(ngTemplate, 'test-name', { test: 'context' });
 
     // Assert
     expect(vRef).toBeInstanceOf(TplRef);
+    expect((vRef as any).viewRef.context.$implicit).toEqual('test-name');
+    expect((vRef as any).viewRef.context.test).toEqual('context');
   });
 
   it('should return component ref', () => {
