@@ -1,15 +1,15 @@
 import { DebugElement, PLATFORM_ID } from '@angular/core';
-import { ComponentFixture, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, getTestBed, tick } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { WrapperComponent } from '../fixtures/components';
 import {
   COLOR_WHITE,
   PLATFORMS,
-  serviceSpy,
   TOOLTIP_ARROW_DIV,
   TOOLTIP_BOX_DIV,
   TOOLTIP_CONTENT_DIV,
   TOOLTIP_ROOT_DIV,
+  serviceSpy,
 } from '../fixtures/consts';
 import { messagesDict, tippyFakeInstance } from '../lib/consts';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
@@ -748,8 +748,7 @@ describe('Directive: NgxTippyDirective', () => {
       fixture.detectChanges();
 
       // Assert
-      const tooltip = fixture.debugElement.query(By.css(TOOLTIP_ROOT_DIV));
-      expect(tooltip).toBeNull();
+      expect(tippyService.disable).toHaveBeenCalled();
     });
 
     it('should reassign props', () => {

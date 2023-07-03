@@ -145,8 +145,14 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
       this.initTippy();
     }
 
-    if (tippyInstances && this.tippyInstance && currentValue === null) {
-      this.clearInstance({ tippyInstance: this.tippyInstance, tippyInstances });
+    if (!tippyInstances || !this.tippyInstance) return;
+
+    const { tippyName } = this.tippyInstance;
+
+    if (currentValue === null) {
+      this.ngxTippyService.disable(tippyName);
+    } else {
+      this.ngxTippyService.enable(tippyName);
     }
   }
 
