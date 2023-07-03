@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TDemoHeaderComponent } from '../t-demo-header.component';
+import { TDemoFooterComponent } from '../t-demo-footer.component';
 
-describe('TDemoHeaderComponent', () => {
-  let component: TDemoHeaderComponent;
-  let fixture: ComponentFixture<TDemoHeaderComponent>;
+describe('TDemoFooterComponent', () => {
+  let component: TDemoFooterComponent;
+  let fixture: ComponentFixture<TDemoFooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TDemoHeaderComponent],
+      declarations: [TDemoFooterComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TDemoHeaderComponent);
+    fixture = TestBed.createComponent(TDemoFooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

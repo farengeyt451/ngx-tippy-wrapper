@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TDemoNavComponent } from './t-demo-nav.component';
+import { TDemoNavComponent } from '../t-demo-nav.component';
 
 describe('TDemoNavComponent', () => {
   let component: TDemoNavComponent;
@@ -8,9 +7,8 @@ describe('TDemoNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TDemoNavComponent ]
-    })
-    .compileComponents();
+      declarations: [TDemoNavComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TDemoNavComponent);
     component = fixture.componentInstance;

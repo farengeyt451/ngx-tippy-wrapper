@@ -109,19 +109,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(public tippyService: NgxTippyService) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.data = { b: 14 };
-    }, 5000);
-    this.setContentForTooltipBindedProp();
-    this.subToInstancesChanges();
+    // setTimeout(() => {
+    //   this.data = { b: 14 };
+    // }, 5000);
+    // this.setContentForTooltipBindedProp();
+    // this.subToInstancesChanges();
   }
 
   ngAfterViewInit() {
-    this.setContentForTooltip();
-    this.setContentForTooltipPassElement();
-    this.setContentForTooltipInnerHTML();
-    this.initManualControl();
-    this.initManualSingletonControl();
+    // this.setContentForTooltip();
+    // this.setContentForTooltipPassElement();
+    // this.setContentForTooltipInnerHTML();
+    // this.initManualControl();
+    // this.initManualSingletonControl();
   }
 
   ngOnDestroy() {
