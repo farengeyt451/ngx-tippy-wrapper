@@ -137,22 +137,16 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
   }
 
   private handleContentChanges({ currentValue }: SimpleChange) {
-    const tippyInstances = this.cachedTippyInstances();
-
     if (this.tippyInstance && this.tippyName) {
       this.ngxTippyService.setContent(this.tippyName, currentValue);
+
+      if (currentValue === null || currentValue === undefined) {
+        this.ngxTippyService.disable(this.tippyName);
+      } else {
+        this.ngxTippyService.enable(this.tippyName);
+      }
     } else {
       this.initTippy();
-    }
-
-    if (!tippyInstances || !this.tippyInstance) return;
-
-    const { tippyName } = this.tippyInstance;
-
-    if (currentValue === null) {
-      this.ngxTippyService.disable(tippyName);
-    } else {
-      this.ngxTippyService.enable(tippyName);
     }
   }
 
