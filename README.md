@@ -23,7 +23,7 @@
 
 ## Recommended versions to use
 
-- **Angular 14**: 6.x.x
+- **Angular 14, 15, 16**: 6.x.x
 - **Angular 13**: 5.x.x
 - **Angular 12**: 4.x.x
 - **Angular 9, 10, 11** 3.x.x
@@ -159,7 +159,7 @@ export class DemoComponent implements OnInit {
 
 ### Initializing on condition
 
-In some cases tooltip should be initialized conditionally. For example in case optional `@Input` property passed or not. So, if tooltip should not initialize - you can explicitly pass `null` through `ngxTippy` directive.
+In some cases tooltip should be initialized conditionally. For example in case optional `@Input` property passed or not. So, if tooltip should be disabled on some conditions - you can explicitly pass `null` or `undefined` through `ngxTippy` directive.
 
 ```ts
 ...
