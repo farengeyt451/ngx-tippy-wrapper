@@ -1,7 +1,6 @@
-body {
-  background-color: #f9f8f5;
-}
+@import 'variables';
 
-.tippy-box {
-  font-family: 'Open Sans', sans-serif;
+html {
+  font-size: $main-font-size;
+  background-color: $main-bg-color;
 }

@@ -71,7 +71,12 @@
               "node_modules/tippy.js/dist/tippy.css",
               "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/ngx-tippy-demo/src/styles"
+              ]
+            }
           },
           "configurations": {
             "production": {
