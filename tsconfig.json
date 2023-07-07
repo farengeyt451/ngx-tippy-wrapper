@@ -15,7 +15,28 @@
       "ngx-tippy-wrapper": [
         "dist/ngx-tippy-wrapper/ngx-tippy-wrapper",
         "dist/ngx-tippy-wrapper"
-      ]
+      ],
+      "@assets/*": [
+        "projects/ngx-tippy-demo/src/assets/*",
+      ],
+      "@components/*": [
+        "projects/ngx-tippy-demo/src/components/*"
+      ],
+      "@constants": [
+        "projects/ngx-tippy-demo/src/constants/index.ts"
+      ],
+      "@interfaces": [
+        "projects/ngx-tippy-demo/src/interfaces/index.ts"
+      ],
+      "@services": [
+        "projects/ngx-tippy-demo/src/services/index.ts"
+      ],
+      "@styles/*": [
+        "projects/ngx-tippy-demo/src/styles/*"
+      ],
+      "@tokens": [
+        "projects/ngx-tippy-demo/src/tokens/index.ts"
+      ],
     },
     "experimentalDecorators": true,
     "moduleResolution": "node",
@@ -25,7 +46,7 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -33,12 +54,4 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "paths": {
-    "@assets/*": [
-      "projects/ngx-tippy-demo/src/assets",
-    ],
-    "@styles/*": [
-      "projects/ngx-tippy-demo/src/styles"
-    ]
-  }
 }

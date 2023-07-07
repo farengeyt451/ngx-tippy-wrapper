@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -15,7 +15,12 @@ import { TDemoContentComponent } from '../components/t-demo-content/t-demo-conte
 import { TDemoFooterComponent } from '../components/t-demo-footer';
 import { TDemoHeaderComponent } from '../components/t-demo-header';
 import { TDemoNavComponent } from '../components/t-demo-nav';
+import { SchemeService } from '../services/scheme-service';
 import { AppComponent } from './app.component';
+
+function initialize(SchemeService: SchemeService) {
+  return () => SchemeService.getPreferredScheme();
+}
 
 @NgModule({
   declarations: [AppComponent, TDemoHeaderComponent, TDemoNavComponent, TDemoFooterComponent, TDemoContentComponent],
@@ -32,6 +37,12 @@ import { AppComponent } from './app.component';
   providers: [
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initialize,
+      deps: [SchemeService],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
