@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { PREFERS_LIGHT } from '@constants';
 import { Schemes } from '@interfaces';
 import { WINDOW } from '@tokens';
-import { fromEvent } from 'rxjs';
+import { BehaviorSubject, Observable, fromEvent } from 'rxjs';
 
 const PREFERRED_SCHEME_KEY = 'preferred_scheme';
 
@@ -11,13 +11,22 @@ const PREFERRED_SCHEME_KEY = 'preferred_scheme';
   providedIn: 'root',
 })
 export class SchemeService {
-  constructor(@Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document) {}
+  private scheme$!: BehaviorSubject<string>;
 
-  getPreferredScheme(): Promise<string> {
+  constructor(@Inject(WINDOW) private readonly window: Window, @Inject(DOCUMENT) private readonly document: Document) {
+    this.listenForSchemeChanges();
+  }
+
+  public getScheme$(): Observable<string> {
+    return this.scheme$.asObservable();
+  }
+
+  public getPreferredScheme(): Promise<string> {
     return new Promise((resolve, reject) => {
-      const scheme = this.checkForSystemScheme();
+      const scheme = this.getSystemScheme();
       if (scheme) {
         this.setSchemeClass(scheme);
+        this.initSchemeSubject(scheme);
         resolve(scheme);
       } else {
         reject('Error occurs while loading scheme');
@@ -25,40 +34,48 @@ export class SchemeService {
     });
   }
 
-  setSchemeClass(scheme: string): void {
-    this.document.body.classList.toggle(scheme);
-  }
-
-  private checkForSystemScheme(): string {
-    const storedScheme = this.getScheme();
+  private getSystemScheme(): string | null {
+    const storedScheme = this.getSchemeFromLocalStorage();
     const preferredScheme = this.getMatchedScheme(this.window.matchMedia(PREFERS_LIGHT).matches);
 
     if (storedScheme && storedScheme === preferredScheme) {
       return storedScheme;
     } else {
-      return this.storeScheme(preferredScheme);
+      return this.storeSchemeToLocalStorage(preferredScheme);
     }
   }
 
-  private getScheme(): string | null {
+  private initSchemeSubject(scheme: string): void {
+    this.scheme$ = new BehaviorSubject(scheme);
+  }
+
+  private emitSchemeChanges(scheme: string): void {
+    this.scheme$.next(scheme);
+  }
+
+  private getSchemeFromLocalStorage(): string | null {
     return this.window.localStorage.getItem(PREFERRED_SCHEME_KEY);
   }
 
-  private storeScheme(scheme: Schemes): string {
+  private storeSchemeToLocalStorage(scheme: Schemes): string {
     this.window.localStorage.setItem(PREFERRED_SCHEME_KEY, scheme);
     return scheme;
   }
 
-  private listenForSchemeChanges() {
+  private getMatchedScheme(isMatched: boolean): Schemes {
+    return isMatched ? Schemes.Light : Schemes.Dark;
+  }
+
+  private listenForSchemeChanges(): void {
     const schemeChanges$ = fromEvent<MediaQueryListEvent>(this.window.matchMedia(PREFERS_LIGHT), 'change');
 
     schemeChanges$.subscribe(event => {
-      const selectedScheme = this.getMatchedScheme(event.matches);
-      this.setSchemeClass(selectedScheme);
+      const systemScheme = this.getMatchedScheme(event.matches);
+      this.emitSchemeChanges(systemScheme);
     });
   }
 
-  private getMatchedScheme(isMatched: boolean): Schemes {
-    return isMatched ? Schemes.Light : Schemes.Dark;
+  private setSchemeClass(scheme: string): void {
+    this.document.body.classList.toggle(scheme);
   }
 }

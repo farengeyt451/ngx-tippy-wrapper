@@ -1,6 +1,6 @@
 @import 'variables';
 
-html {
+body {
   font-size: $main-font-size;
-  background-color: $main-bg-color;
+  background-color: var(--tui-base-01);
 }

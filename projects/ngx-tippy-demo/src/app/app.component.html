@@ -1,10 +1,25 @@
-<tui-root class="t-demo">
+<tui-root
+  class="t-demo"
+  *tuiLet="night$ | async as night"
+  [tuiMode]="night ? 'onDark' : null"
+>
+
+  <tui-theme-night *ngIf="night"></tui-theme-night>
 
   <header class="t-demo__header">
     <t-demo-header (selectedScheme)="onSelectedScheme($event)"></t-demo-header>
   </header>
 
   <main class="t-demo__main">
+
+    <p>Here you can reproduce any Taiga UI example</p>
+    <p>
+      <tui-input [(ngModel)]="value"> Type some value </tui-input>
+    </p>
+    <button
+      tuiButton
+      appearance="secondary"
+    >Submit</button>
 
     <nav class="t-demo__nav">
       <t-demo-nav></t-demo-nav>
@@ -18,5 +33,6 @@
   <footer class="t-demo__footer">
     <t-demo-footer></t-demo-footer>
   </footer>
+
 
 </tui-root>

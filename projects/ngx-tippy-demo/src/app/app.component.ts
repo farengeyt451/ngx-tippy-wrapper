@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Schemes } from '@interfaces';
+import { TuiNightThemeService } from '@taiga-ui/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,8 @@ import { Schemes } from '@interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  constructor() {}
+  value = 'Hello!';
+  constructor(@Inject(TuiNightThemeService) readonly night$: Observable<boolean>) {}
 
   ngOnInit() {}
 

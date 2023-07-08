@@ -1,14 +1,19 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TuiLetModule } from '@taiga-ui/cdk';
 import {
   TUI_SANITIZER,
   TuiAlertModule,
   TuiButtonModule,
   TuiDialogModule,
+  TuiModeModule,
   TuiRootModule,
   TuiSvgModule,
+  TuiThemeNightModule,
 } from '@taiga-ui/core';
+import { TuiInputModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { TDemoContentComponent } from '../components/t-demo-content/t-demo-content.component';
@@ -33,6 +38,11 @@ function initialize(SchemeService: SchemeService) {
     BrowserAnimationsModule,
     TuiDialogModule,
     TuiAlertModule,
+    FormsModule,
+    TuiInputModule,
+    TuiModeModule,
+    TuiLetModule,
+    TuiThemeNightModule,
   ],
   providers: [
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
