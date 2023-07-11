@@ -1,0 +1,31 @@
+.scheme-switcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tui-text-02);
+  background-color: var(--tui-base-03);
+  border-radius: 1.5rem;
+  padding: 0.5rem 1.5rem;
+}
+
+.scheme-switcher__icon {
+  cursor: pointer;
+  border-radius: 100%;
+  padding: 0.2rem;
+  transition: background-color 0.1s ease-in, color 0.1s ease-in;
+
+  &:hover {
+    color: var(--tui-base-03);
+    background-color: var(--tui-base-07);
+  }
+}
+
+.scheme-switcher__icon--active {
+  color: var(--tui-base-03);
+  background-color: var(--tui-base-07);
+}
+
+.scheme-switcher__icon--system,
+.scheme-switcher__icon--night {
+  margin-left: 1rem;
+}

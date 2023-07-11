@@ -6,14 +6,6 @@ $animation-time: 3s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-
-}
-
-body.light-scheme {
-  .t-demo-header {
-    background-color: red;
-  }
 }
 
 .t-demo-header__logo {}
@@ -31,37 +23,6 @@ body.light-scheme {
   left: -25px;
   z-index: -1;
   animation-name: animation-bounce-reversed;
-}
-
-.t-demo-header__theme {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--tui-text-02);
-  background-color: var(--tui-base-03);
-  border-radius: 1.5rem;
-  padding: 0.5rem 1.5rem;
-}
-
-.t-demo-header__icon {
-  cursor: pointer;
-  border-radius: 100%;
-  padding: 0.2rem;
-  transition: background-color 0.2s ease, color 0.1s ease-in-out;
-
-  &:hover {
-    color: var(--tui-text-01-night);
-    background-color: var(--tui-base-07);
-  }
-}
-
-.t-demo-header__icon--active {
-  color: var(--tui-text-01-night);
-  background-color: var(--tui-base-07);
-}
-
-.t-demo-header__icon--night {
-  margin-left: 1rem;
 }
 
 @keyframes animation-bounce-reversed {

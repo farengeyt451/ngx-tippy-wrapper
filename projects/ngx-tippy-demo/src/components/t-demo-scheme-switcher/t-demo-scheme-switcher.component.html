@@ -1,0 +1,41 @@
+<div
+  class="scheme-switcher"
+  *tuiLet="(schemeService.isSystemScheme$ | async) as isSystemScheme"
+>
+  <ng-container *tuiLet="(schemeService.scheme$ | async) as scheme">
+    <div
+      [ngClass]="{'scheme-switcher__icon--active': !isSystemScheme && scheme === Schemes.Light } "
+      class="scheme-switcher__icon"
+    >
+      <tui-svg
+        tabindex="0"
+        src="assets/icons/sun.svg"
+        class="icon"
+        (click)="onSchemeSelect(Schemes.Light)"
+      ></tui-svg>
+    </div>
+    <div
+      [ngClass]="{'scheme-switcher__icon--active': !isSystemScheme && scheme === Schemes.Dark } "
+      class="scheme-switcher__icon scheme-switcher__icon--night"
+    >
+      <tui-svg
+        tabindex="0"
+        src="assets/icons/moon.svg"
+        class="icon"
+        (click)="onSchemeSelect(Schemes.Dark)"
+      ></tui-svg>
+    </div>
+  </ng-container>
+
+  <div
+    [ngClass]="{'scheme-switcher__icon--active': isSystemScheme }"
+    class="scheme-switcher__icon scheme-switcher__icon--system"
+  >
+    <tui-svg
+      tabindex="0"
+      src="assets/icons/settings.svg"
+      class="icon"
+      (click)="onSystemSchemeToggle()"
+    ></tui-svg>
+  </div>
+</div>

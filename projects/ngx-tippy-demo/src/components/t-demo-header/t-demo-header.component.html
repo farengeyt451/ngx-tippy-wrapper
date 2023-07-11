@@ -15,23 +15,7 @@
     >
   </div>
 
-  <div class="t-demo-header__theme">
-    <div class="t-demo-header__icon t-demo-header__icon--active">
-      <tui-svg
-        tabindex="0"
-        src="assets/icons/sun.svg"
-        class="icon"
-        (click)="onSchemeSelect(Schemes.Light)"
-      ></tui-svg>
-    </div>
-
-    <div class="t-demo-header__icon t-demo-header__icon--night">
-      <tui-svg
-        tabindex="0"
-        src="assets/icons/moon.svg"
-        class="icon"
-        (click)="onSchemeSelect(Schemes.Dark)"
-      ></tui-svg>
-    </div>
+  <div class="t-demo-header__scheme-switcher">
+    <t-demo-scheme-switcher></t-demo-scheme-switcher>
   </div>
 </div>

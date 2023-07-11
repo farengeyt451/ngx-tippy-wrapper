@@ -1,81 +1,136 @@
-import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { PREFERS_LIGHT } from '@constants';
 import { Schemes } from '@interfaces';
-import { WINDOW } from '@tokens';
+import { LOCAL_STORAGE, WINDOW } from '@ng-web-apis/common';
 import { BehaviorSubject, Observable, fromEvent } from 'rxjs';
 
 const PREFERRED_SCHEME_KEY = 'preferred_scheme';
+const IS_SYSTEM_SCHEME_KEY = 'is_system_scheme';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SchemeService {
-  private scheme$!: BehaviorSubject<string>;
+  private _scheme$!: BehaviorSubject<string>;
+  private _isSystemScheme$!: BehaviorSubject<boolean>;
 
-  constructor(@Inject(WINDOW) private readonly window: Window, @Inject(DOCUMENT) private readonly document: Document) {
+  constructor(@Inject(WINDOW) readonly window: Window, @Inject(LOCAL_STORAGE) readonly storage: Storage) {
     this.listenForSchemeChanges();
   }
 
-  public getScheme$(): Observable<string> {
-    return this.scheme$.asObservable();
-  }
-
-  public getPreferredScheme(): Promise<string> {
+  public getPreferredScheme(): Promise<{ scheme: string; isSystemSchemeFlag: boolean }> {
     return new Promise((resolve, reject) => {
       const scheme = this.getSystemScheme();
-      if (scheme) {
-        this.setSchemeClass(scheme);
+      const isSystemScheme = this.getIsSystemSchemeFlag();
+
+      if (scheme && isSystemScheme) {
+        const isSystemSchemeFlag = isSystemScheme === `true` ? true : false;
         this.initSchemeSubject(scheme);
-        resolve(scheme);
+        this.initIsSystemSchemeSubject(isSystemSchemeFlag);
+        resolve({ scheme, isSystemSchemeFlag });
       } else {
         reject('Error occurs while loading scheme');
       }
     });
   }
 
-  private getSystemScheme(): string | null {
-    const storedScheme = this.getSchemeFromLocalStorage();
-    const preferredScheme = this.getMatchedScheme(this.window.matchMedia(PREFERS_LIGHT).matches);
+  public get scheme$(): Observable<string> {
+    return this._scheme$.asObservable();
+  }
 
-    if (storedScheme && storedScheme === preferredScheme) {
-      return storedScheme;
-    } else {
-      return this.storeSchemeToLocalStorage(preferredScheme);
+  public get isSystemScheme$(): Observable<boolean> {
+    return this._isSystemScheme$.asObservable();
+  }
+
+  public toggleScheme(scheme: Schemes): void {
+    if (scheme === Schemes.Dark) {
+      this.storeSchemeToLocalStorage(Schemes.Dark);
+      this.emitSchemeChanges(Schemes.Dark);
     }
+
+    if (scheme === Schemes.Light) {
+      this.storeSchemeToLocalStorage(Schemes.Light);
+      this.emitSchemeChanges(Schemes.Light);
+    }
+
+    this.storage.setItem(IS_SYSTEM_SCHEME_KEY, `false`);
+    this.emitIsSystemSchemeChanges(false);
   }
 
-  private initSchemeSubject(scheme: string): void {
-    this.scheme$ = new BehaviorSubject(scheme);
-  }
+  public toggleSystemScheme(): void {
+    const isSystemScheme = this.storage.getItem(IS_SYSTEM_SCHEME_KEY);
 
-  private emitSchemeChanges(scheme: string): void {
-    this.scheme$.next(scheme);
-  }
+    if (isSystemScheme === `true`) {
+      this.storage.setItem(IS_SYSTEM_SCHEME_KEY, `false`);
+      this.emitIsSystemSchemeChanges(false);
+    } else {
+      this.storage.setItem(IS_SYSTEM_SCHEME_KEY, `true`);
+      this.emitIsSystemSchemeChanges(true);
 
-  private getSchemeFromLocalStorage(): string | null {
-    return this.window.localStorage.getItem(PREFERRED_SCHEME_KEY);
-  }
-
-  private storeSchemeToLocalStorage(scheme: Schemes): string {
-    this.window.localStorage.setItem(PREFERRED_SCHEME_KEY, scheme);
-    return scheme;
-  }
-
-  private getMatchedScheme(isMatched: boolean): Schemes {
-    return isMatched ? Schemes.Light : Schemes.Dark;
+      const preferredScheme = this.getMatchedScheme(this.window.matchMedia(PREFERS_LIGHT).matches);
+      this.storeSchemeToLocalStorage(preferredScheme);
+      this.emitSchemeChanges(preferredScheme);
+    }
   }
 
   private listenForSchemeChanges(): void {
     const schemeChanges$ = fromEvent<MediaQueryListEvent>(this.window.matchMedia(PREFERS_LIGHT), 'change');
 
     schemeChanges$.subscribe(event => {
-      const systemScheme = this.getMatchedScheme(event.matches);
-      this.emitSchemeChanges(systemScheme);
+      const isSystemScheme = this.storage.getItem(IS_SYSTEM_SCHEME_KEY);
+
+      if (isSystemScheme && isSystemScheme === `true`) {
+        const systemScheme = this.getMatchedScheme(event.matches);
+
+        this.storeSchemeToLocalStorage(systemScheme);
+        this.emitSchemeChanges(systemScheme);
+      }
     });
   }
 
-  private setSchemeClass(scheme: string): void {
-    this.document.body.classList.toggle(scheme);
+  private getSystemScheme(): string | null {
+    const storedScheme = this.storage.getItem(PREFERRED_SCHEME_KEY);
+    const preferredScheme = this.getMatchedScheme(this.window.matchMedia(PREFERS_LIGHT).matches);
+
+    if (storedScheme) {
+      return storedScheme;
+    } else {
+      this.storeSchemeToLocalStorage(preferredScheme);
+      return preferredScheme;
+    }
+  }
+
+  private getIsSystemSchemeFlag(): string | null {
+    const isSystemScheme = this.storage.getItem(IS_SYSTEM_SCHEME_KEY);
+
+    if (!isSystemScheme) {
+      this.storage.setItem(IS_SYSTEM_SCHEME_KEY, `true`);
+    }
+
+    return this.storage.getItem(IS_SYSTEM_SCHEME_KEY);
+  }
+
+  private initSchemeSubject(scheme: string): void {
+    this._scheme$ = new BehaviorSubject(scheme);
+  }
+
+  private initIsSystemSchemeSubject(isSystem: boolean): void {
+    this._isSystemScheme$ = new BehaviorSubject(isSystem);
+  }
+
+  private emitSchemeChanges(scheme: string): void {
+    this._scheme$.next(scheme);
+  }
+
+  private emitIsSystemSchemeChanges(isSystem: boolean): void {
+    this._isSystemScheme$.next(isSystem);
+  }
+
+  private storeSchemeToLocalStorage(scheme: Schemes): void {
+    this.storage.setItem(PREFERRED_SCHEME_KEY, scheme);
+  }
+
+  private getMatchedScheme(isMatched: boolean): Schemes {
+    return isMatched ? Schemes.Light : Schemes.Dark;
   }
 }

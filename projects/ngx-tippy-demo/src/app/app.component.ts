@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { Schemes } from '@interfaces';
-import { TuiNightThemeService } from '@taiga-ui/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { tap } from 'rxjs';
+import { Schemes } from '../interfaces/schemes.enum';
+import { SchemeService } from '../services/scheme-service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +11,33 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   value = 'Hello!';
-  constructor(@Inject(TuiNightThemeService) readonly night$: Observable<boolean>) {}
+  isDark!: any;
+  isSystem!: boolean;
 
-  ngOnInit() {}
+  readonly change$ = this.schemeService;
 
-  public onSelectedScheme(scheme: Schemes) {
-    console.log(`🚀 ~ AppComponent ~ onselectedScheme ~ scheme:`, scheme);
+  constructor(
+    // @Inject(TuiNightThemeService) readonly night$: Observable<boolean>,
+    public readonly schemeService: SchemeService
+  ) {}
+
+  ngOnInit() {
+    this.schemeService.scheme$
+      .pipe(
+        tap(s => {
+          console.log('night$', s);
+          this.isDark = s === Schemes.Dark ? true : false;
+        })
+      )
+      .subscribe();
+
+    this.schemeService.isSystemScheme$
+      .pipe(
+        tap(s => {
+          console.log(`🚀 isSystem:`, s);
+          this.isSystem = s;
+        })
+      )
+      .subscribe();
   }
 }
