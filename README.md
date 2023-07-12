@@ -150,12 +150,15 @@ export class DemoComponent implements OnInit {
 | `tippyProps`     | NgxTippyProps | [tippyProps]="{ arrow: false, placement: 'bottom' }"                               |
 | `tippyName`      | string        | tippyName="awesomeName"                                                            |
 | `tippyClassName` | string        | tippyClassName="new-class" <br> _or_ <br> tippyClassName="new-class another-class" |
+| `tippyContext`   | NgxTippyContext           | [tippyContext]="{ aKey: 'something' }" |
 
 `tippyProps` - [list of all props](https://atomiks.github.io/tippyjs/v6/all-props/)
 
 `tippyName` - name for tippy instance, required for accessing and control specific instance
 
 `tippyClassName` - add custom class to the `tippy-box` element, support multiple classes passed as words separated by space
+
+`tippyContext` - A way to bind any context you want to the template when using `ng-template`
 
 ### Initializing on condition
 
@@ -319,14 +322,15 @@ export class DemoComponent implements OnInit {
 6. **`ng-template`**:
 
 ```html
-<button [ngxTippy]="tooltipTemplate">Element with tooltip</button>
+<button [ngxTippy]="tooltipTemplate" [tippyContext]="{ item: { name: 'test' }}">Element with tooltip</button>
 
 <ng-template
   #tooltipTemplate
   let-name
+  let-item="item"
 >
   {{ name | json }}
-  <h2>Content via ng-template</h2>
+  <h2>Content via ng-template, item's name = {{ item.name }}</h2>
 </ng-template>
 ```
 

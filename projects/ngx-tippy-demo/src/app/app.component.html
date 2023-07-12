@@ -342,6 +342,33 @@
           </button>
         </div>
       </ng-template>
+
+      <!-- Example block -->
+      <p class="t-demo__text">
+        Applying content passing
+        <span class="t-demo__highlighted">ng-template ref with context</span>
+      </p>
+
+      <button
+        class="t-demo__btn"
+        ngxTippy
+        tippyName="ng-template-ref-plus-context"
+        [ngxTippy]="tplctx"
+        [tippyProps]="ngTemplateRef"
+        [tippyContext]="templateContext"
+      >
+        Element with tooltip
+      </button>
+
+      <ng-template
+        #tplctx
+        let-name
+        let-foo="foo"
+      >
+        <div class="t-template">
+          <span class="t-template__name">Passed tippyName <b>{{ name }}</b> and context <b>{{ foo }}</b></span>
+        </div>
+      </ng-template>
     </div>
 
     <div class="t-demo__block">

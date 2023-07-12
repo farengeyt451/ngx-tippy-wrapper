@@ -26,6 +26,8 @@ export type NgxTippyContent = NgxTippyTemplate | null | undefined;
 
 export type NgxTippyTemplate = Content | TemplateRef<any> | Type<any>;
 
+export type NgxTippyContext = Record<string, any>;
+
 export interface NgxTippyHideAllOptions {
   duration?: number;
   excludeName?: string;
