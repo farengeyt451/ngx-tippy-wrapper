@@ -12,7 +12,7 @@ export class NgxViewService {
     let viewRef!: ViewRef;
 
     if (isTemplateRef(content)) {
-      tippyContext.$implicit = tippyName
+      tippyContext.$implicit = tippyName;
       viewRef = this.createTemplate(content, tippyContext);
     } else if (isComponent(content)) {
       viewRef = this.createComponent(content);

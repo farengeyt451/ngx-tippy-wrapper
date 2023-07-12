@@ -132,13 +132,8 @@
             "tsConfig": "projects/ngx-tippy-demo/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-tippy-demo/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/ngx-tippy-demo/src/favicon.ico",
-              "projects/ngx-tippy-demo/src/assets"
-            ],
-            "styles": [
-              "projects/ngx-tippy-demo/src/styles.scss"
-            ],
+            "assets": ["projects/ngx-tippy-demo/src/favicon.ico", "projects/ngx-tippy-demo/src/assets"],
+            "styles": ["projects/ngx-tippy-demo/src/styles.scss"],
             "scripts": []
           }
         }

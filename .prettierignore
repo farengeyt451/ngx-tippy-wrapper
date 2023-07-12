@@ -1,4 +1,6 @@
 # Ignore artifacts:
+.angular
+.git
 build
 coverage
 dist

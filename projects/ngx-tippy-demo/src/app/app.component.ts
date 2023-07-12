@@ -38,8 +38,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   public templateContext = {
-    foo: 'bar'
-  }
+    foo: 'bar',
+  };
 
   public fromComponent: NgxTippyProps = { ...this.baseProps, arrow: false, placement: 'bottom' };
 
@@ -153,6 +153,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   initManualControl() {
     setTimeout(() => {
       this.tippyService.show('manual-control');
+      this.templateContext = {
+        foo: 'dynamic',
+      };
     }, 4000);
 
     setTimeout(() => {

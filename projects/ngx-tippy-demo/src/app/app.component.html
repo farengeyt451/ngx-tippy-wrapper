@@ -1,5 +1,4 @@
 <tui-root>
-
   <div class="page-visibility">
     <button
       tuiButton
@@ -15,7 +14,6 @@
     class="t-demo"
     *ngIf="!isHidden"
   >
-
     <div class="t-demo__block">
       <!-- Basic examples section -->
 
@@ -40,9 +38,9 @@
         ngxTippy
         data-tippy-content="Tooltip content"
         [tippyProps]="{
-        arrow: false,
-        placement: 'bottom'
-      }"
+          arrow: false,
+          placement: 'bottom'
+        }"
       >
         Element with tooltip
       </button>
@@ -68,10 +66,10 @@
         ngxTippy
         data-tippy-content="Tooltip content"
         [tippyProps]="{
-        arrow: false,
-        placement: 'bottom',
-        animation: 'shift-toward'
-      }"
+          arrow: false,
+          placement: 'bottom',
+          animation: 'shift-toward'
+        }"
       >
         Element with tooltip
       </button>
@@ -84,10 +82,10 @@
         ngxTippy
         data-tippy-content="Tooltip content"
         [tippyProps]="{
-        arrow: false,
-        placement: 'bottom',
-        animation: 'rotate'
-      }"
+          arrow: false,
+          placement: 'bottom',
+          animation: 'rotate'
+        }"
       >
         Element with tooltip
       </button>
@@ -156,9 +154,9 @@
         class="t-demo__btn"
         ngxTippy
         [tippyProps]="{
-        allowHTML: true,
-        content: '<p>Tooltip <strong>HTML</strong> content</p>'
-      }"
+          allowHTML: true,
+          content: '<p>Tooltip <strong>HTML</strong> content</p>'
+        }"
       >
         Element with tooltip
       </button>
@@ -366,7 +364,9 @@
         let-foo="foo"
       >
         <div class="t-template">
-          <span class="t-template__name">Passed tippyName <b>{{ name }}</b> and context <b>{{ foo }}</b></span>
+          <span class="t-template__name"
+            >Passed tippyName <b>{{ name }}</b> and context <b>{{ foo }}</b></span
+          >
         </div>
       </ng-template>
     </div>
@@ -461,33 +461,33 @@
         ngxTippy
         data-tippy-content="First tooltip"
         [tippyProps]="{
-        animation: 'shift-away',
-        delay: 200,
-        placement: 'top',
-        theme: 'light'
-      }"
+          animation: 'shift-away',
+          delay: 200,
+          placement: 'top',
+          theme: 'light'
+        }"
       >
         <div
           class="t-demo__btn-wrap"
           ngxTippy
           data-tippy-content="Second tooltip"
           [tippyProps]="{
-          animation: 'shift-away',
-          delay: 400,
-          placement: 'bottom',
-          theme: 'light'
-        }"
+            animation: 'shift-away',
+            delay: 400,
+            placement: 'bottom',
+            theme: 'light'
+          }"
         >
           <button
             class="t-demo__btn"
             ngxTippy
             data-tippy-content="Third tooltip"
             [tippyProps]="{
-            animation: 'shift-away',
-            delay: 800,
-            placement: 'right',
-            theme: 'light'
-          }"
+              animation: 'shift-away',
+              delay: 800,
+              placement: 'right',
+              theme: 'light'
+            }"
           >
             Element with tooltips
           </button>
@@ -634,5 +634,4 @@
       </ngx-tippy-singleton>
     </div>
   </div>
-
 </tui-root>

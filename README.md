@@ -145,12 +145,12 @@ export class DemoComponent implements OnInit {
 
 ### Implemented props
 
-| Prop name        | Type          | Example                                                                            |
-| ---------------- | ------------- | ---------------------------------------------------------------------------------- |
-| `tippyProps`     | NgxTippyProps | [tippyProps]="{ arrow: false, placement: 'bottom' }"                               |
-| `tippyName`      | string        | tippyName="awesomeName"                                                            |
-| `tippyClassName` | string        | tippyClassName="new-class" <br> _or_ <br> tippyClassName="new-class another-class" |
-| `tippyContext`   | NgxTippyContext           | [tippyContext]="{ aKey: 'something' }" |
+| Prop name        | Type            | Example                                                                            |
+| ---------------- | --------------- | ---------------------------------------------------------------------------------- |
+| `tippyProps`     | NgxTippyProps   | [tippyProps]="{ arrow: false, placement: 'bottom' }"                               |
+| `tippyName`      | string          | tippyName="awesomeName"                                                            |
+| `tippyClassName` | string          | tippyClassName="new-class" <br> _or_ <br> tippyClassName="new-class another-class" |
+| `tippyContext`   | NgxTippyContext | [tippyContext]="{ aKey: 'something' }"                                             |
 
 `tippyProps` - [list of all props](https://atomiks.github.io/tippyjs/v6/all-props/)
 
@@ -322,7 +322,12 @@ export class DemoComponent implements OnInit {
 6. **`ng-template`**:
 
 ```html
-<button [ngxTippy]="tooltipTemplate" [tippyContext]="{ item: { name: 'test' }}">Element with tooltip</button>
+<button
+  [ngxTippy]="tooltipTemplate"
+  [tippyContext]="{ item: { name: 'test' }}"
+>
+  Element with tooltip
+</button>
 
 <ng-template
   #tooltipTemplate

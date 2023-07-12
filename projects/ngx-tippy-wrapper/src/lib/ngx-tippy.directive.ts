@@ -13,7 +13,14 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import tippy from 'tippy.js';
-import { NgxTippyContent, NgxTippyContext, NgxTippyInstance, NgxTippyProps, TippyHTMLElement, ViewRef } from './ngx-tippy.interfaces';
+import {
+  NgxTippyContent,
+  NgxTippyContext,
+  NgxTippyInstance,
+  NgxTippyProps,
+  TippyHTMLElement,
+  ViewRef,
+} from './ngx-tippy.interfaces';
 import { NgxTippyService, NgxViewService } from './services';
 import { setTemplateVisible } from './utils';
 
