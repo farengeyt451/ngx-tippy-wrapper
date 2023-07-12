@@ -6,6 +6,7 @@ import {
   InstanceChangeReasonEnum,
   InstancesChanges,
   NgxTippyContent,
+  NgxTippyContext,
   NgxTippyDefaultProps,
   NgxTippyHideAllOptions,
   NgxTippyInstance,
@@ -191,7 +192,7 @@ export class NgxTippyService {
    * @param name { string } name of tippy instance
    * @param tippyContent { NgxTippyContent } new content
    */
-  setContent(name: string, tippyContent: NgxTippyContent) {
+  setContent(name: string, tippyContent: NgxTippyContent, tippyContext?: NgxTippyContext) {
     const instance = this.getInstance(name);
 
     if (!instance) {
@@ -200,7 +201,7 @@ export class NgxTippyService {
     }
 
     if (tippyContent) {
-      const viewRef = this.ngxViewService.getViewRefInstance(tippyContent, instance.tippyName);
+      const viewRef = this.ngxViewService.getViewRefInstance(tippyContent, instance.tippyName, tippyContext);
       const content = viewRef.getElement();
 
       if (content) {

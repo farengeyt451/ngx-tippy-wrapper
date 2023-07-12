@@ -37,6 +37,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     theme: 'light',
   };
 
+  public templateContext = {
+    foo: 'bar'
+  }
+
   public fromComponent: NgxTippyProps = { ...this.baseProps, arrow: false, placement: 'bottom' };
 
   public binding: NgxTippyProps = { ...this.baseProps, content: this.boundContent };

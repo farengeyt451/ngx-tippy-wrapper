@@ -355,7 +355,7 @@
         tippyName="ng-template-ref-plus-context"
         [ngxTippy]="tplctx"
         [tippyProps]="ngTemplateRef"
-        [tippyContext]="{ foo: 'bar' }"
+        [tippyContext]="templateContext"
       >
         Element with tooltip
       </button>
@@ -366,15 +366,7 @@
         let-foo="foo"
       >
         <div class="t-template">
-          <h4 class="t-template__caption">Caption</h4>
-          <p class="t-template__info">Some content</p>
-          <span class="t-template__name">Passed tippyName {{ name }} and context foo = {{ foo }}</span>
-          <button
-            class="t-demo__btn"
-            (focus)="tippyService.hide(name)"
-          >
-            Close (focus)
-          </button>
+          <span class="t-template__name">Passed tippyName <b>{{ name }}</b> and context <b>{{ foo }}</b></span>
         </div>
       </ng-template>
     </div>

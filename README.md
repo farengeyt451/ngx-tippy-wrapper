@@ -150,7 +150,7 @@ export class DemoComponent implements OnInit {
 | `tippyProps`     | NgxTippyProps | [tippyProps]="{ arrow: false, placement: 'bottom' }"                               |
 | `tippyName`      | string        | tippyName="awesomeName"                                                            |
 | `tippyClassName` | string        | tippyClassName="new-class" <br> _or_ <br> tippyClassName="new-class another-class" |
-| `tippyContext`   | any           | [tippyContext]="{ aKey: 'something' }" |
+| `tippyContext`   | NgxTippyContext           | [tippyContext]="{ aKey: 'something' }" |
 
 `tippyProps` - [list of all props](https://atomiks.github.io/tippyjs/v6/all-props/)
 
