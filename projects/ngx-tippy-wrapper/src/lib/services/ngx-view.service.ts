@@ -1,5 +1,5 @@
 import { ApplicationRef, Injectable, TemplateRef, Type, ViewContainerRef } from '@angular/core';
-import { NgxTippyTemplate, ViewRef } from '../ngx-tippy.interfaces';
+import { NgxTippyContext, NgxTippyTemplate, ViewRef } from '../ngx-tippy.interfaces';
 import { CompRef, isComponent, isHTMLTemplate, isTemplateRef, TplRef } from '../utils';
 
 @Injectable({ providedIn: 'root' })
@@ -8,15 +8,12 @@ export class NgxViewService {
 
   constructor(private appRef: ApplicationRef) {}
 
-  getViewRefInstance(content: NgxTippyTemplate, tippyName?: string): ViewRef {
+  getViewRefInstance(content: NgxTippyTemplate, tippyName?: string, tippyContext: NgxTippyContext = {}): ViewRef {
     let viewRef!: ViewRef;
 
     if (isTemplateRef(content)) {
-      viewRef = this.createTemplate(content, {
-        context: {
-          $implicit: tippyName,
-        },
-      });
+      tippyContext.$implicit = tippyName;
+      viewRef = this.createTemplate(content, tippyContext);
     } else if (isComponent(content)) {
       viewRef = this.createComponent(content);
     } else if (isHTMLTemplate(content)) {
