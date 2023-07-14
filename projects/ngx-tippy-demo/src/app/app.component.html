@@ -1,10 +1,10 @@
 <tui-root
   class="t-demo"
-  *tuiLet="schemeService.scheme$ | async as night"
-  [tuiMode]="isDark ? 'onDark' : null"
+  *tuiLet="(schemeService.scheme$ | async) as scheme"
+  [tuiMode]="scheme === Schemes.Dark ? 'onDark' : null"
 >
 
-  <tui-theme-night *ngIf="isDark"></tui-theme-night>
+  <tui-theme-night *ngIf="scheme === Schemes.Dark"></tui-theme-night>
 
   <header class="t-demo__header">
     <t-demo-header></t-demo-header>

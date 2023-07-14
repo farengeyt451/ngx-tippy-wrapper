@@ -1,25 +1,50 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Schemes } from '../../interfaces/schemes.enum';
-import { SchemeService } from '../../services/scheme-service';
+import { Schemes } from '@interfaces';
+import { DestroyService, SchemeService } from '@services';
+import { NgxTippyProps } from 'ngx-tippy-wrapper';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 't-demo-scheme-switcher',
   templateUrl: './t-demo-scheme-switcher.component.html',
   styleUrls: ['./t-demo-scheme-switcher.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DestroyService],
 })
 export class TDemoSchemeSwitcherComponent implements OnInit {
-  public Schemes = Schemes;
+  protected readonly Schemes = Schemes;
+  protected readonly schemesList = Object.values(Schemes).map(scheme => scheme.toLowerCase());
+  protected tSchemes: NgxTippyProps = {
+    arrow: false,
+    theme: 'light',
+    animation: 'shift-toward',
+    offset: [0, 20],
+  };
 
-  constructor(public readonly schemeService: SchemeService) {}
+  constructor(protected readonly schemeService: SchemeService, private destroy$: DestroyService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listenForSchemeChanges();
+  }
 
-  public onSchemeSelect(scheme: Schemes) {
+  protected onSchemeSelect(scheme: Schemes): void {
     this.schemeService.toggleScheme(scheme);
   }
 
-  public onSystemSchemeToggle() {
+  protected onSystemSchemeToggle(): void {
     this.schemeService.toggleSystemScheme();
+  }
+
+  private listenForSchemeChanges(): void {
+    this.schemeService.scheme$.pipe(takeUntil(this.destroy$)).subscribe(scheme => {
+      this.updateTippyTheme(scheme);
+    });
+  }
+
+  private updateTippyTheme(selectedScheme: string): void {
+    this.tSchemes = {
+      ...this.tSchemes,
+      theme: selectedScheme === Schemes.Dark ? 'light' : 'dark',
+    };
   }
 }

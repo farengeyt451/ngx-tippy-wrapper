@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { tap } from 'rxjs';
 import { Schemes } from '../interfaces/schemes.enum';
 import { SchemeService } from '../services/scheme-service';
 
@@ -10,34 +9,9 @@ import { SchemeService } from '../services/scheme-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  value = 'Hello!';
-  isDark!: any;
-  isSystem!: boolean;
+  protected Schemes = Schemes;
 
-  readonly change$ = this.schemeService;
+  constructor(protected readonly schemeService: SchemeService) {}
 
-  constructor(
-    // @Inject(TuiNightThemeService) readonly night$: Observable<boolean>,
-    public readonly schemeService: SchemeService
-  ) {}
-
-  ngOnInit() {
-    this.schemeService.scheme$
-      .pipe(
-        tap(s => {
-          console.log('night$', s);
-          this.isDark = s === Schemes.Dark ? true : false;
-        })
-      )
-      .subscribe();
-
-    this.schemeService.isSystemScheme$
-      .pipe(
-        tap(s => {
-          console.log(`🚀 isSystem:`, s);
-          this.isSystem = s;
-        })
-      )
-      .subscribe();
-  }
+  ngOnInit(): void {}
 }
