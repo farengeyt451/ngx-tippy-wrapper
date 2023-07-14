@@ -1,0 +1,20 @@
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social__icon {
+  color: var(--tui-text-02);
+  opacity: 0.8;
+  transition: opacity 0.2s cubic-bezier(0.57, 1.15, 0, 1.04);
+  ;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.social__icon--github {
+  margin-left: 0.5rem;
+}

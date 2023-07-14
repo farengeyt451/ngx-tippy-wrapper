@@ -21,6 +21,7 @@
 }
 
 .scheme-switcher__icon--active {
+  cursor: default;
   color: var(--tui-base-03);
   background-color: var(--tui-base-07);
 }

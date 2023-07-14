@@ -8,7 +8,24 @@ $animation-time: 3s;
   justify-content: space-between;
 }
 
-.t-demo-header__logo {}
+.t-demo-header__hero {
+  display: flex;
+  align-items: center;
+}
+
+.t-demo-header__title {
+  font-family: var(--font-noto);
+  font-size: 1.2rem;
+}
+
+.t-demo-header__actions {
+  display: flex;
+  align-items: center;
+}
+
+.t-demo-header__scheme-switcher {
+  margin-left: 2rem;
+}
 
 .t-demo-header__img {
   width: 100%;

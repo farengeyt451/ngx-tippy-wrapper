@@ -7,6 +7,7 @@ import { TDemoFooterComponent } from '@components/t-demo-footer';
 import { TDemoHeaderComponent } from '@components/t-demo-header';
 import { TDemoNavComponent } from '@components/t-demo-nav';
 import { TDemoSchemeSwitcherComponent } from '@components/t-demo-scheme-switcher';
+import { TDemoSocialComponent } from '@components/t-demo-social';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import {
   TUI_SANITIZER,
@@ -36,6 +37,7 @@ function initialize(SchemeService: SchemeService) {
     TDemoFooterComponent,
     TDemoContentComponent,
     TDemoSchemeSwitcherComponent,
+    TDemoSocialComponent,
   ],
   imports: [
     BrowserModule,

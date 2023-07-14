@@ -1,6 +1,9 @@
 @import 'variables';
 
+:root {
+  --font-noto: 'Noto Sans', sans-serif;
+}
+
 body {
-  font-size: $main-font-size;
   background-color: var(--tui-base-01);
 }

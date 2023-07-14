@@ -3,33 +3,35 @@
   *tuiLet="(schemeService.isSystemScheme$ | async) as isSystemScheme"
 >
   <ng-container *tuiLet="(schemeService.scheme$ | async) as scheme">
-    <div
-      *ngFor="let schemeItem of schemesList"
-      [ngClass]="{'scheme-switcher__icon--active': !isSystemScheme && scheme === schemeItem } "
-      class="scheme-switcher__icon scheme-switcher__icon--{{ schemeItem }}"
-      ngxTippy="Switch to {{ schemeItem === Schemes.Dark ? 'dark' : 'light' }} scheme"
-      [tippyProps]="tSchemes"
-    >
-      <tui-svg
-        tabindex="0"
-        src="assets/icons/{{ schemeItem === Schemes.Dark ? 'moon' : 'sun' }}.svg"
-        class="icon"
-        (click)="onSchemeSelect($any(schemeItem))"
-      ></tui-svg>
-    </div>
+    <ng-container *ngFor="let schemeItem of schemesList">
+      <div
+        *tuiLet="(!isSystemScheme && scheme === schemeItem) as isActive"
+        [ngClass]="{'scheme-switcher__icon--active': isActive } "
+        class="scheme-switcher__icon scheme-switcher__icon--{{ schemeItem }}"
+        [ngxTippy]="isActive ? null : 'Switch to ' + (schemeItem === Schemes.Dark ? 'dark' : 'light') + ' scheme'"
+        [tippyProps]="tSchemes"
+      >
+        <tui-svg
+          tabindex="0"
+          src="assets/icons/{{ schemeItem === Schemes.Dark ? 'moon' : 'sun' }}.svg"
+          class="icon"
+          (click)="!isActive && onSchemeSelect($any(schemeItem))"
+        ></tui-svg>
+      </div>
+    </ng-container>
   </ng-container>
 
   <div
     [ngClass]="{'scheme-switcher__icon--active': isSystemScheme }"
     class="scheme-switcher__icon scheme-switcher__icon--system"
-    ngxTippy="Use system scheme"
+    [ngxTippy]="isSystemScheme ? null : 'Switch to system scheme'"
     [tippyProps]="tSchemes"
   >
     <tui-svg
       tabindex="0"
       src="assets/icons/settings.svg"
       class="icon"
-      (click)="onSystemSchemeToggle()"
+      (click)="!isSystemScheme && onSystemSchemeToggle()"
     ></tui-svg>
   </div>
 </div>

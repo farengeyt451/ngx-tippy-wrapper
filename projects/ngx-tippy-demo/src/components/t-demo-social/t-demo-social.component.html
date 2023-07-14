@@ -1,0 +1,15 @@
+<div class="social">
+  <ng-container *ngFor="let social of socials">
+    <a
+      [attr.aria-label]="'navigate to ' + social.key"
+      [href]="social.link"
+      class="social__icon social__icon--{{ social.key }}"
+      tabindex="0"
+    >
+      <tui-svg
+        class="icon"
+        src="assets/icons/{{ social.key }}.svg"
+      ></tui-svg>
+    </a>
+  </ng-container>
+</div>
