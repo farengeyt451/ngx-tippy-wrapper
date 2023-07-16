@@ -7,3 +7,14 @@
 body {
   background-color: var(--tui-base-01);
 }
+
+.dark-scheme img {
+  filter: brightness(.8) contrast(1.2);
+}
+
+.t-root-content {
+  display: grid;
+  min-height: 100vh;
+  margin: 0;
+  grid-template-rows: auto 1fr auto;
+}

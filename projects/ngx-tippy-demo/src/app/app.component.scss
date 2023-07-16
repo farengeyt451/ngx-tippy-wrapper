@@ -18,17 +18,21 @@
 }
 
 .t-demo__main {
+  display: flex;
+  justify-content: space-between;
   margin-top: $header-height;
-  margin: 140px;
 }
 
-// .t-demo__nav {
-//   background-color: chocolate;
-// }
+.t-demo__nav {
+  position: fixed;
+  top: $header-height;
+  width: 250px;
+  height: 100%;
+}
 
-// .t-demo__content {
-//   background-color: orange;
-// }
+.t-demo__content {
+  margin-left: 250px;
+}
 
 // .t-demo__footer {
 //   background-color: coral;
