@@ -2,7 +2,8 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TDemoContentComponent } from '@components/t-demo-content/t-demo-content.component';
+import { GettingStartedComponent } from '@components/getting-started';
+import { TDemoContentComponent } from '@components/t-demo-content';
 import { TDemoFooterComponent } from '@components/t-demo-footer';
 import { TDemoHeaderComponent } from '@components/t-demo-header';
 import { TDemoNavComponent } from '@components/t-demo-nav';
@@ -21,8 +22,10 @@ import {
 } from '@taiga-ui/core';
 import { TuiInputModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
+import { HighlightModule } from 'ngx-highlightjs';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { SchemeService } from '../services/scheme-service';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 function initialize(SchemeService: SchemeService) {
@@ -38,8 +41,10 @@ function initialize(SchemeService: SchemeService) {
     TDemoContentComponent,
     TDemoSchemeSwitcherComponent,
     TDemoSocialComponent,
+    GettingStartedComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     NgxTippyModule,
     TuiRootModule,
@@ -53,6 +58,7 @@ function initialize(SchemeService: SchemeService) {
     TuiModeModule,
     TuiLetModule,
     TuiThemeNightModule,
+    HighlightModule,
   ],
   providers: [
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },

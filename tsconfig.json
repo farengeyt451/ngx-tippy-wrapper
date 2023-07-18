@@ -11,6 +11,9 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "ngx-tippy-wrapper": [
         "dist/ngx-tippy-wrapper/ngx-tippy-wrapper",
