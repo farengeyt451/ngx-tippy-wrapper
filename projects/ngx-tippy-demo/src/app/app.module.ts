@@ -2,13 +2,13 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContentComponent } from '@components/content';
+import { FooterComponent } from '@components/footer';
 import { GettingStartedComponent } from '@components/getting-started';
-import { TDemoContentComponent } from '@components/t-demo-content';
-import { TDemoFooterComponent } from '@components/t-demo-footer';
-import { TDemoHeaderComponent } from '@components/t-demo-header';
-import { TDemoNavComponent } from '@components/t-demo-nav';
-import { TDemoSchemeSwitcherComponent } from '@components/t-demo-scheme-switcher';
-import { TDemoSocialComponent } from '@components/t-demo-social';
+import { HeaderComponent } from '@components/header';
+import { NavComponent } from '@components/nav';
+import { SchemeSwitcherComponent } from '@components/scheme-switcher';
+import { SocialComponent } from '@components/social';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import {
   TUI_SANITIZER,
@@ -22,7 +22,6 @@ import {
 } from '@taiga-ui/core';
 import { TuiInputModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
-import { HighlightModule } from 'ngx-highlightjs';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { SchemeService } from '../services/scheme-service';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,12 +34,12 @@ function initialize(SchemeService: SchemeService) {
 @NgModule({
   declarations: [
     AppComponent,
-    TDemoHeaderComponent,
-    TDemoNavComponent,
-    TDemoFooterComponent,
-    TDemoContentComponent,
-    TDemoSchemeSwitcherComponent,
-    TDemoSocialComponent,
+    HeaderComponent,
+    NavComponent,
+    FooterComponent,
+    ContentComponent,
+    SchemeSwitcherComponent,
+    SocialComponent,
     GettingStartedComponent,
   ],
   imports: [
@@ -58,7 +57,6 @@ function initialize(SchemeService: SchemeService) {
     TuiModeModule,
     TuiLetModule,
     TuiThemeNightModule,
-    HighlightModule,
   ],
   providers: [
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
