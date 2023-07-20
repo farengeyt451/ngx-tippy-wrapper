@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'social',
+  selector: 't-demo-social',
   templateUrl: './social.component.html',
   styleUrls: ['./social.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

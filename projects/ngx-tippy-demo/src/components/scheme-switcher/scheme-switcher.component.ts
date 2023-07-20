@@ -5,7 +5,7 @@ import { NgxTippyProps } from 'ngx-tippy-wrapper';
 import { takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'scheme-switcher',
+  selector: 't-demo-scheme-switcher',
   templateUrl: './scheme-switcher.component.html',
   styleUrls: ['./scheme-switcher.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

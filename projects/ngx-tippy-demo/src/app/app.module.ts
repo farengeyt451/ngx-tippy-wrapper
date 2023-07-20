@@ -23,6 +23,7 @@ import {
 import { TuiInputModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
+import { CodeComponent } from '../components/code';
 import { SchemeService } from '../services/scheme-service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ function initialize(SchemeService: SchemeService) {
     SchemeSwitcherComponent,
     SocialComponent,
     GettingStartedComponent,
+    CodeComponent,
   ],
   imports: [
     AppRoutingModule,
