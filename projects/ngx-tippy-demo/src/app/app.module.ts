@@ -15,6 +15,7 @@ import {
   TuiAlertModule,
   TuiButtonModule,
   TuiDialogModule,
+  TuiLinkModule,
   TuiModeModule,
   TuiRootModule,
   TuiSvgModule,
@@ -22,6 +23,7 @@ import {
 } from '@taiga-ui/core';
 import { TuiInputModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
+import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { CodeComponent } from '../components/code';
 import { SchemeService } from '../services/scheme-service';
@@ -46,21 +48,35 @@ function initialize(SchemeService: SchemeService) {
   ],
   imports: [
     AppRoutingModule,
+    BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
+    HighlightModule,
     NgxTippyModule,
+    TuiLinkModule,
+    TuiAlertModule,
+    TuiButtonModule,
+    TuiDialogModule,
+    TuiInputModule,
+    TuiLetModule,
+    TuiModeModule,
     TuiRootModule,
     TuiSvgModule,
-    TuiButtonModule,
-    BrowserAnimationsModule,
-    TuiDialogModule,
-    TuiAlertModule,
-    FormsModule,
-    TuiInputModule,
-    TuiModeModule,
-    TuiLetModule,
     TuiThemeNightModule,
   ],
   providers: [
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          css: () => import('highlight.js/lib/languages/css'),
+          xml: () => import('highlight.js/lib/languages/xml'),
+        },
+        themePath: 'assets/themes/default.css',
+      },
+    },
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
     { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
     {

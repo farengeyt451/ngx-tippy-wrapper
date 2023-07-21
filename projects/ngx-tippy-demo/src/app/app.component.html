@@ -1,28 +1,25 @@
 <tui-root
-  class="t-demo"
   *tuiLet="(schemeService.scheme$ | async) as scheme"
   [tuiMode]="scheme === Schemes.Dark ? 'onDark' : null"
 >
 
   <tui-theme-night *ngIf="scheme === Schemes.Dark"></tui-theme-night>
 
-  <header class="t-demo__header">
-    <t-demo-header></t-demo-header>
-  </header>
-
-  <main class="t-demo__main">
-
-    <nav class="t-demo__nav">
-      <t-demo-nav></t-demo-nav>
-    </nav>
-
-    <div class="t-demo__content">
-      <t-demo-content></t-demo-content>
-    </div>
-  </main>
-
-  <footer class="t-demo__footer">
-    <t-demo-footer></t-demo-footer>
-  </footer>
+  <div class="t-demo">
+    <header class="t-demo__header">
+      <t-demo-header></t-demo-header>
+    </header>
+    <main class="t-demo__main">
+      <nav class="t-demo__nav">
+        <t-demo-nav></t-demo-nav>
+      </nav>
+      <div class="t-demo__content">
+        <t-demo-content></t-demo-content>
+      </div>
+    </main>
+    <footer class="t-demo__footer">
+      <t-demo-footer></t-demo-footer>
+    </footer>
+  </div>
 
 </tui-root>

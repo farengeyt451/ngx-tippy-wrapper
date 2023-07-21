@@ -1,0 +1,12 @@
+@import 'mixins';
+
+.hljs {
+  font: var(--tui-font-text-m);
+  padding: 1rem 2rem;
+  font-family: monospace;
+  background: var(--tui-clear);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  border-radius: 0.75rem;
+  @include transitions;
+}

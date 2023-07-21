@@ -1,8 +1,11 @@
 @import 'variables';
 
-// .t-demo {
-//   background-color: burlywood;
-// }
+.t-demo {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  grid-template-columns: 100%;
+}
 
 .t-demo__header {
   position: fixed;
@@ -26,14 +29,11 @@
 .t-demo__nav {
   position: fixed;
   top: $header-height;
-  width: 250px;
+  width: 10rem;
   height: 100%;
 }
 
 .t-demo__content {
-  margin-left: 250px;
+  padding: 5rem;
+  margin-left: 10rem;
 }
-
-// .t-demo__footer {
-//   background-color: coral;
-// }
