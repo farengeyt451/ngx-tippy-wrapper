@@ -1,0 +1,16 @@
+.tui-text_h3 {
+  margin-top: 0;
+}
+
+.tui-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 12rem;
+}
+
+.tui-list__badge {
+  background-color: var(--tui-link);
+  margin-left: 0.5rem;
+}

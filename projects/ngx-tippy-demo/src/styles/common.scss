@@ -10,6 +10,31 @@ body {
   @include transitions;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 1.2rem;
+}
+
+p {
+  margin-top: 1rem;
+}
+
+b {
+  font-weight: 800;
+}
+
+.tui-list {
+  margin-top: 1rem;
+}
+
+.code {
+  margin-top: 1rem;
+}
+
 .dark-scheme img {
   filter: brightness(.8) contrast(1.2);
 }

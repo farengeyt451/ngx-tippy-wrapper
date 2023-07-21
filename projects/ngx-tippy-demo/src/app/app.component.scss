@@ -17,7 +17,8 @@
   box-shadow: 0 0.125rem 1rem #00000014;
   padding: 0.5rem 1.25rem;
   background: var(--tui-base-01);
-  border-bottom: 1px solid var(--tui-base-03);
+  border-bottom: 0.1rem solid var(--tui-base-03);
+  z-index: 1;
 }
 
 .t-demo__main {
@@ -29,11 +30,21 @@
 .t-demo__nav {
   position: fixed;
   top: $header-height;
-  width: 10rem;
+  width: 16rem;
   height: 100%;
+  padding: 2rem 1.5rem;
+}
+
+.t-demo__wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 5rem;
+  margin-left: 16rem;
+  width: 100%;
 }
 
 .t-demo__content {
-  padding: 5rem;
-  margin-left: 10rem;
+  width: 100%;
+  max-width: 62.5rem;
+
 }

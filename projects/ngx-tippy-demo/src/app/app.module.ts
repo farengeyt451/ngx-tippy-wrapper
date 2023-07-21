@@ -21,7 +21,7 @@ import {
   TuiSvgModule,
   TuiThemeNightModule,
 } from '@taiga-ui/core';
-import { TuiInputModule } from '@taiga-ui/kit';
+import { TuiBadgeModule, TuiInputModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
@@ -63,6 +63,7 @@ function initialize(SchemeService: SchemeService) {
     TuiRootModule,
     TuiSvgModule,
     TuiThemeNightModule,
+    TuiBadgeModule,
   ],
   providers: [
     {

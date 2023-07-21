@@ -69,7 +69,9 @@
             "styles": [
               "projects/ngx-tippy-demo/src/styles.scss",
               "node_modules/tippy.js/dist/tippy.css",
-              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less"
+              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+              "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
+              "node_modules/@taiga-ui/styles/taiga-ui-global.less"
             ],
             "scripts": [],
             "stylePreprocessorOptions": {
@@ -137,8 +139,13 @@
             "tsConfig": "projects/ngx-tippy-demo/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-tippy-demo/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/ngx-tippy-demo/src/favicon.ico", "projects/ngx-tippy-demo/src/assets"],
-            "styles": ["projects/ngx-tippy-demo/src/styles.scss"],
+            "assets": [
+              "projects/ngx-tippy-demo/src/favicon.ico",
+              "projects/ngx-tippy-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-tippy-demo/src/styles.scss"
+            ],
             "scripts": []
           }
         }
