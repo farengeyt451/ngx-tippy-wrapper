@@ -1,5 +1,11 @@
 @import 'mixins';
 
+.code {
+  position: relative;
+}
+
+
+
 .hljs {
   font: var(--tui-font-text-m);
   padding: 1rem 2rem;
@@ -8,5 +14,34 @@
   word-wrap: break-word;
   white-space: pre-wrap;
   border-radius: 0.75rem;
-  @include transitions;
+  @include transition-color-bgc;
+}
+
+.code__action {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: var(--tui-text-02);
+
+}
+
+.code__copy {
+  cursor: pointer;
+
+  opacity: 0.8;
+  @include transition-opacity;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.code__success {
+  color: var(--tui-positive);
+  cursor: default;
+}
+
+.code__error {
+  color: var(--tui-negative);
+  cursor: default;
 }

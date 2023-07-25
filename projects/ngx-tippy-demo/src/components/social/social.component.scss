@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .social {
   display: flex;
   align-items: center;
@@ -7,8 +9,7 @@
 .social__icon {
   color: var(--tui-text-02);
   opacity: 0.8;
-  transition: opacity 0.2s cubic-bezier(0.57, 1.15, 0, 1.04);
-  ;
+  @include transition-opacity;
 
   &:hover {
     opacity: 1;

@@ -4,6 +4,8 @@
 
   <h6 class="tui-text_h6">Recommended versions to use</h6>
 
+  <!-- Versions to use -->
+
   <ul class="tui-list">
     <li class="tui-list__item">
       <span>Angular <b>14, 15, 16</b></span>
@@ -47,12 +49,66 @@
     </li>
   </ul>
 
+  <!-- Installation -->
+
   <h6 class="tui-text_h6">Installation</h6>
 
-  <p class="tui-text_body-m">Install from npm:</p>
+  <t-demo-code [snippet]="snippets.installation.snippet"></t-demo-code>
+
+  <!-- Importing -->
+
+  <h6 class="tui-text_h6">Importing</h6>
+
+  <p class="tui-text_body-m-2">Import <em>NgxTippyModule</em>:</p>
 
   <t-demo-code
-    [snippet]="'npm i ngx-tippy-wrapper --save'"
-    language="typescript"
+    *tuiLet="snippets.importing_1 as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
   ></t-demo-code>
+
+  <p class="tui-text_body-m-2">Then in your <em>main</em> or <em>feature</em> module:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.importing_2 as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <p class="tui-text_body-m-2">Import <em>tippy.css</em> style file to your main style file:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.css as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <p>or <em>angular.json</em>:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.css_ng as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <p class="tui-text_body-m-2">Import <em>optional</em> tippy styles:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.themes as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.anim as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.arrow as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
 </div>

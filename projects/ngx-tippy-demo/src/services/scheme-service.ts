@@ -14,7 +14,10 @@ export class SchemeService {
   private _scheme$!: BehaviorSubject<string>;
   private _isSystemScheme$!: BehaviorSubject<boolean>;
 
-  constructor(@Inject(WINDOW) readonly window: Window, @Inject(LOCAL_STORAGE) readonly storage: Storage) {
+  constructor(
+    @Inject(WINDOW) private readonly window: Window,
+    @Inject(LOCAL_STORAGE) private readonly storage: Storage
+  ) {
     this.listenForSchemeChanges();
   }
 

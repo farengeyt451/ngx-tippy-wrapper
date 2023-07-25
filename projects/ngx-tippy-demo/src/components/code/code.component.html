@@ -1,3 +1,44 @@
 <div class="code">
-  <pre><code [highlight]="snippet"></code></pre>
+
+  <pre class="code__pre"><code class="code__code" [highlight]="snippet" [languages]="languages"></code></pre>
+
+  <div
+    *ngIf="isCopyVisible"
+    class="code__action"
+  >
+
+    <div
+      *ngIf="!isCopied"
+      [@inOutAnimation]
+      class="code__copy"
+    >
+      <tui-svg
+        src="assets/icons/copy.svg"
+        class="icon"
+        (click)="copyContent()"
+      ></tui-svg>
+    </div>
+
+    <div
+      *ngIf="isCopied && !isErrCopied"
+      [@inOutAnimation]
+      class="code__success"
+    >
+      <tui-svg
+        src="assets/icons/check.svg"
+        class="icon"
+      ></tui-svg>
+    </div>
+
+    <div
+      *ngIf="isCopied && isErrCopied"
+      class="code__error"
+      [@inOutAnimation]
+    >
+      <tui-svg
+        src="assets/icons/x-circle.svg"
+        class="icon"
+      ></tui-svg>
+    </div>
+  </div>
 </div>

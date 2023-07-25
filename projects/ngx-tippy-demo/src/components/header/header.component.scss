@@ -17,6 +17,11 @@ $animation-time: 3s;
   font-size: 1.2rem;
 }
 
+.header__badge {
+  background-color: var(--tui-support-04);
+  margin-left: 0.5rem;
+}
+
 .header__actions {
   display: flex;
   align-items: center;

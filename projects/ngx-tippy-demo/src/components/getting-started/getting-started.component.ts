@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { SNIPPETS } from './snippets';
 
 @Component({
   selector: 't-demo-getting-started',
@@ -7,6 +8,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GettingStartedComponent implements OnInit {
+  public readonly snippets = SNIPPETS;
+
   constructor() {}
 
   ngOnInit(): void {}

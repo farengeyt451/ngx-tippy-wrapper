@@ -1,13 +1,9 @@
 @import 'variables';
 @import 'mixins';
 
-:root {
-  --font-noto: 'Noto Sans', sans-serif;
-}
-
 body {
   background-color: var(--tui-base-01);
-  @include transitions;
+  @include transition-color-bgc;
 }
 
 h1,
@@ -16,30 +12,44 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 1.2rem;
+  margin-top: 1.6rem;
 }
 
 p {
-  margin-top: 1rem;
+  margin-top: 1.4rem;
 }
 
-b {
+b,
+strong {
   font-weight: 800;
+}
+
+em {
+  position: relative;
+  padding: 0.15rem 0.25rem;
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--tui-text-03);
+    border-radius: 0.2rem;
+    opacity: 0.3;
+  }
 }
 
 .tui-list {
   margin-top: 1rem;
 }
 
-.code {
-  margin-top: 1rem;
+t-demo-code {
+  display: block;
+  margin-top: 0.8rem;
 }
 
 .dark-scheme img {
   filter: brightness(.8) contrast(1.2);
-}
-
-.t-root-content {
-  width: 100%;
-  height: 100%;
 }
