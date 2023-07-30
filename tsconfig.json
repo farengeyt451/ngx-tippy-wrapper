@@ -25,6 +25,9 @@
       "@components/*": [
         "projects/ngx-tippy-demo/src/components/*"
       ],
+      "@pages/*": [
+        "projects/ngx-tippy-demo/src/pages/*"
+      ],
       "@constants": [
         "projects/ngx-tippy-demo/src/constants/index.ts"
       ],

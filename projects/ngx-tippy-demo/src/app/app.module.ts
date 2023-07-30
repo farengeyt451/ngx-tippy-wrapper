@@ -2,13 +2,17 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CodeComponent } from '@components/code';
 import { ContentComponent } from '@components/content';
+import { DemoComponent } from '@components/demo';
 import { FooterComponent } from '@components/footer';
-import { GettingStartedComponent } from '@components/getting-started';
 import { HeaderComponent } from '@components/header';
 import { NavComponent } from '@components/nav';
 import { SchemeSwitcherComponent } from '@components/scheme-switcher';
 import { SocialComponent } from '@components/social';
+import { GettingStartedComponent } from '@pages/getting-started';
+import { UsageComponent } from '@pages/usage';
+import { SchemeService } from '@services';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import {
   TUI_SANITIZER,
@@ -25,8 +29,6 @@ import { TuiBadgeModule, TuiInputModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
-import { CodeComponent } from '../components/code';
-import { SchemeService } from '../services/scheme-service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -45,6 +47,8 @@ function initialize(SchemeService: SchemeService) {
     SocialComponent,
     GettingStartedComponent,
     CodeComponent,
+    UsageComponent,
+    DemoComponent,
   ],
   imports: [
     AppRoutingModule,

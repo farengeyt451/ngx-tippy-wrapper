@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { Schemes } from '@interfaces';
 import { WINDOW } from '@ng-web-apis/common';
 import { DestroyService, SchemeService } from '@services';
 import { takeUntil } from 'rxjs';
-import { Schemes } from '../interfaces/schemes.enum';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,14 @@ import { Schemes } from '../interfaces/schemes.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   protected Schemes = Schemes;
   private readonly bodyClassList!: DOMTokenList;
 
   constructor(
     @Inject(WINDOW) readonly window: Window,
     protected readonly schemeService: SchemeService,
-    private destroy$: DestroyService
+    private readonly destroy$: DestroyService
   ) {
     this.bodyClassList = this.window.document.body.classList;
   }

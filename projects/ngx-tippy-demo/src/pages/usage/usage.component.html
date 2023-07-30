@@ -1,0 +1,62 @@
+<div class="usage">
+
+  <h1 class="tui-text_h3">Usage</h1>
+
+  <h6 class="tui-text_h6">Basic usage</h6>
+
+  <p class="tui-text_body-m-2">Apply <em>ngxTippy</em> directive for the element and pass content through it:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.basic_usage as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <p class="tui-text_body-m-2">Apply <em>tippyName</em> directive to set a name for tooltip instance,
+    <em>required for accessing and controlling specific instance</em>
+  </p>
+
+  <t-demo-code
+    *tuiLet="snippets.t_name as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <p class="tui-text_body-m-2">Apply <em>tippyProps</em> directive to pass tooltip properties:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.t_props as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+</div>

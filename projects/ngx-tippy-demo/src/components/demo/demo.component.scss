@@ -1,0 +1,11 @@
+@import 'mixins';
+
+.demo {
+  display: flex;
+  align-items: center;
+  font: var(--tui-font-text-m);
+  padding: 1rem 2rem;
+  background: var(--tui-clear);
+  border-radius: 0.75rem;
+  @include transition-color-bgc;
+}

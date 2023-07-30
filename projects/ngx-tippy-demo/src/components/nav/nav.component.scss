@@ -1,3 +1,7 @@
 .nav__list {
   font-size: 1rem;
 }
+
+.nav__item:not(:first-child) {
+  margin-top: 0.5rem;
+}

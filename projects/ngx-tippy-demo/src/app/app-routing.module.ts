@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { GettingStartedComponent } from '@components/getting-started';
+import { GettingStartedComponent } from 'projects/ngx-tippy-demo/src/pages/getting-started';
+import { UsageComponent } from 'projects/ngx-tippy-demo/src/pages/usage';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,10 @@ export const routes: Routes = [
   {
     path: 'getting-started',
     component: GettingStartedComponent,
+  },
+  {
+    path: 'usage',
+    component: UsageComponent,
   },
 ];
 
