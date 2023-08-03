@@ -1,4 +1,6 @@
+import { ViewportScroller } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Schemes } from '@interfaces';
 import { WINDOW } from '@ng-web-apis/common';
 import { DestroyService, SchemeService } from '@services';
@@ -18,7 +20,10 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject(WINDOW) readonly window: Window,
     protected readonly schemeService: SchemeService,
-    private readonly destroy$: DestroyService
+    private readonly destroy$: DestroyService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly scroller: ViewportScroller,
+    private readonly router: Router
   ) {
     this.bodyClassList = this.window.document.body.classList;
   }
