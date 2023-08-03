@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Schemes } from '@interfaces';
 import { DestroyService, SchemeService } from '@services';
 import { NgxTippyService } from 'ngx-tippy-wrapper';
@@ -12,6 +12,8 @@ import { takeUntil } from 'rxjs';
   providers: [DestroyService],
 })
 export class DemoComponent implements OnInit, AfterViewInit {
+  @ViewChild('content', { read: ElementRef }) projectedContent!: ElementRef;
+
   constructor(
     private readonly tippyService: NgxTippyService,
     private readonly schemeService: SchemeService,

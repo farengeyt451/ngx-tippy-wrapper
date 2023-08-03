@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CodeComponent } from '@components/code';
@@ -19,13 +19,15 @@ import {
   TuiAlertModule,
   TuiButtonModule,
   TuiDialogModule,
+  TuiExpandModule,
   TuiLinkModule,
   TuiModeModule,
+  TuiNotificationModule,
   TuiRootModule,
   TuiSvgModule,
   TuiThemeNightModule,
 } from '@taiga-ui/core';
-import { TuiBadgeModule, TuiInputModule } from '@taiga-ui/kit';
+import { TuiAccordionModule, TuiBadgeModule, TuiInputModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
@@ -53,7 +55,10 @@ function initialize(SchemeService: SchemeService) {
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     BrowserModule,
+    TuiAccordionModule,
+    TuiExpandModule,
     FormsModule,
     HighlightModule,
     NgxTippyModule,
@@ -68,6 +73,7 @@ function initialize(SchemeService: SchemeService) {
     TuiSvgModule,
     TuiThemeNightModule,
     TuiBadgeModule,
+    TuiNotificationModule,
   ],
   providers: [
     {

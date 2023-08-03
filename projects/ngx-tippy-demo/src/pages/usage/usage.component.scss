@@ -1,3 +1,19 @@
 .tui-text_h3 {
   margin-top: 0;
 }
+
+::ng-deep {
+  .tippy-box[data-theme=light].custom-class {
+    color: var(--tui-positive);
+  }
+
+  .tippy-box[data-theme=dark].custom-class {
+    background-color: var(--tui-positive);
+    color: var(--tui-base-01);
+
+    .tippy-arrow {
+      color: var(--tui-positive);
+    }
+  }
+
+}

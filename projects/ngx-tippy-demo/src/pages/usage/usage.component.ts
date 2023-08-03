@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NgxTippyService } from 'ngx-tippy-wrapper';
 import { SNIPPETS } from './snippets';
 
 @Component({
@@ -9,10 +10,19 @@ import { SNIPPETS } from './snippets';
 })
 export class UsageComponent implements OnInit, AfterViewInit {
   public readonly snippets = SNIPPETS;
+  public readonly userEmailTippy = 'jammy_jellyfish';
 
-  constructor() {}
+  public userEmail!: string;
+
+  constructor(private readonly tippyService: NgxTippyService) {}
 
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.showValidationTooltip();
+  }
+
+  private showValidationTooltip() {
+    this.tippyService.show(this.userEmailTippy);
+  }
 }

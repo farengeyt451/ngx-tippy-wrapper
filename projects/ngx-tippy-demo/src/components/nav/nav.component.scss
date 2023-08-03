@@ -5,3 +5,13 @@
 .nav__item:not(:first-child) {
   margin-top: 0.5rem;
 }
+
+.nav__sub-list {
+  border-left: 0.1rem solid var(--tui-base-03);
+  margin: 0.5rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.nav__sub-item:not(:first-child) {
+  margin-top: 0.25rem;
+}

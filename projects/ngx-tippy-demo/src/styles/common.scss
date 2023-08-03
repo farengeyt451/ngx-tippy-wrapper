@@ -1,6 +1,10 @@
 @import 'variables';
 @import 'mixins';
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--tui-base-01);
   @include transition-color-bgc;
@@ -16,7 +20,8 @@ h6 {
 }
 
 p {
-  margin-top: 2.2rem;
+  margin-top: 2rem;
+  line-height: 1.7 !important;
 }
 
 b,
@@ -26,7 +31,7 @@ strong {
 
 em {
   position: relative;
-  padding: 0.15rem 0.25rem;
+  padding: 0 0.25rem;
 
   &::before {
     content: "";
@@ -61,4 +66,8 @@ t-demo {
 
 .tui-button {
   font-weight: 400 !important;
+}
+
+tui-notification {
+  margin-top: 1rem;
 }

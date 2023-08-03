@@ -1,5 +1,6 @@
 <div class="nav">
   <ul class="nav__list">
+
     <li class="nav__item">
       <a
         class="nav__link"
@@ -10,6 +11,7 @@
       </a>
 
     </li>
+
     <li class="nav__item">
       <a
         class="nav__link"
@@ -19,6 +21,30 @@
         Usage
       </a>
 
+      <tui-expand [expanded]="isSublistExpanded">
+        <ul class="nav__sub-list">
+          <li class="nav__sub-item">
+            <a
+              class="nav__link"
+              tuiLink
+              routerLink="/usage"
+              fragment="basic_usage"
+            >
+              Basic usage
+            </a>
+          </li>
+          <li class="nav__sub-item">
+            <a
+              class="nav__link"
+              tuiLink
+              routerLink="/usage"
+              fragment="initializing_on_condition"
+            >
+              Initializing on condition
+            </a>
+          </li>
+        </ul>
+      </tui-expand>
     </li>
   </ul>
 </div>

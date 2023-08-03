@@ -2,7 +2,16 @@
 
   <h1 class="tui-text_h3">Usage</h1>
 
-  <h6 class="tui-text_h6">Basic usage</h6>
+  <!-- Basic usage -->
+
+  <h6
+    id="basic_usage"
+    class="tui-text_h6"
+  >
+    Basic usage
+  </h6>
+
+  <!-- ngxTippy -->
 
   <p class="tui-text_body-m-2">Apply <em>ngxTippy</em> directive for the element and pass content through it:</p>
 
@@ -25,8 +34,10 @@
     </button>
   </t-demo>
 
+  <!-- tippyName -->
+
   <p class="tui-text_body-m-2">Apply <em>tippyName</em> directive to set a name for tooltip instance,
-    <em>required for accessing and controlling specific instance</em>
+    <em>required for accessing and controlling specific instance:</em>
   </p>
 
   <t-demo-code
@@ -34,6 +45,8 @@
     [snippet]="s.snippet"
     [languages]="s.languages"
   ></t-demo-code>
+
+  <!-- tippyProps -->
 
   <p class="tui-text_body-m-2">Apply <em>tippyProps</em> directive to pass tooltip properties:</p>
 
@@ -58,5 +71,128 @@
       Button
     </button>
   </t-demo>
+
+  <tui-notification>
+    <a
+      tuiLink
+      href="https://atomiks.github.io/tippyjs/v6/all-props/"
+    >
+      View all available properties
+    </a>
+  </tui-notification>
+
+  <!-- tippyClassName -->
+
+  <p class="tui-text_body-m-2">To add a custom class to the <em>tippy-box</em> element, use the <em>tippyClassName</em>
+    directive. If you want to include multiple classes, simply separate them with a space:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.t_class_html as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.t_class_css as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      tippyClassName="custom-class"
+      type="button"
+      appearance="primary"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <!-- tippyContext -->
+
+  <p class="tui-text_body-m-2">Apply <em>tippyContext</em> to bind context when using <em>ng-template</em>:
+  </p>
+
+  <t-demo-code
+    *tuiLet="snippets.t_context as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      [ngxTippy]="tooltipTemplate"
+      tippyName="kinetic_kudu"
+      [tippyContext]="{ data: { foo: 'bar' }}"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+
+    <ng-template
+      #tooltipTemplate
+      let-name
+      let-data="data"
+    >
+      <div>Content via <b>ng-template</b></div>
+      <div><b>name:</b> {{ name }}</div>
+      <div><b>data:</b> {{ data.foo }}</div>
+    </ng-template>
+  </t-demo>
+
+  <!-- Initializing on condition -->
+
+  <h6
+    id="initializing_on_condition"
+    class="tui-text_h6"
+  >Initializing on condition</h6>
+
+  <p class="tui-text_body-m-2">In certain situations, it may be necessary to <em>conditionally</em> initialize a
+    tooltip. If the tooltip needs to be disabled under certain conditions, you can explicitly pass <em>null</em> or
+    <em>undefined</em> using the <em>ngxTippy</em> directive:
+  </p>
+
+  <t-demo-code
+    *tuiLet="snippets.t_condition as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <tui-input
+      class="on-condition-input"
+      [(ngModel)]="userEmail"
+      [ngxTippy]="userEmail ? null : 'Email is required'"
+      [tippyName]="userEmailTippy"
+      [tippyProps]="{
+        placement: 'right',
+        trigger: 'mouseenter click',
+        hideOnClick: false
+      }"
+    >
+      Type an email
+      <span class="tui-required"></span>
+      <input
+        tuiTextfield
+        placeholder="mail@mail.com"
+        type="email"
+      />
+    </tui-input>
+  </t-demo>
+
 
 </div>
