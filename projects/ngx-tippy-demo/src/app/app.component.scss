@@ -1,10 +1,23 @@
 @import 'variables';
+@import 'mixins';
 
 .t-demo {
   min-height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto auto;
   grid-template-columns: 100%;
+
+  @include max-w($mobile-lg) {
+    display: none;
+  }
+}
+
+.t-not-supported {
+  display: none;
+
+  @include max-w($mobile-lg) {
+    display: block;
+  }
 }
 
 .t-demo__header {
@@ -33,6 +46,10 @@
   width: 16rem;
   height: 100%;
   padding: 2rem 1.5rem;
+
+  @include max-w($tablet) {
+    width: 10rem;
+  }
 }
 
 .t-demo__wrapper {
@@ -41,6 +58,11 @@
   padding: 2rem 5rem;
   margin-left: 16rem;
   width: 100%;
+
+  @include max-w($tablet) {
+    margin-left: 10rem;
+    padding: 1rem 2.5rem;
+  }
 }
 
 .t-demo__content {

@@ -1,0 +1,29 @@
+@import 'variables';
+@import 'mixins';
+
+.not-supported {
+  position: relative;
+}
+
+.not-supported__info {
+  padding: 1rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.not-supported__hero {
+  position: absolute;
+  right: 0;
+  width: 40rem;
+  height: 40rem;
+  flex-shrink: 0;
+  background-image: url('/assets/img/submarine.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.tui-text_h2 {
+  @include max-w($mobile-sm) {
+    font: var(--tui-font-heading-3);
+  }
+}

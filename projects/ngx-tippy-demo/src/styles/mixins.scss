@@ -5,3 +5,27 @@
 @mixin transition-opacity {
   transition: opacity 0.2s cubic-bezier(0.57, 1.15, 0, 1.04);
 }
+
+@mixin max-w($resolution) {
+  @media screen and (max-width: $resolution) {
+    @content;
+  }
+}
+
+@mixin min-w($resolution) {
+  @media screen and (min-width: $resolution) {
+    @content;
+  }
+}
+
+@mixin max-2d($width, $height) {
+  @media screen and (max-width: $width) and (max-height: $height) {
+    @content;
+  }
+}
+
+@mixin min-2d($width, $height) {
+  @media screen and (min-width: $width) and (min-height: $height) {
+    @content;
+  }
+}
