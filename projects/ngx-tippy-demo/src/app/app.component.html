@@ -5,7 +5,10 @@
 
   <tui-theme-night *ngIf="scheme === Schemes.Dark"></tui-theme-night>
 
-  <div class="t-demo">
+  <div
+    *ngIf="!isMobile; else notSupported"
+    class="t-demo"
+  >
     <header class="t-demo__header">
       <t-demo-header></t-demo-header>
     </header>
@@ -26,8 +29,10 @@
     </footer>
   </div>
 
-  <div class="t-not-supported">
-    <t-demo-not-supported></t-demo-not-supported>
-  </div>
+  <ng-template #notSupported>
+    <div class="t-not-supported">
+      <t-demo-not-supported></t-demo-not-supported>
+    </div>
+  </ng-template>
 
 </tui-root>

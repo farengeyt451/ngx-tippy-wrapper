@@ -6,18 +6,6 @@
   display: grid;
   grid-template-rows: 1fr auto auto;
   grid-template-columns: 100%;
-
-  @include max-w($mobile-lg) {
-    display: none;
-  }
-}
-
-.t-not-supported {
-  display: none;
-
-  @include max-w($mobile-lg) {
-    display: block;
-  }
 }
 
 .t-demo__header {

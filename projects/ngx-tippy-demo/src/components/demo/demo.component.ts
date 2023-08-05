@@ -1,7 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MOBILE_LG } from '@constants';
 import { Schemes } from '@interfaces';
-import { BreakpointService, DestroyService, SchemeService } from '@services';
+import { DestroyService, SchemeService } from '@services';
 import { NgxTippyInstance, NgxTippyService } from 'ngx-tippy-wrapper';
 import { takeUntil } from 'rxjs';
 
@@ -18,8 +17,7 @@ export class DemoComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly tippyService: NgxTippyService,
     private readonly schemeService: SchemeService,
-    private readonly destroy$: DestroyService,
-    private readonly breakpointService: BreakpointService
+    private readonly destroy$: DestroyService
   ) {}
 
   ngOnInit(): void {}
@@ -30,7 +28,6 @@ export class DemoComponent implements OnInit, AfterViewInit {
     if (!tInstances) return;
 
     this.listenForSchemeChange(tInstances);
-    this.isMobileLg(tInstances);
   }
 
   private listenForSchemeChange(tInstances: Map<string, NgxTippyInstance>) {
@@ -38,10 +35,5 @@ export class DemoComponent implements OnInit, AfterViewInit {
       const theme = scheme === Schemes.Dark ? 'light' : 'dark';
       tInstances?.forEach(tInstance => tInstance.setProps({ theme }));
     });
-  }
-
-  private isMobileLg(tInstances: Map<string, NgxTippyInstance>) {
-    const isMobileLg = this.breakpointService.isMatches(MOBILE_LG);
-    tInstances?.forEach(tInstance => isMobileLg && tInstance.disable());
   }
 }
