@@ -1,1 +1,2 @@
-export { PREFERS_DARK, PREFERS_LIGHT } from './themes.const';
+export * from './is-mobile.const';
+export * from './themes.const';

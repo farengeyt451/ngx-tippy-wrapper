@@ -3,6 +3,8 @@
 
 .not-supported {
   position: relative;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .not-supported__info {
@@ -20,6 +22,10 @@
   background-image: url('../../assets/img/submarine.png');
   background-size: cover;
   background-repeat: no-repeat;
+
+  @include max-w($mobile-sm) {
+    right: -6rem;
+  }
 }
 
 .tui-text_h2 {
