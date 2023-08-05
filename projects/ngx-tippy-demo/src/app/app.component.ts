@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.initResizeSub();
     this.listenForSchemeChange();
+    this.checkIsMobile();
   }
 
   private listenForSchemeChange() {
