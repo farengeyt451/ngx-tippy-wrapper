@@ -6,5 +6,11 @@
       in smaller resolutions.</p>
   </div>
 
-  <div class="not-supported__hero"></div>
+  <div
+    *tuiLet="(schemeService.scheme$ | async) as scheme"
+    [style.background-image]="scheme === Schemes.Dark ?
+      'url(' + 'assets/img/submarine-d.png' + ')' :
+      'url(' + 'assets/img/submarine-l.png' + ')'"
+    class="not-supported__hero"
+  ></div>
 </div>

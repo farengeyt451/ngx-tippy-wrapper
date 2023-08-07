@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Schemes } from '@interfaces';
+import { SchemeService } from '@services';
 
 @Component({
   selector: 't-demo-not-supported',
@@ -7,7 +9,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotSupportedComponent implements OnInit {
-  constructor() {}
+  protected Schemes = Schemes;
+
+  constructor(protected readonly schemeService: SchemeService) {}
 
   ngOnInit(): void {}
 }
