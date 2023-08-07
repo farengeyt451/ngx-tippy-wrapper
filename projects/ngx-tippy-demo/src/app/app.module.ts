@@ -12,6 +12,7 @@ import { SchemeSwitcherComponent } from '@components/scheme-switcher';
 import { SocialComponent } from '@components/social';
 import { GettingStartedComponent } from '@pages/getting-started';
 import { NotSupportedComponent } from '@pages/not-supported';
+import { PropsComponent } from '@pages/props';
 import { UsageComponent } from '@pages/usage';
 import { SchemeService } from '@services';
 import { TuiLetModule } from '@taiga-ui/cdk';
@@ -53,6 +54,7 @@ function initialize(SchemeService: SchemeService) {
     UsageComponent,
     DemoComponent,
     NotSupportedComponent,
+    PropsComponent,
   ],
   imports: [
     AppRoutingModule,

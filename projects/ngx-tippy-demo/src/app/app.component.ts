@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { MOBILE_LG } from '@constants';
 import { Schemes } from '@interfaces';
 import { WINDOW } from '@ng-web-apis/common';
 import { BreakpointService, DestroyService, SchemeService } from '@services';
 import { fromEvent, takeUntil, throttleTime } from 'rxjs';
-import { MOBILE_LG } from '../constants/is-mobile.const';
 
 @Component({
   selector: 'app-root',
