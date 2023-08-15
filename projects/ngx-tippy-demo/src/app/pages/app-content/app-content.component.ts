@@ -23,7 +23,7 @@ export class AppContentComponent extends ScrollComponent implements OnInit {
     protected readonly scroller: ViewportScroller,
     protected readonly destroy$: DestroyService
   ) {
-    super(activatedRoute, scroller, destroy$);
+    super(activatedRoute, scroller);
   }
 
   ngOnInit() {}

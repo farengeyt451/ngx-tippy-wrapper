@@ -1,5 +1,5 @@
 import { ViewportScroller } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DestroyService } from '@services';
 import { ScrollComponent } from '@shared';
@@ -11,16 +11,20 @@ import { ScrollComponent } from '@shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService],
 })
-export class NavComponent extends ScrollComponent implements OnInit {
-  public isSublistExpanded: boolean = true;
+export class NavComponent extends ScrollComponent implements OnInit, AfterViewInit {
+  public isSubListExpanded: boolean = true;
 
   constructor(
     protected readonly activatedRoute: ActivatedRoute,
     protected readonly scroller: ViewportScroller,
     protected readonly destroy$: DestroyService
   ) {
-    super(activatedRoute, scroller, destroy$);
+    super(activatedRoute, scroller);
   }
 
   ngOnInit() {}
+
+  ngAfterViewInit() {
+    super.scrollToAnchorOnInit();
+  }
 }

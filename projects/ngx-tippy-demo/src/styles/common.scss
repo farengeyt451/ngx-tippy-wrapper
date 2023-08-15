@@ -72,10 +72,22 @@ t-demo {
   font-weight: 400 !important;
 }
 
-.tui-table {
-  margin-top: 2rem;
-}
-
 tui-notification {
   margin-top: 1rem;
+}
+
+.tui-table-wrapper {
+  margin-top: 2rem;
+  padding: 0.5rem 1.25rem;
+  background: var(--tui-clear);
+  border-radius: 0.75rem;
+  @include transition-color-bgc;
+}
+
+.tui-table-wrapper .tui-table__tr:not(.tui-table__tr_hover_disabled):hover {
+  background-color: var(--tui-base-02);
+
+  .light-scheme & {
+    background-color: var(--tui-base-04);
+  }
 }
