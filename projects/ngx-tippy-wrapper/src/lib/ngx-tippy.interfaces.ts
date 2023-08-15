@@ -16,10 +16,10 @@ export interface NgxTippyInstance extends Instance {
 }
 
 export interface NgxTippySingletonInstance extends Omit<NgxTippyInstance, 'tippyName'> {
-  setInstances(instances: Instance<any>[]);
-  show(singletonTarget?: string | Instance | number);
-  showNext();
-  showPrevious();
+  setInstances(instances: Instance<any>[]): void;
+  show(singletonTarget?: string | Instance | number): void;
+  showNext(): void;
+  showPrevious(): void;
 }
 
 export type NgxTippyContent = NgxTippyTemplate | null | undefined;
@@ -61,8 +61,8 @@ export interface TippyHTMLElement extends HTMLElement {
 
 export interface ViewRef {
   getElement(): Content | null;
-  detectChanges?();
-  destroy?();
+  detectChanges?(): void;
+  destroy?(): void;
 }
 
 export type NgxTippyMessagesDict = typeof messagesDict;
