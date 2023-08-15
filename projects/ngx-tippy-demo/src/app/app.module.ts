@@ -3,13 +3,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CodeComponent } from '@components/code';
-import { ContentComponent } from '@components/content';
 import { DemoComponent } from '@components/demo';
 import { FooterComponent } from '@components/footer';
 import { HeaderComponent } from '@components/header';
 import { NavComponent } from '@components/nav';
 import { SchemeSwitcherComponent } from '@components/scheme-switcher';
 import { SocialComponent } from '@components/social';
+import { AppContentComponent } from '@pages/app-content';
+import { ContentComponent } from '@pages/content';
 import { GettingStartedComponent } from '@pages/getting-started';
 import { NotSupportedComponent } from '@pages/not-supported';
 import { PropsComponent } from '@pages/props';
@@ -55,6 +56,7 @@ function initialize(SchemeService: SchemeService) {
     DemoComponent,
     NotSupportedComponent,
     PropsComponent,
+    AppContentComponent,
   ],
   imports: [
     AppRoutingModule,

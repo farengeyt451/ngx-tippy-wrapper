@@ -23,25 +23,28 @@
         "projects/ngx-tippy-demo/src/assets/*",
       ],
       "@components/*": [
-        "projects/ngx-tippy-demo/src/components/*"
+        "projects/ngx-tippy-demo/src/app/components/*"
       ],
       "@pages/*": [
-        "projects/ngx-tippy-demo/src/pages/*"
+        "projects/ngx-tippy-demo/src/app/pages/*"
       ],
       "@constants": [
-        "projects/ngx-tippy-demo/src/constants/index.ts"
+        "projects/ngx-tippy-demo/src/app/constants/index.ts"
       ],
       "@interfaces": [
-        "projects/ngx-tippy-demo/src/interfaces/index.ts"
+        "projects/ngx-tippy-demo/src/app/interfaces/index.ts"
       ],
       "@services": [
-        "projects/ngx-tippy-demo/src/services/index.ts"
+        "projects/ngx-tippy-demo/src/app/services/index.ts"
       ],
       "@styles/*": [
         "projects/ngx-tippy-demo/src/styles/*"
       ],
       "@tokens": [
-        "projects/ngx-tippy-demo/src/tokens/index.ts"
+        "projects/ngx-tippy-demo/src/app/tokens/index.ts"
+      ],
+      "@shared": [
+        "projects/ngx-tippy-demo/src/app/shared/index.ts"
       ],
     },
     "experimentalDecorators": true,

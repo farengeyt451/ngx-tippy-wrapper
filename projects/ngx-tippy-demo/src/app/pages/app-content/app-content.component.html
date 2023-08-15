@@ -1,0 +1,151 @@
+<div class="app-content">
+
+  <h1 class="tui-text_h3">Applying content</h1>
+
+  <p class="tui-text_body-m-2">You can pass content for tooltip through:</p>
+
+  <ul class="tui-list">
+    <li
+      *ngFor="let method of contentMethods"
+      class="tui-list__item"
+    >
+      <a
+        tuiLink
+        routerLink="/applying-content"
+        fragment="{{ method.value }}"
+        (click)="onFragmentNav('data_attribute')"
+      >
+        {{ method.view }}
+      </a>
+    </li>
+  </ul>
+
+  <!-- Data attribute -->
+
+  <h6
+    id="data_attribute"
+    class="tui-text_h6"
+  >
+    Data attribute
+  </h6>
+
+  <t-demo-code
+    *tuiLet="snippets.data_attribute as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      data-tippy-content="Tooltip content"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <!-- Content property -->
+
+  <h6
+    id="content_property"
+    class="tui-text_h6"
+  >
+    Content property
+  </h6>
+
+  <t-demo-code
+    *tuiLet="snippets.data_content_prop as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy
+      [tippyProps]="{
+        allowHTML: true,
+        placement: 'right',
+        content: '<p>Tooltip <strong>HTML</strong> content</p>'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <!-- ngxTippy directive -->
+
+  <h6
+    id="ngxTippy_directive"
+    class="tui-text_h6"
+  >
+    ngxTippy directive
+  </h6>
+
+  <p class="tui-text_body-m-2">Template driven approach:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.data_directive_tmpl as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <p class="tui-text_body-m-2">Component driven approach:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.data_directive_component_1 as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.data_directive_component_2 as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      [ngxTippy]="content"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+</div>

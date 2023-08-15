@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { GettingStartedComponent } from '@pages/getting-started';
-import { PropsComponent } from '@pages/props';
-import { UsageComponent } from '@pages/usage';
+import { AppContentComponent } from 'projects/ngx-tippy-demo/src/app/pages/app-content';
+import { GettingStartedComponent } from 'projects/ngx-tippy-demo/src/app/pages/getting-started';
+import { PropsComponent } from 'projects/ngx-tippy-demo/src/app/pages/props';
+import { UsageComponent } from 'projects/ngx-tippy-demo/src/app/pages/usage';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,10 @@ export const routes: Routes = [
   {
     path: 'applying-props',
     component: PropsComponent,
+  },
+  {
+    path: 'applying-content',
+    component: AppContentComponent,
   },
 ];
 

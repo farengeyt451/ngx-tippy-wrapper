@@ -22,6 +22,10 @@ h6 {
 p {
   margin-top: 2rem;
   line-height: 1.7 !important;
+
+  .tippy-content & {
+    margin-top: 0;
+  }
 }
 
 b,

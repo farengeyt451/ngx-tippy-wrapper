@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     this.bodyClassList = this.window.document.body.classList;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.initResizeSub();
     this.listenForSchemeChange();
     this.checkIsMobile();
