@@ -16,6 +16,7 @@ export class ScrollComponent {
   }
 
   protected onFragmentNav(anchor: string) {
+    console.log(`🚀 Scroll to`, anchor);
     this.scroller.scrollToAnchor(anchor);
   }
 }

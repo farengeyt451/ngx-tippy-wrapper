@@ -13,7 +13,7 @@
         tuiLink
         routerLink="/applying-content"
         fragment="{{ method.value }}"
-        (click)="onFragmentNav('data_attribute')"
+        (click)="onFragmentNav(method.value)"
       >
         {{ method.view }}
       </a>
@@ -147,5 +147,298 @@
       Button
     </button>
   </t-demo>
+
+  <!-- setContent() method -->
+
+  <h6
+    id="setContent_method"
+    class="tui-text_h6"
+  >
+    setContent() method
+  </h6>
+
+  <p class="tui-text_body-m-2">Use <em>setContent()</em> method exposed by <em>NgxTippyService</em></p>
+
+  <tui-notification>
+    tippyName is mandatory for this approach
+  </tui-notification>
+
+  <t-demo-code
+    *tuiLet="snippets.data_set_content_template as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.data_set_content_component as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy
+      tippyName="bionic_beaver"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <!-- tippyProps -->
+
+  <h6
+    id="tippyProps"
+    class="tui-text_h6"
+  >
+    tippyProps
+  </h6>
+
+  <t-demo-code
+    *tuiLet="snippets.data_tippy_props_template as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.data_tippy_props_component as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy
+      [tippyProps]="tippyPropsContent"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <!-- ng-template -->
+
+  <h6
+    id="ng_template"
+    class="tui-text_h6"
+  >
+    ng-template
+  </h6>
+
+  <t-demo-code
+    *tuiLet="snippets.data_ng_template as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      [ngxTippy]="tooltipTemplate"
+      tippyName="trusty_tahr"
+      [tippyContext]="{ data: { foo: 'bar' }}"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <ng-template
+    #tooltipTemplate
+    let-name
+    let-data="data"
+  >
+    <div>Content via <b>ng-template</b></div>
+    <div><b>name:</b> {{ name }}</div>
+    <div><b>data:</b> {{ data.foo }}</div>
+  </ng-template>
+
+  <!-- HTML template -->
+
+  <h6
+    id="html_template"
+    class="tui-text_h6"
+  >
+    HTML template
+  </h6>
+
+  <t-demo-code
+    *tuiLet="snippets.data_html_template as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      [ngxTippy]="tooltipHTMLTemplate"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <template #tooltipHTMLTemplate>
+    <h6 class="tui-text_h6">Management of releases</h6>
+    <p class="tui-text_body-m-2">Support length</p>
+
+    <ul class="tui-list tui-list_small">
+      <li class="tui-list__item">
+        Regular releases are supported for 9 months.
+      </li>
+      <li class="tui-list__item">
+        Packages in main and restricted are supported for 5 years in long term support (LTS) releases.
+      </li>
+    </ul>
+  </template>
+
+  <!-- component -->
+
+  <h6
+    id="component"
+    class="tui-text_h6"
+  >
+    component
+  </h6>
+
+  <t-demo-code
+    *tuiLet="snippets.data_component_template as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.data_component_component as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      [ngxTippy]="componentContent"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <template #tooltipHTMLTemplate>
+    <h6 class="tui-text_h6">Management of releases</h6>
+    <p class="tui-text_body-m-2">Support length</p>
+
+    <ul class="tui-list tui-list_small">
+      <li class="tui-list__item">
+        Regular releases are supported for 9 months.
+      </li>
+      <li class="tui-list__item">
+        Packages in main and restricted are supported for 5 years in long term support (LTS) releases.
+      </li>
+    </ul>
+  </template>
+
+  <!-- element reference -->
+
+  <h6
+    id="element_reference"
+    class="tui-text_h6"
+  >
+    element reference
+  </h6>
+
+  <p class="tui-text_body-m-2 tui-list__item">Pass <em>element reference</em> via directive:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.data_el_ref_template as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      [ngxTippy]="tippyTemplateRef"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <div #tippyTemplateRef>
+    <h6 class="tui-text_h6">Caption</h6>
+    <p class="tui-text_body-m-2">Tooltip content</p>
+  </div>
+
+  <p class="tui-text_body-m-2 tui-list__item">Pass <em>element</em> using service:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.data_el_ref_service_tmpl as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.data_el_ref_service_component as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy
+      tippyName="hirsute_hippo"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+      type="button"
+      appearance="primary"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <div #templateRefService>
+    <h6 class="tui-text_h6">Caption</h6>
+    <p class="tui-text_body-m-2">Tooltip content</p>
+  </div>
 
 </div>

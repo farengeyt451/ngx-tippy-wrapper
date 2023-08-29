@@ -6,6 +6,7 @@
         class="nav__link"
         tuiLink
         routerLink="/getting-started"
+        routerLinkActive="nav__link--active"
       >
         Getting started
       </a>
@@ -17,6 +18,7 @@
         class="nav__link"
         tuiLink
         routerLink="/usage"
+        routerLinkActive="nav__link--active"
       >
         Usage
       </a>
@@ -29,6 +31,8 @@
               tuiLink
               routerLink="/usage"
               fragment="basic_usage"
+              routerLinkActive="nav__link--active"
+              [routerLinkActiveOptions]="linkActiveOptions"
               (click)="onFragmentNav('basic_usage')"
             >
               Basic usage
@@ -40,6 +44,8 @@
               tuiLink
               routerLink="/usage"
               fragment="initializing_on_condition"
+              routerLinkActive="nav__link--active"
+              [routerLinkActiveOptions]="linkActiveOptions"
               (click)="onFragmentNav('initializing_on_condition')"
             >
               Initializing on condition
@@ -54,6 +60,7 @@
         class="nav__link"
         tuiLink
         routerLink="/applying-props"
+        routerLinkActive="nav__link--active"
       >
         Applying props
       </a>
@@ -64,9 +71,31 @@
         class="nav__link"
         tuiLink
         routerLink="/applying-content"
+        routerLinkActive="nav__link--active"
       >
         Applying content
       </a>
+
+      <tui-expand [expanded]="isSubListExpanded">
+        <ul class="nav__sub-list">
+          <li
+            *ngFor="let method of contentMethods"
+            class="nav__sub-item"
+          >
+            <a
+              class="nav__link"
+              tuiLink
+              routerLink="/applying-content"
+              fragment="{{ method.value }}"
+              routerLinkActive="nav__link--active"
+              [routerLinkActiveOptions]="linkActiveOptions"
+              (click)="onFragmentNav(method.value)"
+            >
+              {{ method.view }}
+            </a>
+          </li>
+        </ul>
+      </tui-expand>
     </li>
   </ul>
 </div>

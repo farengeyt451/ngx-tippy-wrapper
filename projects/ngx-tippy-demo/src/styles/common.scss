@@ -10,6 +10,11 @@ body {
   @include transition-color-bgc;
 }
 
+// dark-scheme
+.dark-scheme img {
+  filter: brightness(.8) contrast(1.2);
+}
+
 h1,
 h2,
 h3,
@@ -64,9 +69,6 @@ t-demo {
   margin-top: 2rem;
 }
 
-.dark-scheme img {
-  filter: brightness(.8) contrast(1.2);
-}
 
 .tui-button {
   font-weight: 400 !important;
@@ -90,4 +92,33 @@ tui-notification {
   .light-scheme & {
     background-color: var(--tui-base-04);
   }
+}
+
+.tippy-box {
+  padding: 0.4rem;
+
+  p {
+    margin-top: 0.35rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0.5rem;
+  }
+
+  .tui-list__item {
+    color: var(--tui-base-01) !important;
+  }
+}
+
+.nav__link.nav__link--active[data-mode=onDark] {
+  color: var(--tui-accent-active);
+}
+
+.nav__link.nav__link--active {
+  color: var(--tui-support-16);
 }
