@@ -8,6 +8,10 @@ $animation-time: 3s;
   justify-content: space-between;
 }
 
+.header__left {
+  display: flex;
+}
+
 .header__hero {
   display: flex;
   align-items: center;
@@ -45,6 +49,23 @@ $animation-time: 3s;
   z-index: -1;
   animation-name: animation-bounce-reversed;
 }
+
+.header__social {
+  margin-left: 2rem;
+}
+
+.header__support-link {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.header__support-icon {
+  height: 46px;
+  width: 162px;
+  border-radius: 1.5rem
+}
+
 
 @keyframes animation-bounce-reversed {
   0% {
