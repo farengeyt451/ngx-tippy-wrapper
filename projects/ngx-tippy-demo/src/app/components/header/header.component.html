@@ -28,14 +28,24 @@
 
   <div class="header__actions">
     <div class="header__support">
+
       <a
         class="header__support-link"
         href="https://www.buymeacoffee.com/alexanderkislov"
         target="_blank"
         rel="noopener noreferrer"
       >
+        <tui-svg
+          class="icon header__support-icon--coffee"
+          src="assets/icons/coffee.svg"
+          alt="Buy Me A Coffee"
+          ngxTippy="Buy Me A Coffee ☕"
+          [tippyProps]="{
+            arrow: false
+          }"
+        ></tui-svg>
         <img
-          class="header__support-icon"
+          class="header__support-icon--standard"
           src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
           alt="Buy Me A Coffee"
         ></a>

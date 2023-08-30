@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 $animation-time: 3s;
 
@@ -60,10 +61,29 @@ $animation-time: 3s;
   align-items: center;
 }
 
-.header__support-icon {
+.header__support-icon--standard {
   height: 46px;
   width: 162px;
-  border-radius: 1.5rem
+  border-radius: 1.5rem;
+
+  @include max-w($tablet) {
+    display: none;
+  }
+}
+
+.header__support-icon--coffee {
+  display: none;
+  color: var(--tui-text-02);
+  opacity: 0.8;
+  @include transition-opacity;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @include max-w($tablet) {
+    display: block;
+  }
 }
 
 
