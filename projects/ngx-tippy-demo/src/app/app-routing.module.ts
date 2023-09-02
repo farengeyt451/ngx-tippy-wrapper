@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { DemoPageComponent } from '@pages/demo-page';
 import { ServiceComponent } from '@pages/service';
 import { AppContentComponent } from 'projects/ngx-tippy-demo/src/app/pages/app-content';
 import { GettingStartedComponent } from 'projects/ngx-tippy-demo/src/app/pages/getting-started';
@@ -31,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'working-with-service',
     component: ServiceComponent,
+  },
+  {
+    path: 'demo',
+    component: DemoPageComponent,
   },
 ];
 

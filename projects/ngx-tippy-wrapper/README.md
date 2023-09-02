@@ -15,58 +15,22 @@
 
 </div>
 
-## Documentation
-
-Full documentation you can find in [repository](https://github.com/farengeyt451/ngx-tippy-wrapper)
-
-## Demo
-
-[Example application](https://s8q4n.csb.app/)
-
-[Code playground](https://codesandbox.io/s/ngx-tippy-wrapper-s8q4n)
-
 ## Installation
 
 Install from npm:
 
 ```js
-npm i ngx-tippy-wrapper --save
+npm i ngx-tippy-wrapper
 ```
 
-## Importing
+Install from yarn:
 
-Import `NgxTippyModule`:
-
-```ts
-import { NgxTippyModule } from 'ngx-tippy-wrapper';
+```js
+yarn add ngx-tippy-wrapper
 ```
 
-Then in your base module:
+## Documentation & Demo
 
-```ts
-@NgModule({
-    imports: [
-        ...,
-        NgxTippyModule
-    ],
-    ...
-})
-```
+[Documentation](https://farengeyt451.github.io/ngx-tippy-wrapper/#/getting-started)
 
-Import `tippy.css` style file to your main style file:
-
-```css
-@import 'tippy.js/dist/tippy.css';
-```
-
-or angular.json:
-
-```ts
-"architect": {
-"build": {
-  ...,
-  "options": {
-    ...,
-    "styles": [..., "./node_modules/tippy.js/dist/tippy.css"]
-  }
-```
+[Demo](https://farengeyt451.github.io/ngx-tippy-wrapper/#/demo)

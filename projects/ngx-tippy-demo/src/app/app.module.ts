@@ -11,6 +11,7 @@ import { SchemeSwitcherComponent } from '@components/scheme-switcher';
 import { SocialComponent } from '@components/social';
 import { AppContentComponent } from '@pages/app-content';
 import { ContentComponent } from '@pages/content';
+import { DemoPageComponent } from '@pages/demo-page';
 import { GettingStartedComponent } from '@pages/getting-started';
 import { NotSupportedComponent } from '@pages/not-supported';
 import { PropsComponent } from '@pages/props';
@@ -59,6 +60,7 @@ function initialize(SchemeService: SchemeService) {
     PropsComponent,
     AppContentComponent,
     ServiceComponent,
+    DemoPageComponent,
   ],
   imports: [
     AppRoutingModule,

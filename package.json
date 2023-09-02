@@ -1,6 +1,6 @@
 {
   "name": "tippy-wrapper",
-  "version": "6.2.0",
+  "version": "6.2.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
