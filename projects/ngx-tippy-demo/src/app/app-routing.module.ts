@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ServiceComponent } from '@pages/service';
 import { AppContentComponent } from 'projects/ngx-tippy-demo/src/app/pages/app-content';
 import { GettingStartedComponent } from 'projects/ngx-tippy-demo/src/app/pages/getting-started';
 import { PropsComponent } from 'projects/ngx-tippy-demo/src/app/pages/props';
@@ -26,6 +27,10 @@ export const routes: Routes = [
   {
     path: 'applying-content',
     component: AppContentComponent,
+  },
+  {
+    path: 'working-with-service',
+    component: ServiceComponent,
   },
 ];
 

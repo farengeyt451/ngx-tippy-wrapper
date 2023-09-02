@@ -16,4 +16,9 @@
     border-radius: 0.75rem;
     @include transition-color-bgc;
   }
+
+  .demo.service {
+    display: flex;
+    justify-content: space-between;
+  }
 }

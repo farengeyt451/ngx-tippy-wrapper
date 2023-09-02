@@ -97,5 +97,61 @@
         </ul>
       </tui-expand>
     </li>
+
+    <li class="nav__item">
+      <a
+        class="nav__link"
+        tuiLink
+        routerLink="/working-with-service"
+        routerLinkActive="nav__link--active"
+      >
+        Working with service
+      </a>
+
+      <tui-expand [expanded]="isSubListExpanded">
+        <ul class="nav__sub-list">
+          <li class="nav__sub-item">
+            <a
+              class="nav__link"
+              tuiLink
+              routerLink="/working-with-service"
+              fragment="additional_methods"
+              routerLinkActive="nav__link--active"
+              [routerLinkActiveOptions]="linkActiveOptions"
+              (click)="onFragmentNav('additional_methods')"
+            >
+              Additional methods
+            </a>
+          </li>
+          <li class="nav__sub-item">
+            <a
+              class="nav__link"
+              tuiLink
+              routerLink="/working-with-service"
+              fragment="static_methods"
+              routerLinkActive="nav__link--active"
+              [routerLinkActiveOptions]="linkActiveOptions"
+              (click)="onFragmentNav('static_methods')"
+            >
+              Static methods
+            </a>
+          </li>
+          <li class="nav__sub-item">
+            <a
+              class="nav__link"
+              tuiLink
+              routerLink="/working-with-service"
+              fragment="subscription_instances_changes"
+              routerLinkActive="nav__link--active"
+              [routerLinkActiveOptions]="linkActiveOptions"
+              (click)="onFragmentNav('subscription_instances_changes')"
+            >
+              Subscription to instances changes
+            </a>
+          </li>
+        </ul>
+      </tui-expand>
+
+    </li>
   </ul>
 </div>

@@ -1,0 +1,12 @@
+.tui-text_h3 {
+  margin-top: 0;
+}
+
+.service-demo {
+  font-size: 0.9rem;
+  width: 30%;
+
+  span:not(:first-child) {
+    margin-left: 1rem;
+  }
+}

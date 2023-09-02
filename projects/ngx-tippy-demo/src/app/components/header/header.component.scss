@@ -72,6 +72,9 @@ $animation-time: 3s;
 }
 
 .header__support-icon--coffee {
+  background: var(--tui-base-03);
+  padding: 0.75rem;
+  border-radius: 50%;
   display: none;
   color: var(--tui-text-02);
   opacity: 0.8;

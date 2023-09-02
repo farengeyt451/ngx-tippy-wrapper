@@ -1,0 +1,229 @@
+<div class="usage">
+
+  <h1 class="tui-text_h3">Working with service</h1>
+
+  <p class="tui-text_body-m-2"><em>NgxTippyService</em> provides functionality to control the tippy programmatically.
+  </p>
+
+  <!-- Importing -->
+
+  <p class="tui-text_body-m-2">Import and provide service:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.import as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <tui-notification>
+    <a
+      tuiLink
+      href="https://atomiks.github.io/tippyjs/v6/methods/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View all available methods
+    </a>
+  </tui-notification>
+
+  <!-- Additional methods -->
+
+  <p
+    id="additional_methods"
+    class="tui-text_body-m-2"
+  >
+    Additional methods:
+  </p>
+
+  <div class="tui-table-wrapper">
+    <table class="tui-table">
+      <tbody>
+        <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_bg">
+          <th class="tui-table__th tui-table__th_first">Name</th>
+          <th class="tui-table__th">Parameter/parameters</th>
+          <th class="tui-table__th tui-table__th_last">Description</th>
+        </tr>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <td class="tui-table__td tui-table__td_first"><strong>getInstance</strong></td>
+          <td class="tui-table__td">name: string</td>
+          <td class="tui-table__td tui-table__td_last">Get specific instance</td>
+        </tr>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <td class="tui-table__td tui-table__td_first"><strong>getInstances</strong></td>
+          <td class="tui-table__td">—</td>
+          <td class="tui-table__td tui-table__td_last">Get all tippy instances</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Static methods -->
+
+  <p
+    id="static_methods"
+    class="tui-text_body-m-2"
+  >
+    Static methods:
+  </p>
+
+  <div class="tui-table-wrapper">
+    <table class="tui-table">
+      <tbody>
+        <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_bg">
+          <th class="tui-table__th tui-table__th_first">Name</th>
+          <th class="tui-table__th">Parameter/parameters</th>
+          <th class="tui-table__th tui-table__th_last">Description</th>
+        </tr>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <td class="tui-table__td tui-table__td_first"><strong>setDefaultProps</strong></td>
+          <td class="tui-table__td"><em>tippyProps</em>: NgxTippyProps</td>
+          <td class="tui-table__td tui-table__td_last">Set the default props for each new tippy instance
+          </td>
+        </tr>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <td class="tui-table__td tui-table__td_first"><strong>showAll</strong></td>
+          <td class="tui-table__td">—</td>
+          <td class="tui-table__td tui-table__td_last">Show all tooltips</td>
+        </tr>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <td class="tui-table__td tui-table__td_first"><strong>hideAll</strong></td>
+          <td class="tui-table__td"><em>options?</em>: NgxTippyHideAllOptions</td>
+          <td class="tui-table__td tui-table__td_last">Hide all tooltips or hide all except a particular one, additional
+            hide them with duration</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Subscription to instances changes -->
+
+  <h6
+    id="subscription_instances_changes"
+    class="tui-text_h6"
+  >
+    Subscription to instances changes
+  </h6>
+
+  <p class="tui-text_body-m-2">Subscription provides logging for tippy instance state changes:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.changes as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <p class="tui-text_body-m-2">It provides data in format:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.changes_interface as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <div class="container">
+      <div class="tui-row">
+        <div class="tui-col_md-4">
+          <tui-island>
+            <p
+              class="tui-island__category"
+              ngxTippy="Awesome title"
+              [tippyName]="discoDingo"
+              [tippyProps]="{
+                placement: 'left',
+                trigger: 'manual'
+              }"
+            >category</p>
+            <h3 class="tui-island__title">Some heading</h3>
+            <p class="tui-island__paragraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+              et dolore magna aliqua.
+            </p>
+            <p class="tui-island__paragraph tui-island__paragraph_link">
+              <a tuiLink>
+                Link
+              </a>
+            </p>
+          </tui-island>
+        </div>
+        <div class="tui-col_md-4">
+          <tui-island>
+            <h3 class="tui-island__title">Title</h3>
+            <p class="tui-island__paragraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+              et dolore magna aliqua.
+            </p>
+            <button
+              appearance="flat"
+              size="m"
+              tuiButton
+              type="button"
+              class="tui-island__footer-button"
+              ngxTippy="Click me"
+              [tippyName]="cosmicCuttlefish"
+              [tippyProps]="{
+                placement: 'top',
+                trigger: 'manual'
+              }"
+            >
+              Button
+            </button>
+          </tui-island>
+        </div>
+        <div class="tui-col_md-4">
+          <tui-island>
+            <div class="tui-island__content">
+              <figure class="tui-island__figure">
+                <div class="some-figure"></div>
+              </figure>
+              <div>
+                <p class="tui-island__paragraph">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua.
+                </p>
+                <p class="tui-island__paragraph tui-island__paragraph_link">
+                  <a
+                    tuiLink
+                    ngxTippy="Lorem ipsum dolor sit amet"
+                    [tippyName]="yakketyYak"
+                    [tippyProps]="{
+                      placement: 'right',
+                      trigger: 'manual'
+                    }"
+                  >
+                    Fill some papers
+                  </a>
+                </p>
+              </div>
+            </div>
+          </tui-island>
+        </div>
+      </div>
+    </div>
+  </t-demo>
+
+  <t-demo customClass="service">
+    <tui-notification
+      status="success"
+      class="service-demo tui-space_vertical-4"
+    >
+      <div><strong>Name: </strong> {{ changesdiscoDingo.name }}</div>
+      <div><strong>Reason: </strong>{{ changesdiscoDingo.reason }}</div>
+    </tui-notification>
+
+    <tui-notification class="service-demo tui-space_vertical-4">
+      <div><strong>Name: </strong> {{ changesCosmicCuttlefish.name }}</div>
+      <div><strong>Reason: </strong>{{ changesCosmicCuttlefish.reason }}</div>
+    </tui-notification>
+
+    <tui-notification
+      status="warning"
+      class="service-demo tui-space_vertical-4"
+    >
+      <div><strong>Name: </strong> {{ changesYakketyYak.name }}</div>
+      <div><strong>Reason: </strong>{{ changesYakketyYak.reason }}</div>
+    </tui-notification>
+  </t-demo>
+
+
+</div>

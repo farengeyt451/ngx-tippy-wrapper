@@ -14,6 +14,7 @@ import { ContentComponent } from '@pages/content';
 import { GettingStartedComponent } from '@pages/getting-started';
 import { NotSupportedComponent } from '@pages/not-supported';
 import { PropsComponent } from '@pages/props';
+import { ServiceComponent } from '@pages/service';
 import { UsageComponent } from '@pages/usage';
 import { SchemeService } from '@services';
 import { TuiLetModule } from '@taiga-ui/cdk';
@@ -30,7 +31,7 @@ import {
   TuiSvgModule,
   TuiThemeNightModule,
 } from '@taiga-ui/core';
-import { TuiAccordionModule, TuiBadgeModule, TuiInputModule } from '@taiga-ui/kit';
+import { TuiAccordionModule, TuiBadgeModule, TuiInputModule, TuiIslandModule } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
@@ -57,6 +58,7 @@ function initialize(SchemeService: SchemeService) {
     NotSupportedComponent,
     PropsComponent,
     AppContentComponent,
+    ServiceComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -72,6 +74,7 @@ function initialize(SchemeService: SchemeService) {
     TuiButtonModule,
     TuiDialogModule,
     TuiExpandModule,
+    TuiIslandModule,
     TuiInputModule,
     TuiLetModule,
     TuiLinkModule,
