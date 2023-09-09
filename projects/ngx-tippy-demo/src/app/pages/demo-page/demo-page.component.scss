@@ -1,3 +1,77 @@
+::ng-deep {
+
+  .demo-page__emojii,
+  .demo-page__custom-anim {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 2px solid var(--tui-primary);
+    font-size: 1.2rem;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+  }
+
+  .demo-page__custom-anim {
+    border-radius: 1rem;
+    width: 200px;
+  }
+
+  .tippy-box[data-animation='custom-shift'][data-state='hidden'] {
+    opacity: 0;
+    transform: translateX(-150px);
+    transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  }
+
+}
+
 .tui-text_h3 {
   margin-top: 0;
+}
+
+t-demo {
+  margin-top: 1.2rem;
+}
+
+.demo-page__grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.demo-page__child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 4rem;
+  background-color: var(--tui-positive);
+  color: var(--tui-primary-text);
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.demo-page__custom {
+  width: 33%;
+}
+
+.demo-page__train {
+  width: 100%;
+}
+
+.demo-page__themes {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.demo-page__child--theme {
+  width: 22%;
 }

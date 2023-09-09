@@ -34,7 +34,9 @@ export class DemoComponent implements OnInit, AfterViewInit {
   private listenForSchemeChange(tInstances: Map<string, NgxTippyInstance>) {
     this.schemeService.scheme$.pipe(takeUntil(this.destroy$)).subscribe(scheme => {
       const theme = scheme === Schemes.Dark ? 'light' : 'dark';
-      tInstances?.forEach(tInstance => tInstance.setProps({ theme }));
+      tInstances?.forEach(tInstance => {
+        return tInstance.props.content.toString().includes('theme') ? tInstance : tInstance.setProps({ theme });
+      });
     });
   }
 }

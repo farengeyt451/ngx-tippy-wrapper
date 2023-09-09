@@ -1,9 +1,173 @@
 <div class="demo-page">
-  <h1 class="tui-text_h3">Demo page</h1>
+
   <tui-notification
     status="warning"
     class="service-demo tui-space_vertical-4"
   >
     In progress
   </tui-notification>
+
+  <h1 class="tui-text_h3">Demo page</h1>
+
+  <!-- Simple tooltip -->
+
+  <h6 class="tui-text_h6">
+    Simple tooltip:
+  </h6>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      type="button"
+      appearance="primary"
+      [tippyProps]="{
+        placement: 'right'
+      }"
+    >
+      Button
+    </button>
+  </t-demo>
+
+  <h6 class="tui-text_h6">
+    Placements:
+  </h6>
+
+  <t-demo>
+    <div class="demo-page__grid">
+      <div
+        class="demo-page__child"
+        *ngFor="let tooltip of tooltips | defaultOrderKeyvalue"
+        [ngxTippy]="tooltip.value.content"
+        tippyClassName="demo-page__emojii"
+        [tippyProps]="{
+            placement: tooltip.value.item,
+            arrow: false,
+            offset: [4, 4],
+            animation: 'shift-toward',
+            duration: [250, 200]
+          }"
+      >
+        {{ tooltip.value.item }}
+      </div>
+    </div>
+  </t-demo>
+
+  <h6 class="tui-text_h6">
+    Animations:
+  </h6>
+
+  <t-demo>
+    <div class="demo-page__grid">
+      <div
+        class="demo-page__child"
+        *ngFor="let animation of animations | defaultOrderKeyvalue"
+        [ngxTippy]="animation.value.content"
+        tippyClassName="demo-page__emojii"
+        [tippyProps]="{
+            arrow: false,
+            offset: [4, 4],
+            animation: animation.value.item
+          }"
+      >
+        {{ animation.value.item }}
+      </div>
+    </div>
+  </t-demo>
+
+  <h6 class="tui-text_h6">
+    Custom animation:
+  </h6>
+
+  <t-demo>
+    <div class="demo-page__custom">
+      <div
+        class="demo-page__child"
+        tippyClassName="demo-page__custom-anim"
+        [ngxTippy]="train"
+        [tippyProps]="{
+            arrow: false,
+            offset: [42, 4],
+            animation: 'custom-shift'
+          }"
+      >
+        custom-shift
+      </div>
+
+      <ng-template #train>
+        <img
+          class="demo-page__train"
+          src="assets/img/train.png"
+          alt="train"
+        >
+      </ng-template>
+    </div>
+  </t-demo>
+
+  <h6 class="tui-text_h6">
+    Custom animation with <a
+      href="https://atomiks.github.io/tippyjs/v6/animations/#inertia"
+      target="_blank"
+      rel="noopener noreferrer"
+    >inertia</a>:
+  </h6>
+
+  <t-demo>
+    <div class="demo-page__custom">
+      <div
+        class="demo-page__child"
+        tippyClassName="demo-page__custom-anim"
+        [ngxTippy]="train"
+        [tippyProps]="{
+            arrow: false,
+            offset: [42, 4],
+            animation: 'custom-shift',
+            inertia: true
+          }"
+      >
+        custom-shift + inertia
+      </div>
+
+      <ng-template #train>
+        <img
+          class="demo-page__train"
+          src="assets/img/train.png"
+          alt="train"
+        >
+      </ng-template>
+    </div>
+  </t-demo>
+
+  <h6 class="tui-text_h6">
+    Themes:
+  </h6>
+
+  <t-demo>
+    <div class="demo-page__themes">
+      <div
+        *ngFor="let theme of ['light', 'light-border', 'material', 'transcluded']"
+        class="demo-page__child demo-page__child--theme"
+        [ngxTippy]="theme + ' theme'"
+        tippyClassName="custom-theme"
+        [tippyProps]="{
+            arrow: false,
+            theme,
+            animation: 'shift-toward'
+          }"
+      >
+        {{ theme }}
+      </div>
+
+      <ng-template #train>
+        <img
+          class="demo-page__train"
+          src="assets/img/train.png"
+          alt="train"
+        >
+      </ng-template>
+    </div>
+  </t-demo>
+
 </div>

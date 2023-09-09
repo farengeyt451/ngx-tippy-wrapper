@@ -32,12 +32,19 @@ import {
   TuiSvgModule,
   TuiThemeNightModule,
 } from '@taiga-ui/core';
-import { TuiAccordionModule, TuiBadgeModule, TuiInputModule, TuiIslandModule } from '@taiga-ui/kit';
+import {
+  TuiAccordionModule,
+  TuiBadgeModule,
+  TuiInputModule,
+  TuiIslandModule,
+  TuiRadioLabeledModule,
+} from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DefaultOrderKeyvaluePipe } from './pipes';
 
 function initialize(SchemeService: SchemeService) {
   return () => SchemeService.getPreferredScheme();
@@ -61,6 +68,7 @@ function initialize(SchemeService: SchemeService) {
     AppContentComponent,
     ServiceComponent,
     DemoPageComponent,
+    DefaultOrderKeyvaluePipe,
   ],
   imports: [
     AppRoutingModule,
@@ -85,6 +93,7 @@ function initialize(SchemeService: SchemeService) {
     TuiRootModule,
     TuiSvgModule,
     TuiThemeNightModule,
+    TuiRadioLabeledModule,
   ],
   providers: [
     {
