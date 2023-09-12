@@ -1,5 +1,36 @@
 @import 'mixins';
 
+::ng-deep {
+  .social__support {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .social__support-link {
+    img {
+      width: 100%;
+      height: 40px;
+      border: 2px solid #ffdd00;
+      border-radius: 15px;
+    }
+  }
+
+  .social__support-link--kofi {
+    margin-top: 0.5rem;
+  }
+
+  .tippy-support {
+    padding: 0.75rem 1rem;
+    background-color: #40d3a5;
+  }
+
+  .dark-scheme {
+    .tippy-support {
+      background-color: #24b185;
+    }
+  }
+}
+
 .social {
   display: flex;
   align-items: center;
@@ -17,5 +48,9 @@
 }
 
 .social__icon--github {
+  margin-left: 0.5rem;
+}
+
+.social__icon--linkedin {
   margin-left: 0.5rem;
 }

@@ -1,6 +1,26 @@
 <div class="social">
+
   <ng-container *ngFor="let social of socials">
     <a
+      *ngIf="social.routerLink"
+      [attr.aria-label]="'navigate to ' + social.key"
+      [routerLink]="social.routerLink"
+      class="social__icon social__icon--{{ social.key }}"
+      tabindex="0"
+      [ngxTippy]="sponsor"
+      tippyClassName="tippy-support"
+      [tippyProps]="{
+        arrow: false,
+        interactive: true
+      }"
+    >
+      <tui-svg
+        class="icon"
+        src="assets/icons/{{ social.key }}.svg"
+      ></tui-svg>
+    </a>
+    <a
+      *ngIf="social.link"
       [attr.aria-label]="'navigate to ' + social.key"
       [href]="social.link"
       class="social__icon social__icon--{{ social.key }}"
@@ -12,4 +32,40 @@
       ></tui-svg>
     </a>
   </ng-container>
+
+  <ng-template #sponsor>
+    <div class="social__support">
+
+      <a
+        class="social__support-link"
+        href="https://www.buymeacoffee.com/alexanderkislov"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+
+        <img
+          class="social__support-img"
+          height="36"
+          class="social__support-icon--standard"
+          src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+          alt="Buy Me A Coffee"
+        >
+      </a>
+
+      <a
+        class="social__support-link social__support-link--kofi"
+        href="https://ko-fi.com/C0C6P4GB6"
+        target="_blank"
+      >
+        <img
+          class="social__support-img"
+          height="36"
+          src="https://storage.ko-fi.com/cdn/kofi4.png?v=3"
+          border="0"
+          alt="Buy Me a Coffee at ko-fi.com"
+        >
+      </a>
+    </div>
+
+  </ng-template>
 </div>
