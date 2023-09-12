@@ -1,12 +1,5 @@
 <div class="demo-page">
 
-  <tui-notification
-    status="warning"
-    class="service-demo tui-space_vertical-4"
-  >
-    In progress
-  </tui-notification>
-
   <h1 class="tui-text_h3">Demo page</h1>
 
   <!-- Simple tooltip -->
@@ -31,6 +24,8 @@
     </button>
   </t-demo>
 
+  <!-- Placements -->
+
   <h6 class="tui-text_h6">
     Placements:
   </h6>
@@ -38,7 +33,7 @@
   <t-demo>
     <div class="demo-page__grid">
       <div
-        class="demo-page__child"
+        class="demo-page__child demo-page__child--placements"
         *ngFor="let tooltip of tooltips | defaultOrderKeyvalue"
         [ngxTippy]="tooltip.value.content"
         tippyClassName="demo-page__emojii"
@@ -54,6 +49,8 @@
       </div>
     </div>
   </t-demo>
+
+  <!-- Animations -->
 
   <h6 class="tui-text_h6">
     Animations:
@@ -77,12 +74,14 @@
     </div>
   </t-demo>
 
+  <!-- Custom animation -->
+
   <h6 class="tui-text_h6">
     Custom animation:
   </h6>
 
   <t-demo>
-    <div class="demo-page__custom">
+    <div class="demo-page__grid--long">
       <div
         class="demo-page__child"
         tippyClassName="demo-page__custom-anim"
@@ -106,16 +105,20 @@
     </div>
   </t-demo>
 
+  <!--  Custom animation with inertia -->
+
   <h6 class="tui-text_h6">
-    Custom animation with <a
+    Custom animation with
+    <a
       href="https://atomiks.github.io/tippyjs/v6/animations/#inertia"
       target="_blank"
       rel="noopener noreferrer"
+      tuiLink
     >inertia</a>:
   </h6>
 
   <t-demo>
-    <div class="demo-page__custom">
+    <div class="demo-page__grid--long">
       <div
         class="demo-page__child"
         tippyClassName="demo-page__custom-anim"
@@ -139,6 +142,8 @@
       </ng-template>
     </div>
   </t-demo>
+
+  <!--  Themes -->
 
   <h6 class="tui-text_h6">
     Themes:
@@ -170,4 +175,113 @@
     </div>
   </t-demo>
 
+  <!-- Custom theme -->
+
+  <h6 class="tui-text_h6">
+    Custom theme:
+  </h6>
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy="Custom theme content"
+      type="button"
+      appearance="primary"
+      [tippyProps]="{
+        placement: 'right',
+        theme: 'pastel',
+        arrow: false
+      }"
+    >
+      Custom theme
+    </button>
+  </t-demo>
+
+  <!--  Triggers -->
+
+  <h6 class="tui-text_h6">
+    Triggers:
+  </h6>
+
+  <tui-notification
+    status="info"
+    class="service-demo tui-space_vertical-4"
+  >
+    mouseenter | focus | click | focusin | manual
+  </tui-notification>
+
+
+  <t-demo>
+    <button
+      class="tui-button"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      type="button"
+      appearance="primary"
+      [tippyProps]="{
+        placement: 'bottom',
+        trigger: 'mouseenter focus'
+      }"
+    >
+      mouseenter/focus
+    </button>
+
+    <button
+      class="tui-button demo-page__trigger"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      type="button"
+      appearance="primary"
+      [tippyProps]="{
+        placement: 'bottom',
+        trigger: 'focus',
+        hideOnClick: false
+      }"
+    >
+      focus
+    </button>
+
+    <button
+      class="tui-button demo-page__trigger"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      type="button"
+      appearance="primary"
+      [tippyProps]="{
+        placement: 'bottom',
+        trigger: 'focusin',
+        hideOnClick: false
+      }"
+    >
+      focusin
+    </button>
+
+    <button
+      class="tui-button demo-page__trigger"
+      size="m"
+      tuiButton
+      ngxTippy="Tooltip content"
+      type="button"
+      appearance="primary"
+      tippyName="feistyFawn"
+      [tippyProps]="{
+        placement: 'bottom',
+        trigger: 'manual'
+      }"
+    >
+      manual
+    </button>
+  </t-demo>
+
+  <t-demo>
+    <span
+      (click)="showManualTooltip()"
+      class="demo-page__manual"
+    >Click to show tooltip with 'manual' trigger</span>
+  </t-demo>
 </div>

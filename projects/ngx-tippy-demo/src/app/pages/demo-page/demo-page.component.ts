@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NgxTippyService } from 'ngx-tippy-wrapper';
 const emojis = [
   '😄',
   '😃',
@@ -57,6 +58,7 @@ const emojis = [
   '😇',
   '😏',
 ];
+
 @Component({
   selector: 'app-demo-page',
   templateUrl: './demo-page.component.html',
@@ -156,8 +158,8 @@ export class DemoPageComponent implements OnInit {
       item: 'perspective',
       content: emojis[Math.floor(Math.random() * emojis.length)],
     },
-    'perspective-suble': {
-      item: 'perspective-suble',
+    'perspective-subtle': {
+      item: 'perspective-subtle',
       content: emojis[Math.floor(Math.random() * emojis.length)],
     },
     'perspective-extreme': {
@@ -166,7 +168,11 @@ export class DemoPageComponent implements OnInit {
     },
   };
 
-  constructor() {}
+  constructor(private readonly tippyService: NgxTippyService) {}
 
   ngOnInit(): void {}
+
+  showManualTooltip() {
+    this.tippyService.show('feistyFawn');
+  }
 }

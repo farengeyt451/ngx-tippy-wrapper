@@ -23,7 +23,6 @@
     transform: translateX(-150px);
     transition-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
   }
-
 }
 
 .tui-text_h3 {
@@ -48,16 +47,20 @@ t-demo {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 4rem;
-  background-color: var(--tui-positive);
+  height: 2.75rem;
+  background: var(--tui-primary);
   color: var(--tui-primary-text);
   font-weight: 600;
   font-size: 1rem;
-  border-radius: 1rem;
+  border-radius: 12px;
   cursor: pointer;
 }
 
-.demo-page__custom {
+.demo-page__child--placements {
+  height: 4rem;
+}
+
+.demo-page__grid--long {
   width: 33%;
 }
 
@@ -74,4 +77,13 @@ t-demo {
 
 .demo-page__child--theme {
   width: 22%;
+}
+
+.demo-page__trigger {
+  margin-left: 1rem;
+}
+
+.demo-page__manual {
+  margin-left: 1.5rem;
+  cursor: pointer;
 }
