@@ -1,190 +1,192 @@
-<div class="nav">
-  <ul class="nav__list">
-    <li class="nav__item">
-      <a
-        class="nav__link"
-        tuiLink
-        routerLink="/getting-started"
-        routerLinkActive="nav__link--active"
-      >
-        Getting started
-      </a>
-    </li>
+<tui-scrollbar class="nav-box">
+  <div class="nav">
+    <ul class="nav__list">
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/getting-started"
+          routerLinkActive="nav__link--active"
+        >
+          Getting started
+        </a>
+      </li>
 
-    <li class="nav__item">
-      <a
-        class="nav__link"
-        tuiLink
-        routerLink="/demo"
-        routerLinkActive="nav__link--active"
-      >
-        Demo
-      </a>
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/demo"
+          routerLinkActive="nav__link--active"
+        >
+          Demo
+        </a>
 
-    </li>
+      </li>
 
 
-    <li class="nav__item">
-      <a
-        class="nav__link"
-        tuiLink
-        routerLink="/usage"
-        routerLinkActive="nav__link--active"
-      >
-        Usage
-      </a>
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/usage"
+          routerLinkActive="nav__link--active"
+        >
+          Usage
+        </a>
 
-      <tui-expand [expanded]="isSubListExpanded">
-        <ul class="nav__sub-list">
-          <li class="nav__sub-item">
-            <a
-              class="nav__link"
-              tuiLink
-              routerLink="/usage"
-              fragment="basic_usage"
-              routerLinkActive="nav__link--active"
-              [routerLinkActiveOptions]="linkActiveOptions"
-              (click)="onFragmentNav('basic_usage')"
+        <tui-expand [expanded]="isSubListExpanded">
+          <ul class="nav__sub-list">
+            <li class="nav__sub-item">
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/usage"
+                fragment="basic_usage"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+                (click)="onFragmentNav('basic_usage')"
+              >
+                Basic usage
+              </a>
+            </li>
+            <li class="nav__sub-item">
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/usage"
+                fragment="initializing_on_condition"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+                (click)="onFragmentNav('initializing_on_condition')"
+              >
+                Initializing on condition
+              </a>
+            </li>
+          </ul>
+        </tui-expand>
+      </li>
+
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/applying-props"
+          routerLinkActive="nav__link--active"
+        >
+          Applying props
+        </a>
+      </li>
+
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/applying-content"
+          routerLinkActive="nav__link--active"
+        >
+          Applying content
+        </a>
+
+        <tui-expand [expanded]="isSubListExpanded">
+          <ul class="nav__sub-list">
+            <li
+              *ngFor="let method of contentMethods"
+              class="nav__sub-item"
             >
-              Basic usage
-            </a>
-          </li>
-          <li class="nav__sub-item">
-            <a
-              class="nav__link"
-              tuiLink
-              routerLink="/usage"
-              fragment="initializing_on_condition"
-              routerLinkActive="nav__link--active"
-              [routerLinkActiveOptions]="linkActiveOptions"
-              (click)="onFragmentNav('initializing_on_condition')"
-            >
-              Initializing on condition
-            </a>
-          </li>
-        </ul>
-      </tui-expand>
-    </li>
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/applying-content"
+                fragment="{{ method.value }}"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+                (click)="onFragmentNav(method.value)"
+              >
+                {{ method.view }}
+              </a>
+            </li>
+          </ul>
+        </tui-expand>
+      </li>
 
-    <li class="nav__item">
-      <a
-        class="nav__link"
-        tuiLink
-        routerLink="/applying-props"
-        routerLinkActive="nav__link--active"
-      >
-        Applying props
-      </a>
-    </li>
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/working-with-service"
+          routerLinkActive="nav__link--active"
+        >
+          Working with service
+        </a>
 
-    <li class="nav__item">
-      <a
-        class="nav__link"
-        tuiLink
-        routerLink="/applying-content"
-        routerLinkActive="nav__link--active"
-      >
-        Applying content
-      </a>
+        <tui-expand [expanded]="isSubListExpanded">
+          <ul class="nav__sub-list">
+            <li class="nav__sub-item">
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/working-with-service"
+                fragment="additional_methods"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+                (click)="onFragmentNav('additional_methods')"
+              >
+                Additional methods
+              </a>
+            </li>
+            <li class="nav__sub-item">
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/working-with-service"
+                fragment="static_methods"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+                (click)="onFragmentNav('static_methods')"
+              >
+                Static methods
+              </a>
+            </li>
+            <li class="nav__sub-item">
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/working-with-service"
+                fragment="subscription_instances_changes"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+                (click)="onFragmentNav('subscription_instances_changes')"
+              >
+                Subscription to instances changes
+              </a>
+            </li>
+          </ul>
+        </tui-expand>
 
-      <tui-expand [expanded]="isSubListExpanded">
-        <ul class="nav__sub-list">
-          <li
-            *ngFor="let method of contentMethods"
-            class="nav__sub-item"
-          >
-            <a
-              class="nav__link"
-              tuiLink
-              routerLink="/applying-content"
-              fragment="{{ method.value }}"
-              routerLinkActive="nav__link--active"
-              [routerLinkActiveOptions]="linkActiveOptions"
-              (click)="onFragmentNav(method.value)"
-            >
-              {{ method.view }}
-            </a>
-          </li>
-        </ul>
-      </tui-expand>
-    </li>
+      </li>
 
-    <li class="nav__item">
-      <a
-        class="nav__link"
-        tuiLink
-        routerLink="/working-with-service"
-        routerLinkActive="nav__link--active"
-      >
-        Working with service
-      </a>
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/grouped-tooltips"
+          routerLinkActive="nav__link--active"
+        >
+          Grouped tooltips
+        </a>
+      </li>
 
-      <tui-expand [expanded]="isSubListExpanded">
-        <ul class="nav__sub-list">
-          <li class="nav__sub-item">
-            <a
-              class="nav__link"
-              tuiLink
-              routerLink="/working-with-service"
-              fragment="additional_methods"
-              routerLinkActive="nav__link--active"
-              [routerLinkActiveOptions]="linkActiveOptions"
-              (click)="onFragmentNav('additional_methods')"
-            >
-              Additional methods
-            </a>
-          </li>
-          <li class="nav__sub-item">
-            <a
-              class="nav__link"
-              tuiLink
-              routerLink="/working-with-service"
-              fragment="static_methods"
-              routerLinkActive="nav__link--active"
-              [routerLinkActiveOptions]="linkActiveOptions"
-              (click)="onFragmentNav('static_methods')"
-            >
-              Static methods
-            </a>
-          </li>
-          <li class="nav__sub-item">
-            <a
-              class="nav__link"
-              tuiLink
-              routerLink="/working-with-service"
-              fragment="subscription_instances_changes"
-              routerLinkActive="nav__link--active"
-              [routerLinkActiveOptions]="linkActiveOptions"
-              (click)="onFragmentNav('subscription_instances_changes')"
-            >
-              Subscription to instances changes
-            </a>
-          </li>
-        </ul>
-      </tui-expand>
-
-    </li>
-
-    <li class="nav__item">
-      <a
-        class="nav__link"
-        tuiLink
-        routerLink="/grouped-tooltips"
-        routerLinkActive="nav__link--active"
-      >
-        Grouped tooltips
-      </a>
-    </li>
-
-    <li class="nav__item">
-      <a
-        class="nav__link"
-        tuiLink
-        routerLink="/multiple-tooltips"
-        routerLinkActive="nav__link--active"
-      >
-        Multiple tooltips on a single element
-      </a>
-    </li>
-  </ul>
-</div>
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/multiple-tooltips"
+          routerLinkActive="nav__link--active"
+        >
+          Multiple tooltips on a single element
+        </a>
+      </li>
+    </ul>
+  </div>
+</tui-scrollbar>

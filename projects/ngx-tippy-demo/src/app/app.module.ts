@@ -31,6 +31,7 @@ import {
   TuiModeModule,
   TuiNotificationModule,
   TuiRootModule,
+  TuiScrollbarModule,
   TuiSvgModule,
   TuiThemeNightModule,
 } from '@taiga-ui/core';
@@ -97,6 +98,7 @@ function initialize(SchemeService: SchemeService) {
     TuiRootModule,
     TuiSvgModule,
     TuiThemeNightModule,
+    TuiScrollbarModule,
     TuiRadioLabeledModule,
   ],
   providers: [
