@@ -13,6 +13,7 @@ import { AppContentComponent } from '@pages/app-content';
 import { ContentComponent } from '@pages/content';
 import { DemoPageComponent } from '@pages/demo-page';
 import { GettingStartedComponent } from '@pages/getting-started';
+import { GroupedTooltipsComponent } from '@pages/grouped-tooltips';
 import { NotSupportedComponent } from '@pages/not-supported';
 import { PropsComponent } from '@pages/props';
 import { ServiceComponent } from '@pages/service';
@@ -69,6 +70,7 @@ function initialize(SchemeService: SchemeService) {
     ServiceComponent,
     DemoPageComponent,
     DefaultOrderKeyvaluePipe,
+    GroupedTooltipsComponent,
   ],
   imports: [
     AppRoutingModule,

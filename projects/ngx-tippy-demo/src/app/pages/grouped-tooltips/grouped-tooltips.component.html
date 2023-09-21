@@ -1,0 +1,105 @@
+<div class="grouped">
+
+  <h1 class="tui-text_h3">Grouped tooltips</h1>
+
+  <p class="tui-text_body-m-2">
+    If you need to provide unique tooltip content to multiple elements but only initialize once, use the ngx-tippy-group
+    component.
+  </p>
+
+  <tui-notification
+    status="info"
+    class="service-demo tui-space_vertical-4"
+  >
+    For each tooltip within <em>ngx-tippy-group</em> component you should pass <em>data-tippy-grouped</em> attribute
+  </tui-notification>
+
+  <t-demo-code
+    *tuiLet="snippets.grouped_template as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.grouped_component as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <ngx-tippy-group [groupedProps]="groupedProps">
+      <button
+        *ngFor="let btn of [0, 1, 2, 3, 4]"
+        data-tippy-grouped
+        data-tippy-content="Tooltip content"
+        class="tui-button tui-button-{{btn}}"
+        size="m"
+        tuiButton
+        type="button"
+        appearance="primary"
+      >
+        Button
+      </button>
+    </ngx-tippy-group>
+  </t-demo>
+
+  <p class="tui-text_body-m-2">
+    Also you can pass new content and props through attribute for every tooltip element, see <a
+      tuiLink
+      href="https://atomiks.github.io/tippyjs/v6/customization/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      customization
+    </a>
+  </p>
+
+  <t-demo-code
+    *tuiLet="snippets.grouped_custom_template as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <ngx-tippy-group [groupedProps]="groupedProps">
+      <button
+        data-tippy-grouped
+        data-tippy-content="Tooltip content"
+        class="tui-button"
+        size="m"
+        tuiButton
+        type="button"
+        appearance="primary"
+      >
+        Button
+      </button>
+
+      <button
+        data-tippy-grouped
+        data-tippy-arrow="true"
+        data-tippy-content="New tooltip content"
+        class="tui-button"
+        size="m"
+        tuiButton
+        type="button"
+        appearance="primary"
+      >
+        Button
+      </button>
+
+      <button
+        data-tippy-grouped
+        data-tippy-placement="right"
+        data-tippy-content="Another tooltip content"
+        class="tui-button"
+        size="m"
+        tuiButton
+        type="button"
+        appearance="primary"
+      >
+        Button
+      </button>
+    </ngx-tippy-group>
+  </t-demo>
+
+</div>
