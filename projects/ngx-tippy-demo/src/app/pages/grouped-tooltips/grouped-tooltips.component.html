@@ -26,7 +26,7 @@
     [languages]="s.languages"
   ></t-demo-code>
 
-  <t-demo>
+  <t-demo *ngIf="isShowDemo">
     <ngx-tippy-group [groupedProps]="groupedProps">
       <button
         *ngFor="let btn of [0, 1, 2, 3, 4]"
@@ -60,7 +60,7 @@
     [languages]="s.languages"
   ></t-demo-code>
 
-  <t-demo>
+  <t-demo *ngIf="isShowDemo">
     <ngx-tippy-group [groupedProps]="groupedProps">
       <button
         data-tippy-grouped
