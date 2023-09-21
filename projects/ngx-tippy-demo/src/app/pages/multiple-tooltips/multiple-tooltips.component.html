@@ -1,0 +1,52 @@
+<div class="multiple">
+
+  <h1 class="tui-text_h3">Multiple tooltips on a single element</h1>
+
+  <p class="tui-text_body-m-2">
+    For multiple tooltips on a single element - use nest elements with <em>ngxTippy</em> directive:
+  </p>
+
+  <t-demo-code
+    *tuiLet="snippets.multiple as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo>
+    <div
+      ngxTippy="Left tooltip content"
+      [tippyProps]="{
+        placement: 'left',
+        delay: [50, 100],
+        animation: 'shift-toward'
+      }"
+    >
+      <div
+        ngxTippy="Right tooltip content"
+        [tippyProps]="{
+          placement: 'right',
+          delay: [100, 150],
+          animation: 'shift-toward'
+        }"
+      >
+        <button
+          ngxTippy="Top tooltip content"
+          class="tui-button"
+          size="m"
+          tuiButton
+          type="button"
+          appearance="primary"
+          [tippyProps]="{
+            placement: 'top',
+            delay: [200, 250],
+            animation: 'shift-toward'
+          }"
+        >
+          Button
+        </button>
+      </div>
+    </div>
+  </t-demo>
+
+
+</div>
