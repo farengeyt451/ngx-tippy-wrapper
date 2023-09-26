@@ -32,11 +32,21 @@
   position: fixed;
   top: $header-height;
   width: 16rem;
-  padding: 2rem 1.5rem 0.5rem 1.5rem;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
   bottom: 70px;
 
   @include max-w($tablet) {
     width: 10rem;
+  }
+
+  &:after {
+    content: '';
+    width: 100%;
+    height: 3.75rem;
+    position: absolute;
+    left: 0;
+    bottom: -1rem;
+    background: linear-gradient(transparent -10px, var(--tui-base-01));
   }
 }
 
@@ -62,4 +72,5 @@
   box-shadow: 0 0.125rem 1rem #00000014;
   background-color: var(--tui-base-01);
   border-top: 0.1rem solid var(--tui-base-03);
+  z-index: 1;
 }
