@@ -121,6 +121,10 @@ tui-notification {
 
 .nav__link.nav__link--active {
   color: var(--tui-support-16);
+
+  &:hover {
+    color: #343f64;
+  }
 }
 
 .tippy-box[data-theme='pastel'] {

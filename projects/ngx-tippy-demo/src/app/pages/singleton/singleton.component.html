@@ -1,0 +1,321 @@
+<div class="singleton">
+
+  <h1 class="tui-text_h3 tui-space_top-0">Singleton</h1>
+
+  <tui-notification
+    status="info"
+    class="service-demo tui-space_vertical-4"
+  >
+    <p class="tui-text_body-m-2 tui-space_vertical-0">
+      A singleton is a single tippy element that takes the place of an array of regular tippy
+      instances.
+    </p>
+
+    <p class="tui-text_body-m-2 tui-space_top-2 tui-space_bottom-0">This allows two things:</p>
+
+    <ul class="tui-list">
+      <li class="tui-list__item"> Smooth transitions of the tippy between many different reference element targets
+      </li>
+      <li class="tui-list__item">Elements with tooltips next to each other that have a delay can be "grouped" so they
+        appear to share a
+        timeout,
+        which greatly improves UX</li>
+    </ul>
+  </tui-notification>
+
+  <p class="tui-text_body-m-2">To use
+    <a
+      tuiLink
+      href="https://atomiks.github.io/tippyjs/v6/addons/#singleton"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Singleton feature
+    </a> - provide tooltip elements within <em>ngx-tippy-singleton</em> component:
+  </p>
+
+  <t-demo-code
+    *tuiLet="snippets.singleton_template_sn as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.singleton_component_sn as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <tui-notification
+    status="info"
+    class="service-demo tui-space_vertical-4"
+  >
+    <p class="tui-text_body-m-2 tui-space_vertical-0">For each tooltip within component you should pass
+      <em>data-tippy-singleton</em> attribute.
+    </p>
+
+    <ul class="tui-list">
+      <li class="tui-list__item">Use <em>singletonProps</em> (optional) to pass tooltip properties</li>
+      <li class="tui-list__item">Use <em>singletonName</em> (optional) to pass unique singleton name which need for
+        controlling a specific singleton instance programmatically
+      </li>
+    </ul>
+  </tui-notification>
+
+  <t-demo *ngIf="isShowDemo">
+    <ngx-tippy-singleton
+      [singletonProps]="singletonProps"
+      singletonName="eoan_ermine"
+    >
+
+      <button
+        *ngFor="let item of [0, 1, 2, 3, 4]"
+        class="tui-button singleton__btn"
+        size="m"
+        tuiButton
+        ngxTippy="Tooltip content"
+        type="button"
+        appearance="primary"
+        data-tippy-singleton
+      >
+        Singleton
+      </button>
+    </ngx-tippy-singleton>
+  </t-demo>
+
+  <h6
+    id="overridden_props"
+    class="tui-text_h6"
+  >
+    Overridden properties
+  </h6>
+
+  <p class="tui-text_body-m-2">To override <em>singletonProps</em> by the individual tippy props use
+    <em>data-tippy attributes</em>:
+  </p>
+
+  <t-demo-code
+    *tuiLet="snippets.singleton_over_template_sn as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.singleton_over_component_sn as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo *ngIf="isShowDemo">
+    <ngx-tippy-singleton [singletonProps]="singletonOverriddenProps">
+
+      <button
+        class="tui-button singleton__btn"
+        size="m"
+        tuiButton
+        ngxTippy="Tooltip content"
+        type="button"
+        appearance="primary"
+        data-tippy-singleton
+      >
+        Singleton
+      </button>
+
+      <button
+        class="tui-button singleton__btn"
+        size="m"
+        tuiButton
+        ngxTippy
+        type="button"
+        appearance="primary"
+        data-tippy-singleton
+        data-tippy-arrow="false"
+        data-tippy-content="New tooltip content"
+      >
+        Singleton
+      </button>
+
+      <button
+        class="tui-button singleton__btn"
+        size="m"
+        tuiButton
+        ngxTippy
+        type="button"
+        appearance="primary"
+        data-tippy-singleton
+        data-tippy-placement="right"
+        data-tippy-content="Another tooltip content"
+      >
+        Singleton
+      </button>
+    </ngx-tippy-singleton>
+  </t-demo>
+
+  <h6
+    id="smooth_transitions"
+    class="tui-text_h6"
+  >
+    Smooth transitions
+  </h6>
+
+  <p class="tui-text_body-m-2">Use the <em>moveTransition</em> property which is the transition between moves:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.singleton_smooth_component_sn as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo *ngIf="isShowDemo">
+    <ngx-tippy-singleton [singletonProps]="smoothTransitions">
+
+      <button
+        *ngFor="let item of [0, 1, 2, 3, 4]"
+        class="tui-button singleton__btn"
+        size="m"
+        tuiButton
+        ngxTippy="Tooltip content"
+        type="button"
+        appearance="primary"
+        data-tippy-singleton
+      >
+        Singleton
+      </button>
+    </ngx-tippy-singleton>
+  </t-demo>
+
+  <h6
+    id="control_singleton_instance"
+    class="tui-text_h6"
+  >
+    Programmatically control singleton instance
+  </h6>
+
+  <p class="tui-text_body-m"><strong>Get singleton instance(s):</strong></p>
+
+  <div class="tui-table-wrapper">
+    <table class="tui-table">
+      <tbody>
+        <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_bg">
+          <th class="tui-table__th tui-table__th_first">Method name</th>
+          <th class="tui-table__th tui-table__th_first">Method parameter</th>
+          <th class="tui-table__th tui-table__th_last">Short description</th>
+        </tr>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <td class="tui-table__td tui-table__td_first"><strong>getSingletonInstance</strong></td>
+          <td class="tui-table__td"><em>name</em>: string</td>
+          <td class="tui-table__td tui-table__td_last">Get specific singleton instance</td>
+        </tr>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <td class="tui-table__td tui-table__td_first"><strong>getSingletonInstances</strong></td>
+          <td class="tui-table__td">—</td>
+          <td class="tui-table__td tui-table__td_last">Get all tippy singleton instances</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <tui-notification
+      status="success"
+      class="service-demo tui-space_vertical-4"
+    >
+      <p class="tui-text_body-m-2 tui-space_vertical-0">
+        <a
+          tuiLink
+          href="https://atomiks.github.io/tippyjs/v6/addons/#singleton"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Available methods described here
+        </a>
+      </p>
+    </tui-notification>
+  </div>
+
+
+  <p class="tui-text_body-m-2">
+    Its possible to control each <em>singleton</em> instance separately:
+  </p>
+
+  <t-demo-code
+    *tuiLet="snippets.singleton_prog_template_sn as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+  <t-demo-code
+    *tuiLet="snippets.singleton_prog_component_sn as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
+
+  <t-demo *ngIf="isShowDemo">
+    <ngx-tippy-singleton
+      [singletonProps]="smoothTransitions"
+      singletonName="groovy_gorilla"
+    >
+      <button
+        class="tui-button singleton__btn"
+        size="m"
+        tuiButton
+        ngxTippy="Tooltip content 🌥️"
+        type="button"
+        appearance="primary"
+        data-tippy-singleton
+      >
+        Singleton
+      </button>
+
+      <button
+        class="tui-button singleton__btn"
+        size="m"
+        tuiButton
+        ngxTippy="Tooltip content 🌔"
+        type="button"
+        appearance="primary"
+        data-tippy-singleton
+      >
+        Singleton
+      </button>
+
+      <button
+        class="tui-button singleton__btn"
+        size="m"
+        tuiButton
+        ngxTippy="Tooltip content 🌕"
+        tippyName="edgy_eft"
+        type="button"
+        appearance="primary"
+        data-tippy-singleton
+      >
+        Singleton
+      </button>
+    </ngx-tippy-singleton>
+  </t-demo>
+
+  <t-demo>
+    <a
+      class="singleton__link"
+      tuiLink
+      (click)="showTooltip(0)"
+    >
+      Show first tooltip
+    </a>
+
+    <a
+      class="singleton__link"
+      tuiLink
+      (click)="showTooltip(1)"
+    >
+      Show second tooltip
+    </a>
+
+    <a
+      class="singleton__link"
+      tuiLink
+      (click)="showTooltip('edgy_eft')"
+    >
+      Show third tooltip
+    </a>
+  </t-demo>
+</div>

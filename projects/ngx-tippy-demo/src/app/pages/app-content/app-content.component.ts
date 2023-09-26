@@ -1,9 +1,6 @@
-import { ViewportScroller } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CONTENT_METHODS } from '@constants';
 import { DestroyService } from '@services';
-import { ScrollComponent } from '@shared';
 import { NgxTippyProps, NgxTippyService } from 'ngx-tippy-wrapper';
 import { SNIPPETS } from './snippets';
 
@@ -14,7 +11,7 @@ import { SNIPPETS } from './snippets';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService],
 })
-export class AppContentComponent extends ScrollComponent implements OnInit, AfterViewInit {
+export class AppContentComponent implements OnInit, AfterViewInit {
   @ViewChild('templateRefService', { read: ElementRef, static: true }) templateRefService!: ElementRef;
 
   public readonly snippets = SNIPPETS;
@@ -25,14 +22,7 @@ export class AppContentComponent extends ScrollComponent implements OnInit, Afte
     placement: 'right',
   };
 
-  constructor(
-    protected readonly activatedRoute: ActivatedRoute,
-    protected readonly scroller: ViewportScroller,
-    protected readonly destroy$: DestroyService,
-    private readonly tippyService: NgxTippyService
-  ) {
-    super(activatedRoute, scroller);
-  }
+  constructor(protected readonly destroy$: DestroyService, private readonly tippyService: NgxTippyService) {}
 
   ngOnInit() {}
 

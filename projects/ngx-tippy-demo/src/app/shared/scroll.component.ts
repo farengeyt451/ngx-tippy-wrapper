@@ -10,13 +10,9 @@ export class ScrollComponent {
     this.activatedRoute.fragment.subscribe(anchor => {
       anchor &&
         setTimeout(() => {
+          console.log(`🚀 Scrolling to:`, anchor);
           this.scroller.scrollToAnchor(anchor);
-        }, 0);
+        }, 100);
     });
-  }
-
-  protected onFragmentNav(anchor: string) {
-    console.log(`🚀 Scroll to`, anchor);
-    this.scroller.scrollToAnchor(anchor);
   }
 }

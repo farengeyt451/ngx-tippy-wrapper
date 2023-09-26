@@ -4,6 +4,7 @@ import { DemoPageComponent } from '@pages/demo-page';
 import { GroupedTooltipsComponent } from '@pages/grouped-tooltips';
 import { MultipleTooltipsComponent } from '@pages/multiple-tooltips';
 import { ServiceComponent } from '@pages/service';
+import { SingletonComponent } from '@pages/singleton';
 import { AppContentComponent } from 'projects/ngx-tippy-demo/src/app/pages/app-content';
 import { GettingStartedComponent } from 'projects/ngx-tippy-demo/src/app/pages/getting-started';
 import { PropsComponent } from 'projects/ngx-tippy-demo/src/app/pages/props';
@@ -46,6 +47,10 @@ export const routes: Routes = [
   {
     path: 'multiple-tooltips',
     component: MultipleTooltipsComponent,
+  },
+  {
+    path: 'singleton',
+    component: SingletonComponent,
   },
 ];
 

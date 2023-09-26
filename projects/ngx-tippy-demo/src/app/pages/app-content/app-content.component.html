@@ -1,6 +1,6 @@
 <div class="app-content">
 
-  <h1 class="tui-text_h3">Applying content</h1>
+  <h1 class="tui-text_h3 tui-space_top-0">Applying content</h1>
 
   <p class="tui-text_body-m-2">You can pass content for tooltip through:</p>
 
@@ -13,7 +13,6 @@
         tuiLink
         routerLink="/applying-content"
         fragment="{{ method.value }}"
-        (click)="onFragmentNav(method.value)"
       >
         {{ method.view }}
       </a>
@@ -160,7 +159,7 @@
   <p class="tui-text_body-m-2">Use <em>setContent()</em> method exposed by <em>NgxTippyService</em></p>
 
   <tui-notification>
-    tippyName is mandatory for this approach
+    <p class="tui-text_body-m-2 tui-space_vertical-0"><em>tippyName</em> is mandatory for this approach</p>
   </tui-notification>
 
   <t-demo-code

@@ -45,7 +45,6 @@
                 fragment="basic_usage"
                 routerLinkActive="nav__link--active"
                 [routerLinkActiveOptions]="linkActiveOptions"
-                (click)="onFragmentNav('basic_usage')"
               >
                 Basic usage
               </a>
@@ -58,7 +57,6 @@
                 fragment="initializing_on_condition"
                 routerLinkActive="nav__link--active"
                 [routerLinkActiveOptions]="linkActiveOptions"
-                (click)="onFragmentNav('initializing_on_condition')"
               >
                 Initializing on condition
               </a>
@@ -101,7 +99,6 @@
                 fragment="{{ method.value }}"
                 routerLinkActive="nav__link--active"
                 [routerLinkActiveOptions]="linkActiveOptions"
-                (click)="onFragmentNav(method.value)"
               >
                 {{ method.view }}
               </a>
@@ -130,7 +127,6 @@
                 fragment="additional_methods"
                 routerLinkActive="nav__link--active"
                 [routerLinkActiveOptions]="linkActiveOptions"
-                (click)="onFragmentNav('additional_methods')"
               >
                 Additional methods
               </a>
@@ -143,7 +139,6 @@
                 fragment="static_methods"
                 routerLinkActive="nav__link--active"
                 [routerLinkActiveOptions]="linkActiveOptions"
-                (click)="onFragmentNav('static_methods')"
               >
                 Static methods
               </a>
@@ -156,7 +151,6 @@
                 fragment="subscription_instances_changes"
                 routerLinkActive="nav__link--active"
                 [routerLinkActiveOptions]="linkActiveOptions"
-                (click)="onFragmentNav('subscription_instances_changes')"
               >
                 Subscription to instances changes
               </a>
@@ -186,6 +180,58 @@
         >
           Multiple tooltips on a single element
         </a>
+      </li>
+
+      <li class="nav__item">
+        <a
+          class="nav__link"
+          tuiLink
+          routerLink="/singleton"
+          routerLinkActive="nav__link--active"
+        >
+          Singleton
+        </a>
+
+        <tui-expand [expanded]="isSubListExpanded">
+          <ul class="nav__sub-list">
+            <li class="nav__sub-item">
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/singleton"
+                fragment="overridden_props"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+              >
+                Overridden properties
+              </a>
+            </li>
+            <li class="nav__sub-item">
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/singleton"
+                fragment="smooth_transitions"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+              >
+                Smooth transitions
+              </a>
+            </li>
+            <li class="nav__sub-item">
+              <a
+                class="nav__link"
+                tuiLink
+                routerLink="/singleton"
+                fragment="control_singleton_instance"
+                routerLinkActive="nav__link--active"
+                [routerLinkActiveOptions]="linkActiveOptions"
+              >
+                Programmatically control singleton instance
+              </a>
+            </li>
+          </ul>
+        </tui-expand>
       </li>
     </ul>
   </div>

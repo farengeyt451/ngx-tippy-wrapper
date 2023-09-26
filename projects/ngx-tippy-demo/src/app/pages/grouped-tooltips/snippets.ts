@@ -1,5 +1,4 @@
-const GROUPED_TEMPLATE_SN = `
-<ngx-tippy-group [groupedProps]="groupedProps">
+const GROUPED_TEMPLATE_SN = `<ngx-tippy-group [groupedProps]="groupedProps">
   <button
     *ngFor="let btn of [0, 1, 2, 3, 4]"
     data-tippy-grouped
@@ -10,8 +9,7 @@ const GROUPED_TEMPLATE_SN = `
 </ngx-tippy-group>
 `;
 
-const GROUPED_COMPONENT_SN = `
-import { NgxTippyProps } from 'ngx-tippy-wrapper';
+const GROUPED_COMPONENT_SN = `import { NgxTippyProps } from 'ngx-tippy-wrapper';
 
 @Component({ ... })
 export class DemoComponent implements OnInit {
@@ -22,8 +20,7 @@ export class DemoComponent implements OnInit {
   ...
 }`;
 
-const GROUPED_CUSTOM_TEMPLATE_SN = `
-<ngx-tippy-group [groupedProps]="groupedProps">
+const GROUPED_CUSTOM_TEMPLATE_SN = `<ngx-tippy-group [groupedProps]="groupedProps">
   <button
     data-tippy-grouped
     data-tippy-content="Tooltip content"

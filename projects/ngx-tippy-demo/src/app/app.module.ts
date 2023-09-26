@@ -18,6 +18,7 @@ import { MultipleTooltipsComponent } from '@pages/multiple-tooltips';
 import { NotSupportedComponent } from '@pages/not-supported';
 import { PropsComponent } from '@pages/props';
 import { ServiceComponent } from '@pages/service';
+import { SingletonComponent } from '@pages/singleton';
 import { UsageComponent } from '@pages/usage';
 import { SchemeService } from '@services';
 import { TuiLetModule } from '@taiga-ui/cdk';
@@ -74,6 +75,7 @@ function initialize(SchemeService: SchemeService) {
     DefaultOrderKeyvaluePipe,
     GroupedTooltipsComponent,
     MultipleTooltipsComponent,
+    SingletonComponent,
   ],
   imports: [
     AppRoutingModule,
