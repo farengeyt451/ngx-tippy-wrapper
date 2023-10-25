@@ -94,6 +94,7 @@ export class SchemeService {
   private getSystemScheme(): string | null {
     const storedScheme = this.storage.getItem(PREFERRED_SCHEME_KEY);
     const preferredScheme = this.getMatchedScheme(this.window.matchMedia(PREFERS_LIGHT).matches);
+    console.log(`🚀 ~ preferredScheme:`, preferredScheme);
 
     if (storedScheme) {
       return storedScheme;

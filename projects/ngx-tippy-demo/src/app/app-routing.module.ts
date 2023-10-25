@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DemoPageComponent } from '@pages/demo-page';
 import { GroupedTooltipsComponent } from '@pages/grouped-tooltips';
 import { MultipleTooltipsComponent } from '@pages/multiple-tooltips';
+import { PlaygroundComponent } from '@pages/playground';
 import { ServiceComponent } from '@pages/service';
 import { SingletonComponent } from '@pages/singleton';
 import { AppContentComponent } from 'projects/ngx-tippy-demo/src/app/pages/app-content';
@@ -51,6 +52,10 @@ export const routes: Routes = [
   {
     path: 'singleton',
     component: SingletonComponent,
+  },
+  {
+    path: 'playground',
+    component: PlaygroundComponent,
   },
 ];
 

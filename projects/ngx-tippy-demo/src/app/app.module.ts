@@ -16,6 +16,7 @@ import { GettingStartedComponent } from '@pages/getting-started';
 import { GroupedTooltipsComponent } from '@pages/grouped-tooltips';
 import { MultipleTooltipsComponent } from '@pages/multiple-tooltips';
 import { NotSupportedComponent } from '@pages/not-supported';
+import { PlaygroundComponent } from '@pages/playground';
 import { PropsComponent } from '@pages/props';
 import { ServiceComponent } from '@pages/service';
 import { SingletonComponent } from '@pages/singleton';
@@ -76,6 +77,7 @@ function initialize(SchemeService: SchemeService) {
     GroupedTooltipsComponent,
     MultipleTooltipsComponent,
     SingletonComponent,
+    PlaygroundComponent,
   ],
   imports: [
     AppRoutingModule,
