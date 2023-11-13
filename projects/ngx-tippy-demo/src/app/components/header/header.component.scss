@@ -18,8 +18,13 @@ $animation-time: 3s;
   align-items: center;
 }
 
+.header__logo {
+  display: inline-block;
+}
+
 .header__title {
   font-size: 1.2rem;
+  margin-left: 1.2rem;
 }
 
 .header__badge {
@@ -46,7 +51,7 @@ $animation-time: 3s;
 
 .header__img--tippy {
   position: relative;
-  left: -25px;
+  margin-left: -25px;
   z-index: -1;
   animation-name: animation-bounce-reversed;
 }
