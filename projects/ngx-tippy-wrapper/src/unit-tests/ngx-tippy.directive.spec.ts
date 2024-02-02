@@ -288,7 +288,7 @@ describe('Directive: NgxTippyDirective', () => {
       expect(backgroundColor).toBe(COLOR_WHITE);
     });
 
-    it('should inherit global configuration', () => {
+    it('should inherit provided configuration', () => {
       // Arrange
       component.createInnerComponent(
         `
