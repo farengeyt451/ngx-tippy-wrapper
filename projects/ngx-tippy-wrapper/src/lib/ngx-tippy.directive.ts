@@ -23,6 +23,7 @@ import {
 } from './ngx-tippy.interfaces';
 import { NgxTippyService, NgxViewService } from './services';
 import { setTemplateVisible } from './utils';
+import { NGX_TIPPY_CONFIG } from './ngx-tippy.tokens';
 
 @Directive({
   selector: '[ngxTippy]',
@@ -43,7 +44,8 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     private ngxTippyService: NgxTippyService,
     private ngxViewService: NgxViewService,
     private viewContainerRef: ViewContainerRef,
-    @Inject(PLATFORM_ID) private platform: Object
+    @Inject(PLATFORM_ID) private platform: Object,
+    @Inject(NGX_TIPPY_CONFIG) private ngxTippyConfig: NgxTippyProps,
   ) {}
 
   ngOnInit() {
@@ -73,6 +75,7 @@ export class NgxTippyDirective implements OnInit, OnDestroy {
     const tippyElement = viewRef.getElement();
 
     const tInstance = tippy(tippyTarget, {
+      ...(this.ngxTippyConfig),
       ...(this.tippyProps || {}),
       ...(tippyElement && { content: tippyElement }),
     });

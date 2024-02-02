@@ -14,7 +14,7 @@ import {
 import { messagesDict, tippyFakeInstance } from '../lib/consts';
 import { NgxTippyDirective } from '../lib/ngx-tippy.directive';
 import { NgxTippyProps } from '../lib/ngx-tippy.interfaces';
-import { NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
+import { NGX_TIPPY_CONFIG, NGX_TIPPY_MESSAGES, TIPPY_FAKE_INSTANCE } from '../lib/ngx-tippy.tokens';
 import { NgxTippyService } from '../lib/services';
 
 type MEvents =
@@ -269,6 +269,49 @@ describe('Directive: NgxTippyDirective', () => {
             theme: 'light',
           },
         }
+      );
+
+      // Act
+      fixture.detectChanges();
+
+      tooltipDebugEl = fixture.debugElement.query(By.directive(NgxTippyDirective));
+      tooltipDebugEl.nativeElement.dispatchEvent(createMouseEvent('mouseenter'));
+
+      fixture.detectChanges();
+
+      // Assert
+      const tippyBox = fixture.debugElement.query(By.css(TOOLTIP_BOX_DIV));
+      const tooltipArrow = fixture.debugElement.query(By.css(TOOLTIP_ARROW_DIV));
+      const { backgroundColor } = getComputedStyle(tippyBox.nativeElement);
+
+      expect(tooltipArrow).toBeNull();
+      expect(backgroundColor).toBe(COLOR_WHITE);
+    });
+
+    it('should inherit global configuration', () => {
+      // Arrange
+      component.createInnerComponent(
+        `
+        <div class="test">
+          <button
+            class="test__btn"
+            ngxTippy
+            data-tippy-content="Tooltip content"
+          >
+            Element with tooltip
+          </button>
+        </div>
+      `,
+        {},
+        [],
+        [{
+          provide: NGX_TIPPY_CONFIG,
+          useValue: {
+            appendTo: 'parent',
+            theme: 'light',
+            arrow: false,
+          },
+        }]
       );
 
       // Act
