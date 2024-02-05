@@ -1,6 +1,6 @@
 {
   "name": "ngx-tippy-wrapper",
-  "version": "6.2.2",
+  "version": "6.3.0",
   "description": "Angular wrapper for tippy.js",
   "keywords": [
     "angular tooltip",

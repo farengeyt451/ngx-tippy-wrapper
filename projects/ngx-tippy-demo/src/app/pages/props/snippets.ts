@@ -32,7 +32,9 @@ export class PropsComponent {
 
 const PROPS_DEFAULT = `import { NGX_TIPPY_CONFIG } from 'ngx-tippy-wrapper';
 
+// Component providers
 @Component({
+  ...
   providers: [
     {
       provide: NGX_TIPPY_CONFIG,
@@ -44,8 +46,21 @@ const PROPS_DEFAULT = `import { NGX_TIPPY_CONFIG } from 'ngx-tippy-wrapper';
     }
   ]
 })
-export class DemoComponent {
-}`;
+
+// Module providers
+@NgModule({
+  ...
+  providers: [
+    {
+      provide: NGX_TIPPY_CONFIG,
+      useValue: {
+        ...
+      },
+    }
+  ]
+})
+
+`;
 
 export const SNIPPETS = {
   props_template: {
