@@ -18,3 +18,4 @@ export {
 } from './lib/ngx-tippy.interfaces';
 export { NgxTippyModule } from './lib/ngx-tippy.module';
 export { NgxTippyService } from './lib/services';
+export { NGX_TIPPY_CONFIG } from './lib/ngx-tippy.tokens';
