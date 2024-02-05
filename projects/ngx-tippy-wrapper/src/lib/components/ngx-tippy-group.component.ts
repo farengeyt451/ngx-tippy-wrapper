@@ -2,7 +2,7 @@ import { isPlatformServer } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewChild } from '@angular/core';
 import tippy from 'tippy.js';
 import { NgxTippyMessagesDict, NgxTippyProps } from '../ngx-tippy.interfaces';
-import { NGX_TIPPY_MESSAGES } from '../ngx-tippy.tokens';
+import { NGX_TIPPY_CONFIG, NGX_TIPPY_MESSAGES } from '../ngx-tippy.tokens';
 
 /**
  * Different tooltip content to many different elements, but only one tippy instance
@@ -21,7 +21,8 @@ export class NgxTippyGroupComponent implements AfterViewInit {
 
   constructor(
     @Inject(PLATFORM_ID) private platform: Object,
-    @Inject(NGX_TIPPY_MESSAGES) private messagesDict: NgxTippyMessagesDict
+    @Inject(NGX_TIPPY_MESSAGES) private messagesDict: NgxTippyMessagesDict,
+    @Inject(NGX_TIPPY_CONFIG) private ngxTippyConfig: NgxTippyProps,
   ) {}
 
   ngAfterViewInit() {
@@ -41,6 +42,9 @@ export class NgxTippyGroupComponent implements AfterViewInit {
   }
 
   initTippy(tooltips: HTMLElement[]) {
-    tippy(tooltips, this.groupedProps);
+    tippy(tooltips, {
+      ...this.ngxTippyConfig,
+      ...this.groupedProps,
+    });
   }
 }

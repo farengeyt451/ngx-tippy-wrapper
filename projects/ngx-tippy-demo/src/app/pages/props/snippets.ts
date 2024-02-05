@@ -30,6 +30,23 @@ export class PropsComponent {
   };
 }`;
 
+const PROPS_DEFAULT = `import { NGX_TIPPY_CONFIG } from 'ngx-tippy-wrapper';
+
+@Component({
+  providers: [
+    {
+      provide: NGX_TIPPY_CONFIG,
+      useValue: {
+        delay: [0, 500],
+        theme: 'light',
+        arrow: false,
+      },
+    }
+  ]
+})
+export class DemoComponent {
+}`;
+
 export const SNIPPETS = {
   props_template: {
     snippet: PROPS_TEMPLATE_SN,
@@ -41,6 +58,10 @@ export const SNIPPETS = {
   },
   props_component_2: {
     snippet: PROPS_COMPONENT_2_SN,
+    languages: ['typescript'],
+  },
+  props_default: {
+    snippet: PROPS_DEFAULT,
     languages: ['typescript'],
   },
 };

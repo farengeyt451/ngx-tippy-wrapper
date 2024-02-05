@@ -1,4 +1,4 @@
-import { Component, NgModule, Type, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, NgModule, Provider, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgxTippyDirective } from '../../lib/ngx-tippy.directive';
 import { NgxTippyContent, NgxTippyProps } from '../../lib/ngx-tippy.interfaces';
 import { genericStyles } from '../styles/generic-styles';
@@ -42,9 +42,10 @@ export class WrapperComponent {
   public createInnerComponent(
     template: string,
     properties: TemplateTooltipComponent = {},
-    styles: string[] = genericStyles
+    styles: string[] = genericStyles,
+    providers: Provider[] = [],
   ) {
-    @Component({ template, styles })
+    @Component({ template, styles, providers })
     class TemplateComponent {
       public className!: string;
       public tippyName!: string;

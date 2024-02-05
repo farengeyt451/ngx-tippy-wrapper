@@ -5,10 +5,11 @@ import {
   NgxSingletonProps,
   NgxTippyInstance,
   NgxTippyMessagesDict,
+  NgxTippyProps,
   NgxTippySingletonInstance,
   TippyHTMLElement,
 } from '../ngx-tippy.interfaces';
-import { NGX_TIPPY_MESSAGES } from '../ngx-tippy.tokens';
+import { NGX_TIPPY_CONFIG, NGX_TIPPY_MESSAGES } from '../ngx-tippy.tokens';
 import { NgxTippyService } from '../services';
 
 /**
@@ -33,7 +34,8 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID) private platform: Object,
     private ngxTippyService: NgxTippyService,
-    @Inject(NGX_TIPPY_MESSAGES) private messagesDict: NgxTippyMessagesDict
+    @Inject(NGX_TIPPY_MESSAGES) private messagesDict: NgxTippyMessagesDict,
+    @Inject(NGX_TIPPY_CONFIG) private ngxTippyConfig: NgxTippyProps,
   ) {}
 
   ngAfterViewInit() {
@@ -72,7 +74,10 @@ export class NgxTippySingletonComponent implements AfterViewInit, OnDestroy {
   }
 
   private initTippySingletonEntry(childrenSingletonInstances: NgxTippyInstance[]) {
-    this.singletonInstance = createSingleton(childrenSingletonInstances, this.singletonProps);
+    this.singletonInstance = createSingleton(childrenSingletonInstances, {
+      ...this.ngxTippyConfig,
+      ...this.singletonProps,
+    });
     this.writeSingletonInstanceToStorage(this.singletonInstance);
   }
 
