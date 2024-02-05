@@ -118,4 +118,19 @@
     </table>
   </div>
 
+  <h6
+    id="default_props"
+    class="tui-text_h6"
+  >
+    Default props
+  </h6>
+
+  <p class="tui-text_body-m-2">You may also provide default prop values at a provider scope level via the <em>NGX_TIPPY_CONFIG</em> injection token:</p>
+
+  <t-demo-code
+    *tuiLet="snippets.props_default as s"
+    [snippet]="s.snippet"
+    [languages]="s.languages"
+  ></t-demo-code>
+
 </div>
