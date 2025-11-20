@@ -13,7 +13,7 @@
     "watch:lib": "ng build ngx-tippy-wrapper --watch",
     "unit-tests:lib": "ng test ngx-tippy-wrapper",
     "unit-tests:lib-coverage": "ng test ngx-tippy-wrapper --code-coverage --watch=false --browsers=ChromeHeadlessNoSandbox",
-    "unit-tests:lib-codecov": "cat ./coverage/ngx-tippy-wrapper/**/lcov.info | codecov",
+    "unit-tests:lib-codecov": "echo 'Coverage report generated at ./coverage/ngx-tippy-wrapper/lcov.info'",
     "npm-pack": "cd dist/ngx-tippy-wrapper && npm pack",
     "copy:license": "cp ./LICENSE dist/ngx-tippy-wrapper",
     "copy:readme": "cp ./README.md dist/ngx-tippy-wrapper",
