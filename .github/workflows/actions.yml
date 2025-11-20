@@ -31,8 +31,6 @@ jobs:
           files: ./coverage/ngx-tippy-wrapper/lcov.info
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Build lib npm package
         run: npm run package
